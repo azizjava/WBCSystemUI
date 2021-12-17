@@ -25,9 +25,11 @@ export class DashboardComponent implements OnInit {
     private matDialog: MatDialog) {
 
     this.authenticationService.currentUser.subscribe(x => {
+      if(x){
       this.currentUser = x;
       this.translate.setDefaultLang(x?.language || 'en');
       translate.use(x?.language);
+    }
      
     });
 
@@ -103,7 +105,6 @@ export class DashboardComponent implements OnInit {
     
 
       getLeftNavMenuItemsList.forEach((element: LeftMenuItem) => {
-        console.info(this.translate.instant('navleftmenuitemslist.' + element.menuName));
         element.menuName = this.translate.instant('navleftmenuitemslist.' + element.menuName);
         this.NavMenu.push(element);
       });

@@ -4,7 +4,9 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
-let users = JSON.parse(localStorage.getItem('users') || '') || [];
+let users = JSON.parse(localStorage.getItem('users') || JSON.stringify([{
+    firstName: "admin", lastName: "user", email: "admin@gmail.com", password: "admin", confirmPassword: "admin","language": "en","id": 1}] ));
+
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -46,10 +48,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 id: user.id,
                 email: user.email,
                 firstName: user.firstName,
-                gender :user.gender,
-                type:user.type,
-                dob:user.dob,
-                phoneNo:user.phoneNo,
+                gender: user.gender,
+                type: user.type,
+                dob: user.dob,
+                phoneNo: user.phoneNo,
                 lastName: user.lastName,
                 token: 'fake-jwt-token',
                 language: lang
@@ -57,18 +59,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function forgotPassword() {
-          const { username } = body;
-          const user = users.find((x: any)=> x.email === username);
-          if (!user) return error('Username is incorrect');
-          return ok({
-              id: user.id,
-              email: user.email,
-              firstName: user.firstName,
-              password:user.password,
-              lastName: user.lastName,
-              token: 'fake-jwt-token'
-          })
-      }
+            const { username } = body;
+            const user = users.find((x: any) => x.email === username);
+            if (!user) return error('Username is incorrect');
+            return ok({
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                password: user.password,
+                lastName: user.lastName,
+                token: 'fake-jwt-token'
+            })
+        }
 
         function register() {
             const user = body
@@ -84,7 +86,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok();
         }
 
-     
+
         function getUsers() {
             if (!isLoggedIn()) return unauthorized();
             return ok(users);
