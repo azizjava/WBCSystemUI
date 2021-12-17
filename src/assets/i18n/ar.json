@@ -1,0 +1,39 @@
+{
+    "routes":{
+        "backtohome":"العودة إلى المنزل"
+    },
+	"login": {
+		"title": "Login Form",
+		"username.label": "Username",
+		"username.placeholder": "Username Here",
+		"password.label": "Password",
+		"password.placeholder": "Enter Password",
+		"button.name": "Signin",
+		"forgotpassword.link": "Forgot Password ?",
+		"register.link": "Create New Account",
+		"button.en": "English",
+		"button.ar": "Arabic"
+	},
+    "pagenotfound":"الصفحة التي تبحث عنها غير موجودة.",
+    "dashboard":{
+        "title":"نظام التحكم في الميزان",
+		"rightsideMenu":{
+			"profile":"الملف الشخصي",
+			"changepassword" :"تغيير كلمة المرور",
+			"logout":"تسجيل خروج"
+		}
+    },
+	"navleftmenuitemslist": {
+		"Daily Transactions": "المعاملات اليومية",
+		"Customer": "عميل",
+		"Supplier": "المورد",
+		"Transporter": "الناقل",
+		"Product": "منتج",
+		"Product Group": "مجموعة المنتجات",
+		"Vehicle": "مركبة",
+		"Operator": "المشغل أو العامل",
+		"Nationality": "جنسية",
+		"Product prices": "أسعار المنتجات",
+		"Reports": "التقارير"
+	}
+}

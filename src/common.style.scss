@@ -1,0 +1,81 @@
+html {
+    height: 100%;
+    font-size: 14px;
+  }
+  body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 1rem; /* 10 * 1.6 = 16px */
+    color: #333;
+    height: auto;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #eeeeee;
+  }
+  
+  .m-r-15 {
+    margin-right: 15px;
+  }
+  
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 15px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  .error {
+    padding: 15px;
+    color: white;
+    background-color: red;
+  }
+  
+  
+  .mat-sort-header-content {
+    color:#3A3A4A;
+    font-size: 1.1rem;
+  }
+  
+  .appLogo{
+    background: #F0F1F9;
+  
+     > img{
+      margin: .5rem;
+      border: 1px solid #FFFFFF;
+     }
+  }
+  
+  .tbl-header-bg{
+    background-color: #F0F1F9;
+  }
+  
+  
+  .formMrgin-Top{
+    margin-top:20%;    
+  }
+  
+  @media screen and (max-height: 60rem ){
+    .formMrgin-Top{
+      margin-top:20%;      
+    }
+  }
+  
+  @media screen and ( max-height: 40rem ){
+  .formMrgin-Top{
+    margin-top:7%;    
+  }
+  }
+
+  .a{
+    color: #FFFFFF;
+  }
+  
+
+  .cdk-overlay-container{
+    z-index: 1050;
+  }
+  
+  .valign-sub{
+    vertical-align: sub;
+  }

@@ -1,0 +1,190 @@
+<div class="modaldialog" *ngIf="data.actionName === 'changePwd'">
+  <h1 mat-dialog-title>{{ data?.headerText }}</h1>
+
+  <div mat-dialog-content>
+    <form class="my-form" [formGroup]="dialogForm">
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="password" name="password" />
+        <mat-error *ngIf="dialogForm.controls['password'].errors &&
+            dialogForm.controls['password'].errors['required']  &&
+            dialogForm.controls['password'].touched
+          ">Password is required
+        </mat-error>
+        <mat-error *ngIf="dialogForm.controls['password'].errors &&
+            dialogForm.controls['password'].errors['minlength'] &&
+            dialogForm.controls['password'].touched
+          ">Password must be at least 6 characters
+        </mat-error>
+        <mat-error *ngIf="dialogForm.controls['password'].errors &&
+            dialogForm.controls['password'].errors['maxlength'] &&
+            dialogForm.controls['password'].touched
+          ">Password must be max 12 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm Password"
+          name="confirmPassword" />
+        <mat-error *ngIf="dialogForm.controls['confirmPassword'].errors &&
+            dialogForm.controls['confirmPassword'].errors['required'] &&
+            dialogForm.controls['confirmPassword'].touched
+          ">Confirm Password is required
+        </mat-error>
+        <mat-error *ngIf="dialogForm.controls['confirmPassword'].errors &&
+            dialogForm.controls['confirmPassword'].errors['mustMatch'] &&
+            dialogForm.controls['confirmPassword'].touched
+          ">Passwords must match
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="d-flex justify-content-between w-100">
+    <button class="btn btn-md" mat-flat-button color="primary" type="submit" mat-button (click)="savePassword()">
+      Ok
+    </button>
+
+    <button class="btn btn-md btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      Cancel
+    </button>
+  </div>
+</div>
+
+<div class="modaldialog" *ngIf="data.actionName === 'viewProfile'">
+  <div mat-dialog-content>
+    <div class="page-content page-container" id="page-content">
+      <div class="container h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+          <div class="col-">
+            <div class="card user-card-full">
+              
+                <form class="my-form" [formGroup]="dialogForm">
+                  <div class="row mb-2">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <mat-label>First Name</mat-label>
+                        <input matInput placeholder="First name" formControlName="firstName" name="firstName" />
+                        <mat-error *ngIf="dialogForm.controls['firstName'].errors && 
+                                dialogForm.controls['firstName'].errors['required'] &&
+                                dialogForm.controls['firstName'].touched
+                              ">First Name is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput placeholder="Last Name" formControlName="lastName" name="lastName" />
+                        <mat-error *ngIf="dialogForm.controls['lastName'].errors && 
+                                dialogForm.controls['lastName'].errors['required'] &&
+                                dialogForm.controls['lastName'].touched
+                              ">Last Name is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row mb-2">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Email" formControlName="email" name="email" />
+                        <mat-error *ngIf="dialogForm.controls['email'].errors &&
+                                dialogForm.controls['email'].errors['required'] &&
+                                dialogForm.controls['email'].touched
+                              ">Email is required
+                        </mat-error>
+                        <mat-error *ngIf="dialogForm.controls['email'].errors &&
+                                dialogForm.controls['email'].errors['pattern'] &&
+                                dialogForm.controls['email'].touched
+                              ">Email must be a valid email address
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                      <mat-form-field>
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput formControlName="dob" name="dob" [min]="minDate" [max]="maxDate"
+                          [matDatepicker]="picker" placeholder="Choose a date" />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+
+                        <mat-error *ngIf="dialogForm.controls['dob'].errors &&
+                                dialogForm.controls['dob'].errors['required'] &&
+                                dialogForm.controls['dob'].touched
+                              ">Date of Birth is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row mb-2">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <mat-label>Phone No</mat-label>
+                        <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
+                          formControlName="phoneNo" name="phoneNo" />
+                        <mat-error *ngIf="dialogForm.controls['phoneNo'].errors &&
+                                dialogForm.controls['phoneNo'].errors['required'] &&
+                                dialogForm.controls['phoneNo'].touched
+                              ">Phone No is required
+                        </mat-error>
+                        <mat-error *ngIf="dialogForm.controls['phoneNo'].errors &&
+                                dialogForm.controls['phoneNo'].errors['pattern'] &&
+                                dialogForm.controls['phoneNo'].touched
+                              ">Please, Enter 10 digit Mobile Number
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <section>
+                        <label class="m-r-15">Language:</label>
+                        <mat-select formControlName="language" placeholder="Mode">
+                          <mat-option *ngFor="let lang of userLanguages" [value]="lang.key">
+                            {{lang.value}}
+                          </mat-option>
+                        </mat-select>
+
+                        <mat-error *ngIf="dialogForm.controls['language'].errors && 
+                                dialogForm.controls['language'].errors['required'] &&
+                                dialogForm.controls['language'].touched
+                              ">Gender is required
+                        </mat-error>
+                      </section>
+                    </div>
+
+
+                  </div>
+
+                  <div class="row mb-2">
+                    
+
+                  </div>
+
+                  <div class="d-flex justify-content-between w-100">
+
+                    <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button
+                      (click)="saveProfile()">
+                      Update Profile
+                    </button>
+
+                    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+                      Cancel
+                    </button>
+
+                  </div>
+                </form>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

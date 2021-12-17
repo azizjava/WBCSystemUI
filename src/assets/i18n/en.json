@@ -1,0 +1,39 @@
+{
+	"routes": {
+		"backtohome": "Back to Home"
+	},
+	"login": {
+		"title": "Login Form",
+		"username.label": "Username",
+		"username.placeholder": "Username Here",
+		"password.label": "Password",
+		"password.placeholder": "Enter Password",
+		"button.name": "Signin",
+		"forgotpassword.link": "Forgot Password ?",
+		"register.link": "Create New Account",
+		"button.en": "English",
+		"button.ar": "Arabic"
+	},
+	"pagenotfound": "The page you are looking for was not found.",
+	"dashboard": {
+		"title": "Weighbridge Control System",
+		"rightsideMenu":{
+			"profile":"Profile",
+			"changepassword" :"Change Password",
+			"logout":"Logout"
+		}
+	},
+	"navleftmenuitemslist": {
+		"Daily Transactions": "Daily Transactions",
+		"Customer": "Customer",
+		"Supplier": "Supplier",
+		"Transporter": "Transporter",
+		"Product": "Product",
+		"Product Group": "Product Group",
+		"Vehicle": "Vehicle",
+		"Operator": "Operator",
+		"Nationality": "Nationality",
+		"Product prices": "Product prices",
+		"Reports": "Reports"
+	}
+}
