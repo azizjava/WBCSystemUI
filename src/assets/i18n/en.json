@@ -17,6 +17,7 @@
 	"pagenotfound": "The page you are looking for was not found.",
 	"dashboard": {
 		"title": "Weighbridge Control System",
+		"copyright":"Copyright",
 		"rightsideMenu":{
 			"profile":"Profile",
 			"changepassword" :"Change Password",

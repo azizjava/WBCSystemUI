@@ -30,9 +30,10 @@
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
-                    <li><a class="dropdown-item" (click)="logout()"><span class="material-icons mr-2 valign-sub text-gray-400">
-                        logout
-                    </span>{{'dashboard.rightsideMenu.logout' | translate}}</a></li>
+                    <li><a class="dropdown-item" (click)="logout()"><span
+                                class="material-icons mr-2 valign-sub text-gray-400">
+                                logout
+                            </span>{{'dashboard.rightsideMenu.logout' | translate}}</a></li>
                 </ul>
             </li>
 
@@ -65,10 +66,12 @@
 
                         <div *ngFor="let item of NavMenu; trackBy:trackByFn">
 
-                            <a class="nav-link" href="#!">
+                            <a class="nav-link" [routerLink]="item.routePath ? [item.routePath] :[]"
+                                [class.is-active-route]="isActive(item.routePath)">
                                 <div class="sb-nav-link-icon">
                                     <i *ngIf="!item.menuIcon" class="fas fa-table"></i>
-                                    <i *ngIf="item.menuIcon" class="material-icons me-1 valign-sub">{{item.menuIcon}}</i>
+                                    <i *ngIf="item.menuIcon"
+                                        class="material-icons me-1 valign-sub">{{item.menuIcon}}</i>
                                 </div>
                                 {{ item.menuName }}
                             </a>
@@ -80,29 +83,16 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Static Navigation</h1>
+                <div class="container-fluid px-2">
 
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <p class="mb-0">
-                                This page is an example of using static navigation. By removing the
-                                <code>.sb-nav-fixed</code>
-                                class from the
-                                <code>body</code>
-                                , the top navigation and side navigation will become static on scroll. Scroll down this
-                                page
-                                to see an example.
-                            </p>
-                        </div>
-                    </div>
+                    <router-outlet></router-outlet>
 
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted text-center">Copyright &copy; 2021</div>
+                        <div class="text-muted text-center">{{ 'copyright' | translate }} &copy; {{ currentYear }}</div>
                         <div>
                             <a href="#">Privacy Policy</a>
                             &middot;

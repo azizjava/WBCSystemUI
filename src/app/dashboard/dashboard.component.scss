@@ -287,6 +287,7 @@
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
   padding-left: 225px;
   top: 56px;
+  background-color: #FFFFFF;
 }
 
 .nav .nav-link .sb-nav-link-icon,
@@ -407,4 +408,8 @@
   margin-right: 0.5rem!important;
 }
 
-
+.is-active-route {
+  color:#000000 !important;
+  border: 1px solid #FFFFFF;
+  background: white;
+}

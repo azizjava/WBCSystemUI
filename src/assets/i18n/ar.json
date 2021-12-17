@@ -17,6 +17,7 @@
     "pagenotfound":"الصفحة التي تبحث عنها غير موجودة.",
     "dashboard":{
         "title":"نظام التحكم في الميزان",
+		"copyright":"حقوق النشر",
 		"rightsideMenu":{
 			"profile":"الملف الشخصي",
 			"changepassword" :"تغيير كلمة المرور",

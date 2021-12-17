@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
 
   public currentUser?: User;
   public actionName: string = '';
+  public currentYear: number = 0;
   public NavMenu: LeftMenuItem[] = [];
 
   constructor(private router: Router,
@@ -35,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
     if (sidebarToggle) {
       sidebarToggle.addEventListener('click', event => {
@@ -43,20 +44,20 @@ export class DashboardComponent implements OnInit {
         document.getElementById('mainContainer')?.classList.toggle('sb-sidenav-toggled');
       });
     }
-
-    
-
+  
+    this.currentYear = GlobalConstants.commonFunction.getCurrentYear();
+  
     this.getMenuItemsList();
   }
 
 
-  logout() {
+  public logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
 
 
-  changePassword() {
+  public changePassword() {
 
     this.actionName = 'changePwd';
 
@@ -65,7 +66,7 @@ export class DashboardComponent implements OnInit {
     this.openDialog(dialogData);
   }
 
-  viewProfile() {
+  public viewProfile() {
 
     this.actionName = 'viewProfile';
 
@@ -76,6 +77,11 @@ export class DashboardComponent implements OnInit {
 
   public trackByFn(index: number, item:LeftMenuItem){
     return item;
+  }
+
+  public isActive(routeName: any): boolean {
+   console.log(this.router.url.includes(`/${routeName}`),routeName);
+    return this.router.url.includes(`/${routeName}`);
   }
 
   private openDialog(dialogData: modelDialog): void {
@@ -111,8 +117,8 @@ export class DashboardComponent implements OnInit {
   });
    
 
-  
-
   }
+
+ 
 
 }
