@@ -2,6 +2,10 @@
     "routes":{
         "backtohome":"العودة إلى المنزل"
     },
+	"common":{
+		"filter":"منقي",
+		"addnew":"اضف جديد"
+	},
 	"login": {
 		"title": "Login Form",
 		"username.label": "Username",
@@ -36,5 +40,17 @@
 		"Nationality": "جنسية",
 		"Product prices": "أسعار المنتجات",
 		"Reports": "التقارير"
+	},
+	"transporters":{
+		"tbl_header":{
+			"Code":"رمز",
+			"Name":"اسم",
+			"Contact Person":"الشخص الذي يمكن الاتصال به",
+			"Mobile No":"رقم الموبايل",
+			"Telephone No":"الهاتف لا",
+			"Fax":"فاكس",
+			"Address":"تبوك",
+			"Action":"عمل"
+		}
 	}
 }

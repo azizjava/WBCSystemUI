@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { modelDialog, User } from '../models';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,8 +19,10 @@ export class DashboardComponent implements OnInit {
   public actionName: string = '';
   public currentYear: number = 0;
   public NavMenu: LeftMenuItem[] = [];
+  public selectedMenu:string ='';
 
   constructor(private router: Router,
+    private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private translate: TranslateService,
     private matDialog: MatDialog) {
@@ -79,10 +81,19 @@ export class DashboardComponent implements OnInit {
     return item;
   }
 
+  public navigateToRoute(menuItem : LeftMenuItem):void{
+
+    this.selectedMenu = menuItem.menuName;
+    if(menuItem.routePath){
+    this.router.navigate([menuItem.routePath], {relativeTo: this.route});
+    }
+  }
+
   public isActive(routeName: any): boolean {
-   console.log(this.router.url.includes(`/${routeName}`),routeName);
     return this.router.url.includes(`/${routeName}`);
   }
+
+ 
 
   private openDialog(dialogData: modelDialog): void {
 
@@ -108,12 +119,13 @@ export class DashboardComponent implements OnInit {
     const getLeftNavMenuItemsList = GlobalConstants.commonFunction.getLeftNavMenuItemsList();
 
     this.translate.get(['']).subscribe(translations => {
-    
 
       getLeftNavMenuItemsList.forEach((element: LeftMenuItem) => {
         element.menuName = this.translate.instant('navleftmenuitemslist.' + element.menuName);
         this.NavMenu.push(element);
       });
+
+      this.selectedMenu = this.NavMenu.filter(x => (x.routePath && this.router.url.includes(x.routePath)))[0]?.menuName;
   });
    
 

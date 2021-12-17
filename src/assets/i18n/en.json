@@ -2,6 +2,10 @@
 	"routes": {
 		"backtohome": "Back to Home"
 	},
+	"common":{
+		"filter":"Filter",
+		"addnew":"Add New"
+	},
 	"login": {
 		"title": "Login Form",
 		"username.label": "Username",
@@ -36,5 +40,17 @@
 		"Nationality": "Nationality",
 		"Product prices": "Product prices",
 		"Reports": "Reports"
+	},
+	"transporters":{
+		"tbl_header":{
+			"Code":"Code",
+			"Name":"Name",
+			"Contact Person":"Contact Person",
+			"Mobile No":"Mobile No",
+			"Telephone No":"Telephone No",
+			"Fax":"Fax",
+			"Address":"Address",
+			"Action":"Action"
+		}
 	}
 }
