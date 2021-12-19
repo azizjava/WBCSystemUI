@@ -6,6 +6,12 @@
 		"filter":"Filter",
 		"addnew":"Add New"
 	},
+	"placeholder":{
+		"searchtransporters":"بحث الناقلين",
+		"searchcustomers":"البحث عن العملاء",
+		"searchvehicless":"بحث المركبات"
+	},
+
 	"login": {
 		"title": "Login Form",
 		"username.label": "Username",

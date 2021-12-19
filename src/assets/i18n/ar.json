@@ -6,6 +6,11 @@
 		"filter":"منقي",
 		"addnew":"اضف جديد"
 	},
+	"placeholder":{
+		"searchtransporters":"Search Transporters",
+		"searchcustomers":"Search Customers",
+		"searchvehicless":"Search Vehicles"
+	},
 	"login": {
 		"title": "Login Form",
 		"username.label": "Username",
