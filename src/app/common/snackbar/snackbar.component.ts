@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -14,7 +14,7 @@ import { AlertService } from '../../services';
   templateUrl: './snackbar.component.html',
   styleUrls: ['./snackbar.component.scss']
 })
-export class SnackbarComponent implements OnInit, OnDestroy {
+export class SnackbarComponent implements OnInit {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -60,13 +60,5 @@ export class SnackbarComponent implements OnInit, OnDestroy {
     });
 
   }
-
-
-
-  ngOnDestroy(): void {
-
-  }
-
-
 
 }

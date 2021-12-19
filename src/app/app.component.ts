@@ -18,6 +18,12 @@ export class AppComponent {
       this.currentUser = x;
       this.translate.setDefaultLang(x?.language || 'en');
     });
+    this.setDefaultLang();
+  }
+
+  private setDefaultLang() {
+    this.translate.addLangs(['en', 'ar']); // array of available langs
+    this.translate.setDefaultLang('en');
   }
 
 }

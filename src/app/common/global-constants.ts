@@ -54,8 +54,8 @@ export class GlobalConstants {
         getLeftNavMenuItemsList(): LeftMenuItem[] {
 
             return [{ menuName: 'Daily Transactions', menuIcon: '' }, { menuName: 'Customer', menuIcon: '' }, { menuName: 'Supplier', menuIcon: '' }, { menuName: 'Transporter', menuIcon: '', routePath: 'transporters' },
-            { menuName: 'Product', menuIcon: '' }, { menuName: 'Product Group', menuIcon: '' }, { menuName: 'Vehicle', menuIcon: 'local_shipping' }, { menuName: 'Operator', menuIcon: '' },
-            { menuName: 'Nationality', menuIcon: '' }, { menuName: 'Product prices', menuIcon: '' }, { menuName: 'Reports', menuIcon: 'analytics' }
+            { menuName: 'Product', menuIcon: '' }, { menuName: 'Product Group', menuIcon: '' }, { menuName: 'Vehicle', menuIcon: 'local_shipping',routePath:"vehicle" }, { menuName: 'Operator', menuIcon: '' },
+            { menuName: 'Nationality', menuIcon: '',routePath:"nationality" }, { menuName: 'Product prices', menuIcon: '' }, { menuName: 'Reports', menuIcon: 'analytics' }
             ];
         },
         getCurrentYear(): number {
