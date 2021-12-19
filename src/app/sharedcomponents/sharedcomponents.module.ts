@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TransportersRoutingModule } from './transporters-routing.module';
-import { TransportersComponent } from './transporters.component';
+
+import { SharedcomponentsRoutingModule } from './sharedcomponents-routing.module';
+import { ListFilterComponent } from './list-filter/list-filter.component';
+
 import { MaterialModule } from '../material.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListTableComponent } from './list-table/list-table.component';
+import { DataTablesModule } from 'angular-datatables';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -16,18 +20,23 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    TransportersComponent
+    ListFilterComponent,
+    ListTableComponent
   ],
+
   imports: [
     CommonModule,
+    FormsModule,
+    DataTablesModule,
+    ReactiveFormsModule,
+    SharedcomponentsRoutingModule,
     MaterialModule,
-    TransportersRoutingModule,
-    SharedcomponentsModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
       isolate: false,
       extend: true,
     })
-  ]
+  ],
+  exports: [ListFilterComponent, ListTableComponent]
 })
-export class TransportersModule { }
+export class SharedcomponentsModule { }
