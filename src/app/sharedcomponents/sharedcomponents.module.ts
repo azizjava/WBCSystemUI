@@ -11,7 +11,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListTableComponent } from './list-table/list-table.component';
-import { DataTablesModule } from 'angular-datatables';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,7 +26,6 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     CommonModule,
     FormsModule,
-    DataTablesModule,
     ReactiveFormsModule,
     SharedcomponentsRoutingModule,
     MaterialModule,
