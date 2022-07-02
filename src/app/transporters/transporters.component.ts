@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { modelDialog, tableOperation } from '../models';
+import { Transporter } from './transporter.model';
 import { TransportersdataComponent } from './transportersdata/transportersdata.component';
 
 @Component({
@@ -12,7 +14,7 @@ import { TransportersdataComponent } from './transportersdata/transportersdata.c
 export class TransportersComponent implements OnInit {
 
 
-  tblColumns: string[] = ['code', 'name', 'contactPerson', 'mobileNo', 'phoneNo', 'faxNo', 'address', 'actions' ];
+  tblColumns: string[] = ['Code', 'Name', 'ContactPerson', 'MobileNo', 'PhoneNo', 'FaxNo', 'Address', 'actions'];
   tableData: any = [];
 
   public searchInput: string = '';
@@ -29,14 +31,19 @@ export class TransportersComponent implements OnInit {
 
 
 
-  actionEvent(actionData:tableOperation): void {
+  selectedRecord(actionData: tableOperation): void {
     console.log(actionData.data);
 
     this.actionName = actionData.action;
 
     const dialogData = { actionName: this.actionName, headerText: 'Information', data: actionData.data };
 
-    this.openDialog(dialogData);
+    if (this.actionName === 'delete') {
+      this.deleteDialog(dialogData);
+    }
+    else { this.openDialog(dialogData); }
+
+
 
   }
 
@@ -52,18 +59,46 @@ export class TransportersComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-
+    dialogConfig.panelClass = 'custom-dialog';
 
     const dialogRef = this.matDialog.open(TransportersdataComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed', result);
+       if(this.actionName ==="edit"){this._updateRecord(dialogData.data);}
+       else if(this.actionName ==="add"){this._addRecord(dialogData.data);}
     });
 
+  }
 
-}
+  private deleteDialog(dialogData: modelDialog): void {
 
-  selectedRecord(row: any, action: string) { }
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = dialogData;
+    dialogConfig.data.message = "Are you sure you want to delete this item ?";
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this._deleteRecord(dialogData.data);
+    });
+
+  }
+
+  private _deleteRecord(selRecord: Transporter) {
+    console.log('Deleted Record !!', selRecord);
+  }
+
+  private _addRecord(selRecord: Transporter) {
+    console.log('New Record !!', selRecord);
+  }
+
+  private _updateRecord(selRecord: Transporter) {
+    console.log('Updated Record !!', selRecord);
+  }
+
 
   private getTranslatedText(): void {
 
@@ -81,193 +116,193 @@ export class TransportersComponent implements OnInit {
 
     this.tableData = [
       {
-        "code": "transporter 1",
-        "name": "Kimberley Griffin",
-        "contactPerson": "Loraine",
-        "mobileNo": "+877 (834) 564-3146",
-        "phoneNo": "+877 (874) 478-3018",
-        "faxNo": "+877 (952) 401-2183",
-        "address": "495 Fulton Street, Elbert, Texas, 6628"
+        "Code": "transporter 1",
+        "Name": "Kimberley Griffin",
+        "ContactPerson": "Loraine",
+        "MobileNo": "+877 (834) 564-3146",
+        "PhoneNo": "+877 (874) 478-3018",
+        "FaxNo": "+877 (952) 401-2183",
+        "Address": "495 Fulton Street, Elbert, Texas, 6628"
       },
       {
-        "code": "transporter 2",
-        "name": "Horton Cash",
-        "contactPerson": "Diana",
-        "mobileNo": "+877 (837) 402-2400",
-        "phoneNo": "+877 (869) 534-3824",
-        "faxNo": "+877 (920) 463-3882",
-        "address": "364 Micieli Place, Golconda, Nebraska, 7878"
+        "Code": "transporter 2",
+        "Name": "Horton Cash",
+        "ContactPerson": "Diana",
+        "MobileNo": "+877 (837) 402-2400",
+        "PhoneNo": "+877 (869) 534-3824",
+        "FaxNo": "+877 (920) 463-3882",
+        "Address": "364 Micieli Place, Golconda, Nebraska, 7878"
       },
       {
-        "code": "transporter 3",
-        "name": "Cote Bass",
-        "contactPerson": "Madeline",
-        "mobileNo": "+877 (898) 591-3637",
-        "phoneNo": "+877 (889) 445-3891",
-        "faxNo": "+877 (961) 524-3145",
-        "address": "405 Barbey Street, Tibbie, Michigan, 2087"
+        "Code": "transporter 3",
+        "Name": "Cote Bass",
+        "ContactPerson": "Madeline",
+        "MobileNo": "+877 (898) 591-3637",
+        "PhoneNo": "+877 (889) 445-3891",
+        "FaxNo": "+877 (961) 524-3145",
+        "Address": "405 Barbey Street, Tibbie, Michigan, 2087"
       },
       {
-        "code": "transporter 4",
-        "name": "Cara Kirk",
-        "contactPerson": "Cummings",
-        "mobileNo": "+877 (933) 535-2375",
-        "phoneNo": "+877 (879) 420-2777",
-        "faxNo": "+877 (840) 479-2118",
-        "address": "671 Wythe Place, Deseret, New Hampshire, 7148"
+        "Code": "transporter 4",
+        "Name": "Cara Kirk",
+        "ContactPerson": "Cummings",
+        "MobileNo": "+877 (933) 535-2375",
+        "PhoneNo": "+877 (879) 420-2777",
+        "FaxNo": "+877 (840) 479-2118",
+        "Address": "671 Wythe Place, Deseret, New Hampshire, 7148"
       },
       {
-        "code": "transporter 5",
-        "name": "Jones Wheeler",
-        "contactPerson": "Lucille",
-        "mobileNo": "+877 (938) 451-2107",
-        "phoneNo": "+877 (933) 467-2965",
-        "faxNo": "+877 (842) 562-3145",
-        "address": "942 Brooklyn Avenue, Rehrersburg, Puerto Rico, 2928"
+        "Code": "transporter 5",
+        "Name": "Jones Wheeler",
+        "ContactPerson": "Lucille",
+        "MobileNo": "+877 (938) 451-2107",
+        "PhoneNo": "+877 (933) 467-2965",
+        "FaxNo": "+877 (842) 562-3145",
+        "Address": "942 Brooklyn Avenue, Rehrersburg, Puerto Rico, 2928"
       },
       {
-        "code": "transporter 6",
-        "name": "Walton Webb",
-        "contactPerson": "Houston",
-        "mobileNo": "+877 (876) 476-2906",
-        "phoneNo": "+877 (841) 528-3319",
-        "faxNo": "+877 (974) 514-3858",
-        "address": "879 Boerum Place, Morgandale, Maine, 4074"
+        "Code": "transporter 6",
+        "Name": "Walton Webb",
+        "ContactPerson": "Houston",
+        "MobileNo": "+877 (876) 476-2906",
+        "PhoneNo": "+877 (841) 528-3319",
+        "FaxNo": "+877 (974) 514-3858",
+        "Address": "879 Boerum Place, Morgandale, Maine, 4074"
       },
       {
-        "code": "transporter 7",
-        "name": "Pope Sullivan",
-        "contactPerson": "Branch",
-        "mobileNo": "+877 (809) 479-2547",
-        "phoneNo": "+877 (852) 519-2027",
-        "faxNo": "+877 (955) 430-2562",
-        "address": "297 Hicks Street, Calpine, Virgin Islands, 8928"
+        "Code": "transporter 7",
+        "Name": "Pope Sullivan",
+        "ContactPerson": "Branch",
+        "MobileNo": "+877 (809) 479-2547",
+        "PhoneNo": "+877 (852) 519-2027",
+        "FaxNo": "+877 (955) 430-2562",
+        "Address": "297 Hicks Street, Calpine, Virgin Islands, 8928"
       },
       {
-        "code": "transporter 8",
-        "name": "Zelma Simon",
-        "contactPerson": "Salas",
-        "mobileNo": "+877 (958) 590-2055",
-        "phoneNo": "+877 (856) 410-2331",
-        "faxNo": "+877 (874) 525-3525",
-        "address": "556 Merit Court, Marbury, South Dakota, 4750"
+        "Code": "transporter 8",
+        "Name": "Zelma Simon",
+        "ContactPerson": "Salas",
+        "MobileNo": "+877 (958) 590-2055",
+        "PhoneNo": "+877 (856) 410-2331",
+        "FaxNo": "+877 (874) 525-3525",
+        "Address": "556 Merit Court, Marbury, South Dakota, 4750"
       },
       {
-        "code": "transporter 9",
-        "name": "Shields Scott",
-        "contactPerson": "Berger",
-        "mobileNo": "+877 (863) 592-2525",
-        "phoneNo": "+877 (876) 442-2617",
-        "faxNo": "+877 (984) 498-2045",
-        "address": "755 Vermont Street, Matheny, Massachusetts, 3420"
+        "Code": "transporter 9",
+        "Name": "Shields Scott",
+        "ContactPerson": "Berger",
+        "MobileNo": "+877 (863) 592-2525",
+        "PhoneNo": "+877 (876) 442-2617",
+        "FaxNo": "+877 (984) 498-2045",
+        "Address": "755 Vermont Street, Matheny, Massachusetts, 3420"
       },
       {
-        "code": "transporter 10",
-        "name": "Carson Griffith",
-        "contactPerson": "Cherry",
-        "mobileNo": "+877 (839) 467-2246",
-        "phoneNo": "+877 (845) 489-3615",
-        "faxNo": "+877 (969) 452-2589",
-        "address": "433 Conselyea Street, Fannett, District Of Columbia, 5055"
+        "Code": "transporter 10",
+        "Name": "Carson Griffith",
+        "ContactPerson": "Cherry",
+        "MobileNo": "+877 (839) 467-2246",
+        "PhoneNo": "+877 (845) 489-3615",
+        "FaxNo": "+877 (969) 452-2589",
+        "Address": "433 Conselyea Street, Fannett, District Of Columbia, 5055"
       },
       {
-        "code": "transporter 12",
-        "name": "Fields Haney",
-        "contactPerson": "Gretchen",
-        "mobileNo": "+877 (881) 540-2826",
-        "phoneNo": "+877 (846) 452-2632",
-        "faxNo": "+877 (911) 427-2048",
-        "address": "203 Whitney Avenue, Stockwell, Rhode Island, 1043"
+        "Code": "transporter 12",
+        "Name": "Fields Haney",
+        "ContactPerson": "Gretchen",
+        "MobileNo": "+877 (881) 540-2826",
+        "PhoneNo": "+877 (846) 452-2632",
+        "FaxNo": "+877 (911) 427-2048",
+        "Address": "203 Whitney Avenue, Stockwell, Rhode Island, 1043"
       },
       {
-        "code": "transporter 13",
-        "name": "Stevenson Marquez",
-        "contactPerson": "Chaney",
-        "mobileNo": "+877 (874) 547-3943",
-        "phoneNo": "+877 (981) 498-3732",
-        "faxNo": "+877 (862) 443-3108",
-        "address": "375 Llama Court, Belgreen, American Samoa, 4313"
+        "Code": "transporter 13",
+        "Name": "Stevenson Marquez",
+        "ContactPerson": "Chaney",
+        "MobileNo": "+877 (874) 547-3943",
+        "PhoneNo": "+877 (981) 498-3732",
+        "FaxNo": "+877 (862) 443-3108",
+        "Address": "375 Llama Court, Belgreen, American Samoa, 4313"
       },
       {
-        "code": "transporter 14",
-        "name": "Perry Romero",
-        "contactPerson": "Lois",
-        "mobileNo": "+877 (841) 411-2533",
-        "phoneNo": "+877 (830) 520-2878",
-        "faxNo": "+877 (952) 582-2745",
-        "address": "284 Arlington Place, Nutrioso, Colorado, 2009"
+        "Code": "transporter 14",
+        "Name": "Perry Romero",
+        "ContactPerson": "Lois",
+        "MobileNo": "+877 (841) 411-2533",
+        "PhoneNo": "+877 (830) 520-2878",
+        "FaxNo": "+877 (952) 582-2745",
+        "Address": "284 Arlington Place, Nutrioso, Colorado, 2009"
       },
       {
-        "code": "transporter 15",
-        "name": "Jaime Gilbert",
-        "contactPerson": "Conley",
-        "mobileNo": "+877 (998) 499-3393",
-        "phoneNo": "+877 (890) 499-2604",
-        "faxNo": "+877 (948) 561-3047",
-        "address": "172 Apollo Street, Waumandee, Oregon, 9974"
+        "Code": "transporter 15",
+        "Name": "Jaime Gilbert",
+        "ContactPerson": "Conley",
+        "MobileNo": "+877 (998) 499-3393",
+        "PhoneNo": "+877 (890) 499-2604",
+        "FaxNo": "+877 (948) 561-3047",
+        "Address": "172 Apollo Street, Waumandee, Oregon, 9974"
       },
       {
-        "code": "transporter 16",
-        "name": "Huffman Navarro",
-        "contactPerson": "Jessica",
-        "mobileNo": "+877 (851) 592-3923",
-        "phoneNo": "+877 (923) 420-3694",
-        "faxNo": "+877 (950) 597-2675",
-        "address": "754 Arion Place, Bellfountain, Kansas, 7447"
+        "Code": "transporter 16",
+        "Name": "Huffman Navarro",
+        "ContactPerson": "Jessica",
+        "MobileNo": "+877 (851) 592-3923",
+        "PhoneNo": "+877 (923) 420-3694",
+        "FaxNo": "+877 (950) 597-2675",
+        "Address": "754 Arion Place, Bellfountain, Kansas, 7447"
       },
       {
-        "code": "transporter 17",
-        "name": "Pearl Gallegos",
-        "contactPerson": "Swanson",
-        "mobileNo": "+877 (997) 524-2329",
-        "phoneNo": "+877 (941) 453-2626",
-        "faxNo": "+877 (977) 519-3332",
-        "address": "257 Whitwell Place, Grapeview, Florida, 6723"
+        "Code": "transporter 17",
+        "Name": "Pearl Gallegos",
+        "ContactPerson": "Swanson",
+        "MobileNo": "+877 (997) 524-2329",
+        "PhoneNo": "+877 (941) 453-2626",
+        "FaxNo": "+877 (977) 519-3332",
+        "Address": "257 Whitwell Place, Grapeview, Florida, 6723"
       },
       {
-        "code": "transporter 18",
-        "name": "Haley Walter",
-        "contactPerson": "Pamela",
-        "mobileNo": "+877 (934) 466-3232",
-        "phoneNo": "+877 (965) 582-3431",
-        "faxNo": "+877 (964) 536-3892",
-        "address": "158 Bayview Avenue, Castleton, New Jersey, 1781"
+        "Code": "transporter 18",
+        "Name": "Haley Walter",
+        "ContactPerson": "Pamela",
+        "MobileNo": "+877 (934) 466-3232",
+        "PhoneNo": "+877 (965) 582-3431",
+        "FaxNo": "+877 (964) 536-3892",
+        "Address": "158 Bayview Avenue, Castleton, New Jersey, 1781"
       },
       {
-        "code": "transporter 19",
-        "name": "Mercado Diaz",
-        "contactPerson": "Francisca",
-        "mobileNo": "+877 (932) 577-3899",
-        "phoneNo": "+877 (889) 493-2066",
-        "faxNo": "+877 (899) 477-3188",
-        "address": "200 Navy Street, Graball, Virginia, 6070"
+        "Code": "transporter 19",
+        "Name": "Mercado Diaz",
+        "ContactPerson": "Francisca",
+        "MobileNo": "+877 (932) 577-3899",
+        "PhoneNo": "+877 (889) 493-2066",
+        "FaxNo": "+877 (899) 477-3188",
+        "Address": "200 Navy Street, Graball, Virginia, 6070"
       },
       {
-        "code": "transporter 20",
-        "name": "Hart Estrada",
-        "contactPerson": "Toni",
-        "mobileNo": "+877 (861) 465-2246",
-        "phoneNo": "+877 (893) 462-2144",
-        "faxNo": "+877 (844) 442-2647",
-        "address": "823 Orange Street, Monument, Tennessee, 7530"
+        "Code": "transporter 20",
+        "Name": "Hart Estrada",
+        "ContactPerson": "Toni",
+        "MobileNo": "+877 (861) 465-2246",
+        "PhoneNo": "+877 (893) 462-2144",
+        "FaxNo": "+877 (844) 442-2647",
+        "Address": "823 Orange Street, Monument, Tennessee, 7530"
       },
       {
-        "code": "transporter 21",
-        "name": "Welch Potts",
-        "contactPerson": "Christie",
-        "mobileNo": "+877 (941) 455-3008",
-        "phoneNo": "+877 (863) 415-3897",
-        "faxNo": "+877 (985) 481-2544",
-        "address": "270 Sands Street, Avalon, Delaware, 1722"
+        "Code": "transporter 21",
+        "Name": "Welch Potts",
+        "ContactPerson": "Christie",
+        "MobileNo": "+877 (941) 455-3008",
+        "PhoneNo": "+877 (863) 415-3897",
+        "FaxNo": "+877 (985) 481-2544",
+        "Address": "270 Sands Street, Avalon, Delaware, 1722"
       },
       {
-        "code": "transporter 22",
-        "name": "Marva Kirkland",
-        "contactPerson": "Lynn",
-        "mobileNo": "+877 (983) 526-2081",
-        "phoneNo": "+877 (964) 461-2036",
-        "faxNo": "+877 (846) 432-2878",
-        "address": "312 Cadman Plaza, Kingstowne, Montana, 6984"
+        "Code": "transporter 22",
+        "Name": "Marva Kirkland",
+        "ContactPerson": "Lynn",
+        "MobileNo": "+877 (983) 526-2081",
+        "PhoneNo": "+877 (964) 461-2036",
+        "FaxNo": "+877 (846) 432-2878",
+        "Address": "312 Cadman Plaza, Kingstowne, Montana, 6984"
       }
     ]
 

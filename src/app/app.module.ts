@@ -16,6 +16,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ModaldialogComponent } from './common/modaldialog/modaldialog.component';
 import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
 import { SnackbarComponent } from './common/snackbar/snackbar.component';
+import { CommonModule } from '@angular/common';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -54,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     // provider used to create fake backend
     fakeBackendProvider
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports:[ReactiveFormsModule,FormsModule,CommonModule]
 })
 export class AppModule { }
 

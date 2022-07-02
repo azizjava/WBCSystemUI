@@ -1,3 +1,7 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
 html {
     height: 100%;
     font-size: 14px;
@@ -76,6 +80,32 @@ html {
     z-index: 1050;
   }
   
-  .valign-sub{
+  .valign-sub {
     vertical-align: sub;
   }
+
+    .custom-dialog {
+      overflow: auto;
+      width: 90vw;
+
+      @include media-breakpoint-up(sm) {
+        width: 80vw;
+      }
+  
+      @include media-breakpoint-up(md) {
+        width: 80vw;
+      }
+  
+      @include media-breakpoint-up(lg) {
+        width: 60vw;
+      }
+  
+      @include media-breakpoint-up(xl) {
+        width: 50vw;
+      }
+  
+      @include media-breakpoint-up(xxl) {
+        width: 50vw;
+      }
+  
+    }
