@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { tableOperation } from 'src/app/models';
 
 @Component({
     selector: 'app-list-table',
@@ -14,7 +15,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() placeholderText: string = "";
     @Input() tblColumns: string[] = [];
     @Input() tableData: any = [];
-    @Output() addNew = new EventEmitter();
+    @Output() actionEvent =  new EventEmitter<tableOperation>();
 
     public searchControl: FormControl = new FormControl('');
 
@@ -39,12 +40,13 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource.sort = this.sort;
     }
 
-    public addnewRecord(): void {
-        this.addNew.emit();
-    }
+    
 
     public selectedRecord(row: any, action: string) {
 
+        const data:tableOperation = {data: row, action: action};
+
+        this.actionEvent.emit(data);
     }
 
     public trackByFn(index: number, item: any) {

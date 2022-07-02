@@ -28,3 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 to create lazy loaded  module
 ng generate module transporters --route transporters --module dashboard\dashboard-routing.module
+
+to create component in child module
+ng generate component transporters/transportersdata --module=transporters.module --dry-run

@@ -40,7 +40,8 @@ const modules = [
   MatSortModule,
   MatSelectModule,
   MatDividerModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  
 ];
 
 @NgModule({

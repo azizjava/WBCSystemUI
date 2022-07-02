@@ -7,3 +7,8 @@ export class User {
     token!: string;
     language!:string;
 }
+
+export interface tableOperation {
+    data:any,
+    action:string
+  }
