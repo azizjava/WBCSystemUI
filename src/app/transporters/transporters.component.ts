@@ -20,6 +20,7 @@ export class TransportersComponent implements OnInit {
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
+  public sortColumn = {name : 'Name' , dir: 'asc'};
 
 
   constructor(private translate: TranslateService, private matDialog: MatDialog) { }

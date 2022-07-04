@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { tableOperation } from 'src/app/models';
@@ -12,17 +13,22 @@ import { tableOperation } from 'src/app/models';
 })
 export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+
     @Input() placeholderText: string = "";
     @Input() tblColumns: string[] = [];
     @Input() tableData: any = [];
-    @Output() actionEvent =  new EventEmitter<tableOperation>();
+    @Input() sortColumn: any = null;
+
+    @Output() actionEvent = new EventEmitter<tableOperation>();
 
     public searchControl: FormControl = new FormControl('');
+    public dataSource!: MatTableDataSource<any>;
+    public pageSize: number = 10;
+    public pageSizeOptions: number[] = [5, 10, 25, 100];
 
     private debounce: number = 400;
-
-    dataSource!: MatTableDataSource<any>;
-    @ViewChild(MatSort) sort!: MatSort;
 
     constructor() { }
 
@@ -37,14 +43,18 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
+        this.sort.sort(({ id: this.sortColumn?.name, start: this.sortColumn?.dir }) as MatSortable);
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
     }
 
-    
+    public onPageChange(pe: PageEvent) {
+        console.log(pe.pageIndex);
+    }
 
     public selectedRecord(row: any, action: string) {
 
-        const data:tableOperation = {data: row, action: action};
+        const data: tableOperation = { data: row, action: action };
 
         this.actionEvent.emit(data);
     }

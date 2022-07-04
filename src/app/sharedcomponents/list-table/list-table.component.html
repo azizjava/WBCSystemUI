@@ -19,7 +19,7 @@
     <div class="table-responsive">
         <div class="example-container mat-elevation-z8">
 
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
                 <ng-container *ngFor="let column of tblColumns ; trackBy:trackByFn" [matColumnDef]="column">
                     <ng-container *ngIf="column !=='actions'">
@@ -57,5 +57,10 @@
 
 
     </div>
+
+    <mat-paginator  [pageSize] ="pageSize" [pageSizeOptions]="pageSizeOptions"
+     [showFirstLastButtons]="true" (page) ="onPageChange($event)">
+
+    </mat-paginator>
 
 </div>
