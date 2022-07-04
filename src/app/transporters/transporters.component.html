@@ -1,8 +1,5 @@
 <div class="transporters">
-
-    <!-- <app-list-filter [placeholderText] ="staticText.searchPlaceholder" (addNew)="addnewRecord()"  (inputValueChanged) ="searchValueChanged($event)"></app-list-filter> -->
-
-    <app-list-table [tblColumns] ="tblColumns" [tableData] ="tableData" [placeholderText] ="staticText.searchPlaceholder"  (actionEvent)="selectedRecord($event)"></app-list-table> 
-
-
+    <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
+        [visibleColumns]='visibleColumns' [placeholderText]="staticText.searchPlaceholder"
+        (actionEvent)="selectedRecord($event)"></app-list-table>
 </div>

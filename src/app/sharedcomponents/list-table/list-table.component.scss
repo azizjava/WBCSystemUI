@@ -1,4 +1,4 @@
-.list-table{
+.list-table {
 
   .example-container {
     height: calc( 70vh - 10px);
@@ -11,5 +11,10 @@
       
       th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
         padding-left: 2px;
+    }
+
+    .action-column {
+      color:#3A3A4A;
+      font-size: 1.1rem;
     }
 }

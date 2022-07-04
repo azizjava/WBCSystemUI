@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
-import { modelDialog, tableOperation } from '../models';
-import { Transporter } from './transporter.model';
+import { modelDialog, tableOperation, Transporter } from '../models';
+
 import { TransportersdataComponent } from './transportersdata/transportersdata.component';
 
 @Component({
@@ -14,14 +14,14 @@ import { TransportersdataComponent } from './transportersdata/transportersdata.c
 export class TransportersComponent implements OnInit {
 
 
-  tblColumns: string[] = ['Code', 'Name', 'ContactPerson', 'MobileNo', 'PhoneNo', 'FaxNo', 'Address', 'actions'];
+  tblColumns: string[] = ['Code', 'Name', 'ContactPerson', 'MobileNo', 'PhoneNo', 'FaxNo', 'Address', 'Actions'];
   tableData: any = [];
 
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'Name', dir: 'asc' };
-  public visibleColumns = ['Code', 'Name', 'actions'];
+  public visibleColumns = ['Code', 'Name', 'Actions'];
 
 
   constructor(private translate: TranslateService, private matDialog: MatDialog) { }
