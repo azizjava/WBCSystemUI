@@ -21,7 +21,7 @@
 
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
-                <ng-container *ngFor="let column of tblColumns ; trackBy:trackByFn" [matColumnDef]="column">
+                <ng-container *ngFor="let column of displayedColumns ; trackBy:trackByFn" [matColumnDef]="column">
                     <ng-container *ngIf="column !=='actions'">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
                             {{column}}
@@ -49,8 +49,8 @@
                     </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="tblColumns; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: tblColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
         </div>
@@ -58,8 +58,7 @@
 
     </div>
 
-    <mat-paginator  [pageSize] ="pageSize" [pageSizeOptions]="pageSizeOptions"
-     [showFirstLastButtons]="true" (page) ="onPageChange($event)">
+    <mat-paginator  [pageSize] ="pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true" >
 
     </mat-paginator>
 

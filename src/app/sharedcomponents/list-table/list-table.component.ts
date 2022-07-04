@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
@@ -20,6 +20,8 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() tblColumns: string[] = [];
     @Input() tableData: any = [];
     @Input() sortColumn: any = null;
+    @Input() visibleColumns: string[] = [];
+
 
     @Output() actionEvent = new EventEmitter<tableOperation>();
 
@@ -27,6 +29,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
     public dataSource!: MatTableDataSource<any>;
     public pageSize: number = 10;
     public pageSizeOptions: number[] = [5, 10, 25, 100];
+    public displayedColumns: string[] = [];
 
     private debounce: number = 400;
 
@@ -40,27 +43,39 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
             .subscribe(value => {
                 this.getFilteredData(value);
             });
-    }
 
-    public ngAfterViewInit(): void {
+        this._changeColumns(window?.innerWidth > 900 ? true : false);
         this.sort.sort(({ id: this.sortColumn?.name, start: this.sortColumn?.dir }) as MatSortable);
         this.dataSource.sort = this.sort;
+        this.displayedColumns = this.tblColumns;
+    }
+
+    public ngOnChanges(changes: SimpleChanges) {
+        if (!changes['tableData'].firstChange) {
+            this.dataSource = new MatTableDataSource(this.tableData);
+        }
+      }
+
+    public ngAfterViewInit(): void {
         this.dataSource.paginator = this.paginator;
     }
 
-    public onPageChange(pe: PageEvent) {
-        console.log(pe.pageIndex);
+    public ngOnDestroy(): void {
+
     }
 
     public selectedRecord(row: any, action: string) {
-
         const data: tableOperation = { data: row, action: action };
-
         this.actionEvent.emit(data);
     }
 
     public trackByFn(index: number, item: any) {
         return item;
+    }
+
+    @HostListener('window:resize', ['$event'])
+    private onResize(event: any) {
+        this._changeColumns(event?.target?.innerWidth > 900 ? true : false);
     }
 
 
@@ -78,10 +93,10 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
 
-    public ngOnDestroy(): void {
 
+    private _changeColumns(isDesktop: boolean = true) {
+        this.displayedColumns = isDesktop ? this.tblColumns : this.visibleColumns;
     }
-
 
 
 

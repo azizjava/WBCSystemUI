@@ -20,7 +20,8 @@ export class TransportersComponent implements OnInit {
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
-  public sortColumn = {name : 'Name' , dir: 'asc'};
+  public sortColumn = { name: 'Name', dir: 'asc' };
+  public visibleColumns = ['Code', 'Name', 'actions'];
 
 
   constructor(private translate: TranslateService, private matDialog: MatDialog) { }
@@ -33,8 +34,6 @@ export class TransportersComponent implements OnInit {
 
 
   selectedRecord(actionData: tableOperation): void {
-    console.log(actionData.data);
-
     this.actionName = actionData.action;
 
     const dialogData = { actionName: this.actionName, headerText: 'Information', data: actionData.data };
@@ -43,8 +42,6 @@ export class TransportersComponent implements OnInit {
       this.deleteDialog(dialogData);
     }
     else { this.openDialog(dialogData); }
-
-
 
   }
 
@@ -65,8 +62,14 @@ export class TransportersComponent implements OnInit {
     const dialogRef = this.matDialog.open(TransportersdataComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-       if(this.actionName ==="edit"){this._updateRecord(dialogData.data);}
-       else if(this.actionName ==="add"){this._addRecord(dialogData.data);}
+      if (this.actionName === "edit") {
+        const selRecord: Transporter = {
+          Id: dialogData.data?.Id, Code: result.code, Name: result.name, ContactPerson: result.contactPerson,
+          MobileNo: result.mobileNo, PhoneNo: result.phoneNo, FaxNo: result.faxNo, Address: result.address,
+        };
+        this._updateRecord(selRecord);
+      }
+      else if (this.actionName === "add") { this._addRecord(result); }
     });
 
   }
@@ -90,6 +93,11 @@ export class TransportersComponent implements OnInit {
 
   private _deleteRecord(selRecord: Transporter) {
     console.log('Deleted Record !!', selRecord);
+    const selIndex = this.tableData.findIndex((i: any) => i.Id === selRecord.Id);
+    if (this.tableData[selIndex]) {
+      this.tableData.splice(selIndex, 1);
+      this.tableData = [...this.tableData];
+    }
   }
 
   private _addRecord(selRecord: Transporter) {
@@ -98,6 +106,15 @@ export class TransportersComponent implements OnInit {
 
   private _updateRecord(selRecord: Transporter) {
     console.log('Updated Record !!', selRecord);
+    const selIndex = this.tableData.findIndex((i: any) => i.Id === selRecord.Id);
+    if (this.tableData[selIndex]) {
+      this.tableData[selIndex].Code = selRecord.Code;
+      this.tableData[selIndex].Name = selRecord.Name;
+      this.tableData[selIndex].ContactPerson = selRecord.ContactPerson;
+      this.tableData[selIndex].MobileNo = selRecord.MobileNo;
+      this.tableData[selIndex].PhoneNo = selRecord.PhoneNo;
+      this.tableData[selIndex].Name = selRecord.Name;
+    }
   }
 
 
@@ -117,6 +134,7 @@ export class TransportersComponent implements OnInit {
 
     this.tableData = [
       {
+        "Id": "1",
         "Code": "transporter 1",
         "Name": "Kimberley Griffin",
         "ContactPerson": "Loraine",
@@ -126,6 +144,7 @@ export class TransportersComponent implements OnInit {
         "Address": "495 Fulton Street, Elbert, Texas, 6628"
       },
       {
+        "Id": "2",
         "Code": "transporter 2",
         "Name": "Horton Cash",
         "ContactPerson": "Diana",
@@ -135,6 +154,7 @@ export class TransportersComponent implements OnInit {
         "Address": "364 Micieli Place, Golconda, Nebraska, 7878"
       },
       {
+        "Id": "3",
         "Code": "transporter 3",
         "Name": "Cote Bass",
         "ContactPerson": "Madeline",
@@ -144,6 +164,7 @@ export class TransportersComponent implements OnInit {
         "Address": "405 Barbey Street, Tibbie, Michigan, 2087"
       },
       {
+        "Id": "4",
         "Code": "transporter 4",
         "Name": "Cara Kirk",
         "ContactPerson": "Cummings",
@@ -153,6 +174,7 @@ export class TransportersComponent implements OnInit {
         "Address": "671 Wythe Place, Deseret, New Hampshire, 7148"
       },
       {
+        "Id": "5",
         "Code": "transporter 5",
         "Name": "Jones Wheeler",
         "ContactPerson": "Lucille",
@@ -162,6 +184,7 @@ export class TransportersComponent implements OnInit {
         "Address": "942 Brooklyn Avenue, Rehrersburg, Puerto Rico, 2928"
       },
       {
+        "Id": "6",
         "Code": "transporter 6",
         "Name": "Walton Webb",
         "ContactPerson": "Houston",
@@ -171,6 +194,7 @@ export class TransportersComponent implements OnInit {
         "Address": "879 Boerum Place, Morgandale, Maine, 4074"
       },
       {
+        "Id": "7",
         "Code": "transporter 7",
         "Name": "Pope Sullivan",
         "ContactPerson": "Branch",
@@ -180,6 +204,7 @@ export class TransportersComponent implements OnInit {
         "Address": "297 Hicks Street, Calpine, Virgin Islands, 8928"
       },
       {
+        "Id": "8",
         "Code": "transporter 8",
         "Name": "Zelma Simon",
         "ContactPerson": "Salas",
@@ -189,6 +214,7 @@ export class TransportersComponent implements OnInit {
         "Address": "556 Merit Court, Marbury, South Dakota, 4750"
       },
       {
+        "Id": "9",
         "Code": "transporter 9",
         "Name": "Shields Scott",
         "ContactPerson": "Berger",
@@ -198,6 +224,7 @@ export class TransportersComponent implements OnInit {
         "Address": "755 Vermont Street, Matheny, Massachusetts, 3420"
       },
       {
+        "Id": "10",
         "Code": "transporter 10",
         "Name": "Carson Griffith",
         "ContactPerson": "Cherry",
