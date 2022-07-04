@@ -7,6 +7,9 @@ import { MaterialModule } from '../material.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
+import { NationalityDataComponent } from './nationalitydata/nationalitydata.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -15,12 +18,15 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    NationalityComponent
+    NationalityComponent,
+    NationalityDataComponent
   ],
   imports: [
     CommonModule,
-    NationalityRoutingModule,
     MaterialModule,
+    ReactiveFormsModule,
+    NationalityRoutingModule,
+    SharedcomponentsModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
       isolate: false

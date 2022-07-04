@@ -1,0 +1,29 @@
+<form class="nationality-form" [formGroup]="form">
+  <div class="row mb-2">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Nationality</mat-label>
+        <input matInput placeholder="Nationality" formControlName="nationality" name="nationality" />
+        <mat-error *ngIf="form.controls['nationality'].errors && 
+          form.controls['nationality'].errors['operatorId'] &&
+          form.controls['nationality'].touched">Nationality is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+
+  <div class="d-flex justify-content-between w-100">
+
+    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
+      mat-button (click)="save()">
+      Save
+    </button>
+
+    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      Cancel
+    </button>
+
+  </div>
+</form>

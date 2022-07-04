@@ -1,21 +1,5 @@
-<div>
-
-
-    <div class="row mt-2">
-
-        <div class="col-md-6"><button mat-flat-button color="primary" type="submit" class="btn btn-md mt-1" mat-button
-                (click)="addNewRecord()">
-                <mat-icon>add</mat-icon>{{'common.addnew' | translate }}
-            </button></div>
-        <div class="col-md-6">
-            <mat-form-field>
-                <mat-label>{{'common.filter' | translate }}</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex.Red" #input />
-            </mat-form-field>
-        </div>
-    </div>
-
-
-
-    
+<div class="nationalityList">
+    <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
+        [visibleColumns]='visibleColumns' [placeholderText]="staticText.searchPlaceholder"
+        (actionEvent)="selectedRecord($event)"></app-list-table>
 </div>
