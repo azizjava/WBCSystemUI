@@ -3,109 +3,117 @@
 @import "../node_modules/bootstrap/scss/mixins";
 
 html {
-    height: 100%;
-    font-size: 14px;
+  overflow: hidden;
+  height: 100%;
+  font-size: 14px;
+  font-size: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  /* 10 * 1.6 = 16px */
+  color: #333;
+  height: auto;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #eeeeee;
+}
+
+.m-r-15 {
+  margin-right: 15px;
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 15px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.error {
+  padding: 15px;
+  color: white;
+  background-color: red;
+}
+
+
+.mat-sort-header-content {
+  color: #3A3A4A;
+  font-size: 1.1rem;
+}
+
+.appLogo {
+  background: #F0F1F9;
+
+  >img {
+    margin: .5rem;
+    border: 1px solid #FFFFFF;
   }
-  body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 1rem; /* 10 * 1.6 = 16px */
-    color: #333;
-    height: auto;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #eeeeee;
+}
+
+.tbl-header-bg {
+  background-color: #F0F1F9;
+}
+
+
+.formMrgin-Top {
+  margin-top: 20%;
+}
+
+@media screen and (max-height: 60rem) {
+  .formMrgin-Top {
+    margin-top: 20%;
   }
-  
-  .m-r-15 {
-    margin-right: 15px;
+}
+
+@media screen and (max-height: 40rem) {
+  .formMrgin-Top {
+    margin-top: 7%;
   }
-  
-  .mat-radio-button ~ .mat-radio-button {
-    margin-left: 15px;
-  }
-  
-  .mat-form-field {
-    width: 100%;
-  }
-  
-  .error {
-    padding: 15px;
-    color: white;
-    background-color: red;
-  }
-  
-  
-  .mat-sort-header-content {
-    color:#3A3A4A;
-    font-size: 1.1rem;
-  }
-  
-  .appLogo{
-    background: #F0F1F9;
-  
-     > img{
-      margin: .5rem;
-      border: 1px solid #FFFFFF;
-     }
-  }
-  
-  .tbl-header-bg{
-    background-color: #F0F1F9;
-  }
-  
-  
-  .formMrgin-Top{
-    margin-top:20%;    
-  }
-  
-  @media screen and (max-height: 60rem ){
-    .formMrgin-Top{
-      margin-top:20%;      
-    }
-  }
-  
-  @media screen and ( max-height: 40rem ){
-  .formMrgin-Top{
-    margin-top:7%;    
-  }
+}
+
+.a {
+  color: #FFFFFF;
+}
+
+
+.cdk-overlay-container {
+  z-index: 1050;
+}
+
+.valign-sub {
+  vertical-align: sub;
+}
+
+.custom-dialog {
+  overflow: auto;
+  width: 90vw;
+
+  @include media-breakpoint-up(sm) {
+    width: 80vw;
   }
 
-  .a{
-    color: #FFFFFF;
-  }
-  
-
-  .cdk-overlay-container{
-    z-index: 1050;
-  }
-  
-  .valign-sub {
-    vertical-align: sub;
+  @include media-breakpoint-up(md) {
+    width: 80vw;
   }
 
-    .custom-dialog {
-      overflow: auto;
-      width: 90vw;
+  @include media-breakpoint-up(lg) {
+    width: 60vw;
+  }
 
-      @include media-breakpoint-up(sm) {
-        width: 80vw;
-      }
-  
-      @include media-breakpoint-up(md) {
-        width: 80vw;
-      }
-  
-      @include media-breakpoint-up(lg) {
-        width: 60vw;
-      }
-  
-      @include media-breakpoint-up(xl) {
-        width: 50vw;
-      }
-  
-      @include media-breakpoint-up(xxl) {
-        width: 50vw;
-      }
-  
-    }
+  @include media-breakpoint-up(xl) {
+    width: 50vw;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    width: 50vw;
+  }
+
+}
+
+.mat-typography {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
