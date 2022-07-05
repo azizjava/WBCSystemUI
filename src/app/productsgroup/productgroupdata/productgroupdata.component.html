@@ -1,0 +1,41 @@
+<form class="product-form" [formGroup]="form">
+  <div class="row mb-2">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Product Group Code</mat-label>
+        <input matInput placeholder="Product Group Code" formControlName="groupCode" name="groupCode" />
+        <mat-error *ngIf="form.controls['groupCode'].errors && 
+          form.controls['groupCode'].errors['groupCode'] &&
+          form.controls['groupCode'].touched
+                ">Product Group Code is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Product Group Name</mat-label>
+        <input matInput placeholder="Product Group Name" formControlName="groupName" name="groupName" />
+        <mat-error *ngIf="form.controls['groupName'].errors && 
+          form.controls['groupName'].errors['required'] &&
+          form.controls['groupName'].touched
+                ">Product Group Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-between w-100">
+
+    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
+      mat-button (click)="save()">
+      Save
+    </button>
+
+    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      Cancel
+    </button>
+
+  </div>
+</form>
