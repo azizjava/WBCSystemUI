@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
+import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, Nationality,  tableOperation } from '../models';
 import { NationalityDataComponent } from './nationalitydata/nationalitydata.component';
 
@@ -65,7 +66,9 @@ export class NationalityComponent implements OnInit {
         const selRecord: Nationality = { Id: dialogData.data?.Id, Nationality: result?.nationality };
         this._updateRecord(selRecord);
       }
-      else if (this.actionName === "add") { this._addRecord(result); }
+      else if (this.actionName === "add") {
+        const selRecord: Nationality = { Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), Nationality: result?.nationality };
+        this._addRecord(selRecord); }
     });
 
   }
@@ -97,7 +100,9 @@ export class NationalityComponent implements OnInit {
   }
 
   private _addRecord(selRecord: Nationality) {
-    console.log('New Record !!', selRecord);
+   console.log('New Record !!', selRecord);
+   this.tableData.push(selRecord);  //add the new model object to the dataSource
+   this.tableData = [...this.tableData];  //refresh the dataSource
   }
 
   private _updateRecord(selRecord: Nationality) {
