@@ -15,6 +15,13 @@
 
     .action-column {
       color:#3A3A4A;
-      font-size: 1.1rem;
+      font-size: .9rem;
+      width: 10rem;
     }
+
+    .mat-cell, .mat-footer-cell {
+      font-size: .9rem;
+  }
+
+  
 }

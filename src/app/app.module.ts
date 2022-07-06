@@ -38,7 +38,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
@@ -57,7 +56,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     fakeBackendProvider
   ],
   bootstrap: [AppComponent],
-  exports:[ReactiveFormsModule,FormsModule,CommonModule]
 })
 export class AppModule { }
 
