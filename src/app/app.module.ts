@@ -4,19 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './auth/login/login.component';
-import { ForgotPasswordComponent } from './auth/forgotpassword/forgotpassword.component';
-import { PageNotFoundComponent } from './auth/pagenotfound/pagenotfound.component';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor, fakeBackendProvider, JwtInterceptor } from './helper';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ModaldialogComponent } from './common/modaldialog/modaldialog.component';
-import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
 import { SnackbarComponent } from './common/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -25,22 +20,17 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ForgotPasswordComponent,
-    PageNotFoundComponent,
-    ModaldialogComponent,
-    ConfirmDialogComponent,
-    SnackbarComponent,
-    
+     SnackbarComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule,
+    MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

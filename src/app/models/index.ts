@@ -5,3 +5,5 @@ export * from './vehicle.model';
 export * from './products.model';
 export * from './operator.model';
 export * from './nationality.model';
+export * from './customer.model';
+export * from './supplier.model';

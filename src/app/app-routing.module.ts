@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ForgotPasswordComponent } from './auth/forgotpassword/forgotpassword.component';
-import { LoginComponent } from './auth/login/login.component';
-import { PageNotFoundComponent } from './auth/pagenotfound/pagenotfound.component';
 import { AuthGuard } from './helper';
+import { CustomPreloadingStrategyService } from './services/custom-preloading-strategy.service';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch:'full',  },
-  {path: 'login', component: LoginComponent},
-  {path: 'forgotpassword', component: ForgotPasswordComponent },
+  {path: '', redirectTo: 'login', pathMatch:'full' },
+  { path: 'login', data: {preload: true, loadAfterSeconds: 5}, loadChildren: () => import('./app-login-routing.module').then(m => m.AppLoginRoutingModule) },
   { path: 'dashboard',canActivate: [AuthGuard], loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
-  { path: '**', component: PageNotFoundComponent }
+  
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: CustomPreloadingStrategyService})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
