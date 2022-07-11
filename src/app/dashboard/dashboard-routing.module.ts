@@ -9,6 +9,11 @@ const routes: Routes = [
       { path: 'nationality', loadChildren: () => import('../nationality/nationality.module').then(m => m.NationalityModule) },
       { path: 'transporters', loadChildren: () => import('../transporters/transporters.module').then(m => m.TransportersModule) },
       { path: 'vehicle', loadChildren: () => import('../vehicle/vehicle.module').then(m => m.VehicleModule) },
+      { path: 'products', loadChildren: () => import('../products/products.module').then(m => m.ProductsModule) },
+      { path: 'productgroup', loadChildren: () => import('../productsgroup/productgroups.module').then(m => m.ProductGroupsModule) },
+      { path: 'operators', loadChildren: () => import('../operator/operators.module').then(m => m.OperatorsModule) },
+      { path: 'customers', loadChildren: () => import('../customer/customers.module').then(m => m.CustomersModule) },
+      { path: 'suppliers', loadChildren: () => import('../suppliers/suppliers.module').then(m => m.SuppliersModule) },
 
     ]
   },

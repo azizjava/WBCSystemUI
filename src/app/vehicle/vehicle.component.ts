@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
+import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, tableOperation, Vehicle } from '../models';
 import { AuthenticationService } from '../services';
 
@@ -69,7 +70,11 @@ export class VehicleComponent implements OnInit {
           Id: dialogData.data?.Id, PlateNo: result.plateNo, Type: result.type, TransporterCode: result.transporterCode, TransporterName: result.transporterName };
         this._updateRecord(selRecord);
       }
-      else if (this.actionName === "add") { this._addRecord(result); }
+      else if (this.actionName === "add") { 
+        const selRecord: Vehicle = {
+          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), PlateNo: result.plateNo, Type: result.type, TransporterCode: result.transporterCode, TransporterName: result.transporterName };
+        this._addRecord(selRecord); 
+      }
     });
 
   }
@@ -102,6 +107,8 @@ export class VehicleComponent implements OnInit {
 
   private _addRecord(selRecord: Vehicle) {
     console.log('New Record !!', selRecord);
+    this.tableData.push(selRecord);  //add the new model object to the dataSource
+    this.tableData = [...this.tableData];  //refresh the dataSource
   }
 
   private _updateRecord(selRecord: Vehicle) {

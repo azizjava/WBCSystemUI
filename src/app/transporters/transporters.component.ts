@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
+import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, tableOperation, Transporter } from '../models';
 
 import { TransportersdataComponent } from './transportersdata/transportersdata.component';
@@ -69,7 +70,14 @@ export class TransportersComponent implements OnInit {
         };
         this._updateRecord(selRecord);
       }
-      else if (this.actionName === "add") { this._addRecord(result); }
+      else if (this.actionName === "add") { 
+
+        const selRecord: Transporter = {
+          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), Code: result.code, Name: result.name, ContactPerson: result.contactPerson,
+          MobileNo: result.mobileNo, PhoneNo: result.phoneNo, FaxNo: result.faxNo, Address: result.address,
+        };
+        this._addRecord(selRecord); 
+       }
     });
 
   }
@@ -102,6 +110,8 @@ export class TransportersComponent implements OnInit {
 
   private _addRecord(selRecord: Transporter) {
     console.log('New Record !!', selRecord);
+    this.tableData.push(selRecord);  //add the new model object to the dataSource
+    this.tableData = [...this.tableData];  //refresh the dataSource
   }
 
   private _updateRecord(selRecord: Transporter) {

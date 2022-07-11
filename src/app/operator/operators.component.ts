@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
+import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, Operator,  tableOperation } from '../models';
 import { OperatorDataComponent } from './operatordata/operatordata.component';
 
@@ -66,7 +67,11 @@ export class OperatorsComponent implements OnInit {
           Id: dialogData.data?.Id, OperatorId: result.operatorId, OperatorName: result.operatorName };
         this._updateRecord(selRecord);
       }
-      else if (this.actionName === "add") { this._addRecord(result); }
+      else if (this.actionName === "add") { 
+        const selRecord: Operator = {
+          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), OperatorId: result.operatorId, OperatorName: result.operatorName };
+        this._addRecord(selRecord); 
+      }
     });
 
   }
@@ -99,6 +104,8 @@ export class OperatorsComponent implements OnInit {
 
   private _addRecord(selRecord: Operator) {
     console.log('New Record !!', selRecord);
+    this.tableData.push(selRecord);  //add the new model object to the dataSource
+    this.tableData = [...this.tableData];  //refresh the dataSource
   }
 
   private _updateRecord(selRecord: Operator) {
