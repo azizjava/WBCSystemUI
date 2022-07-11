@@ -23,7 +23,7 @@
 
                 <ng-container *ngFor="let column of displayedColumns ; trackBy:trackByFn" [matColumnDef]="column">
                     <ng-container *ngIf="column !=='Actions'">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-column">
                             {{column}}
                         </th>
                     </ng-container>
