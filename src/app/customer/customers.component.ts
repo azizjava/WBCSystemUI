@@ -133,7 +133,7 @@ export class CustomersComponent implements OnInit {
     this.translate.get(['']).subscribe((translated: string) => {
 
       this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchtransporters')
+        searchPlaceholder: this.translate.instant('placeholder.searchcustomers')
       }
 
     });
