@@ -119,7 +119,7 @@ export class NationalityComponent implements OnInit {
     this.translate.get(['']).subscribe((translated: string) => {
 
       this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchvehicles')
+        searchPlaceholder: this.translate.instant('placeholder.searchnationality')
       }
 
     });

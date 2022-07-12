@@ -4,26 +4,26 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
-import { modelDialog, Operator,  tableOperation } from '../models';
-import { OperatorDataComponent } from './operatordata/operatordata.component';
+import { modelDialog, Products, tableOperation, Vehicle } from '../models';
+import { ProductDataComponent } from './productsdata/productdata.component';
 
 
 @Component({
   selector: 'app-products',
-  templateUrl: './operators.component.html',
-  styleUrls: ['./operators.component.scss']
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.scss']
 })
-export class OperatorsComponent implements OnInit {
+export class ProductsComponent implements OnInit {
 
 
-  tblColumns: string[] = ['OperatorId', 'OperatorName', 'Actions'];
+  tblColumns: string[] = ['ProductCode', 'ProductName', 'GroupCode', 'GroupName', 'Actions'];
   tableData: any = [];
 
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
-  public sortColumn = { name: 'OperatorId', dir: 'asc' };
-  public visibleColumns = ['OperatorId', 'OperatorName', 'Actions'];
+  public sortColumn = { name: 'ProductCode', dir: 'asc' };
+  public visibleColumns = ['ProductCode', 'ProductName', 'Actions'];
 
 
   constructor(private translate: TranslateService, private matDialog: MatDialog) { }
@@ -32,6 +32,8 @@ export class OperatorsComponent implements OnInit {
     this.getTranslatedText();
     this.getData();
   }
+
+
 
   selectedRecord(actionData: tableOperation): void {
     this.actionName = actionData.action;
@@ -59,17 +61,17 @@ export class OperatorsComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'custom-dialog';
 
-    const dialogRef = this.matDialog.open(OperatorDataComponent, dialogConfig);
+    const dialogRef = this.matDialog.open(ProductDataComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (this.actionName === "edit") {
-        const selRecord: Operator = {
-          Id: dialogData.data?.Id, OperatorId: result.operatorId, OperatorName: result.operatorName };
+        const selRecord: Products = {
+          Id: dialogData.data?.Id, ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, GroupName: result.groupName };
         this._updateRecord(selRecord);
       }
       else if (this.actionName === "add") { 
-        const selRecord: Operator = {
-          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), OperatorId: result.operatorId, OperatorName: result.operatorName };
+        const selRecord: Products = {
+          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, GroupName: result.groupName };
         this._addRecord(selRecord); 
       }
     });
@@ -93,7 +95,7 @@ export class OperatorsComponent implements OnInit {
 
   }
 
-  private _deleteRecord(selRecord: Operator) {
+  private _deleteRecord(selRecord: Products) {
     console.log('Deleted Record !!', selRecord);
     const selIndex = this.tableData.findIndex((i: any) => i.Id === selRecord.Id);
     if (this.tableData[selIndex]) {
@@ -102,18 +104,20 @@ export class OperatorsComponent implements OnInit {
     }
   }
 
-  private _addRecord(selRecord: Operator) {
+  private _addRecord(selRecord: Products) {
     console.log('New Record !!', selRecord);
     this.tableData.push(selRecord);  //add the new model object to the dataSource
     this.tableData = [...this.tableData];  //refresh the dataSource
   }
 
-  private _updateRecord(selRecord: Operator) {
+  private _updateRecord(selRecord: Products) {
     console.log('Updated Record !!', selRecord);
     const selIndex = this.tableData.findIndex((i: any) => i.Id === selRecord.Id);
     if (this.tableData[selIndex]) {
-      this.tableData[selIndex].OperatorId = selRecord.OperatorId;
-      this.tableData[selIndex].OperatorName = selRecord.OperatorName;
+      this.tableData[selIndex].ProductCode = selRecord.ProductCode;
+      this.tableData[selIndex].ProductName = selRecord.ProductName;
+      this.tableData[selIndex].GroupCode = selRecord.GroupCode;
+      this.tableData[selIndex].GroupName = selRecord.GroupName;
     }
   }
 
@@ -123,7 +127,7 @@ export class OperatorsComponent implements OnInit {
     this.translate.get(['']).subscribe((translated: string) => {
 
       this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchoperator')
+        searchPlaceholder: this.translate.instant('placeholder.searchproduct')
       }
 
     });
@@ -135,31 +139,75 @@ export class OperatorsComponent implements OnInit {
     this.tableData = [
       {
         "Id": "1",
-        "OperatorId": "OP-01",
-        "OperatorName": "Operator-01"
+        "ProductCode": "P-01",
+        "ProductName": "Product-01",
+        "GroupCode": "PG-01",
+        "GroupName": "Product Group-01"
       },
       {
         "Id": "2",
-        "OperatorId": "OP-02",
-        "OperatorName": "Operator-02"
+        "ProductCode": "P-02",
+        "ProductName": "Product-02",
+        "GroupCode": "PG-02",
+        "GroupName": "Product Group-02"
       },
       {
         "Id": "3",
-        "OperatorId": "OP-03",
-        "OperatorName": "Operator-03"
+        "ProductCode": "P-03",
+        "ProductName": "Product-03",
+        "GroupCode": "PG-03",
+        "GroupName": "Product Group-03"
       },
       {
         "Id": "4",
-        "OperatorId": "OP-04",
-        "OperatorName": "Operator-04"
+        "ProductCode": "P-04",
+        "ProductName": "Product-04",
+        "GroupCode": "PG-04",
+        "GroupName": "Product Group-04"
       },
 
       {
         "Id": "5",
-        "OperatorId": "OP-05",
-        "OperatorName": "Operator-05"
+        "ProductCode": "P-05",
+        "ProductName": "Product-05",
+        "GroupCode": "PG-05",
+        "GroupName": "Product Group-05"
       },
-     
+      {
+        "Id": "6",
+        "ProductCode": "P-06",
+        "ProductName": "Product-06",
+        "GroupCode": "PG-06",
+        "GroupName": "Product Group-06"
+      },
+      {
+        "Id": "7",
+        "ProductCode": "P-07",
+        "ProductName": "Product-07",
+        "GroupCode": "PG-07",
+        "GroupName": "Product Group-07"
+      },
+      {
+        "Id": "8",
+        "ProductCode": "P-08",
+        "ProductName": "Product-08",
+        "GroupCode": "PG-01",
+        "GroupName": "Product Group-01"
+      },
+      {
+        "Id": "9",
+        "ProductCode": "P-09",
+        "ProductName": "Product-09",
+        "GroupCode": "PG-02",
+        "GroupName": "Product Group-02"
+      },
+      {
+        "Id": "10",
+        "ProductCode": "P-02",
+        "ProductName": "Product-10",
+        "GroupCode": "PG-02",
+        "GroupName": "Product Group-02"
+      },
     ]
   }
 }

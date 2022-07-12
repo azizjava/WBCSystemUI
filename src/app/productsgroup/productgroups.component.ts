@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
+import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, ProductGroup,  tableOperation } from '../models';
 import { ProductGroupDataComponent } from './productgroupdata/productgroupdata.component';
 
@@ -68,7 +69,11 @@ export class ProductGroupsComponent implements OnInit {
           Id: dialogData.data?.Id, GroupCode: result.groupCode, GroupName: result.groupName };
         this._updateRecord(selRecord);
       }
-      else if (this.actionName === "add") { this._addRecord(result); }
+      else if (this.actionName === "add") { 
+        const selRecord: ProductGroup = {
+          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), GroupCode: result.groupCode, GroupName: result.groupName };
+        this._addRecord(selRecord); 
+      }
     });
 
   }
@@ -101,6 +106,8 @@ export class ProductGroupsComponent implements OnInit {
 
   private _addRecord(selRecord: ProductGroup) {
     console.log('New Record !!', selRecord);
+    this.tableData.push(selRecord);  //add the new model object to the dataSource
+    this.tableData = [...this.tableData];  //refresh the dataSource
   }
 
   private _updateRecord(selRecord: ProductGroup) {

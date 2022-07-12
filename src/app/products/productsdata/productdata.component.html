@@ -1,0 +1,74 @@
+<form class="product-form" [formGroup]="form">
+  <div class="row mb-2">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Product Code</mat-label>
+        <input matInput placeholder="Product Code" formControlName="productCode" name="productCode" />
+        <mat-error *ngIf="form.controls['productCode'].errors && 
+          form.controls['productCode'].errors['productCode'] &&
+          form.controls['productCode'].touched
+                ">Product Code is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Product Name</mat-label>
+        <input matInput placeholder="Product Name" formControlName="productName" name="productName" />
+        <mat-error *ngIf="form.controls['productName'].errors && 
+          form.controls['productName'].errors['required'] &&
+          form.controls['productName'].touched
+                ">Product Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col">
+   
+      <mat-form-field appearance="fill">
+        <mat-label>Group Code</mat-label>
+        <mat-select formControlName="groupCode" required (selectionChange)="OnSelectionChange($event)">
+          <mat-option *ngFor="let item of transPortersList" [value]="item.GroupCode">
+            {{item.GroupCode}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['groupCode'].errors &&
+          form.controls['groupCode'].errors['required'] &&
+          form.controls['groupCode'].touched
+                ">Group Code is required
+        </mat-error>
+        <mat-hint>You can pick up your Group Code here</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Group Name</mat-label>
+        <input matInput placeholder="Group Name" formControlName="groupName" name="groupName"  readonly/>
+        <mat-error *ngIf="form.controls['groupName'].errors &&
+          form.controls['groupName'].errors['required'] &&
+          form.controls['groupName'].touched
+                ">Group Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+
+  <div class="d-flex justify-content-between w-100">
+
+    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
+      mat-button (click)="save()">
+      Save
+    </button>
+
+    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      Cancel
+    </button>
+
+  </div>
+</form>

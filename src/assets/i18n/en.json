@@ -7,9 +7,13 @@
 		"addnew":"Add New"
 	},
 	"placeholder":{
-		"searchtransporters":"بحث الناقلين",
-		"searchcustomers":"البحث عن العملاء",
-		"searchvehicles":"Search Vehicles"
+		"searchtransporters":"Search Transporter",
+		"searchcustomers":"Search Customer",
+		"searchvehicles":"Search Vehicle",
+		"searchsupplier":"Search Supplier",
+		"searchoperator":"Search Operator",
+		"searchnationality":"Search Nationality",
+		"searchproduct":"Search Product"
 	},
 
 	"login": {

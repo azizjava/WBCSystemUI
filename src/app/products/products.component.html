@@ -1,0 +1,5 @@
+<div class="productsList">
+    <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
+        [visibleColumns]='visibleColumns' [placeholderText]="staticText.searchPlaceholder"
+        (actionEvent)="selectedRecord($event)"></app-list-table>
+</div>
