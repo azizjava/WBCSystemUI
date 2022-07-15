@@ -28,7 +28,8 @@ export function createTranslateLoader(http: HttpClient) {
     SharedcomponentsModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
-      isolate: false
+      isolate: false,
+      extend: true,
     })
   ]
 })
