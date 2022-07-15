@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { tableOperation } from 'src/app/models';
 
@@ -21,6 +22,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() tableData: any = [];
     @Input() sortColumn: any = null;
     @Input() visibleColumns: string[] = [];
+    @Input() componentName: string = "";
 
 
     @Output() actionEvent = new EventEmitter<tableOperation>();
@@ -33,7 +35,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private debounce: number = 400;
 
-    constructor() { }
+    constructor(private translate: TranslateService) { }
 
     public ngOnInit(): void {
         this.dataSource = new MatTableDataSource(this.tableData);
@@ -71,6 +73,11 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public trackByFn(index: number, item: any) {
         return item;
+    }
+
+    public getTableHeader(columnName: string) {
+        
+        return this.translate.instant(`${this.componentName}.tbl_header.${columnName.toString().toLowerCase()}`);
     }
 
     @HostListener('window:resize', ['$event'])

@@ -51,16 +51,90 @@
 		"Product prices": "Product prices",
 		"Reports": "Reports"
 	},
+	"customers":{
+		"tbl_header":{
+			"code":"Code",
+			"name":"Name",
+			"contactperson":"Contact Person",
+			"mobileno":"Mobile No",
+			"phoneno": "Telephone No",
+			"faxno":"Fax",
+			"address":"Address",
+			"actions":"Actions"
+		}
+	},
+	"suppliers":{
+		"tbl_header":{
+			"code":"Code",
+			"name":"Name",
+			"contactperson":"Contact Person",
+			"mobileno":"Mobile No",
+			"phoneno":"Telephone No",
+			"faxno":"Fax",
+			"address":"Address",
+			"actions":"Action"
+		}
+	},
 	"transporters":{
 		"tbl_header":{
-			"Code":"Code",
-			"Name":"Name",
-			"Contact Person":"Contact Person",
-			"Mobile No":"Mobile No",
-			"Telephone No":"Telephone No",
-			"Fax":"Fax",
-			"Address":"Address",
-			"Action":"Action"
+			"code":"Code",
+			"name":"Name",
+			"contactperson":"Contact Person",
+			"mobileno":"Mobile No",
+			"phoneno":"Telephone No",
+			"faxno":"Fax",
+			"address":"Address",
+			"actions":"Action"
+		}
+	},
+	"products":{
+		"tbl_header":{
+			"productcode":"Product Code",
+			"productname":"Product Name",
+			"groupcode":"Group Code",
+			"groupname":"Group Name",
+			"actions":"Actions"
+		}
+	},
+	"productgroups":{
+		"tbl_header":{
+			"groupcode":"Product Group Code",
+			"groupname":"Product Group Name",
+			"actions":"Actions"
+		}
+	},
+	"vehicles":{
+		"tbl_header":{
+			"plateno":"Vehicle Plate No.",
+			"type":"Vehicle Type",
+			"transportercode":"Vehicle Transporter Code",
+			"transportername":"Vehicle Transporter Name",
+			"actions":"Actions"
+		}
+	},
+	"operators":{
+		"tbl_header":{
+			"operatorid":"Operator ID",
+			"operatorname":"Operator Name",
+			"actions":"Actions"
+		}
+	},
+	"nationality":{
+		"tbl_header":{
+			"nationality":"Nationality",
+			"actions":"Actions"
+		}
+	},
+	"productprices":{
+		"tbl_header":{
+			"code":"Code 1",
+			"name":"Name",
+			"contactPerson":"Contact Person",
+			"mobileNo":"Mobile No",
+			"telephoneNo":"Telephone No",
+			"fax":"Fax",
+			"address":"Address",
+			"action":"Action"
 		}
 	}
 }

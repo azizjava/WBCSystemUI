@@ -9,10 +9,11 @@
 	"placeholder":{
 		"searchtransporters":"بحث الناقلين",
 		"searchcustomers":"البحث عن العملاء",
-		"searchvehicless":"Search Vehicle",
-		"searchsupplier":"Search Supplier",
-		"searchoperator":"Search Operator",
-		"searchnationality":"Search Nationality"
+		"searchvehicles":"البحث عن مركبة",
+		"searchsupplier":"بحث عن مورد",
+		"searchoperator":"بحث عن مورد",
+		"searchnationality":"البحث عن الجنسية",
+		"searchproduct":"البحث عن المنتج"
 	},
 	"login": {
 		"title": "Login Form",
@@ -49,16 +50,92 @@
 		"Product prices": "أسعار المنتجات",
 		"Reports": "التقارير"
 	},
+	
+	"customers":{
+		"tbl_header":{
+			"code":"شفرة",
+			"name":"اسم",
+			"contactperson":"الشخص الذي يمكن الاتصال به",
+			"mobileno":"رقم الموبايل",
+			"phoneno":"الهاتف لا",
+			"faxno":"فاكس",
+			"address":"تبوك",
+			"actions":"أجراءات"
+		}
+	},
+	"suppliers":{
+		"tbl_header":{
+			"code":"شفرة",
+			"name":"اسم",
+			"contactperson":"الشخص الذي يمكن الاتصال به",
+			"mobileno":"رقم الموبايل",
+			"phoneno":"الهاتف لا",
+			"faxno":"فاكس",
+			"address":"تبوك",
+			"actions":"أجراءات"
+		}
+	},
 	"transporters":{
 		"tbl_header":{
-			"Code":"رمز",
-			"Name":"اسم",
-			"Contact Person":"الشخص الذي يمكن الاتصال به",
-			"Mobile No":"رقم الموبايل",
-			"Telephone No":"الهاتف لا",
-			"Fax":"فاكس",
-			"Address":"تبوك",
-			"Action":"عمل"
+			"code":"شفرة",
+			"name":"اسم",
+			"contactperson":"الشخص الذي يمكن الاتصال به",
+			"mobileno":"رقم الموبايل",
+			"phoneno":"الهاتف لا",
+			"fax":"فاكس",
+			"faxno":"تبوك",
+			"address":"تبوك",
+			"actions":"عمل"
+		}
+	},
+	"products":{
+		"tbl_header":{
+			"productcode":"كود المنتج",
+			"productname":"اسم المنتج",
+			"groupcode":"كود المجموعة",
+			"groupname":"أسم المجموعة",
+			"actions":"عمل"
+		}
+	},
+	"productgroups":{
+		"tbl_header":{
+			"groupcode":"رمز مجموعة المنتج",
+			"groupname":"اسم مجموعة المنتج",
+			"actions":"عمل"
+		}
+	},
+	"vehicles":{
+		"tbl_header":{
+			"plateno":"رقم لوحة المركبة",
+			"type":"نوع السيارة",
+			"transportercode":"كود ناقل المركبة",
+			"transportername":"اسم ناقل المركبة",
+			"actions":"عمل"
+		}
+	},
+	"operators":{
+		"tbl_header":{
+			"operatorid":"معرف المشغل",
+			"operatorname":"اسم المشغل",
+			"actions":"عمل"
+		}
+	},
+	"nationality":{
+		"tbl_header":{
+			"nationality":"جنسية",
+			"actions":"عمل"
+		}
+	},
+	"productprices":{
+		"tbl_header":{
+			"code":"Code 1",
+			"name":"Name",
+			"contactPerson":"Contact Person",
+			"mobileNo":"Mobile No",
+			"telephoneNo":"Telephone No",
+			"fax":"Fax",
+			"address":"Address",
+			"action":"Action"
 		}
 	}
 }
