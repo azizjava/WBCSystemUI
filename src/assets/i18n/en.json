@@ -4,7 +4,8 @@
 	},
 	"common":{
 		"filter":"Filter",
-		"addnew":"Add New"
+		"addnew":"Add New",
+		"itemsperpagelabel":"Items per page"
 	},
 	"placeholder":{
 		"searchtransporters":"Search Transporter",
@@ -32,6 +33,8 @@
 	"dashboard": {
 		"title": "Weighbridge Control System",
 		"copyright":"Copyright",
+		"privacypolicy":"Privacy Policy",
+		"termcondition":"Terms &amp; Conditions",
 		"rightsideMenu":{
 			"profile":"Profile",
 			"changepassword" :"Change Password",

@@ -4,7 +4,8 @@
     },
 	"common":{
 		"filter":"منقي",
-		"addnew":"اضف جديد"
+		"addnew":"اضف جديد",
+		"itemsperpagelabel":"مواد لكل صفحة"
 	},
 	"placeholder":{
 		"searchtransporters":"بحث الناقلين",
@@ -31,6 +32,8 @@
     "dashboard":{
         "title":"نظام التحكم في الميزان",
 		"copyright":"حقوق النشر",
+		"privacypolicy":"سياسة الخصوصية",
+		"termcondition":"شروط وأمبير. الظروف",
 		"rightsideMenu":{
 			"profile":"الملف الشخصي",
 			"changepassword" :"تغيير كلمة المرور",
