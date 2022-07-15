@@ -230,7 +230,7 @@
   justify-content: space-between;
   min-width: 0;
   flex-grow: 1;
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 3.6rem);
   margin-left: -225px;
 }
 
@@ -297,7 +297,7 @@
 
 .sb-topnav {
   padding-left: 0;
-  height: 56px;
+  height: 3.5rem;
   z-index: 1039;
 }
 .sb-topnav .navbar-brand {
