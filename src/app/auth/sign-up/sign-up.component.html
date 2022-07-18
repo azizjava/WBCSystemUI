@@ -6,43 +6,26 @@
           <mat-card-title class="text-center">Registration Form</mat-card-title>
 
           <mat-card-content>
-            <form
-              class="my-form"
-              [formGroup]="signupForm"
-              (ngSubmit)="onSubmit()">
+            <form class="my-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 
               <div class="row mb-2">
                 <div class="col">
                   <mat-form-field class="full-width">
                     <mat-label>First Name</mat-label>
-                    <input
-                      matInput
-                      placeholder="First name"
-                      formControlName="firstName"
-                      name="firstName"
-                    />
-                    <mat-error
-                    *ngIf="signupForm.controls['firstName'].errors?.['required'] &&
-                    signupForm.controls['firstName'].touched"
-                    >First Name is required
-                  </mat-error>
+                    <input matInput placeholder="First name" formControlName="firstName" name="firstName" />
+                    <mat-error *ngIf="signupForm.controls['firstName'].errors?.['required'] &&
+                    signupForm.controls['firstName'].touched">First Name is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
 
                 <div class="col">
                   <mat-form-field class="full-width">
                     <mat-label>Last Name</mat-label>
-                    <input
-                      matInput
-                      placeholder="Last Name"
-                      formControlName="lastName"
-                      name="lastName"
-                    />
-                    <mat-error
-                    *ngIf="signupForm.controls['lastName'].errors?.['required'] &&
-                    signupForm.controls['lastName'].touched"
-                    >Last Name is required
-                  </mat-error>
+                    <input matInput placeholder="Last Name" formControlName="lastName" name="lastName" />
+                    <mat-error *ngIf="signupForm.controls['lastName'].errors?.['required'] &&
+                    signupForm.controls['lastName'].touched">Last Name is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
@@ -51,49 +34,30 @@
                 <div class="col">
                   <mat-form-field class="full-width">
                     <mat-label>Password</mat-label>
-                    <input
-                      matInput type="password"
-                      formControlName="password"
-                      placeholder="password"
-                      name="password"
-                    />
-                    <mat-error
-                    *ngIf="signupForm.controls['password'].errors?.['required']  &&
-                    signupForm.controls['password'].touched"
-                    >Password is required
-                  </mat-error>
-                  <mat-error
-                  *ngIf="signupForm.controls['password'].errors?.['minlength'] &&
-                  signupForm.controls['password'].touched"
-                  >Password must be at least 6 characters
-                </mat-error>
-                <mat-error
-                  *ngIf="signupForm.controls['password'].errors?.['maxlength'] &&
-                  signupForm.controls['password'].touched"
-                  >Password must be max 12 characters
-                </mat-error>
+                    <input matInput type="password" formControlName="password" placeholder="password" name="password" />
+                    <mat-error *ngIf="signupForm.controls['password'].errors?.['required']  &&
+                    signupForm.controls['password'].touched">Password is required
+                    </mat-error>
+                    <mat-error *ngIf="signupForm.controls['password'].errors?.['minlength'] &&
+                  signupForm.controls['password'].touched">Password must be at least 6 characters
+                    </mat-error>
+                    <mat-error *ngIf="signupForm.controls['password'].errors?.['maxlength'] &&
+                  signupForm.controls['password'].touched">Password must be max 12 characters
+                    </mat-error>
                   </mat-form-field>
                 </div>
 
                 <div class="col">
                   <mat-form-field class="full-width">
                     <mat-label>Confirm Password</mat-label>
-                    <input
-                      matInput type="password"
-                      formControlName="confirmPassword"
-                      placeholder="Confirm Password"
-                      name="confirmPassword"
-                    />
-                    <mat-error
-                    *ngIf="signupForm.controls['confirmPassword'].errors?.['required']  &&
-                    signupForm.controls['confirmPassword'].touched"
-                    >Confirm Password is required
-                  </mat-error>
-                    <mat-error
-                    *ngIf="signupForm.controls['confirmPassword'].errors?.['mustMatch'] &&
-                    signupForm.controls['confirmPassword'].touched"
-                    >Passwords must match
-                  </mat-error>
+                    <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm Password"
+                      name="confirmPassword" />
+                    <mat-error *ngIf="signupForm.controls['confirmPassword'].errors?.['required']  &&
+                    signupForm.controls['confirmPassword'].touched">Confirm Password is required
+                    </mat-error>
+                    <mat-error *ngIf="signupForm.controls['confirmPassword'].errors?.['mustMatch'] &&
+                    signupForm.controls['confirmPassword'].touched">Passwords must match
+                    </mat-error>
 
                   </mat-form-field>
                 </div>
@@ -103,24 +67,14 @@
                 <div class="col">
                   <mat-form-field class="full-width">
                     <mat-label>Email</mat-label>
-                    <input
-                      matInput
-                      placeholder="Email"
-                      formControlName="email"
-                      name="email"
-                      pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
-
-                    />
-                    <mat-error
-                    *ngIf="signupForm.controls['email'].errors?.['required']  &&
-                    signupForm.controls['email'].touched"
-                    >Email is required
-                  </mat-error>
-                  <mat-error
-                  *ngIf="signupForm.controls['email'].errors?.['pattern'] &&
-                  signupForm.controls['email'].touched"
-                  >Email must be a valid email address
-                </mat-error>
+                    <input matInput placeholder="Email" formControlName="email" name="email"
+                      pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+                    <mat-error *ngIf="signupForm.controls['email'].errors?.['required']  &&
+                    signupForm.controls['email'].touched">Email is required
+                    </mat-error>
+                    <mat-error *ngIf="signupForm.controls['email'].errors?.['pattern'] &&
+                  signupForm.controls['email'].touched">Email must be a valid email address
+                    </mat-error>
 
                   </mat-form-field>
                 </div>
@@ -128,22 +82,14 @@
                 <div class="col">
                   <mat-form-field>
                     <mat-label>Date of Birth</mat-label>
-                    <input
-                      matInput formControlName="dob" name="dob"
-                      [matDatepicker]="picker" [disabled] =true
-                      placeholder="Choose a date" [min]="minDate" [max]="maxDate"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
+                    <input matInput formControlName="dob" name="dob" [matDatepicker]="picker" [disabled]=true
+                      placeholder="Choose a date" [min]="minDate" [max]="maxDate" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker disabled="false"></mat-datepicker>
 
-                    <mat-error
-                    *ngIf="signupForm.controls['dob'].errors?.['required']  &&
-                    signupForm.controls['dob'].touched"
-                    >Date of Birth is required
-                  </mat-error>
+                    <mat-error *ngIf="signupForm.controls['dob'].errors?.['required']  &&
+                    signupForm.controls['dob'].touched">Date of Birth is required
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
@@ -152,21 +98,14 @@
                 <div class="col">
                   <mat-form-field class="full-width">
                     <mat-label>Phone No</mat-label>
-                    <input
-                      matInput type="number" pattern="^\d*[0-9]\d*$"
-                      placeholder="Phone No"
-                      formControlName="phoneNo"
-                      name="phoneNo" />
-                    <mat-error
-                    *ngIf="signupForm.controls['phoneNo'].errors?.['required'] &&
-                    signupForm.controls['phoneNo'].touched"
-                    >Phone No is required
-                  </mat-error>
-                  <mat-error
-                  *ngIf="signupForm.controls['phoneNo'].errors?.['pattern'] &&
-                  signupForm.controls['phoneNo'].touched"
-                  >Please, Enter 10 digit Mobile Number
-                </mat-error>
+                    <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
+                      formControlName="phoneNo" name="phoneNo" />
+                    <mat-error *ngIf="signupForm.controls['phoneNo'].errors?.['required'] &&
+                    signupForm.controls['phoneNo'].touched">Phone No is required
+                    </mat-error>
+                    <mat-error *ngIf="signupForm.controls['phoneNo'].errors?.['pattern'] &&
+                  signupForm.controls['phoneNo'].touched">Please, Enter 10 digit Mobile Number
+                    </mat-error>
 
                   </mat-form-field>
                 </div>
@@ -174,12 +113,8 @@
                   <section>
                     <label class="m-r-15">Empoyment:</label>
                     <mat-radio-group class="c-radio-group" formControlName="type" name="type" aria-label="Empoyment">
-                      <mat-radio-button class="c-radio-button" value="FTE"
-                        >Full time</mat-radio-button
-                      >
-                      <mat-radio-button class="c-radio-button" value="PTE"
-                        >Part time</mat-radio-button
-                      >
+                      <mat-radio-button class="c-radio-button" value="FTE">Full time</mat-radio-button>
+                      <mat-radio-button class="c-radio-button" value="PTE">Part time</mat-radio-button>
                     </mat-radio-group>
 
                   </section>
@@ -189,20 +124,12 @@
 
               <div class="clearfix">
                 <span class="float-left">
-                  <button class ="btn btn-lg"
-                    mat-flat-button
-                    color="primary"
-                    type="submit"
-                    mat-button>
+                  <button class="btn btn-lg" mat-flat-button color="primary" type="submit" mat-button>
                     Register
                   </button>
                 </span>
                 <span class="float-right">
-                  <button
-                    type="button"
-                    [routerLink]="['/login']"
-                    class="btn btn-lg btn-link"
-                  >
+                  <button type="button" [routerLink]="['/login']" class="btn btn-lg btn-link">
                     Back to Login
                   </button>
                 </span>
