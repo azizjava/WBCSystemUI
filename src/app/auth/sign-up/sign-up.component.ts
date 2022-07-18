@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 
-import { AuthenticationService,AlertService, } from '../../services';
+import { AuthenticationService, AlertService, } from '../../services';
 
-import { GlobalConstants} from '../../common/index';
+import { GlobalConstants } from '../../common/index';
 import { MustMatch } from 'src/app/helper/must-match.validator';
 import { findInvalidControls } from 'src/app/helper';
 
@@ -22,53 +22,65 @@ export class SignUpComponent implements OnInit {
   loading = false;
   minDate: Date;
   maxDate: Date;
+  userLanguages: any = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService
-    ) {
-      // redirect to home if already logged in
-      // if (this.authenticationService.currentUserValue) {
-      //   this.router.navigate(['/']);
-      // }
+  ) {
+    // redirect to home if already logged in
+    // if (this.authenticationService.currentUserValue) {
+    //   this.router.navigate(['/']);
+    // }
 
-     [this.minDate,this.maxDate] = GlobalConstants.commonFunction.getMinMaxDate();
+    [this.minDate, this.maxDate] = GlobalConstants.commonFunction.getMinMaxDate();
 
 
-    }
+  }
 
   ngOnInit(): void {
 
+    this.userLanguages = GlobalConstants.commonFunction.getUserLanguages();
+
     this.signupForm = this.fb.group({
-      firstName: ['', [Validators.required,Validators.maxLength(30)]],
-      lastName: ['', [Validators.required,Validators.maxLength(30)]],
-      email: ['', [Validators.required,Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(4),Validators.maxLength(15)]],
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required]],
-      phoneNo: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      phoneNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       dob: ['', [Validators.required]],
-      type: ['FTE']
+      language: ['', [Validators.required, Validators.maxLength(30)]],
     },
-    { validator: MustMatch('password', 'confirmPassword')}
+      { validator: MustMatch('password', 'confirmPassword') }
     );
+
+    this.setDefaultValue();
   }
 
-     // convenience getter for easy access to form fields
-     get f() { return this.signupForm.controls; }
+  setDefaultValue() {
+
+    this.signupForm.patchValue({
+      language: this.userLanguages[0].key
+    })
+  }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.signupForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
     if (!findInvalidControls(this.signupForm)) {
-        return;
+      return;
     }
 
     this.loading = true;
-    
-   //TODO Register new User
+
+    //TODO Register new User
     this.loading = false;
   }
 

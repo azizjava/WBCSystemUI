@@ -1,8 +1,7 @@
-
 <div class="signUpClass">
   <section class="vh-100">
     <div class="container py-3 h-100 overflow-auto">
-      <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="row d-flex align-items-center justify-content-center">
         <div class="col-md-8 col-lg-7 col-xl-6">
           <img src="/assets/images/Logo.jpg" class="rounded img-fluid" alt="Phone image">
         </div>
@@ -116,14 +115,14 @@
                     </mat-form-field>
                   </div>
                   <div class="col">
-                    <section>
-                      <label class="m-r-15">Empoyment:</label>
-                      <mat-radio-group class="c-radio-group" formControlName="type" name="type" aria-label="Empoyment">
-                        <mat-radio-button class="c-radio-button" value="FTE">Full time</mat-radio-button>
-                        <mat-radio-button class="c-radio-button" value="PTE">Part time</mat-radio-button>
-                      </mat-radio-group>
-
-                    </section>
+                    <mat-form-field class="full-width" appearance="fill">
+                      <mat-label>Select Language</mat-label>
+                      <mat-select formControlName="language" placeholder="Mode">
+                        <mat-option *ngFor="let lang of userLanguages" [value]="lang.key">
+                          {{lang.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
 
