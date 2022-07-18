@@ -20,4 +20,12 @@
     background: #eee;
   }
 
+  .readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+}
+
 }

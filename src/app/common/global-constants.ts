@@ -51,6 +51,14 @@ export class GlobalConstants {
             return menu;
         },
 
+        getUserRoles() {
+            let menu = [
+                { key: 'admin', value: 'Admin' },
+                { key: 'user', value: 'User' },
+            ];
+            return menu;
+        },
+
         getLeftNavMenuItemsList(): LeftMenuItem[] {
 
             return [{ menuName: 'Daily Transactions', menuIcon: '' }, { menuName: 'Customer', menuIcon: '', routePath: "customers" }, { menuName: 'Supplier', menuIcon: '', routePath: "suppliers" }, { menuName: 'Transporter', menuIcon: '', routePath: 'transporters' },

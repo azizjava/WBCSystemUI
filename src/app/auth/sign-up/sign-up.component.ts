@@ -23,6 +23,7 @@ export class SignUpComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   userLanguages: any = [];
+  userRoles: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +44,7 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
 
     this.userLanguages = GlobalConstants.commonFunction.getUserLanguages();
+    this.userRoles = GlobalConstants.commonFunction.getUserRoles();
 
     this.signupForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -53,6 +55,7 @@ export class SignUpComponent implements OnInit {
       phoneNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       dob: ['', [Validators.required]],
       language: ['', [Validators.required, Validators.maxLength(30)]],
+      role: ['', [Validators.required, Validators.maxLength(30)]],
     },
       { validator: MustMatch('password', 'confirmPassword') }
     );
@@ -63,7 +66,8 @@ export class SignUpComponent implements OnInit {
   setDefaultValue() {
 
     this.signupForm.patchValue({
-      language: this.userLanguages[0].key
+      language: this.userLanguages[0].key,
+      role: this.userRoles[1].key
     })
   }
 
