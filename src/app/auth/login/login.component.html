@@ -1,6 +1,6 @@
 <div class="loginClass">
     <section class="vh-100">
-        <div class="container py-3 h-100">
+        <div class="container py-3 h-100 overflow-auto">
             <div class="row d-flex align-items-center justify-content-center h-100">
                 <div class="col-md-8 col-lg-7 col-xl-6">
                     <img src="/assets/images/Logo.jpg" class="rounded img-fluid" alt="Phone image">
@@ -56,6 +56,11 @@
                         <button class="btn btn-lg btn-outline-primary w-100 align-bottom" type="submit">
                             <span  class="material-icons align-text-top">login</span> Login
                         </button>
+
+                         <!-- Sign Up button -->
+                        <div class="d-flex justify-content-center align-items-center mt-3 mb-3">
+                            <p class="text-center">Not a member? <a data-toggle="tab" [routerLink]="['/signup']">Sign Up</a></p>
+                        </div>
 
                     </form>
                 </div>
