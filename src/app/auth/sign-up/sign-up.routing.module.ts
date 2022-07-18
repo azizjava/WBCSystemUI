@@ -6,10 +6,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MaterialModule } from 'src/app/material.module';
-import { ForgotPasswordComponent } from './forgotpassword.component';
+import { SignUpComponent } from './sign-up.component';
 
 const routes: Routes = [
-  { path: '', component: ForgotPasswordComponent }
+  { path: '', component: SignUpComponent }
 ];
 
 
@@ -17,7 +17,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppForgotPasswordRoutingModule { }
+export class AppSignupRoutingModule { }
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -27,13 +27,13 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    ForgotPasswordComponent,
+    SignUpComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AppForgotPasswordRoutingModule,
+    AppSignupRoutingModule,
     MaterialModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
@@ -42,5 +42,5 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ]
 })
-export class AppForgotPasswordModule { }
+export class AppSignupModule { }
 
