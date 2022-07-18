@@ -13,6 +13,7 @@ import { SnackbarComponent } from './common/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { PageNotFoundComponent } from './auth/pagenotfound/pagenotfound.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -22,6 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
      SnackbarComponent,
+     PageNotFoundComponent
   ],
   imports: [
     CommonModule,

@@ -5,38 +5,35 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LoginComponent } from './auth/login/login.component';
-import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
-import { ModaldialogComponent } from './common/modaldialog/modaldialog.component';
-import { AuthGuard } from './helper';
-import { MaterialModule } from './material.module';
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+import { MaterialModule } from 'src/app/material.module';
+import { ForgotPasswordComponent } from './forgotpassword.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent }  
+  { path: '', component: ForgotPasswordComponent }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppLoginRoutingModule { }
+export class AppForgotPasswordRoutingModule { }
+
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    ModaldialogComponent,
-    ConfirmDialogComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AppLoginRoutingModule,
+    AppForgotPasswordRoutingModule,
     MaterialModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
