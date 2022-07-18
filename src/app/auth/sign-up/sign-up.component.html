@@ -126,18 +126,13 @@
                   </div>
                 </div>
 
-
-                <div class="clearfix">
-                  <span class="float-left">
-                    <button class="btn btn-lg" mat-flat-button color="primary" type="submit" mat-button>
-                      Register
-                    </button>
-                  </span>
-                  <span class="float-right">
-                    <button type="button" [routerLink]="['/login']" class="btn btn-lg btn-link">
-                      Back to Login
-                    </button>
-                  </span>
+                <div class="d-flex justify-content-between w-100 mt-3 mb-3">
+                  <button class="btn btn-lg" mat-flat-button color="primary" type="submit" mat-button>
+                    Register
+                  </button>
+                  <button type="button" [routerLink]="['/login']" class="btn btn-lg btn-link">
+                    Back to Login
+                  </button>
                 </div>
               </form>
             </mat-card-content>
