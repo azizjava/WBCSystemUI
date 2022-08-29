@@ -14,11 +14,12 @@ export class AppComponent {
 
   constructor(private translate: TranslateService,
     private authenticationService: AuthenticationService) {
+    this.setDefaultLang();
     this.authenticationService.currentUser.subscribe(x => {
       this.currentUser = x;
       this.translate.setDefaultLang(x?.language || 'en');
     });
-    this.setDefaultLang();
+   
   }
 
   private setDefaultLang() {
