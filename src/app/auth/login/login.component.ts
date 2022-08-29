@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService, AlertService } from '../../services';
 import { GlobalConstants } from '../../common/index';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -31,9 +32,9 @@ export class LoginComponent implements OnInit {
   ) {
 
     // redirect to home if already logged in
-    if (!GlobalConstants.commonFunction.isEmptyObject(this.authenticationService.currentUserValue)) {
-      this.router.navigate([GlobalConstants.ROUTE_URLS.dashboard]);
-    }
+    // if (!GlobalConstants.commonFunction.isEmptyObject(this.authenticationService.currentUserValue)) {
+    //   this.router.navigate([GlobalConstants.ROUTE_URLS.dashboard]);
+    // }
   }
 
   ngOnInit() {
@@ -75,8 +76,27 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.f['username'].value, this.f['password'].value, this.f['language'].value)
       .pipe(first())
       .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
+        (data:HttpResponse<any>) => {
+
+          // login successful if there's a jwt token in the response
+          if (data) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            // localStorage.setItem('currentUser', JSON.stringify(user));
+            // this.currentUserSubject.next(user);
+            // console.log(data);
+             console.log(data.headers.get('kamal'));
+             console.log(data.headers.get('Set-Cookie'));
+            // console.log(data.headers.get('X-Token'));
+
+        
+            
+
+             this.router.navigate([this.returnUrl]);
+
+
+          }
+
+         
         },
         error => {
           this.alertService.error(error);

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, skip } from 'rxjs/operators';
 
 import { User } from '../models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,16 @@ import { User } from '../models';
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  public baseURL : string;
+  private customHttpClient: HttpClient;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, backend: HttpBackend) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser') || '{}')
     );
     this.currentUser = this.currentUserSubject.asObservable();
+    this.baseURL = environment.baseURL;
+    this.customHttpClient = new HttpClient(backend);
   }
 
   public get currentUserValue(): User {
@@ -24,18 +29,21 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string, lang: string) {
-    return this.http
-      .post<any>(`/users/authenticate`, { username, password, lang })
-      .pipe(
-        map((user) => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-          }
 
-          return user;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'skip' : 'true'}),
+      observe: 'response' as 'response',
+    };
+    return this.customHttpClient
+      .post<any>(`${this.baseURL}/auth/signin`, { username, password }, httpOptions)
+      .pipe(
+        map((response) => {
+           // store user details and jwt token in local storage to keep user logged in between page refreshes
+           if (response) {
+            this.createUserObj(response?.body,lang);
+           }
+            
+            return (<any>response)._body === '' ? {} : response as any;
         })
       );
   }
@@ -47,7 +55,7 @@ export class AuthenticationService {
   }
   forgotPassword(username:string){
 
-    return this.http
+    return this.customHttpClient
       .post<any>(`/users/forgotPassword`, { username })
       .pipe(
         map((user) => {
@@ -61,5 +69,39 @@ export class AuthenticationService {
       );
 
 
+  }
+
+  createUserObj(data: any,lang: string): void{
+    const user: User = {
+      id: data.id,
+      email: data.email,
+      username: data.username,
+      firstName:data.username,
+      lastName:data.username,
+      language:lang,
+      token:data.jwtToken,
+      password:''
+    };
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
+  getTransportersList() {
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    return this.http
+      .post<any>(`${this.baseURL}/transporter/listAllTransporter`,  httpOptions)
+      .pipe(
+        map((response) => {
+          
+           // store user details and jwt token in local storage to keep user logged in between page refreshes
+          
+           console.log(response);
+            
+            return (<any>response)._body === '' ? {} : response as any;
+        })
+      );
   }
 }

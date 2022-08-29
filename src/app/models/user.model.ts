@@ -6,6 +6,7 @@ export class User {
     lastName!: string;
     token!: string;
     language!:string;
+    username!:string;
 }
 
 export interface tableOperation {

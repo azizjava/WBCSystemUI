@@ -47,6 +47,13 @@ export class DashboardComponent implements OnInit {
             });
         }
 
+        this.authenticationService.getTransportersList()
+            .pipe()
+            .subscribe(
+              (data:any) => {
+                console.log(data)
+              });
+
         this.currentYear = GlobalConstants.commonFunction.getCurrentYear();
 
         this.getMenuItemsList();
