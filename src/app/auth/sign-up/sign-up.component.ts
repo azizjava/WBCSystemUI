@@ -47,13 +47,11 @@ export class SignUpComponent implements OnInit {
     this.userRoles = GlobalConstants.commonFunction.getUserRoles();
 
     this.signupForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.maxLength(30)]],
-      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      userName: ['', [Validators.required, Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required]],
-      phoneNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      dob: ['', [Validators.required]],
+      phoneNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],      
       language: ['', [Validators.required, Validators.maxLength(30)]],
       role: ['', [Validators.required, Validators.maxLength(30)]],
     },
