@@ -15,23 +15,14 @@
                 <div class="row mb-2">
                   <div class="col">
                     <mat-form-field class="full-width">
-                      <mat-label>First Name</mat-label>
-                      <input matInput placeholder="First name" formControlName="firstName" name="firstName" />
-                      <mat-error *ngIf="signupForm.controls['firstName'].errors?.['required'] &&
-                              signupForm.controls['firstName'].touched">First Name is required
+                      <mat-label>User Name</mat-label>
+                      <input matInput placeholder="First name" formControlName="userName" name="userName" />
+                      <mat-error *ngIf="signupForm.controls['userName'].errors?.['required'] &&
+                              signupForm.controls['userName'].touched">User Name is required
                       </mat-error>
                     </mat-form-field>
                   </div>
-
-                  <div class="col">
-                    <mat-form-field class="full-width">
-                      <mat-label>Last Name</mat-label>
-                      <input matInput placeholder="Last Name" formControlName="lastName" name="lastName" />
-                      <mat-error *ngIf="signupForm.controls['lastName'].errors?.['required'] &&
-                              signupForm.controls['lastName'].touched">Last Name is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+               
                 </div>
 
                 <div class="row mb-2">
@@ -85,22 +76,6 @@
                   </div>
 
                   <div class="col">
-                    <mat-form-field>
-                      <mat-label>Date of Birth</mat-label>
-                      <input matInput formControlName="dob" name="dob" [matDatepicker]="picker" [disabled]=true
-                        placeholder="Choose a date" [min]="minDate" [max]="maxDate" />
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker disabled="false"></mat-datepicker>
-
-                      <mat-error *ngIf="signupForm.controls['dob'].errors?.['required']  &&
-                              signupForm.controls['dob'].touched">Date of Birth is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-
-                <div class="row mb-2">
-                  <div class="col">
                     <mat-form-field class="full-width">
                       <mat-label>Phone No</mat-label>
                       <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
@@ -114,6 +89,9 @@
 
                     </mat-form-field>
                   </div>
+                </div>
+
+                <div class="row mb-2">              
                   <div class="col">
                     <mat-form-field class="full-width" appearance="fill">
                       <mat-label>Select Language</mat-label>
@@ -124,10 +102,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                </div>
 
-
-                <div class="row mb-2">
                   <div class="col">
                     <mat-form-field class="full-width" appearance="fill" class="readonly-wrapper">
                       <mat-label>User Role</mat-label>
