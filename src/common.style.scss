@@ -126,3 +126,17 @@ body {
 
 .text-center {
   text-align: center !important; }
+
+  .cursor-pointer {
+    cursor: pointer;
+ }
+
+ .disable:hover{
+  cursor: not-allowed;
+}
+.disable:active{
+  pointer-events: none;
+}
+mat-icon.disable {
+  filter:opacity(0.5);
+}

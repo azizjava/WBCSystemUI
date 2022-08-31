@@ -1,23 +1,48 @@
 
-  .transactions {
+  .transactiondata {
 
   
-    .full-with-dialog {
-      position: relative;
-      overflow: auto;
-      width: 500px;
-    
-      @media (max-width: 568px) {
-        width: 440px;
-      }
-    
-      @media (max-width: 468px) {
-        width: 340px;
-      }
-    
-      @media (max-width: 368px) {
-        width: 300px;
-      }
+    /* Prevent image stretching as it's resized */
+    .card-img-top {
+        object-fit: cover;
     }
+    
+    /* Make all cards in row the same height */
+    .row {
+       display: flex;
+       flex-wrap: wrap;
+    }
+    
+    .row > div[class*='col-'] {
+      display: flex;
+    }
+    
+    
+       
+    
+    .card-layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30rem;
 
+
+      .item {
+        width: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .item-center { 
+        flex-grow: 1;
+      }
+      
+      .item + .item { 
+        margin-left: 2%; 
+      }
+  
+    }
+    
+    
   }

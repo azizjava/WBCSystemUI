@@ -1,5 +1,27 @@
-<div class="transporters">
-    <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
-      [componentName] ="'transporters'" [visibleColumns]='visibleColumns' [placeholderText]="staticText.searchPlaceholder"
-        (actionEvent)="selectedRecord($event)"></app-list-table>
-</div>
+<div class="transactiondata">
+
+  <div class="card-layout">
+
+    <div class="item">
+      <mat-icon class="material-icons" [ngClass]="{'disable':actionItem.isFirst}" [attr.disabled]="actionItem.isFirst" (click)="changeCard(false)">
+        arrow_back
+      </mat-icon>
+    </div>
+
+    <div class="item-center">
+      <div class="card">
+        <div class="card-body">
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="item">
+      <mat-icon class="material-icons cursor-pointer" [ngClass]="{'disable':actionItem.isLast}" [attr.disabled]="actionItem.isLast" (click)="changeCard(true)">
+        arrow_forward
+      </mat-icon>
+    </div>
+  </div>
+ 
+  
+</div>   
