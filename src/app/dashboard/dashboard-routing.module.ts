@@ -8,6 +8,7 @@ const routes: Routes = [
     children: [
       { path: 'nationality', loadChildren: () => import('../nationality/nationality.module').then(m => m.NationalityModule) },
       { path: 'transporters', loadChildren: () => import('../transporters/transporters.module').then(m => m.TransportersModule) },
+      { path: 'transactions', loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule) },
       { path: 'vehicle', loadChildren: () => import('../vehicle/vehicle.module').then(m => m.VehicleModule) },
       { path: 'products', loadChildren: () => import('../products/products.module').then(m => m.ProductsModule) },
       { path: 'productgroup', loadChildren: () => import('../productsgroup/productgroups.module').then(m => m.ProductGroupsModule) },
