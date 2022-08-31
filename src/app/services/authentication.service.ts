@@ -75,9 +75,7 @@ export class AuthenticationService {
     const user: User = {
       id: data.id,
       email: data.email,
-      username: data.username,
-      firstName:data.username,
-      lastName:data.username,
+      userName: data.username,
       language:lang,
       token:data.jwtToken,
       password:''

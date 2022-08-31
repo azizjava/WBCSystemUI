@@ -1,12 +1,11 @@
 export class User {
     id!: number;
     email!: string;
-    password!: string;
-    firstName!: string;
-    lastName!: string;
+    password!: string;  
     token!: string;
     language!:string;
-    username!:string;
+    userName!:string;
+    registeredDate?:Date;
 }
 
 export interface tableOperation {

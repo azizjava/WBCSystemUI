@@ -65,26 +65,16 @@
                     <div class="col">
                       <mat-form-field class="full-width">
                         <mat-label>First Name</mat-label>
-                        <input matInput placeholder="First name" formControlName="firstName" name="firstName" />
-                        <mat-error *ngIf="dialogForm.controls['firstName'].errors && 
-                                dialogForm.controls['firstName'].errors['required'] &&
-                                dialogForm.controls['firstName'].touched
-                              ">First Name is required
+                        <input matInput placeholder="User name" formControlName="userName" name="userName" />
+                        <mat-error *ngIf="dialogForm.controls['userName'].errors && 
+                                dialogForm.controls['userName'].errors['required'] &&
+                                dialogForm.controls['userName'].touched
+                              ">User Name is required
                         </mat-error>
                       </mat-form-field>
                     </div>
 
-                    <div class="col">
-                      <mat-form-field class="full-width">
-                        <mat-label>Last Name</mat-label>
-                        <input matInput placeholder="Last Name" formControlName="lastName" name="lastName" />
-                        <mat-error *ngIf="dialogForm.controls['lastName'].errors && 
-                                dialogForm.controls['lastName'].errors['required'] &&
-                                dialogForm.controls['lastName'].touched
-                              ">Last Name is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
+                    
                   </div>
 
                   <div class="row mb-2">
@@ -105,21 +95,7 @@
                       </mat-form-field>
                     </div>
 
-                    <div class="col">
-                      <mat-form-field>
-                        <mat-label>Date of Birth</mat-label>
-                        <input matInput formControlName="dob" name="dob" [min]="minDate" [max]="maxDate"
-                          [matDatepicker]="picker" placeholder="Choose a date" />
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker disabled="false"></mat-datepicker>
-
-                        <mat-error *ngIf="dialogForm.controls['dob'].errors &&
-                                dialogForm.controls['dob'].errors['required'] &&
-                                dialogForm.controls['dob'].touched
-                              ">Date of Birth is required
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
+                    
                   </div>
 
                   <div class="row mb-2">

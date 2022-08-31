@@ -51,17 +51,14 @@ export class ModaldialogComponent implements OnInit {
 
       this.dialogForm = this.fb.group(
         {
-          firstName: ['', [Validators.required, Validators.maxLength(30)]],
-          lastName: ['', [Validators.required, Validators.maxLength(30)]],
+          userName: ['', [Validators.required, Validators.maxLength(30)]],
           email: ['', [Validators.required, Validators.email]],
           phoneNo: ['',[Validators.required,Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
-          dob: ['', [Validators.required]],
           language: ['', [Validators.required]],
         });
 
    // Set Values
-   this.dialogForm.controls["firstName"].setValue(this.currentUser?.firstName);
-   this.dialogForm.controls["lastName"].setValue(this.currentUser?.lastName);
+   this.dialogForm.controls["firstName"].setValue(this.currentUser?.userName);
    this.dialogForm.controls["email"].setValue(this.currentUser?.email);
    this.dialogForm.controls["language"].setValue(this.currentUser?.language);
   }

@@ -19,9 +19,7 @@ export class SignUpComponent implements OnInit {
 
   signupForm: FormGroup;
   submitted = false;
-  loading = false;
-  minDate: Date;
-  maxDate: Date;
+  loading = false;  
   userLanguages: any = [];
   userRoles: any = [];
 
@@ -35,10 +33,6 @@ export class SignUpComponent implements OnInit {
     // if (this.authenticationService.currentUserValue) {
     //   this.router.navigate(['/']);
     // }
-
-    [this.minDate, this.maxDate] = GlobalConstants.commonFunction.getMinMaxDate();
-
-
   }
 
   ngOnInit(): void {
