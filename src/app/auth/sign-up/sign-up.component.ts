@@ -22,6 +22,7 @@ export class SignUpComponent implements OnInit {
   loading = false;  
   userLanguages: any = [];
   userRoles: any = [];
+  passwordResetQuestion: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +40,7 @@ export class SignUpComponent implements OnInit {
 
     this.userLanguages = GlobalConstants.commonFunction.getUserLanguages();
     this.userRoles = GlobalConstants.commonFunction.getUserRoles();
+    this.passwordResetQuestion = GlobalConstants.commonFunction.getPasswordResetQuestion();
 
     this.signupForm = this.fb.group({
       userName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -48,6 +50,7 @@ export class SignUpComponent implements OnInit {
       phoneNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],      
       language: ['', [Validators.required, Validators.maxLength(30)]],
       role: ['', [Validators.required, Validators.maxLength(30)]],
+      passwordResetQuestion: ['', [Validators.required, Validators.maxLength(250)]],
     },
       { validator: MustMatch('password', 'confirmPassword') }
     );

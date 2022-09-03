@@ -75,7 +75,18 @@ export class GlobalConstants {
             let newId = inputData[inputData.length - 1]?.Id || 0;
             newId = newId +1;
             return newId;
-        }
+        },
+
+        getPasswordResetQuestion(): any[] {
+            let menu = [
+                { key: 'Q1', value: 'What was the name of your first manager at your first job?' },
+                { key: 'Q2', value: 'What was your favorite subject in high school?' },
+                { key: 'Q3', value: 'What is your employee ID number?' },
+                { key: 'Q4', value: 'Where did you go on your favorite vacation as a child?' },
+                { key: 'Q5', value: 'What is the name of the road you grew up on?' },
+            ];
+            return menu;
+        },
 
 
     };
