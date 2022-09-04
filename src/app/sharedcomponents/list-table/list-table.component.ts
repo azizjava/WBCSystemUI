@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { tableOperation } from 'src/app/models';
     templateUrl: './list-table.component.html',
     styleUrls: ['./list-table.component.scss']
 })
-export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
 
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -61,11 +61,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnDestroy {
     public ngAfterViewInit(): void {
         this.dataSource.paginator = this.paginator;
         this.dataSource.paginator._intl.itemsPerPageLabel = this.translate.instant("common.itemsperpagelabel");
-    }
-
-    public ngOnDestroy(): void {
-
-    }
+    }   
 
     public selectedRecord(row: any, action: string) {
         const data: tableOperation = { data: row, action: action };

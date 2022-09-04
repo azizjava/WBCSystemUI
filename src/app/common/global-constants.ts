@@ -88,6 +88,35 @@ export class GlobalConstants {
             return menu;
         },
 
+        getNationalityList():any[] {
+
+            let menu = [
+              {
+                Id: '1',
+                Nationality: 'Indian',
+              },
+              {
+                Id: '2',
+                Nationality: 'Pakistani',
+              },
+              {
+                Id: '3',
+                Nationality: 'Saudi',
+              },
+              {
+                Id: '4',
+                Nationality: 'Syrian',
+              },
+
+              {
+                Id: '5',
+                Nationality: 'Turk',
+              },
+            ];
+
+            return menu;
+        }
+
 
     };
 }

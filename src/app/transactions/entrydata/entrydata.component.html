@@ -2,24 +2,67 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Code</mat-label>
-          <input matInput placeholder="Transporter Code" formControlName="code" name="code" />
-          <mat-error *ngIf="entryForm.controls['code'].errors && 
-          entryForm.controls['code'].errors['required'] &&
-          entryForm.controls['code'].touched
-                ">Transporter Code is required
+          <mat-label>Vehicle Plate No</mat-label>
+          <mat-select formControlName="vehicleNo" placeholder="Mode">
+            <mat-option *ngFor="let option of vehicleList" [value]="option.Id">
+              {{option.PlateNo}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="entryForm.controls['vehicleNo'].errors && 
+          entryForm.controls['vehicleNo'].errors['required'] &&
+          entryForm.controls['vehicleNo'].touched
+                ">Vehicle Plate No is required
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Name" formControlName="name" name="name" />
-          <mat-error *ngIf="entryForm.controls['name'].errors && 
-          entryForm.controls['name'].errors['required'] &&
-          entryForm.controls['name'].touched
-                ">Name is required
+          <mat-label>Transporter</mat-label>
+          <mat-select formControlName="transporter" placeholder="Mode">
+            <mat-option *ngFor="let option of transportersList" [value]="option.Id">
+              {{option.Code}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="entryForm.controls['transporter'].errors && 
+          entryForm.controls['transporter'].errors['required'] &&
+          entryForm.controls['transporter'].touched
+                ">Transporter is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div class="row mb-2">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Supplier</mat-label>
+          <mat-select formControlName="supplier" placeholder="Mode">
+            <mat-option *ngFor="let option of suppliersList" [value]="option.Id">
+              {{option.Code}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="entryForm.controls['supplier'].errors && 
+          entryForm.controls['supplier'].errors['required'] &&
+          entryForm.controls['supplier'].touched
+                ">Supplier is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Product</mat-label>
+          <mat-select formControlName="products" placeholder="Mode">
+            <mat-option *ngFor="let option of productsList" [value]="option.Id">
+              {{option.Code}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="entryForm.controls['products'].errors && 
+          entryForm.controls['products'].errors['required'] &&
+          entryForm.controls['products'].touched
+                ">Product is required
           </mat-error>
         </mat-form-field>
       </div>
@@ -28,97 +71,131 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Contact Person</mat-label>
-          <input matInput placeholder="Contact Person" formControlName="contactPerson" name="contactPerson" />
-          <mat-error *ngIf="entryForm.controls['contactPerson'].errors &&
-          entryForm.controls['contactPerson'].errors['required'] &&
-          entryForm.controls['contactPerson'].touched
-                ">Contact Person is required
+          <mat-label>Operator ID</mat-label>
+          <mat-select formControlName="operator" placeholder="Mode">
+            <mat-option *ngFor="let option of operatorIDList" [value]="option.Id">
+              {{option.Code}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="entryForm.controls['operator'].errors && 
+          entryForm.controls['operator'].errors['required'] &&
+          entryForm.controls['operator'].touched
+                ">Operator ID is required
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Mobile No</mat-label>
-          <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Mobile No"
-            formControlName="mobileNo" name="mobileNo" />
-          <mat-error *ngIf="entryForm.controls['mobileNo'].errors &&
-          entryForm.controls['mobileNo'].errors['mobileNo'] &&
-          entryForm.controls['mobileNo'].touched
-                ">Mobile No is required
-          </mat-error>
-          <mat-error *ngIf="entryForm.controls['mobileNo'].errors &&
-          entryForm.controls['mobileNo'].errors['pattern'] &&
-          entryForm.controls['mobileNo'].touched
-                ">Please, Enter 10 digit Mobile Number
+          <mat-label>Nationality</mat-label>
+          <mat-select formControlName="nationality" placeholder="Mode">
+            <mat-option *ngFor="let option of nationalityList" [value]="option.Id">
+              {{option.Nationality}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="entryForm.controls['nationality'].errors && 
+          entryForm.controls['nationality'].errors['required'] &&
+          entryForm.controls['nationality'].touched
+                ">Nationality is required
           </mat-error>
         </mat-form-field>
       </div>
-   
     </div>
-
-
+    
     <div class="row mb-2">
-        <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Phone No</mat-label>
-              <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
-                formControlName="phoneNo" name="phoneNo" />
-              <mat-error *ngIf="entryForm.controls['phoneNo'].errors &&
-              entryForm.controls['phoneNo'].errors['required'] &&
-              entryForm.controls['phoneNo'].touched
-                    ">Phone No is required
-              </mat-error>
-             
-            </mat-form-field>
-          </div>
-  
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Fax No</mat-label>
-            <input matInput   placeholder="Fax No"
-              formControlName="faxNo" name="faxNo" />
-            <mat-error *ngIf="entryForm.controls['faxNo'].errors &&
-            entryForm.controls['faxNo'].errors['required'] &&
-            entryForm.controls['faxNo'].touched
-                  ">Fax No is required
-            </mat-error>
-          
-          </mat-form-field>
-        </div>
-     
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>No.of Pieces</mat-label>
+          <input matInput placeholder="No.of Pieces"
+            formControlName="pieces" name="pieces" />
+          <mat-error *ngIf="entryForm.controls['pieces'].errors &&
+          entryForm.controls['pieces'].errors['required'] &&
+          entryForm.controls['pieces'].touched
+                ">Pieces is required
+          </mat-error>         
+        </mat-form-field>
       </div>
+
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Driver Name</mat-label>
+          <input matInput placeholder="Driver Name"
+            formControlName="driverName" name="driverName" />
+          <mat-error *ngIf="entryForm.controls['driverName'].errors &&
+          entryForm.controls['driverName'].errors['required'] &&
+          entryForm.controls['driverName'].touched
+                ">Driver Name is required
+          </mat-error>         
+        </mat-form-field>
+      </div>     
+    </div>
 
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Address</mat-label>
-          <input matInput placeholder="Address"
-            formControlName="address" name="address" />
-          <mat-error *ngIf="entryForm.controls['address'].errors &&
-          entryForm.controls['address'].errors['required'] &&
-          entryForm.controls['address'].touched
-                ">Phone No is required
-          </mat-error>
-         
+          <mat-label>Driver Licence No.</mat-label>
+          <input matInput placeholder="Driver Licence No."
+            formControlName="licenceNo" name="pieces" />
+          <mat-error *ngIf="entryForm.controls['licenceNo'].errors &&
+          entryForm.controls['licenceNo'].errors['required'] &&
+          entryForm.controls['licenceNo'].touched
+                ">Driver Licence No is required
+          </mat-error>         
         </mat-form-field>
       </div>
-     
 
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>First Weight</mat-label>
+          <input matInput placeholder="First Weight"
+            formControlName="firstWeight" name="firstWeight" />
+          <mat-error *ngIf="entryForm.controls['firstWeight'].errors &&
+          entryForm.controls['firstWeight'].errors['required'] &&
+          entryForm.controls['firstWeight'].touched
+                ">First Weight is required
+          </mat-error>         
+        </mat-form-field>
+      </div>     
     </div>
 
+    <div class="row mb-2">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Date In</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateIn" name="dateIn">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="entryForm.controls['dateIn'].errors &&
+          entryForm.controls['dateIn'].errors['required'] &&
+          entryForm.controls['dateIn'].touched
+                ">In Date is required
+          </mat-error>         
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Time In</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="timeIn" name="timeIn">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="entryForm.controls['timeIn'].errors &&
+          entryForm.controls['timeIn'].errors['required'] &&
+          entryForm.controls['timeIn'].touched
+                ">In Time is required
+          </mat-error>         
+        </mat-form-field>
+      </div>
+    </div>
     
 
     <div class="d-flex justify-content-between w-100">
 
-      <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
+      <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
         Save
-      </button>
-
-      <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-        Cancel
-      </button>
+      </button>    
 
     </div>
   </form>

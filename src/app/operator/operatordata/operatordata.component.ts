@@ -6,7 +6,7 @@ import { modelDialog, Operator, } from 'src/app/models';
 
 
 @Component({
-  selector: 'app-operatorData',
+  selector: 'app-operatordata',
   templateUrl: './operatorData.component.html',
   styleUrls: ['./operatorData.component.scss']
 })
