@@ -1,12 +1,12 @@
-<form class="transactiondata-form" [formGroup]="transporterForm">
+<form class="entryData-form" [formGroup]="entryForm">
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
           <mat-label>Code</mat-label>
           <input matInput placeholder="Transporter Code" formControlName="code" name="code" />
-          <mat-error *ngIf="transporterForm.controls['code'].errors && 
-          transporterForm.controls['code'].errors['required'] &&
-          transporterForm.controls['code'].touched
+          <mat-error *ngIf="entryForm.controls['code'].errors && 
+          entryForm.controls['code'].errors['required'] &&
+          entryForm.controls['code'].touched
                 ">Transporter Code is required
           </mat-error>
         </mat-form-field>
@@ -16,9 +16,9 @@
         <mat-form-field class="full-width">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Name" formControlName="name" name="name" />
-          <mat-error *ngIf="transporterForm.controls['name'].errors && 
-          transporterForm.controls['name'].errors['required'] &&
-          transporterForm.controls['name'].touched
+          <mat-error *ngIf="entryForm.controls['name'].errors && 
+          entryForm.controls['name'].errors['required'] &&
+          entryForm.controls['name'].touched
                 ">Name is required
           </mat-error>
         </mat-form-field>
@@ -30,9 +30,9 @@
         <mat-form-field class="full-width">
           <mat-label>Contact Person</mat-label>
           <input matInput placeholder="Contact Person" formControlName="contactPerson" name="contactPerson" />
-          <mat-error *ngIf="transporterForm.controls['contactPerson'].errors &&
-          transporterForm.controls['contactPerson'].errors['required'] &&
-          transporterForm.controls['contactPerson'].touched
+          <mat-error *ngIf="entryForm.controls['contactPerson'].errors &&
+          entryForm.controls['contactPerson'].errors['required'] &&
+          entryForm.controls['contactPerson'].touched
                 ">Contact Person is required
           </mat-error>
         </mat-form-field>
@@ -43,14 +43,14 @@
           <mat-label>Mobile No</mat-label>
           <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Mobile No"
             formControlName="mobileNo" name="mobileNo" />
-          <mat-error *ngIf="transporterForm.controls['mobileNo'].errors &&
-          transporterForm.controls['mobileNo'].errors['mobileNo'] &&
-          transporterForm.controls['mobileNo'].touched
+          <mat-error *ngIf="entryForm.controls['mobileNo'].errors &&
+          entryForm.controls['mobileNo'].errors['mobileNo'] &&
+          entryForm.controls['mobileNo'].touched
                 ">Mobile No is required
           </mat-error>
-          <mat-error *ngIf="transporterForm.controls['mobileNo'].errors &&
-          transporterForm.controls['mobileNo'].errors['pattern'] &&
-          transporterForm.controls['mobileNo'].touched
+          <mat-error *ngIf="entryForm.controls['mobileNo'].errors &&
+          entryForm.controls['mobileNo'].errors['pattern'] &&
+          entryForm.controls['mobileNo'].touched
                 ">Please, Enter 10 digit Mobile Number
           </mat-error>
         </mat-form-field>
@@ -65,9 +65,9 @@
               <mat-label>Phone No</mat-label>
               <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
                 formControlName="phoneNo" name="phoneNo" />
-              <mat-error *ngIf="transporterForm.controls['phoneNo'].errors &&
-              transporterForm.controls['phoneNo'].errors['required'] &&
-              transporterForm.controls['phoneNo'].touched
+              <mat-error *ngIf="entryForm.controls['phoneNo'].errors &&
+              entryForm.controls['phoneNo'].errors['required'] &&
+              entryForm.controls['phoneNo'].touched
                     ">Phone No is required
               </mat-error>
              
@@ -79,9 +79,9 @@
             <mat-label>Fax No</mat-label>
             <input matInput   placeholder="Fax No"
               formControlName="faxNo" name="faxNo" />
-            <mat-error *ngIf="transporterForm.controls['faxNo'].errors &&
-            transporterForm.controls['faxNo'].errors['required'] &&
-            transporterForm.controls['faxNo'].touched
+            <mat-error *ngIf="entryForm.controls['faxNo'].errors &&
+            entryForm.controls['faxNo'].errors['required'] &&
+            entryForm.controls['faxNo'].touched
                   ">Fax No is required
             </mat-error>
           
@@ -96,9 +96,9 @@
           <mat-label>Address</mat-label>
           <input matInput placeholder="Address"
             formControlName="address" name="address" />
-          <mat-error *ngIf="transporterForm.controls['address'].errors &&
-          transporterForm.controls['address'].errors['required'] &&
-          transporterForm.controls['address'].touched
+          <mat-error *ngIf="entryForm.controls['address'].errors &&
+          entryForm.controls['address'].errors['required'] &&
+          entryForm.controls['address'].touched
                 ">Phone No is required
           </mat-error>
          

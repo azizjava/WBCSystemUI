@@ -6,21 +6,21 @@ import { modelDialog, Transporter } from 'src/app/models';
 
 
 @Component({
-  selector: 'app-transactiondata',
-  templateUrl: './transactiondata.component.html',
-  styleUrls: ['./transactiondata.component.scss']
+  selector: 'app-transactionentrydata',
+  templateUrl: './entryData.component.html',
+  styleUrls: ['./entryData.component.scss']
 })
-export class TransactiondataComponent implements OnInit {
+export class entryDataComponent implements OnInit {
 
-  transporterForm: FormGroup;
+  entryForm: FormGroup;
   transporterUser!: Transporter;
 
-  constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<TransactiondataComponent>,
+  constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<entryDataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog) { }
 
   ngOnInit(): void {
 
-    this.transporterForm = this._formBuilder.group(
+    this.entryForm = this._formBuilder.group(
       {
         code: ['', [Validators.required, Validators.maxLength(30)]],
         name: ['', [Validators.required, Validators.maxLength(30)]],
@@ -35,16 +35,16 @@ export class TransactiondataComponent implements OnInit {
 
     if (this.data.actionName !== 'add') {
       this.transporterUser = this.data.data;
-      this.transporterForm.controls["code"].setValue(this.transporterUser?.Code);
-      this.transporterForm.controls["name"].setValue(this.transporterUser?.Name);
-      this.transporterForm.controls["contactPerson"].setValue(this.transporterUser?.ContactPerson);
-      this.transporterForm.controls["mobileNo"].setValue(this.transporterUser?.MobileNo);
-      this.transporterForm.controls["phoneNo"].setValue(this.transporterUser?.PhoneNo);
-      this.transporterForm.controls["faxNo"].setValue(this.transporterUser?.FaxNo);
-      this.transporterForm.controls["address"].setValue(this.transporterUser?.Address);
+      this.entryForm.controls["code"].setValue(this.transporterUser?.Code);
+      this.entryForm.controls["name"].setValue(this.transporterUser?.Name);
+      this.entryForm.controls["contactPerson"].setValue(this.transporterUser?.ContactPerson);
+      this.entryForm.controls["mobileNo"].setValue(this.transporterUser?.MobileNo);
+      this.entryForm.controls["phoneNo"].setValue(this.transporterUser?.PhoneNo);
+      this.entryForm.controls["faxNo"].setValue(this.transporterUser?.FaxNo);
+      this.entryForm.controls["address"].setValue(this.transporterUser?.Address);
 
       if (this.data.actionName === 'view') {
-         this.transporterForm.disable();
+         this.entryForm.disable();
         }
 
     }
@@ -58,10 +58,10 @@ export class TransactiondataComponent implements OnInit {
 
   save() {
     // stop here if form is invalid
-    if (!findInvalidControls(this.transporterForm)) {
+    if (!findInvalidControls(this.entryForm)) {
       return;
     }
-    this.dialogRef.close(this.transporterForm.value);
+    this.dialogRef.close(this.entryForm.value);
   }
 
 }

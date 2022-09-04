@@ -8,7 +8,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsComponent } from './transactions.component';
-import { TransactiondataComponent } from './transactiondata/transactiondata.component';
+import { entryDataComponent } from './entrydata/entrydata.component';
 import { TransactionsRoutingModule } from './transactions-routing.module';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -19,7 +19,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     TransactionsComponent,
-    TransactiondataComponent
+    entryDataComponent,
   ],
   imports: [
     CommonModule,

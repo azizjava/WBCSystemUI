@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransactiondataComponent } from './transactiondata.component';
+import { entryDataComponent } from './entrydata.component';
 
 describe('TransactiondataComponent', () => {
-  let component: TransactiondataComponent;
-  let fixture: ComponentFixture<TransactiondataComponent>;
+  let component: entryDataComponent;
+  let fixture: ComponentFixture<entryDataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransactiondataComponent ]
+      declarations: [ entryDataComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransactiondataComponent);
+    fixture = TestBed.createComponent(entryDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
