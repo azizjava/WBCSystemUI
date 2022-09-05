@@ -11,7 +11,11 @@
     <div class="item-center">
       <div class="card">
         <div class="card-body">
-          <app-transactionentrydata></app-transactionentrydata>
+
+          <app-transactionentrydata *ngIf="actionItem.isFirst"></app-transactionentrydata>
+
+          <app-transactionexitdata *ngIf="actionItem.isLast"></app-transactionexitdata>
+          
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsComponent } from './transactions.component';
 import { entryDataComponent } from './entrydata/entrydata.component';
 import { TransactionsRoutingModule } from './transactions-routing.module';
+import { exitDataComponent } from './exitdata/exitdata.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -20,6 +21,7 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     TransactionsComponent,
     entryDataComponent,
+    exitDataComponent,
   ],
   imports: [
     CommonModule,
