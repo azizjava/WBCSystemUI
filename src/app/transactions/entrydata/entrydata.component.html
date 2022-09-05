@@ -177,10 +177,10 @@
       <div class="col">
         <mat-form-field appearance="fill">
           <mat-label>Time In</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="timeIn" name="timeIn">
+          <input matInput [matDatepicker]="picker1" formControlName="timeIn" name="timeIn">
           <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="entryForm.controls['timeIn'].errors &&
           entryForm.controls['timeIn'].errors['required'] &&
           entryForm.controls['timeIn'].touched
