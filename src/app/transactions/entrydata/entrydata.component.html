@@ -1,12 +1,12 @@
 <form class="entryData-form" [formGroup]="entryForm">
 
   <div class="row mb-2">
-    <div class="col">     
+    <div class="col-6">     
       <div class="form-group row">
-        <label for="sequenceNo" class="col-sm-5 col-form-label">Sequence No</label>
-        <div class="col-sm-7">  
+        <label for="sequenceNo" class="col-sm-6 col-form-label clsLbl d-none d-md-block">Sequence No</label>
+        <div class="col-sm-6">  
             <mat-form-field class="full-width">
-              <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo" class="clsLbl" />
+              <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo"  />
               <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
                     entryForm.controls['sequenceNo'].errors['required'] &&
                     entryForm.controls['sequenceNo'].touched
@@ -17,9 +17,9 @@
       </div>
     </div>
 
-    <div class="col">
+    <div class="col-6">
       <mat-form-field class="full-width">
-        <mat-select [(value)]="selectedGood">
+        <mat-select [(value)]="selectedGood" (selectionChange)="onChange($event)">
           <mat-option *ngFor="let option of goodsList" [value]="option.key">
             {{option.value}}
           </mat-option>

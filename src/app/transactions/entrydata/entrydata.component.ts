@@ -8,8 +8,8 @@ import { modelDialog, Transporter } from 'src/app/models';
 
 @Component({
   selector: 'app-transactionentrydata',
-  templateUrl: './entryData.component.html',
-  styleUrls: ['./entryData.component.scss']
+  templateUrl: './entrydata.component.html',
+  styleUrls: ['./entrydata.component.scss']
 })
 export class entryDataComponent implements OnInit {
 
@@ -23,6 +23,7 @@ export class entryDataComponent implements OnInit {
   goodsList: any = [];
 
   selectedGood:string='';
+ 
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -30,7 +31,7 @@ export class entryDataComponent implements OnInit {
 
     this.entryForm = this._formBuilder.group(
       {
-        sequenceNo: ['', [Validators.required, Validators.maxLength(50)]],      
+        sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],      
         vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
         transporter: ['', [Validators.required, Validators.maxLength(50)]],
         supplier: ['', [Validators.required, Validators.maxLength(50)]],
@@ -56,6 +57,10 @@ export class entryDataComponent implements OnInit {
     if (!findInvalidControls(this.entryForm)) {
       return;
     }
+  }
+
+  onChange(event:any) {
+    console.log(this.selectedGood);
   }
 
   private populateListData(): void {    
