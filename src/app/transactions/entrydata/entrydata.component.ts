@@ -20,6 +20,9 @@ export class entryDataComponent implements OnInit {
   productsList: any = [];
   operatorIDList: any = [];
   nationalityList: any = [];
+  goodsList: any = [];
+
+  selectedGood:string='';
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -27,9 +30,11 @@ export class entryDataComponent implements OnInit {
 
     this.entryForm = this._formBuilder.group(
       {
+        sequenceNo: ['', [Validators.required, Validators.maxLength(50)]],      
         vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
         transporter: ['', [Validators.required, Validators.maxLength(50)]],
         supplier: ['', [Validators.required, Validators.maxLength(50)]],
+        customer: ['', [Validators.required, Validators.maxLength(50)]], // either one should load based on incoming or outlogin incming-supplier out- cust
         products: ['', [Validators.required, Validators.maxLength(50)]],
         operator: ['', [Validators.required, Validators.maxLength(50)]],
         nationality: ['', [Validators.required, Validators.maxLength(50)]],
@@ -43,6 +48,7 @@ export class entryDataComponent implements OnInit {
       });
 
       this.populateListData();
+      this.selectedGood = this.goodsList[0].key;
   }  
 
   save() {
@@ -54,6 +60,7 @@ export class entryDataComponent implements OnInit {
 
   private populateListData(): void {    
     this.nationalityList = GlobalConstants.commonFunction.getNationalityList();
+    this.goodsList = GlobalConstants.commonFunction.getGoodsOption();
 
     /* TODO */
     /* Need to relace with actual data */

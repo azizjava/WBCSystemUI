@@ -1,4 +1,34 @@
 <form class="entryData-form" [formGroup]="entryForm">
+
+  <div class="row mb-2">
+    <div class="col">     
+      <div class="form-group row">
+        <label for="sequenceNo" class="col-sm-5 col-form-label">Sequence No</label>
+        <div class="col-sm-7">  
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo" class="clsLbl" />
+              <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
+                    entryForm.controls['sequenceNo'].errors['required'] &&
+                    entryForm.controls['sequenceNo'].touched
+                          ">Vehicle Plate No is required
+              </mat-error>
+            </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-select [(value)]="selectedGood">
+          <mat-option *ngFor="let option of goodsList" [value]="option.key">
+            {{option.value}}
+          </mat-option>
+        </mat-select>       
+      </mat-form-field>
+    </div>
+  </div>
+
+
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
