@@ -21,6 +21,8 @@ export class entryDataComponent implements OnInit {
   operatorIDList: any = [];
   nationalityList: any = [];
   goodsList: any = [];
+  keyValueData: any =[];
+  emptyKeyValue:boolean =false;
 
   selectedGood:string='';
  
@@ -58,6 +60,36 @@ export class entryDataComponent implements OnInit {
       return;
     }
   }
+
+  addKeyValues() {
+
+    if(this.keyValueData.length ===0){
+
+      this.emptyKeyValue =false;
+      this.keyValueData.push({ key :'', value:''});
+    }
+
+    else {
+
+      this.emptyKeyValue =this.keyValueData.find((obj:any) => !obj.key || !obj.value);
+
+      if(!this.emptyKeyValue){
+        this.keyValueData.push({ key :'', value:''});
+      }
+
+    }
+  }
+
+  edit() {
+    // stop here if form is invalid
+    if (!findInvalidControls(this.entryForm)) {
+      return;
+    }
+  }
+
+  public trackByFn(index: number, item: any) {
+    return item;
+}
 
   onChange(event:any) {
     console.log(this.selectedGood);
@@ -124,19 +156,19 @@ export class entryDataComponent implements OnInit {
         Code: 'Supplier-1',
       },
       {
-        Id: 'T-2',
+        Id: 'S-2',
         Code: 'Supplier-2',
       },
       {
-        Id: 'T-3',
+        Id: 'S-3',
         Code: 'Supplier-3',
       },
       {
-        Id: 'T-4',
+        Id: 'S-4',
         Code: 'Supplier-4',
       },
       {
-        Id: 'T-5',
+        Id: 'S-5',
         Code: 'Supplier-5',
       },
     ];
