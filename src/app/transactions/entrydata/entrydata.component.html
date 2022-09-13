@@ -1,23 +1,40 @@
 <form class="entryData-form" [formGroup]="entryForm">
 
-  <div class="row mb-2">
-    <div class="col-6">     
-      <div class="form-group row">
-        <label for="sequenceNo" class="col-sm-6 col-form-label clsLbl d-none d-md-block">Sequence No</label>
-        <div class="col-sm-6">  
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo"  />
-              <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
-                    entryForm.controls['sequenceNo'].errors['required'] &&
-                    entryForm.controls['sequenceNo'].touched
-                          ">Vehicle Plate No is required
-              </mat-error>
-            </mat-form-field>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-6">
+  <div class="row mb-3 form-col">
+    <div class="col-4">
+      <label for="colFormLabelSm" class="lbl-text">Email</label>
+    </div>
+    <div class="col-4">
+      <mat-form-field class="full-width">
+        <mat-select [(value)]="selectedGood" (selectionChange)="onChange($event)">
+          <mat-option *ngFor="let option of goodsList" [value]="option.key">
+            {{option.value}}
+          </mat-option>
+        </mat-select>       
+      </mat-form-field>
+    </div>
+    <div class="col-4 text-center">
+      <label for="colFormLabelSm" class="selected-text">Email</label>
+    </div>
+  </div>
+
+
+  <div class="row mb-3 form-col">
+    <div class="col-5">
+      <label for="sequenceNo" class="col-sm-6 col-form-label clsLbl">Sequence No</label>
+    </div>
+    <div class="col-3">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo"  />
+        <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
+              entryForm.controls['sequenceNo'].errors['required'] &&
+              entryForm.controls['sequenceNo'].touched
+                    ">Sequence No is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-4">
       <mat-form-field class="full-width">
         <mat-select [(value)]="selectedGood" (selectionChange)="onChange($event)">
           <mat-option *ngFor="let option of goodsList" [value]="option.key">
@@ -28,6 +45,8 @@
     </div>
   </div>
 
+
+ 
 
     <div class="row mb-2">
       <div class="col">
