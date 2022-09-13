@@ -17,6 +17,7 @@ export class entryDataComponent implements OnInit {
   vehicleList: any = [];
   transportersList: any = [];
   suppliersList: any = [];
+  customersList: any = [];
   productsList: any = [];
   operatorIDList: any = [];
   nationalityList: any = [];
@@ -37,7 +38,7 @@ export class entryDataComponent implements OnInit {
         vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
         transporter: ['', [Validators.required, Validators.maxLength(50)]],
         supplier: ['', [Validators.required, Validators.maxLength(50)]],
-        customer: ['', [Validators.required, Validators.maxLength(50)]], // either one should load based on incoming or outlogin incming-supplier out- cust
+        customer: ['', [Validators.maxLength(50)]], 
         products: ['', [Validators.required, Validators.maxLength(50)]],
         operator: ['', [Validators.required, Validators.maxLength(50)]],
         nationality: ['', [Validators.required, Validators.maxLength(50)]],
@@ -45,8 +46,8 @@ export class entryDataComponent implements OnInit {
         driverName: ['', [Validators.required, Validators.maxLength(50)]],
         licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
         firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
-        dateIn: [GlobalConstants.commonFunction.getFormattedDate(), [Validators.required, Validators.maxLength(50)], ],
-        timeIn: [GlobalConstants.commonFunction.getFormattedTime(), [Validators.required, Validators.maxLength(50)]],
+        dateIn: [GlobalConstants.commonFunction.getFormattedDate()],
+        timeIn: [GlobalConstants.commonFunction.getFormattedTime()],
        
       });
 
@@ -93,6 +94,18 @@ export class entryDataComponent implements OnInit {
 
   onChange(event:any) {
     console.log(this.selectedGood);
+
+    const supplierControl = this.entryForm.get('supplier');
+    const customerControl = this.entryForm.get('customer');
+
+    if(this.selectedGood ==='incoming'){
+      supplierControl?.setValidators([Validators.required]);
+      customerControl?.setValidators(null);
+    }
+    else{
+      customerControl?.setValidators([Validators.required]);
+      supplierControl?.setValidators(null);
+    }
   }
 
   private populateListData(): void {    
@@ -170,6 +183,29 @@ export class entryDataComponent implements OnInit {
       {
         Id: 'S-5',
         Code: 'Supplier-5',
+      },
+    ];
+
+    this.customersList = [
+      {
+        Id: 'C-1',
+        Code: 'Customer-1',
+      },
+      {
+        Id: 'C-2',
+        Code: 'Customer-2',
+      },
+      {
+        Id: 'C-3',
+        Code: 'Customer-3',
+      },
+      {
+        Id: 'C-4',
+        Code: 'Customer-4',
+      },
+      {
+        Id: 'C-5',
+        Code: 'Customer-5',
       },
     ];
 

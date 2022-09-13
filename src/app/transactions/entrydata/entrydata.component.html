@@ -76,7 +76,7 @@
   </div>
 
 
-  <div class="row form-col">
+  <div class="row form-col" *ngIf="selectedGood ==='incoming'">
     <div class="col-4">
       <label for="colFormLabelSm" class="lbl-text">Supplier</label>
     </div>
@@ -91,6 +91,29 @@
         entryForm.controls['supplier'].errors['required'] &&
         entryForm.controls['supplier'].touched
               ">Supplier is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-4 text-center">
+      <label for="colFormLabelSm" class="selected-text">{{entryForm.controls['supplier'].value}}</label>
+    </div>
+  </div>
+
+  <div class="row form-col" *ngIf="selectedGood ==='outgoing'">
+    <div class="col-4">
+      <label for="colFormLabelSm" class="lbl-text">Customer</label>
+    </div>
+    <div class="col-4">
+      <mat-form-field class="full-width">
+        <mat-select formControlName="customer" placeholder="Customer">
+          <mat-option *ngFor="let option of customersList" [value]="option.Code">
+            {{option.Id}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="entryForm.controls['customer'].errors && 
+        entryForm.controls['customer'].errors['required'] &&
+        entryForm.controls['customer'].touched
+              ">Customer is required
         </mat-error>
       </mat-form-field>
     </div>
@@ -315,7 +338,7 @@
   </div>
   
   <div class="mb-1 d-flex justify-content-evenly w-100">  
-    <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
+    <button class="btn btn-sm" [disabled]="!entryForm.valid"  mat-flat-button color="primary" type="submit" mat-button (click)="save()">
       Save
     </button>
   
