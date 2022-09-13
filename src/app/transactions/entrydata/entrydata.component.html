@@ -190,32 +190,16 @@
 
     <div class="row mb-2">
       <div class="col">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="full-width">
           <mat-label>Date In</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dateIn" name="dateIn">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="entryForm.controls['dateIn'].errors &&
-          entryForm.controls['dateIn'].errors['required'] &&
-          entryForm.controls['dateIn'].touched
-                ">In Date is required
-          </mat-error>         
+          <input [readonly]="true" matInput formControlName="dateIn" name="dateIn">         
         </mat-form-field>
       </div>
 
       <div class="col">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="full-width">
           <mat-label>Time In</mat-label>
-          <input matInput [matDatepicker]="picker1" formControlName="timeIn" name="timeIn">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
-          <mat-error *ngIf="entryForm.controls['timeIn'].errors &&
-          entryForm.controls['timeIn'].errors['required'] &&
-          entryForm.controls['timeIn'].touched
-                ">In Time is required
-          </mat-error>         
+          <input [readonly]="true" matInput formControlName="timeIn" name="timeIn">         
         </mat-form-field>
       </div>
     </div>

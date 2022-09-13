@@ -125,6 +125,26 @@ export class GlobalConstants {
             return menu;
         },
 
+        getFormattedDate() {
+            const date = new Date();
+            let year = date.getFullYear();
+            let month = (1 + date.getMonth()).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+          
+            return month + '/' + day + '/' + year;
+        },
+
+        getFormattedTime() {
+            const date = new Date();          
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            const minutes1 = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes1 + ' ' + ampm;
+            return strTime;
+        },
 
     };
 }

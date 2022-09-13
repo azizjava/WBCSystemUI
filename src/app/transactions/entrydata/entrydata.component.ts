@@ -43,8 +43,8 @@ export class entryDataComponent implements OnInit {
         driverName: ['', [Validators.required, Validators.maxLength(50)]],
         licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
         firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
-        dateIn: ['', [Validators.required, Validators.maxLength(50)]],
-        timeIn: ['', [Validators.required, Validators.maxLength(50)]],
+        dateIn: [GlobalConstants.commonFunction.getFormattedDate(), [Validators.required, Validators.maxLength(50)], ],
+        timeIn: [GlobalConstants.commonFunction.getFormattedTime(), [Validators.required, Validators.maxLength(50)]],
        
       });
 
