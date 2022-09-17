@@ -1,10 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GlobalConstants } from 'src/app/common';
 import { findInvalidControls } from 'src/app/helper';
-import { modelDialog, Transporter } from 'src/app/models';
-
 
 @Component({
   selector: 'app-transactionentrydata',
@@ -65,21 +62,20 @@ export class entryDataComponent implements OnInit {
   addKeyValues() {
 
     if(this.keyValueData.length ===0){
-
-      this.emptyKeyValue =false;
+      this.emptyKeyValue = false;
       this.keyValueData.push({ key :'', value:''});
     }
 
     else {
 
-      this.emptyKeyValue =this.keyValueData.find((obj:any) => !obj.key || !obj.value);
-
+      this.emptyKeyValue =this.keyValueData.some((obj:any) =>  !obj.key || !obj.value);
       if(!this.emptyKeyValue){
         this.keyValueData.push({ key :'', value:''});
       }
 
     }
   }
+
 
   edit() {
     // stop here if form is invalid

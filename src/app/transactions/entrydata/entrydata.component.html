@@ -1,10 +1,10 @@
 <form class="entryData-form" [formGroup]="entryForm">
 
   <div class="row form-col">
-    <div class="col-4">
+    <div class="col-3">
       <label for="sequenceNo" class="col-form-label clsLbl">Sequence No</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo"  />
         <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
@@ -27,10 +27,10 @@
 
 
   <div class="row form-col">
-    <div class="col-4">
+    <div class="col-3">
       <label for="colFormLabelSm" class="lbl-text">Vehicle Plate No</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <mat-label>Vehicle Plate No</mat-label>
         <mat-select formControlName="vehicleNo" placeholder="Mode">
@@ -52,10 +52,10 @@
 
 
   <div class="row form-col">
-    <div class="col-4">
+    <div class="col-3">
       <label for="colFormLabelSm" class="lbl-text">Transporter</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <mat-label>Transporter</mat-label>
         <mat-select formControlName="transporter" placeholder="Mode">
@@ -77,10 +77,10 @@
 
 
   <div class="row form-col" *ngIf="selectedGood ==='incoming'">
-    <div class="col-4">
+    <div class="col-3">
       <label for="colFormLabelSm" class="lbl-text">Supplier</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="supplier" placeholder="Supplier">
           <mat-option *ngFor="let option of suppliersList" [value]="option.Code">
@@ -100,10 +100,10 @@
   </div>
 
   <div class="row form-col" *ngIf="selectedGood ==='outgoing'">
-    <div class="col-4">
+    <div class="col-3">
       <label for="colFormLabelSm" class="lbl-text">Customer</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="customer" placeholder="Customer">
           <mat-option *ngFor="let option of customersList" [value]="option.Code">
@@ -125,10 +125,10 @@
 
 
   <div class="row form-col">
-    <div class="col-4">
+    <div class="col-3">
       <label for="colFormLabelSm" class="lbl-text">Product</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <mat-label>Product</mat-label>
         <mat-select formControlName="products" placeholder="Mode">
@@ -150,10 +150,10 @@
 
 
   <div class="row form-col">
-    <div class="col-4">
+    <div class="col-3">
       <label for="colFormLabelSm" class="lbl-text">Operator ID</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="operator" placeholder="Operator">
           <mat-option *ngFor="let option of operatorIDList" [value]="option.Code">
@@ -174,10 +174,10 @@
  
 
   <div class="row form-col">
-    <div class="col-4">
+    <div class="col-3">
       <label for="colFormLabelSm" class="lbl-text">Nationality</label>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="nationality" placeholder="Nationality">
           <mat-option *ngFor="let option of nationalityList" [value]="option.Nationality">
@@ -198,7 +198,7 @@
 
 
   <div class="row form-col">
-    <div class="col-8">
+    <div class="col-6">
       <label for="colFormLabelSm" class="lbl-text">No.of Pieces</label>
     </div>
     <div class="col-4">
@@ -217,7 +217,7 @@
 
 
   <div class="row form-col">
-    <div class="col-8">
+    <div class="col-6">
       <label for="colFormLabelSm" class="lbl-text">Driver Name</label>
     </div>
     <div class="col-4">
@@ -236,7 +236,7 @@
   </div>
 
   <div class="row form-col">
-    <div class="col-8">
+    <div class="col-6">
       <label for="colFormLabelSm" class="lbl-text">Driver Licence No.</label>
     </div>
     <div class="col-4">
@@ -256,7 +256,7 @@
 
 
   <div class="row form-col">
-    <div class="col-8">
+    <div class="col-6">
       <label for="colFormLabelSm" class="lbl-text">First Weight</label>
     </div>
     <div class="col-4">
@@ -275,7 +275,7 @@
   </div>
 
   <div class="row form-col">
-    <div class="col-8">
+    <div class="col-6">
       <label for="colFormLabelSm" class="lbl-text">Date In</label>
     </div>
     <div class="col-4">
@@ -288,7 +288,7 @@
   </div>
 
   <div class="row mb-1 form-col">
-    <div class="col-8">
+    <div class="col-6">
       <label for="colFormLabelSm" class="lbl-text">Time In</label>
     </div>
     <div class="col-4">
@@ -302,19 +302,20 @@
 
   <div class="row mb-1 form-col">
 
-    <div class="row form-col" *ngFor="let item of keyValueData; trackBy:trackByFn">
+    <div class="row form-col" *ngFor="let item of keyValueData ;let index = index; trackBy:trackByFn">
 
-      <div class="col-5">
+      <div class="col-3">
+
         <mat-form-field class="full-width">
           <mat-label>Key</mat-label>
-          <input matInput name="timeIn">
+          <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
         </mat-form-field>
       </div>
 
-      <div class="col-5">
+      <div class="col-3">
         <mat-form-field class="full-width">
           <mat-label>Value</mat-label>
-          <input  matInput name="timeIn">
+          <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
         </mat-form-field>
       </div>      
 
