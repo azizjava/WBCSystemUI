@@ -1,5 +1,16 @@
 .exitData-form {
 
-  
+    .form-col {
+        
+        .lbl-text {
+            padding-top: calc(1.1rem + 1px);
+            font-size: .875rem;
+        }
+
+        .selected-text {
+            padding-top: calc(1.1rem + 1px);
+            font-size: 1rem;
+        }
+    }
 }
   

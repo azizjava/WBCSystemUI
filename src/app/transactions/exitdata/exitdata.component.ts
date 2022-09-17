@@ -35,7 +35,7 @@ export class exitDataComponent implements OnInit {
         priceTons: ['', [Validators.required, Validators.maxLength(50)]],
         totalPrice: ['', [Validators.required, Validators.maxLength(50)]],
         loginUserName: ['', [Validators.required, Validators.maxLength(50)]],
-        instructions: ['', [Validators.required, Validators.maxLength(50)]],
+        instructions: ['', [Validators.required, Validators.maxLength(250)]],
         deliveryNoteNo: ['', [Validators.required, Validators.maxLength(50)]],
         orderNo: ['', [Validators.required, Validators.maxLength(50)]],
        
