@@ -76,27 +76,10 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.f['username'].value, this.f['password'].value, this.f['language'].value)
       .pipe(first())
       .subscribe(
-        (data:HttpResponse<any>) => {
-
-          // login successful if there's a jwt token in the response
-          if (data) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            // localStorage.setItem('currentUser', JSON.stringify(user));
-            // this.currentUserSubject.next(user);
-            // console.log(data);
-             console.log(data.headers.get('kamal'));
-             console.log(data.headers.get('Set-Cookie'));
-            // console.log(data.headers.get('X-Token'));
-
-        
-            
-
+        (data:any) => {      
+          if (data) {                  
              this.router.navigate([this.returnUrl]);
-
-
-          }
-
-         
+          }         
         },
         error => {
           this.alertService.error(error);

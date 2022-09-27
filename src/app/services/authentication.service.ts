@@ -28,19 +28,19 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(username: string, password: string, lang: string) {
+  login(username: string, password: string, lang: string) {   
 
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'skip' : 'true'}),
-      observe: 'response' as 'response',
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',}),
+     
     };
     return this.customHttpClient
-      .post<any>(`${this.baseURL}/auth/signin`, { username, password }, httpOptions)
+      .post<any>(`${this.baseURL}/auth/login`, { username, password }, httpOptions)
       .pipe(
         map((response) => {
            // store user details and jwt token in local storage to keep user logged in between page refreshes
            if (response) {
-            this.createUserObj(response?.body,lang);
+            this.createUserObj(response,lang);
            }
             
             return (<any>response)._body === '' ? {} : response as any;
@@ -77,29 +77,10 @@ export class AuthenticationService {
       email: data.email,
       userName: data.username,
       language:lang,
-      token:data.jwtToken,
+      token:data.accessToken,
       password:''
     };
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
-  }
-
-  getTransportersList() {
-
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
-    return this.http
-      .post<any>(`${this.baseURL}/transporter/listAllTransporter`,  httpOptions)
-      .pipe(
-        map((response) => {
-          
-           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          
-           console.log(response);
-            
-            return (<any>response)._body === '' ? {} : response as any;
-        })
-      );
   }
 }

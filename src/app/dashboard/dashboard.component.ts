@@ -45,14 +45,7 @@ export class DashboardComponent implements OnInit {
                 event.preventDefault();
                 document.getElementById('mainContainer')?.classList.toggle('sb-sidenav-toggled');
             });
-        }
-
-        this.authenticationService.getTransportersList()
-            .pipe()
-            .subscribe(
-              (data:any) => {
-                console.log(data)
-              });
+        }        
 
         this.currentYear = GlobalConstants.commonFunction.getCurrentYear();
 
