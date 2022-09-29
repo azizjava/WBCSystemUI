@@ -1,12 +1,14 @@
 export class Transporter {
-    public Id: string;
-    public Code: string;
-    public Name: string;
-    public ContactPerson: string;
-    public MobileNo: string;
-    public PhoneNo: string;
-    public FaxNo: string;
-    public Address: string;
+    // public Id!: string;
+    public transporterCode: string;
+    public nameOfTransporter: string;
+    public contactPerson: string;
+    public mobileNo: string;
+    public telephoneNo: string;
+    public faxNo: string;
+    public address: string;
+    public localCreatedDateTime!: Date;
+    public lastModifiedByUser!: string;   
   }
 
   export class TransporterList {

@@ -80,11 +80,11 @@
 	},
 	"transporters":{
 		"tbl_header":{
-			"code":"Code",
-			"name":"Name",
+			"transportercode":"Code",
+			"nameoftransporter":"Name",
 			"contactperson":"Contact Person",
 			"mobileno":"Mobile No",
-			"phoneno":"Telephone No",
+			"telephoneno":"Telephone No",
 			"faxno":"Fax",
 			"address":"Address",
 			"actions":"Action"

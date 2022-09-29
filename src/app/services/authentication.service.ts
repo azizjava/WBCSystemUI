@@ -43,7 +43,7 @@ export class AuthenticationService {
             this.createUserObj(response,lang);
            }
             
-            return (<any>response)._body === '' ? {} : response as any;
+            return true;
         })
       );
   }
@@ -71,7 +71,7 @@ export class AuthenticationService {
 
   }
 
-  createUserObj(data: any,lang: string): void{
+  createUserObj(data: any,lang: string): void {
     const user: User = {
       id: data.id,
       email: data.email,
