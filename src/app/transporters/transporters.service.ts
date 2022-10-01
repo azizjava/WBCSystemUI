@@ -13,7 +13,7 @@ export class TransportersService {
   public baseURL : string;
 
   constructor(private http: HttpClient, backend: HttpBackend) {
-    this.baseURL = environment.baseURL;
+    this.baseURL = environment.baseURL +'/transporter';
   }
 
   
@@ -30,13 +30,31 @@ export class TransportersService {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
-  getTransportersList() {
-
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
+  getAllTransporters(): Observable<Transporter[]> {
     return this.http
-      .get<Transporter[]>(`${this.baseURL}/transporter/listAllTransporter`,  httpOptions)
-      .pipe(map(result=>result));
+      .get<Transporter[]>(`${this.baseURL}/listAllTransporter`);      
   }
+
+  getTransporterById(id: any): Observable<Transporter> {
+    return this.http.get<Transporter>(`${this.baseURL}/findByTransporterCode/${id}`);
+  }
+
+  createNewTransporter(data : Transporter) {
+    return this.http
+      .post(`${this.baseURL}/create`, data);     
+  }
+ 
+
+  updateTransporter(id: any, data: Transporter): Observable<any> {
+    return this.http.put(`${this.baseURL}/update/${id}`, data);
+  }
+
+  deleteTransporter(id: any): Observable<any> {
+    return this.http.delete(`${this.baseURL}/delete/${id}`);
+  }
+
+  deleteAllTransporters(): Observable<any> {
+    return this.http.delete(`${this.baseURL}/deleteAll`);
+  }
+  
 }

@@ -5,7 +5,18 @@
 	"common":{
 		"filter":"منقي",
 		"addnew":"اضف جديد",
-		"itemsperpagelabel":"مواد لكل صفحة"
+		"itemsperpagelabel":"مواد لكل صفحة",
+		"required":"مطلوب "
+	},
+	"actions":{
+		"save":"يحفظ",
+		"cancel":"يلغي"
+	},
+	"actiontooltip":{
+		"add":"انقر للإضافة",
+		"edit":"إضغط للتعديل",
+		"view":"اضغط للعرض",
+		"delete":"انقر للحذف"
 	},
 	"placeholder":{
 		"searchtransporters":"بحث الناقلين",
@@ -78,15 +89,14 @@
 			"actions":"أجراءات"
 		}
 	},
-	"transporters":{
+	"transporters":{		
 		"tbl_header":{
-			"code":"شفرة",
-			"name":"اسم",
+			"transportercode":"شفرة",
+			"nameoftransporter":"اسم",
 			"contactperson":"الشخص الذي يمكن الاتصال به",
 			"mobileno":"رقم الموبايل",
-			"phoneno":"الهاتف لا",
-			"fax":"فاكس",
-			"faxno":"تبوك",
+			"telephoneno":"الهاتف لا",
+			"faxno":"فاكس",
 			"address":"تبوك",
 			"actions":"عمل"
 		}

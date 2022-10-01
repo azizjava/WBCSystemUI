@@ -2,24 +2,24 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Code</mat-label>
-          <input matInput placeholder="Transporter Code" formControlName="code" name="code" />
+          <mat-label>{{staticText.code}}</mat-label>
+          <input matInput placeholder="{{staticText.code}}" formControlName="code" name="code" />
           <mat-error *ngIf="transporterForm.controls['code'].errors && 
           transporterForm.controls['code'].errors['required'] &&
           transporterForm.controls['code'].touched
-                ">Transporter Code is required
+                ">{{staticText.code}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Name" formControlName="name" name="name" />
+          <mat-label>{{staticText.name}}</mat-label>
+          <input matInput placeholder="{{staticText.name}}" formControlName="name" name="name" />
           <mat-error *ngIf="transporterForm.controls['name'].errors && 
           transporterForm.controls['name'].errors['required'] &&
           transporterForm.controls['name'].touched
-                ">Name is required
+                ">{{staticText.name}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
@@ -28,25 +28,25 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Contact Person</mat-label>
-          <input matInput placeholder="Contact Person" formControlName="contactPerson" name="contactPerson" />
+          <mat-label>{{staticText.contactPerson}}</mat-label>
+          <input matInput placeholder="{{staticText.contactPerson}}" formControlName="contactPerson" name="contactPerson" />
           <mat-error *ngIf="transporterForm.controls['contactPerson'].errors &&
           transporterForm.controls['contactPerson'].errors['required'] &&
           transporterForm.controls['contactPerson'].touched
-                ">Contact Person is required
+                ">{{staticText.contactPerson}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Mobile No</mat-label>
-          <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Mobile No"
+          <mat-label>{{staticText.mobileNo}}</mat-label>
+          <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.mobileNo}}"
             formControlName="mobileNo" name="mobileNo" />
           <mat-error *ngIf="transporterForm.controls['mobileNo'].errors &&
           transporterForm.controls['mobileNo'].errors['mobileNo'] &&
           transporterForm.controls['mobileNo'].touched
-                ">Mobile No is required
+                ">{{staticText.mobileNo}} {{staticText.required}}
           </mat-error>
           <mat-error *ngIf="transporterForm.controls['mobileNo'].errors &&
           transporterForm.controls['mobileNo'].errors['pattern'] &&
@@ -62,13 +62,13 @@
     <div class="row mb-2">
         <div class="col">
             <mat-form-field class="full-width">
-              <mat-label>Phone No</mat-label>
-              <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
+              <mat-label>{{staticText.phoneNo}}</mat-label>
+              <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.phoneNo}}"
                 formControlName="phoneNo" name="phoneNo" />
               <mat-error *ngIf="transporterForm.controls['phoneNo'].errors &&
               transporterForm.controls['phoneNo'].errors['required'] &&
               transporterForm.controls['phoneNo'].touched
-                    ">Phone No is required
+                    ">{{staticText.phoneNo}} {{staticText.required}}
               </mat-error>
              
             </mat-form-field>
@@ -76,13 +76,13 @@
   
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-label>Fax No</mat-label>
-            <input matInput   placeholder="Fax No"
+            <mat-label>{{staticText.faxNo}}</mat-label>
+            <input matInput placeholder="{{staticText.faxNo}}"
               formControlName="faxNo" name="faxNo" />
             <mat-error *ngIf="transporterForm.controls['faxNo'].errors &&
             transporterForm.controls['faxNo'].errors['required'] &&
             transporterForm.controls['faxNo'].touched
-                  ">Fax No is required
+                  ">{{staticText.faxNo}} {{staticText.required}}
             </mat-error>
           
           </mat-form-field>
@@ -93,13 +93,13 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Address</mat-label>
-          <input matInput placeholder="Address"
+          <mat-label>{{staticText.address}}</mat-label>
+          <input matInput placeholder="{{staticText.address}}"
             formControlName="address" name="address" />
           <mat-error *ngIf="transporterForm.controls['address'].errors &&
           transporterForm.controls['address'].errors['required'] &&
           transporterForm.controls['address'].touched
-                ">Phone No is required
+                ">{{staticText.address}} {{staticText.required}}
           </mat-error>
          
         </mat-form-field>
@@ -113,11 +113,11 @@
     <div class="d-flex justify-content-between w-100">
 
       <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
-        Save
+        {{staticText.save}}
       </button>
 
       <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-        Cancel
+        {{staticText.cancel}}
       </button>
 
     </div>

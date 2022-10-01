@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { tableOperation } from 'src/app/models';
+import { AuthenticationService } from 'src/app/services';
 
 @Component({
     selector: 'app-list-table',
@@ -32,10 +33,18 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
     public pageSize: number = 10;
     public pageSizeOptions: number[] = [5, 10, 25, 100];
     public displayedColumns: string[] = [];
+    public staticText: any = {};
 
     private debounce: number = 400;
 
-    constructor(private translate: TranslateService) { }
+    constructor(private translate: TranslateService, private authenticationService: AuthenticationService,) {
+        this.authenticationService.currentUser.subscribe(x => {
+            if (x) {
+                this.translate.setDefaultLang(x?.language || 'en');
+                translate.use(x?.language);
+            }
+        });
+     }
 
     public ngOnInit(): void {
         this.dataSource = new MatTableDataSource(this.tableData);
@@ -49,18 +58,24 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
         this._changeColumns(window?.innerWidth > 900 ? true : false);
         this.sort.sort(({ id: this.sortColumn?.name, start: this.sortColumn?.dir }) as MatSortable);
         this.dataSource.sort = this.sort;
-        this.displayedColumns = this.tblColumns;
+        this.displayedColumns = this.tblColumns;       
+       
+        this._getTranslatedText();
     }
 
     public ngOnChanges(changes: SimpleChanges) {
-        if (!changes['tableData'].firstChange) {
+        if (!changes['tableData']?.firstChange) {
             this.dataSource = new MatTableDataSource(this.tableData);
         }
       }
 
     public ngAfterViewInit(): void {
         this.dataSource.paginator = this.paginator;
-        this.dataSource.paginator._intl.itemsPerPageLabel = this.translate.instant("common.itemsperpagelabel");
+        this.translate.get(['']).subscribe((translated: string) => {
+            if(this.dataSource.paginator){
+                this.dataSource.paginator._intl.itemsPerPageLabel = this.translate.instant("common.itemsperpagelabel");
+            }
+        });        
     }   
 
     public selectedRecord(row: any, action: string) {
@@ -82,7 +97,6 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
         this._changeColumns(event?.target?.innerWidth > 900 ? true : false);
     }
 
-
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.getFilteredData(filterValue);
@@ -97,11 +111,18 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
 
     }
 
-
     private _changeColumns(isDesktop: boolean = true) {
         this.displayedColumns = isDesktop ? this.tblColumns : this.visibleColumns;
     }
 
-
-
+    private _getTranslatedText(): void {
+        this.translate.get(['']).subscribe((translated: string) => {
+          this.staticText = {
+            view: this.translate.instant('actiontooltip.view'),
+            edit: this.translate.instant('actiontooltip.edit'),
+            delete: this.translate.instant('actiontooltip.delete'),
+            add: this.translate.instant('actiontooltip.add'),        
+          };
+        });
+      }
 }
