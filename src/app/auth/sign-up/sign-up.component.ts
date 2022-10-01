@@ -47,7 +47,6 @@ export class SignUpComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required]],
-      phoneNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],      
       language: ['', [Validators.required, Validators.maxLength(30)]],
       role: ['', [Validators.required, Validators.maxLength(30)]],
       passwordResetQuestion: ['', [Validators.required, Validators.maxLength(250)]],

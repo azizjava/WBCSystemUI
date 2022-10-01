@@ -74,21 +74,7 @@
 
                     </mat-form-field>
                   </div>
-
-                  <div class="col">
-                    <mat-form-field class="full-width">
-                      <mat-label>Phone No</mat-label>
-                      <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
-                        formControlName="phoneNo" name="phoneNo" />
-                      <mat-error *ngIf="signupForm.controls['phoneNo'].errors?.['required'] &&
-                              signupForm.controls['phoneNo'].touched">Phone No is required
-                      </mat-error>
-                      <mat-error *ngIf="signupForm.controls['phoneNo'].errors?.['pattern'] &&
-                            signupForm.controls['phoneNo'].touched">Please, Enter 10 digit Mobile Number
-                      </mat-error>
-
-                    </mat-form-field>
-                  </div>
+                 
                 </div>
 
                 <div class="row mb-2">              
