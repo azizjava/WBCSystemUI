@@ -32,7 +32,6 @@ export class AuthGuard implements CanLoad, CanActivate {
 
   canLoad(route: Route): boolean {
     let url: string = route.path || "";
-    console.log('Url:' + url);
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
       return true;

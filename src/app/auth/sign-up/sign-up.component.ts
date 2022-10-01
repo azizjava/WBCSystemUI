@@ -9,6 +9,8 @@ import { AuthenticationService, AlertService, } from '../../services';
 import { GlobalConstants } from '../../common/index';
 import { MustMatch } from 'src/app/helper/must-match.validator';
 import { findInvalidControls } from 'src/app/helper';
+import { signup } from 'src/app/models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,7 +20,6 @@ import { findInvalidControls } from 'src/app/helper';
 export class SignUpComponent implements OnInit {
 
   signupForm: FormGroup;
-  submitted = false;
   loading = false;  
   userLanguages: any = [];
   userRoles: any = [];
@@ -50,10 +51,11 @@ export class SignUpComponent implements OnInit {
       language: ['', [Validators.required, Validators.maxLength(30)]],
       role: ['', [Validators.required, Validators.maxLength(30)]],
       passwordResetQuestion: ['', [Validators.required, Validators.maxLength(250)]],
+      passwordResetAnswer: ['',  [Validators.required, Validators.maxLength(250), ]],
     },
       { validator: MustMatch('password', 'confirmPassword') }
     );
-
+    this.signupForm.controls['passwordResetAnswer'].disable();
     this.setDefaultValue();
   }
 
@@ -65,11 +67,14 @@ export class SignUpComponent implements OnInit {
     })
   }
 
+  onSelectionChanged(value : any) {
+    this.signupForm.controls['passwordResetAnswer'].enable();
+  }
+
   // convenience getter for easy access to form fields
   get f() { return this.signupForm.controls; }
 
   onSubmit() {
-    this.submitted = true;
 
     // stop here if form is invalid
     if (!findInvalidControls(this.signupForm)) {
@@ -77,9 +82,24 @@ export class SignUpComponent implements OnInit {
     }
 
     this.loading = true;
+    const result =this.signupForm.value;
+    const newUser: signup = {
+      email: result.email, password: result.password, username: result.userName, role: [result.role]
+    };
 
-    //TODO Register new User
-    this.loading = false;
+    this.authenticationService.signup(newUser).subscribe({
+      next: (res) => {
+        this.loading = false;
+        this.router.navigate([GlobalConstants.ROUTE_URLS.login]);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        const errorMsg =error?.error?.message;
+        console.log(errorMsg);
+        this.alertService.error(errorMsg);
+      }
+    });
+    
   }
 
 }

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpBackend, HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, skip } from 'rxjs/operators';
+import { HttpBackend, HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, skip } from 'rxjs/operators';
 
-import { User } from '../models';
+import { signup, User } from '../models';
 import { environment } from 'src/environments/environment';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class AuthenticationService {
   public baseURL : string;
   private customHttpClient: HttpClient;
 
-  constructor(private http: HttpClient, backend: HttpBackend) {
+  constructor(private http: HttpClient, backend: HttpBackend, private alertService: AlertService) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser') || '{}')
     );
@@ -31,21 +32,39 @@ export class AuthenticationService {
   login(username: string, password: string, lang: string) {   
 
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',}),
-     
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',}),     
     };
     return this.customHttpClient
-      .post<any>(`${this.baseURL}/auth/login`, { username, password }, httpOptions)
+      .post<any>(
+        `${this.baseURL}/auth/login`,
+        { username, password },
+        httpOptions
+      )
       .pipe(
         map((response) => {
-           // store user details and jwt token in local storage to keep user logged in between page refreshes
-           if (response) {
-            this.createUserObj(response,lang);
-           }
-            
-            return true;
-        })
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          if (response) {
+            this.createUserObj(response, lang);
+          }
+          return true;
+        }),
+        catchError((error: any) => {
+          const errorMsg = error?.error;
+          console.log(errorMsg);
+          this.alertService.error(errorMsg);
+          return throwError(errorMsg);
+        }),
       );
+     
+  }
+
+  signup(newUser: signup) {   
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',}),     
+    };
+    return this.customHttpClient
+      .post<any>(`${this.baseURL}/signup/register`, newUser, httpOptions);  
   }
 
   logout() {

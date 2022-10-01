@@ -12,3 +12,10 @@ export interface tableOperation {
     data:any,
     action:string
   }
+
+  export class signup {
+    email!: string;
+    password!: string;  
+    username!:string;
+    role!:string[];
+}

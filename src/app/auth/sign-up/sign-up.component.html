@@ -105,13 +105,27 @@
                   <div class="col">
                     <mat-form-field class="full-width" appearance="fill">
                       <mat-label>Select Password reset Question</mat-label>
-                      <mat-select formControlName="passwordResetQuestion" placeholder="Mode">
+                      <mat-select formControlName="passwordResetQuestion" placeholder="Mode" (selectionChange)="onSelectionChanged($event)">
                         <mat-option *ngFor="let ques of passwordResetQuestion" [value]="ques.key">
                           {{ques.value}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
+
+                 
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col">
+                    <mat-form-field class="full-width">
+                      <mat-label>Answer</mat-label>
+                      <input matInput placeholder="First name" formControlName="passwordResetAnswer" name="passwordResetAnswer" />
+                      <mat-error *ngIf="signupForm.controls['passwordResetAnswer'].errors?.['required'] &&
+                              signupForm.controls['passwordResetAnswer'].touched">User Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>                 
                 </div>
 
                 <div class="d-flex justify-content-between w-100 mt-3 mb-3">
