@@ -12,8 +12,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SnackbarComponent } from './common/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { PageNotFoundComponent } from './auth/pagenotfound/pagenotfound.component';
+import { LoaderService } from './services';
+import { LoaderComponent } from './common/loader/loader.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -23,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
      SnackbarComponent,
+     LoaderComponent,
      PageNotFoundComponent
   ],
   imports: [
@@ -35,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -46,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
+    LoaderService,
     // provider used to create fake backend
     fakeBackendProvider
   ],
