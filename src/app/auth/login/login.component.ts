@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
   ) {
 
     // redirect to home if already logged in
-    // if (!GlobalConstants.commonFunction.isEmptyObject(this.authenticationService.currentUserValue)) {
-    //   this.router.navigate([GlobalConstants.ROUTE_URLS.dashboard]);
-    // }
+    if (!GlobalConstants.commonFunction.isEmptyObject(this.authenticationService.currentUserValue)) {
+      this.router.navigate([GlobalConstants.ROUTE_URLS.dashboard]);
+    }
   }
 
   ngOnInit() {

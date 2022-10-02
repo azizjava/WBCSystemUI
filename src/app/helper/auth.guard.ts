@@ -26,8 +26,8 @@ export class AuthGuard implements CanLoad, CanActivate {
     }
 
     // not logged in so redirect to login page with the return url
-    // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-    return true;
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    return false;
   }
 
   canLoad(route: Route): boolean {
@@ -36,7 +36,8 @@ export class AuthGuard implements CanLoad, CanActivate {
     if (currentUser) {
       return true;
     }
-    // this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
-    return true;
+
+    this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
+    return false;
   }
 }
