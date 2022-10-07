@@ -15,21 +15,7 @@ export class TransportersService {
   constructor(private http: HttpClient, backend: HttpBackend) {
     this.baseURL = environment.baseURL +'/transporter';
   }
-
-  
-
-  createObj(data: any,lang: string): void{
-    const user: User = {
-      id: data.id,
-      email: data.email,
-      userName: data.username,
-      language:lang,
-      token:data.jwtToken,
-      password:''
-    };
-    localStorage.setItem('currentUser', JSON.stringify(user));
-  }
-
+   
   getAllTransporters(): Observable<Transporter[]> {
     return this.http
       .get<Transporter[]>(`${this.baseURL}/listAllTransporter`);      
