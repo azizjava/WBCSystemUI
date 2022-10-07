@@ -12,7 +12,7 @@ export class Transporter {
   }
 
   export class TransporterList {
-    public Code: string;
-    public Name: string;
+    public transporterCode: string;
+    public nameOfTransporter: string;
   }
   

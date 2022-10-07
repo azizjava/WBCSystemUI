@@ -31,8 +31,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Transporter Code</mat-label>
         <mat-select formControlName="transporterCode" required (selectionChange)="OnSelectionChange($event)">
-          <mat-option *ngFor="let item of transPortersList" [value]="item.Code">
-            {{item.Code}}
+          <mat-option *ngFor="let item of transPortersList" [value]="item.transporterCode">
+            {{item.transporterCode}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="vehicleForm.controls['transporterCode'].errors &&

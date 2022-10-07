@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls } from 'src/app/helper';
 import { modelDialog, Vehicle, TransporterList } from 'src/app/models';
+import { AlertService, AuthenticationService } from 'src/app/services';
+import { VehiclesService } from '../vehicles.service';
 
 
 @Component({
@@ -13,10 +16,17 @@ import { modelDialog, Vehicle, TransporterList } from 'src/app/models';
 export class VehicleDataComponent implements OnInit {
 
   vehicleForm: FormGroup;
-  vehicleUser!: Vehicle;
+  vehicleData!: any;
+  public staticText: any = {};
   transPortersList!: TransporterList[];
 
+  private _hasChange: boolean = false;  
+
   constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<VehicleDataComponent>,
+    private httpService: VehiclesService,
+    private alertService: AlertService,
+    private translate: TranslateService,
+    private authenticationService: AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog) { }
 
   ngOnInit(): void {
@@ -27,28 +37,32 @@ export class VehicleDataComponent implements OnInit {
         type: ['', [Validators.required, Validators.maxLength(30)]],
         transporterCode: ['', [Validators.required]],
         transporterName: ['', [Validators.required]],
+      });    
 
-      });
+    this.vehicleData = this.data?.data;
 
-    this._getTransPortersList();
-
-    if (this.data.actionName !== 'add') {
-      this.vehicleUser = this.data.data;
-      this.vehicleForm.controls["plateNo"].setValue(this.vehicleUser?.PlateNo);
-      this.vehicleForm.controls["type"].setValue(this.vehicleUser?.Type);
-      this.vehicleForm.controls["transporterCode"].setValue(this.vehicleUser?.TransporterCode);
-      this.vehicleForm.controls["transporterName"].setValue(this.vehicleUser?.TransporterName);
+    if (this.data.actionName !== 'add') {     
+      this.vehicleForm.controls["plateNo"].setValue(this.vehicleData?.plateNo);
+      this.vehicleForm.controls["type"].setValue(this.vehicleData?.vehicleType);
+      this.vehicleForm.controls["transporterCode"].setValue(this.vehicleData?.transporterCode);
+      this.vehicleForm.controls["transporterName"].setValue(this.vehicleData?.transporterName);    
 
       if (this.data.actionName === 'view') {
         this.vehicleForm.disable();
       }
 
+      if (this.data.actionName === 'edit') {
+        this.vehicleForm.controls['plateNo'].disable();
+      }
+      
     }
+   
+    this._getTransPortersList(this.vehicleData);
 
+    this._getTranslatedText();
+    this._onFormValueChange();
   }
-
-  
-
+ 
 
   public close() {
     this.dialogRef.close();
@@ -59,16 +73,83 @@ export class VehicleDataComponent implements OnInit {
     if (!findInvalidControls(this.vehicleForm)) {
       return;
     }
-    this.dialogRef.close(this.vehicleForm.value);
+
+    const result = this.vehicleForm.value;
+
+    const newRecord: any = {
+      plateNo: result.plateNo,
+      vehicleType: result.type,
+      transporterCode: result.transporterCode      
+    };
+
+    if (this.data.actionName === 'add') {
+      this.httpService.createNewVehicle(newRecord).subscribe({
+        next: (res:any) => {
+          this.dialogRef.close(res);
+        },
+        error: (error: string) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+    } else if (this.data.actionName === 'edit') {
+      if (this._hasChange) {
+        newRecord.plateNo = this.vehicleData?.plateNo;
+        this.httpService
+          .updateVehicle(newRecord.plateNo, newRecord)
+          .subscribe({
+            next: (res) => {
+              this.dialogRef.close(res);
+            },
+            error: (error) => {
+              console.log(error);
+              this.alertService.error(error);
+            },
+          });
+      } else {
+        this.dialogRef.close();
+      }
+    }
+
   }
 
   public OnSelectionChange(event: any) {
-    const name = this.transPortersList.filter(s =>s.Code === event.value)[0]?.Name || "";
+    const name = this.transPortersList.filter(s =>s.transporterCode === event.value)[0]?.nameOfTransporter || "";
     this.vehicleForm.controls["transporterName"].setValue(name);
   }
 
-  private _getTransPortersList(): any {
-    this.transPortersList = [{ Code: 'T-01', Name: 'Transporter-01' }, { Code: 'T-02', Name: 'Transporter-02' }, { Code: 'T-03', Name: 'Transporter-03' } ];
+  private _getTransPortersList(listData:any): any {
+    this.transPortersList = listData?.transporterList ?? [];
+  }
+
+  private _getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        code: this.translate.instant('transporters.tbl_header.transportercode'),
+        name: this.translate.instant(
+          'transporters.tbl_header.nameoftransporter'
+        ),
+        contactPerson: this.translate.instant(
+          'transporters.tbl_header.contactperson'
+        ),
+        mobileNo: this.translate.instant('transporters.tbl_header.mobileno'),
+        phoneNo: this.translate.instant('transporters.tbl_header.telephoneno'),
+        faxNo: this.translate.instant('transporters.tbl_header.faxno'),
+        address: this.translate.instant('transporters.tbl_header.address'),
+        required: this.translate.instant('common.required'),
+        save: this.translate.instant('actions.save'),
+        cancel: this.translate.instant('actions.cancel'),
+      };
+    });
+  }
+
+  private _onFormValueChange() {
+    const initialValue = this.vehicleForm.value;
+    this.vehicleForm.valueChanges.subscribe((value) => {
+      this._hasChange = Object.keys(initialValue).some(
+        (key) => this.vehicleForm.value[key] != initialValue[key]
+      );
+    });
   }
 
 }

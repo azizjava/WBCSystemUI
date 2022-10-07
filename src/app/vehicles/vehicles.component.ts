@@ -51,9 +51,11 @@ export class VehiclesComponent implements OnInit {
       data: actionData.data,
     };
 
-    if (this.actionName === 'delete') {
+    if (this.actionName === 'delete') {     
       this.deleteDialog(dialogData);
     } else {
+      dialogData.data =dialogData.data ?? {};      
+      dialogData.data["transporterList"] = this.vehiclesData.map((data)=> data.transporters);      
       this.openDialog(dialogData);
     }
   }
