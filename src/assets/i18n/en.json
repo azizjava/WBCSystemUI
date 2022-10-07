@@ -66,10 +66,10 @@
 		"Daily Transactions": "Daily Transactions",
 		"Customer": "Customer",
 		"Supplier": "Supplier",
-		"Transporter": "Transporter",
+		"Transporters": "Transporters",
 		"Product": "Product",
 		"Product Group": "Product Group",
-		"Vehicle": "Vehicle",
+		"Vehicles": "Vehicles",
 		"Operator": "Operator",
 		"Nationality": "Nationality",
 		"Product prices": "Product prices",
@@ -131,7 +131,7 @@
 	"vehicles":{
 		"tbl_header":{
 			"plateno":"Vehicle Plate No.",
-			"type":"Vehicle Type",
+			"vehicletype":"Vehicle Type",
 			"transportercode":"Vehicle Transporter Code",
 			"transportername":"Vehicle Transporter Name",
 			"actions":"Actions"

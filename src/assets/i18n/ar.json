@@ -128,7 +128,7 @@
 	"vehicles":{
 		"tbl_header":{
 			"plateno":"رقم لوحة المركبة",
-			"type":"نوع السيارة",
+			"vehicletype":"نوع السيارة",
 			"transportercode":"كود ناقل المركبة",
 			"transportername":"اسم ناقل المركبة",
 			"actions":"عمل"
