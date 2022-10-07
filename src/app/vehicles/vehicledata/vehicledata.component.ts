@@ -138,17 +138,10 @@ export class VehicleDataComponent implements OnInit {
   private _getTranslatedText(): void {
     this.translate.get(['']).subscribe((translated: string) => {
       this.staticText = {
-        code: this.translate.instant('transporters.tbl_header.transportercode'),
-        name: this.translate.instant(
-          'transporters.tbl_header.nameoftransporter'
-        ),
-        contactPerson: this.translate.instant(
-          'transporters.tbl_header.contactperson'
-        ),
-        mobileNo: this.translate.instant('transporters.tbl_header.mobileno'),
-        phoneNo: this.translate.instant('transporters.tbl_header.telephoneno'),
-        faxNo: this.translate.instant('transporters.tbl_header.faxno'),
-        address: this.translate.instant('transporters.tbl_header.address'),
+        plateno: this.translate.instant('vehicles.tbl_header.plateno'),
+        vehicletype: this.translate.instant('vehicles.tbl_header.vehicletype'),
+        transportercode: this.translate.instant('vehicles.tbl_header.transportercode'),
+        transportername: this.translate.instant('vehicles.tbl_header.transportername'),       
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),
         cancel: this.translate.instant('actions.cancel'),

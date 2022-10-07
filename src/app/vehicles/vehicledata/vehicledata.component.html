@@ -63,11 +63,11 @@
 
     <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
       mat-button (click)="save()">
-      Save
+      {{staticText.save}}
     </button>
 
     <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-      Cancel
+      {{staticText.cancel}}
     </button>
 
   </div>
