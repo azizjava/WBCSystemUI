@@ -6,17 +6,17 @@ import { modelDialog, Vehicle, TransporterList } from 'src/app/models';
 
 
 @Component({
-  selector: 'app-vehiclesdata',
-  templateUrl: './vehiclesdata.component.html',
-  styleUrls: ['./vehiclesdata.component.scss']
+  selector: 'app-vehicledata',
+  templateUrl: './vehicledata.component.html',
+  styleUrls: ['./vehicledata.component.scss']
 })
-export class VehiclesDataComponent implements OnInit {
+export class VehicleDataComponent implements OnInit {
 
   vehicleForm: FormGroup;
   vehicleUser!: Vehicle;
   transPortersList!: TransporterList[];
 
-  constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<VehiclesDataComponent>,
+  constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<VehicleDataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog) { }
 
   ngOnInit(): void {

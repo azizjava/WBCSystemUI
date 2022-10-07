@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VehicleRoutingModule } from './vehicle-routing.module';
-import { VehicleComponent } from './vehicle.component';
+import { VehiclesRoutingModule } from './vehicles-routing.module';
+import { VehiclesComponent } from './vehicles.component';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
-import { VehiclesDataComponent } from './vehiclesdata/vehiclesdata.component';
+import { VehicleDataComponent } from './vehicledata/vehicledata.component';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -17,14 +17,14 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    VehicleComponent,
-    VehiclesDataComponent
+    VehiclesComponent,
+    VehicleDataComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    VehicleRoutingModule,
+    VehiclesRoutingModule,
     SharedcomponentsModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
@@ -33,4 +33,4 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ]
 })
-export class VehicleModule { }
+export class VehiclesModule { }

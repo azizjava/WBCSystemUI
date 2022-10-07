@@ -7,14 +7,14 @@ import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, tableOperation, Vehicle } from '../models';
 import { AuthenticationService } from '../services';
 
-import { VehiclesDataComponent } from './vehiclesdata/vehiclesdata.component';
+import { VehicleDataComponent } from './vehicledata/vehicledata.component';
 
 @Component({
-  selector: 'app-vehicle',
-  templateUrl: './vehicle.component.html',
-  styleUrls: ['./vehicle.component.scss']
+  selector: 'app-vehicles',
+  templateUrl: './vehicles.component.html',
+  styleUrls: ['./vehicles.component.scss']
 })
-export class VehicleComponent implements OnInit {
+export class VehiclesComponent implements OnInit {
 
 
   tblColumns: string[] = ['PlateNo', 'Type', 'TransporterCode', 'TransporterName', 'Actions'];
@@ -62,7 +62,7 @@ export class VehicleComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'custom-dialog';
 
-    const dialogRef = this.matDialog.open(VehiclesDataComponent, dialogConfig);
+    const dialogRef = this.matDialog.open(VehicleDataComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (this.actionName === "edit") {
