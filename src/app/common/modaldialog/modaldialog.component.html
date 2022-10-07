@@ -1,15 +1,15 @@
 <div class="modaldialog" *ngIf="data.actionName === 'changePwd'">
-  <h1 mat-dialog-title>{{ data?.headerText }}</h1>
+  <h1 mat-dialog-title>{{ staticText.passwordtitle }}</h1>
 
   <div mat-dialog-content>
     <form class="my-form" [formGroup]="dialogForm">
       <mat-form-field class="full-width">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" placeholder="password" name="password" />
+        <mat-label>{{staticText.password}}</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="{{staticText.password}}" name="password" />
         <mat-error *ngIf="dialogForm.controls['password'].errors &&
             dialogForm.controls['password'].errors['required']  &&
             dialogForm.controls['password'].touched
-          ">Password is required
+          ">{{staticText.password}} {{staticText.required}}
         </mat-error>
         <mat-error *ngIf="dialogForm.controls['password'].errors &&
             dialogForm.controls['password'].errors['minlength'] &&
@@ -24,13 +24,13 @@
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <mat-label>Confirm Password</mat-label>
-        <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm Password"
+        <mat-label>{{staticText.confirmpassword}}</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" placeholder="{{staticText.confirmpassword}}"
           name="confirmPassword" />
         <mat-error *ngIf="dialogForm.controls['confirmPassword'].errors &&
             dialogForm.controls['confirmPassword'].errors['required'] &&
             dialogForm.controls['confirmPassword'].touched
-          ">Confirm Password is required
+          ">{{staticText.confirmpassword}} {{staticText.required}}
         </mat-error>
         <mat-error *ngIf="dialogForm.controls['confirmPassword'].errors &&
             dialogForm.controls['confirmPassword'].errors['mustMatch'] &&
@@ -43,11 +43,11 @@
 
   <div mat-dialog-actions class="d-flex justify-content-between w-100">
     <button class="btn btn-md" mat-flat-button color="primary" type="submit" mat-button (click)="savePassword()">
-      Ok
+      {{staticText.save}}
     </button>
 
     <button class="btn btn-md btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-      Cancel
+      {{staticText.cancel}}
     </button>
   </div>
 </div>
@@ -64,12 +64,12 @@
                   <div class="row mb-2">
                     <div class="col">
                       <mat-form-field class="full-width">
-                        <mat-label>First Name</mat-label>
-                        <input matInput placeholder="User name" formControlName="userName" name="userName" />
+                        <mat-label>{{staticText.username}}</mat-label>
+                        <input matInput placeholder="{{staticText.username}}" formControlName="userName" name="userName" />
                         <mat-error *ngIf="dialogForm.controls['userName'].errors && 
                                 dialogForm.controls['userName'].errors['required'] &&
                                 dialogForm.controls['userName'].touched
-                              ">User Name is required
+                              ">{{staticText.username}} {{staticText.required}}
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -80,12 +80,12 @@
                   <div class="row mb-2">
                     <div class="col">
                       <mat-form-field class="full-width">
-                        <mat-label>Email</mat-label>
-                        <input matInput placeholder="Email" formControlName="email" name="email" />
+                        <mat-label>{{staticText.email}}</mat-label>
+                        <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" />
                         <mat-error *ngIf="dialogForm.controls['email'].errors &&
                                 dialogForm.controls['email'].errors['required'] &&
                                 dialogForm.controls['email'].touched
-                              ">Email is required
+                              ">{{staticText.email}} {{staticText.required}}
                         </mat-error>
                         <mat-error *ngIf="dialogForm.controls['email'].errors &&
                                 dialogForm.controls['email'].errors['pattern'] &&
@@ -98,28 +98,11 @@
                     
                   </div>
 
-                  <div class="row mb-2">
-                    <div class="col">
-                      <mat-form-field class="full-width">
-                        <mat-label>Phone No</mat-label>
-                        <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
-                          formControlName="phoneNo" name="phoneNo" />
-                        <mat-error *ngIf="dialogForm.controls['phoneNo'].errors &&
-                                dialogForm.controls['phoneNo'].errors['required'] &&
-                                dialogForm.controls['phoneNo'].touched
-                              ">Phone No is required
-                        </mat-error>
-                        <mat-error *ngIf="dialogForm.controls['phoneNo'].errors &&
-                                dialogForm.controls['phoneNo'].errors['pattern'] &&
-                                dialogForm.controls['phoneNo'].touched
-                              ">Please, Enter 10 digit Mobile Number
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
+                  <div class="row mb-2">                 
                     <div class="col">
                       <section>
-                        <label class="m-r-15">Language:</label>
-                        <mat-select formControlName="language" placeholder="Mode">
+                        <label class="m-r-15">{{staticText.language}}</label>
+                        <mat-select formControlName="language" placeholder="{{staticText.language}}">
                           <mat-option *ngFor="let lang of userLanguages" [value]="lang.key">
                             {{lang.value}}
                           </mat-option>
@@ -128,7 +111,7 @@
                         <mat-error *ngIf="dialogForm.controls['language'].errors && 
                                 dialogForm.controls['language'].errors['required'] &&
                                 dialogForm.controls['language'].touched
-                              ">Gender is required
+                              ">{{staticText.language}} {{staticText.required}}
                         </mat-error>
                       </section>
                     </div>
@@ -145,11 +128,11 @@
 
                     <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button
                       (click)="saveProfile()">
-                      Update Profile
+                      {{staticText.update}}
                     </button>
 
                     <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-                      Cancel
+                      {{staticText.cancel}}
                     </button>
 
                   </div>

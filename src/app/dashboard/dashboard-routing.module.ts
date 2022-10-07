@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '', component: DashboardComponent,
     children: [
-      { path: '', loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule) },
+      {path: '', redirectTo: 'transactions', pathMatch:'full' },
       { path: 'nationality', loadChildren: () => import('../nationality/nationality.module').then(m => m.NationalityModule) },
       { path: 'transporters', loadChildren: () => import('../transporters/transporters.module').then(m => m.TransportersModule) },
       { path: 'transactions', loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule) },

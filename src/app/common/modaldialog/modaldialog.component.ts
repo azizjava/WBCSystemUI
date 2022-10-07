@@ -5,6 +5,7 @@ import { modelDialog, User } from 'src/app/models';
 
 import { GlobalConstants} from '../../common/index';
 import { findInvalidControls, MustMatch } from 'src/app/helper';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-modaldialog',
@@ -14,12 +15,12 @@ import { findInvalidControls, MustMatch } from 'src/app/helper';
 export class ModaldialogComponent implements OnInit {
   currentUser!: User;
   dialogForm!: FormGroup;
-  minDate!: Date;
-  maxDate!: Date;
   userLanguages: any = [];
+  public staticText: any = {};
 
   constructor(
     private dialogRef: MatDialogRef<ModaldialogComponent>,
+    private translate: TranslateService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog
   ) {}
@@ -40,28 +41,24 @@ export class ModaldialogComponent implements OnInit {
         },
         { validator: MustMatch('password', 'confirmPassword') }
       );
-
-
     } else if (this.data.actionName === 'viewProfile') {
       this.currentUser = this.data.data;
 
       this.userLanguages = GlobalConstants.commonFunction.getUserLanguages();
 
-      [this.minDate,this.maxDate] = GlobalConstants.commonFunction.getMinMaxDate();
+      this.dialogForm = this.fb.group({
+        userName: ['', [Validators.required, Validators.maxLength(30)]],
+        email: ['', [Validators.required, Validators.email]],
+        language: ['', [Validators.required]],
+      });
 
-      this.dialogForm = this.fb.group(
-        {
-          userName: ['', [Validators.required, Validators.maxLength(30)]],
-          email: ['', [Validators.required, Validators.email]],
-          phoneNo: ['',[Validators.required,Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
-          language: ['', [Validators.required]],
-        });
+      // Set Values
+      this.dialogForm.controls['userName'].setValue(this.currentUser?.userName);
+      this.dialogForm.controls['email'].setValue(this.currentUser?.email);
+      this.dialogForm.controls['language'].setValue(this.currentUser?.language);
+    }
 
-   // Set Values
-   this.dialogForm.controls["firstName"].setValue(this.currentUser?.userName);
-   this.dialogForm.controls["email"].setValue(this.currentUser?.email);
-   this.dialogForm.controls["language"].setValue(this.currentUser?.language);
-  }
+    this.getTranslatedText();
 
   }
 
@@ -90,5 +87,22 @@ export class ModaldialogComponent implements OnInit {
     }
 
     this.dialogRef.close(this.dialogForm.value);
+  }
+
+  private getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        username: this.translate.instant('login.username.label'),
+        email: this.translate.instant('login.email.label'),
+        language: this.translate.instant('login.language.label'),
+        required: this.translate.instant('common.required'),
+        update: this.translate.instant('actions.updateprofile'),
+        save: this.translate.instant('actions.save'),
+        cancel: this.translate.instant('actions.cancel'),
+        passwordtitle: this.translate.instant('changepassword.title'),
+        password: this.translate.instant('changepassword.password'),
+        confirmpassword: this.translate.instant('changepassword.confirmpassword'),
+      };
+    });
   }
 }

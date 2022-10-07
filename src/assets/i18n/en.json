@@ -10,7 +10,8 @@
 	},
 	"actions":{
 		"save":"Save",
-		"cancel":"Cancel"
+		"cancel":"Cancel",
+		"updateprofile":"Update Profile"
 	},
 
 	"actiontooltip":{
@@ -33,6 +34,8 @@
 	"login": {
 		"title": "Login Form",
 		"username.label": "Username",
+		"email.label": "Email",
+		"language.label": "Language",
 		"username.placeholder": "Username Here",
 		"password.label": "Password",
 		"password.placeholder": "Enter Password",
@@ -41,6 +44,11 @@
 		"register.link": "Create New Account",
 		"button.en": "English",
 		"button.ar": "Arabic"
+	},
+	"changepassword":{
+		"title":"Change Password",
+		"password":"Password",
+		"confirmpassword":"Confirm Password"
 	},
 	"pagenotfound": "The page you are looking for was not found.",
 	"dashboard": {

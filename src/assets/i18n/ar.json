@@ -10,7 +10,8 @@
 	},
 	"actions":{
 		"save":"يحفظ",
-		"cancel":"يلغي"
+		"cancel":"يلغي",
+		"updateprofile":"تحديث الملف الشخصي"
 	},
 	"actiontooltip":{
 		"add":"انقر للإضافة",
@@ -29,7 +30,9 @@
 	},
 	"login": {
 		"title": "Login Form",
-		"username.label": "Username",
+		"username.label": "اسم المستخدم",
+		"email.label": "البريد الإلكتروني",
+		"language.label": "اللغة",
 		"username.placeholder": "Username Here",
 		"password.label": "Password",
 		"password.placeholder": "Enter Password",
@@ -38,6 +41,11 @@
 		"register.link": "Create New Account",
 		"button.en": "English",
 		"button.ar": "Arabic"
+	},
+	"changepassword":{
+		"title":"تغيير كلمة المرور",
+		"password":"شعار",
+		"confirmpassword":"تأكيد كلمة المرور"
 	},
     "pagenotfound":"الصفحة التي تبحث عنها غير موجودة.",
     "dashboard":{
