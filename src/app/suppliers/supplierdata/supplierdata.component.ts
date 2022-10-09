@@ -13,7 +13,7 @@ import { modelDialog, Transporter } from 'src/app/models';
 export class SupplierdataComponent implements OnInit {
 
   form: FormGroup;
-  formData!: Transporter;
+  formData!: any;
 
   constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<SupplierdataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog) { }
