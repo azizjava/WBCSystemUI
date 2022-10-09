@@ -106,7 +106,7 @@
 			"telephoneno":"الهاتف لا",
 			"faxno":"فاكس",
 			"address":"تبوك",
-			"actions":"عمل"
+			"actions":"عمل"			
 		}
 	},
 	"products":{
@@ -131,7 +131,8 @@
 			"vehicletype":"نوع السيارة",
 			"transportercode":"كود ناقل المركبة",
 			"transportername":"اسم ناقل المركبة",
-			"actions":"عمل"
+			"actions":"عمل",
+			"ddlcode" :"يمكنك الحصول على رمز الناقل الخاص بك من هنا"
 		}
 	},
 	"operators":{

@@ -145,6 +145,7 @@ export class VehicleDataComponent implements OnInit {
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),
         cancel: this.translate.instant('actions.cancel'),
+        ddlcode:this.translate.instant('vehicles.tbl_header.ddlcode'), 
       };
     });
   }

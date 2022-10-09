@@ -2,24 +2,24 @@
   <div class="row mb-2">
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Plate Number</mat-label>
-        <input matInput placeholder="Plate Number" formControlName="plateNo" name="plateNo" />
+        <mat-label>{{staticText.plateno}}</mat-label>
+        <input matInput placeholder="{{staticText.plateno}}" formControlName="plateNo" name="plateNo" />
         <mat-error *ngIf="vehicleForm.controls['plateNo'].errors && 
           vehicleForm.controls['plateNo'].errors['required'] &&
           vehicleForm.controls['plateNo'].touched
-                ">Plate Number is required
+                ">{{staticText.plateno}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Type</mat-label>
-        <input matInput placeholder="Type" formControlName="type" name="type" />
+        <mat-label>{{staticText.vehicletype}}</mat-label>
+        <input matInput placeholder="{{staticText.vehicletype}}" formControlName="type" name="type" />
         <mat-error *ngIf="vehicleForm.controls['type'].errors && 
           vehicleForm.controls['type'].errors['required'] &&
           vehicleForm.controls['type'].touched
-                ">Type is required
+                ">{{staticText.vehicletype}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -29,8 +29,8 @@
     <div class="col">
    
       <mat-form-field appearance="fill">
-        <mat-label>Transporter Code</mat-label>
-        <mat-select formControlName="transporterCode" required (selectionChange)="OnSelectionChange($event)">
+        <mat-label>{{staticText.transportercode}}</mat-label>
+        <mat-select placeholder="{{staticText.transportercode}}" formControlName="transporterCode" required (selectionChange)="OnSelectionChange($event)">
           <mat-option *ngFor="let item of transPortersList" [value]="item.transporterCode">
             {{item.transporterCode}}
           </mat-option>
@@ -38,20 +38,20 @@
         <mat-error *ngIf="vehicleForm.controls['transporterCode'].errors &&
           vehicleForm.controls['transporterCode'].errors['required'] &&
           vehicleForm.controls['transporterCode'].touched
-                ">Transporter Code is required
+                ">{{staticText.transportercode}} {{staticText.required}}
         </mat-error>
-        <mat-hint>You can pick up your Transporter Code here</mat-hint>
+        <mat-hint>{{staticText.ddlcode}}</mat-hint>
       </mat-form-field>
     </div>
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Transporter Name</mat-label>
-        <input matInput placeholder="Transporter Name" formControlName="transporterName" name="transporterName"  readonly/>
+        <mat-label>{{staticText.transportername}}</mat-label>
+        <input matInput placeholder="{{staticText.transportername}}" formControlName="transporterName" name="transporterName"  readonly/>
         <mat-error *ngIf="vehicleForm.controls['transporterName'].errors &&
           vehicleForm.controls['transporterName'].errors['required'] &&
           vehicleForm.controls['transporterName'].touched
-                ">Transporter Name is required
+                ">{{staticText.transportername}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>

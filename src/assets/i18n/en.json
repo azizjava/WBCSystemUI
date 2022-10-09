@@ -134,7 +134,8 @@
 			"vehicletype":"Vehicle Type",
 			"transportercode":"Vehicle Transporter Code",
 			"transportername":"Vehicle Transporter Name",
-			"actions":"Actions"
+			"actions":"Actions",
+			"ddlcode" :"You can pick up your Transporter Code here"
 		}
 	},
 	"operators":{
