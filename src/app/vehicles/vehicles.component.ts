@@ -53,7 +53,10 @@ export class VehiclesComponent implements OnInit {
 
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
-    } else {
+    } else if (this.actionName === 'edit') {
+      this.getVehicleById(dialogData);
+    }
+    else {
       this.openDialog(dialogData);
     }
   }
@@ -107,7 +110,9 @@ export class VehiclesComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllVehicles();
       },
-      error: (e) => console.error(e),
+      error: (e) => {
+        console.error(e)
+      },
     });
   }
 
@@ -132,6 +137,19 @@ export class VehiclesComponent implements OnInit {
         }));
       },
       error: (error: string) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private getVehicleById(dialogData: any): void {
+    this.httpService.getVehicleById(dialogData.data?.plateNo).subscribe({
+      next: (data: Vehicle) => {        
+        dialogData.data = data;
+        this.openDialog(dialogData);
+      },
+      error: (error) => {
         console.log(error);
         this.alertService.error(error);
       },

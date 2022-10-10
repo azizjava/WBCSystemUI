@@ -50,10 +50,10 @@ export class VehicleDataComponent implements OnInit {
       this.vehicleForm.controls['plateNo'].setValue(this.vehicleData?.plateNo);
       this.vehicleForm.controls['type'].setValue(this.vehicleData?.vehicleType);
       this.vehicleForm.controls['transporterCode'].setValue(
-        this.vehicleData?.transporterCode
+        this.vehicleData.transporters?.transporterCode
       );
       this.vehicleForm.controls['transporterName'].setValue(
-        this.vehicleData?.transporterName
+        this.vehicleData.transporters?.nameOfTransporter
       );
 
       if (this.data.actionName === 'view') {

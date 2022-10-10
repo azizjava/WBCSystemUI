@@ -56,7 +56,12 @@ export class TransportersComponent implements OnInit {
 
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
-    } else {
+    }
+    else if (this.actionName === 'edit') {
+      this.getTransporterById(dialogData);
+    }
+
+    else {
       this.openDialog(dialogData);
     }
   }
@@ -133,6 +138,19 @@ export class TransportersComponent implements OnInit {
     this.httpService.getAllTransporters().subscribe({
       next: (data: Transporter[]) => {
         this.tableData = data;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private getTransporterById(dialogData: any): void {
+    this.httpService.getTransporterById(dialogData.data?.transporterCode).subscribe({
+      next: (data: Transporter) => {        
+        dialogData.data = data;
+        this.openDialog(dialogData);
       },
       error: (error) => {
         console.log(error);
