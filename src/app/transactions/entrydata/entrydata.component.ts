@@ -45,6 +45,7 @@ export class entryDataComponent implements OnInit {
         firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
         dateIn: [GlobalConstants.commonFunction.getFormattedDate()],
         timeIn: [GlobalConstants.commonFunction.getFormattedTime()],
+        instructions: ['', [Validators.maxLength(250)]],
        
       });
 

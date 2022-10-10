@@ -337,6 +337,25 @@
       Add Key Value
     </button>  
   </div>
+
+  <div class="row form-col">
+    <div class="col-6">
+      <label for="colFormLabelSm" class="lbl-text">Instructions/Comments</label>
+    </div>
+    <div class="col-4">
+      <mat-form-field class="full-width">
+        <mat-label>Add Instructions/Comments</mat-label>
+        <textarea matInput placeholder="Instructions/Comments" formControlName="instructions"
+          name="instructions" ></textarea>
+        <mat-error *ngIf="entryForm.controls['instructions'].errors &&
+        entryForm.controls['instructions'].errors['required'] &&
+        entryForm.controls['instructions'].touched
+              ">Instructions/Comments is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
   
   <div class="mb-1 d-flex justify-content-evenly w-100">  
     <button class="btn btn-sm" [disabled]="!entryForm.valid"  mat-flat-button color="primary" type="submit" mat-button (click)="save()">
