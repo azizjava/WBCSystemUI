@@ -25,8 +25,8 @@ export class ProductDataComponent implements OnInit {
       {
         productCode: ['', [Validators.required, Validators.maxLength(30)]],
         productName: ['', [Validators.required, Validators.maxLength(30)]],
-        groupCode: ['', [Validators.required]],
-        groupName: ['', [Validators.required]],
+        productPrice: ['', [Validators.required, Validators.maxLength(30)]],
+        groupCode: ['', [Validators.required]],        
 
       });
 
@@ -36,8 +36,9 @@ export class ProductDataComponent implements OnInit {
       this.vehicleUser = this.data.data;
       this.form.controls["productCode"].setValue(this.vehicleUser?.ProductCode);
       this.form.controls["productName"].setValue(this.vehicleUser?.ProductName);
+      this.form.controls["productPrice"].setValue(this.vehicleUser?.ProductPrice);
       this.form.controls["groupCode"].setValue(this.vehicleUser?.GroupCode);
-      this.form.controls["groupName"].setValue(this.vehicleUser?.GroupName);
+      
 
       if (this.data.actionName === 'view') {
         this.form.disable();
@@ -68,7 +69,7 @@ export class ProductDataComponent implements OnInit {
   }
 
   private _getTransPortersList(): any {
-    this.transPortersList = [{ Id :"1", GroupCode: 'PG-01', GroupName: 'Product Group-01' }, {  Id :"2", GroupCode: 'PG-02', GroupName: 'Product Group-02' }, {  Id :"3",GroupCode: 'PG-03', GroupName: 'Product Group-03' } ];
+    this.transPortersList = [{ GroupCode: 'PG-01', GroupName: 'Product Group-01' }, {   GroupCode: 'PG-02', GroupName: 'Product Group-02' }, { GroupCode: 'PG-03', GroupName: 'Product Group-03' } ];
   }
 
 }

@@ -26,6 +26,19 @@
   </div>
 
   <div class="row mb-2">
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Product Price</mat-label>
+        <input matInput placeholder="Product Price" formControlName="productPrice" name="productPrice" />
+        <mat-error *ngIf="form.controls['productPrice'].errors &&
+          form.controls['productPrice'].errors['required'] &&
+          form.controls['productPrice'].touched
+                ">Product Price is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="col">
    
       <mat-form-field appearance="fill">
@@ -44,18 +57,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col">
-      <mat-form-field class="full-width">
-        <mat-label>Group Name</mat-label>
-        <input matInput placeholder="Group Name" formControlName="groupName" name="groupName"  readonly/>
-        <mat-error *ngIf="form.controls['groupName'].errors &&
-          form.controls['groupName'].errors['required'] &&
-          form.controls['groupName'].touched
-                ">Group Name is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
+    
   </div>
 
 

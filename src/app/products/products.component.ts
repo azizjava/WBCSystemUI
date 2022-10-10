@@ -16,7 +16,7 @@ import { ProductDataComponent } from './productsdata/productdata.component';
 export class ProductsComponent implements OnInit {
 
 
-  tblColumns: string[] = ['ProductCode', 'ProductName', 'GroupCode', 'GroupName', 'Actions'];
+  tblColumns: string[] = ['ProductCode', 'ProductName', 'ProductPrice', 'GroupCode',  'Actions'];
   tableData: any = [];
 
   public searchInput: string = '';
@@ -66,12 +66,12 @@ export class ProductsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (this.actionName === "edit") {
         const selRecord: Products = {
-          Id: dialogData.data?.Id, ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, GroupName: result.groupName };
+          Id: dialogData.data?.Id, ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, ProductPrice: result.productPrice };
         this._updateRecord(selRecord);
       }
       else if (this.actionName === "add") { 
         const selRecord: Products = {
-          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, GroupName: result.groupName };
+          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, ProductPrice: result.productPrice };
         this._addRecord(selRecord); 
       }
     });
@@ -117,7 +117,7 @@ export class ProductsComponent implements OnInit {
       this.tableData[selIndex].ProductCode = selRecord.ProductCode;
       this.tableData[selIndex].ProductName = selRecord.ProductName;
       this.tableData[selIndex].GroupCode = selRecord.GroupCode;
-      this.tableData[selIndex].GroupName = selRecord.GroupName;
+      this.tableData[selIndex].productPrice = selRecord.ProductPrice;
     }
   }
 
@@ -142,28 +142,28 @@ export class ProductsComponent implements OnInit {
         "ProductCode": "P-01",
         "ProductName": "Product-01",
         "GroupCode": "PG-01",
-        "GroupName": "Product Group-01"
+        "ProductPrice": "1001"
       },
       {
         "Id": "2",
         "ProductCode": "P-02",
         "ProductName": "Product-02",
         "GroupCode": "PG-02",
-        "GroupName": "Product Group-02"
+        "ProductPrice": "1002"
       },
       {
         "Id": "3",
         "ProductCode": "P-03",
         "ProductName": "Product-03",
         "GroupCode": "PG-03",
-        "GroupName": "Product Group-03"
+        "ProductPrice": "1003"
       },
       {
         "Id": "4",
         "ProductCode": "P-04",
         "ProductName": "Product-04",
         "GroupCode": "PG-04",
-        "GroupName": "Product Group-04"
+        "ProductPrice": "1004"
       },
 
       {
@@ -171,42 +171,42 @@ export class ProductsComponent implements OnInit {
         "ProductCode": "P-05",
         "ProductName": "Product-05",
         "GroupCode": "PG-05",
-        "GroupName": "Product Group-05"
+        "ProductPrice": "1005"
       },
       {
         "Id": "6",
         "ProductCode": "P-06",
         "ProductName": "Product-06",
         "GroupCode": "PG-06",
-        "GroupName": "Product Group-06"
+        "ProductPrice": "1006"
       },
       {
         "Id": "7",
         "ProductCode": "P-07",
         "ProductName": "Product-07",
         "GroupCode": "PG-07",
-        "GroupName": "Product Group-07"
+        "ProductPrice": "1007"
       },
       {
         "Id": "8",
         "ProductCode": "P-08",
         "ProductName": "Product-08",
         "GroupCode": "PG-01",
-        "GroupName": "Product Group-01"
+        "ProductPrice": "1001"
       },
       {
         "Id": "9",
         "ProductCode": "P-09",
         "ProductName": "Product-09",
         "GroupCode": "PG-02",
-        "GroupName": "Product Group-02"
+        "ProductPrice": "1002"
       },
       {
         "Id": "10",
         "ProductCode": "P-02",
         "ProductName": "Product-10",
         "GroupCode": "PG-02",
-        "GroupName": "Product Group-02"
+        "ProductPrice": "1002"
       },
     ]
   }

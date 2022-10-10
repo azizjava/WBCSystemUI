@@ -113,6 +113,7 @@
 		"tbl_header":{
 			"productcode":"كود المنتج",
 			"productname":"اسم المنتج",
+			"productprice":"سعر المنتج",
 			"groupcode":"كود المجموعة",
 			"groupname":"أسم المجموعة",
 			"actions":"عمل"

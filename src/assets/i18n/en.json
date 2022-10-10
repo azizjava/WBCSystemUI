@@ -116,8 +116,8 @@
 		"tbl_header":{
 			"productcode":"Product Code",
 			"productname":"Product Name",
+			"productprice":"Product Price",
 			"groupcode":"Group Code",
-			"groupname":"Group Name",
 			"actions":"Actions"
 		}
 	},

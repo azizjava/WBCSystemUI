@@ -3,11 +3,11 @@ export class Products {
     public ProductCode:string;
     public ProductName: string;
     public GroupCode: string;
-    public GroupName: string;
+    public ProductPrice: string;
   }
 
   export class ProductGroup {
-    public Id: string;
+    // public Id: string;
     public GroupCode: string;
     public GroupName: string;
   }
