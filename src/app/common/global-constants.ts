@@ -63,7 +63,7 @@ export class GlobalConstants {
 
             return [{ menuName: 'Daily Transactions', menuIcon: '', routePath: "transactions" }, { menuName: 'Customer', menuIcon: '', routePath: "customers" }, { menuName: 'Supplier', menuIcon: '', routePath: "suppliers" }, { menuName: 'Transporters', menuIcon: '', routePath: 'transporters' },
             { menuName: 'Product', menuIcon: '', routePath: 'products' }, { menuName: 'Product Group', menuIcon: '', routePath: 'productgroup' }, { menuName: 'Vehicles', menuIcon: 'local_shipping', routePath: "vehicles" },
-            { menuName: 'Operator', menuIcon: '', routePath: 'operators' }, { menuName: 'Nationality', menuIcon: '', routePath: "nationality" }, { menuName: 'Product prices', menuIcon: '' }, { menuName: 'Reports', menuIcon: 'analytics' }
+            { menuName: 'Operator', menuIcon: '', routePath: 'operators' }, { menuName: 'Nationality', menuIcon: '', routePath: "nationality" }, { menuName: 'Reports', menuIcon: 'analytics' }
             ];
         },
         getCurrentYear(): number {
