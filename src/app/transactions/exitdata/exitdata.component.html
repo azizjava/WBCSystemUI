@@ -148,24 +148,7 @@
 
   </div>
 
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Delivery Instructions/Comments</label>
-    </div>
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Delivery Instructions/Comments</mat-label>
-        <textarea matInput placeholder="Delivery Instructions/Comments" formControlName="instructions"
-          name="instructions" ></textarea>
-        <mat-error *ngIf="exitForm.controls['instructions'].errors &&
-        exitForm.controls['instructions'].errors['required'] &&
-        exitForm.controls['instructions'].touched
-              ">Delivery Instructions/Comments is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div>
+  
 
   <div class="row form-col">
     <div class="col-6">
@@ -197,6 +180,25 @@
         exitForm.controls['orderNo'].errors['required'] &&
         exitForm.controls['orderNo'].touched
               ">Order No is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="row form-col">
+    <div class="col-6">
+      <label for="colFormLabelSm" class="lbl-text">Delivery Instructions/Comments</label>
+    </div>
+    <div class="col-4">
+      <mat-form-field class="full-width">
+        <mat-label>Delivery Instructions/Comments</mat-label>
+        <textarea matInput placeholder="Delivery Instructions/Comments" formControlName="instructions"
+          name="instructions" ></textarea>
+        <mat-error *ngIf="exitForm.controls['instructions'].errors &&
+        exitForm.controls['instructions'].errors['required'] &&
+        exitForm.controls['instructions'].touched
+              ">Delivery Instructions/Comments is required
         </mat-error>
       </mat-form-field>
     </div>
