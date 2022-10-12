@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { findInvalidControls } from 'src/app/helper';
 import { modelDialog, Operator, } from 'src/app/models';
@@ -12,10 +12,10 @@ import { modelDialog, Operator, } from 'src/app/models';
 })
 export class OperatorDataComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   vehicleUser!: Operator;
 
-  constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<OperatorDataComponent>,
+  constructor(private _formBuilder: UntypedFormBuilder, private dialogRef: MatDialogRef<OperatorDataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog) { }
 
   ngOnInit(): void {

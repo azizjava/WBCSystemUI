@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ export class ListFilterComponent implements OnInit {
     @Output() addNew = new EventEmitter();
     @Output() inputValueChanged = new EventEmitter<string>();
 
-    public searchControl: FormControl = new FormControl('');
+    public searchControl: UntypedFormControl = new UntypedFormControl('');
 
     private debounce: number = 400;
 

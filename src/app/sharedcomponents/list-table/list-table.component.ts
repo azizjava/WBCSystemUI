@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,7 +28,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
 
     @Output() actionEvent = new EventEmitter<tableOperation>();
 
-    public searchControl: FormControl = new FormControl('');
+    public searchControl: UntypedFormControl = new UntypedFormControl('');
     public dataSource!: MatTableDataSource<any>;
     public pageSize: number = 10;
     public pageSizeOptions: number[] = [5, 10, 25, 100];

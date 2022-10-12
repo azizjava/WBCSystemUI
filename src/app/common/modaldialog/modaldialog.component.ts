@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { modelDialog, User } from 'src/app/models';
 
 import { GlobalConstants} from '../../common/index';
@@ -14,14 +14,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ModaldialogComponent implements OnInit {
   currentUser!: User;
-  dialogForm!: FormGroup;
+  dialogForm!: UntypedFormGroup;
   userLanguages: any = [];
   public staticText: any = {};
 
   constructor(
     private dialogRef: MatDialogRef<ModaldialogComponent>,
     private translate: TranslateService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog
   ) {}
 

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { findInvalidControls } from 'src/app/helper';
 import { modelDialog, Transporter } from 'src/app/models';
@@ -12,10 +12,10 @@ import { modelDialog, Transporter } from 'src/app/models';
 })
 export class CustomerdataComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   formData!: any;
 
-  constructor(private _formBuilder: FormBuilder, private dialogRef: MatDialogRef<CustomerdataComponent>,
+  constructor(private _formBuilder: UntypedFormBuilder, private dialogRef: MatDialogRef<CustomerdataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog) { }
 
   ngOnInit(): void {

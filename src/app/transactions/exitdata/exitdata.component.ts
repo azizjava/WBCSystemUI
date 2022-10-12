@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GlobalConstants } from 'src/app/common';
 import { findInvalidControls } from 'src/app/helper';
@@ -13,7 +13,7 @@ import { modelDialog, Transporter } from 'src/app/models';
 })
 export class exitDataComponent implements OnInit {
 
-  exitForm: FormGroup;
+  exitForm: UntypedFormGroup;
   vehicleList: any = [];
   transportersList: any = [];
   suppliersList: any = [];
@@ -21,7 +21,7 @@ export class exitDataComponent implements OnInit {
   operatorIDList: any = [];
   nationalityList: any = [];
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
 

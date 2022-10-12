@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { findInvalidControls } from 'src/app/helper';
 import { first } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  loginForm!: UntypedFormGroup;
   submitted = false;
   returnUrl: string = '';
   loginError: string = '';
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   userLanguages: any = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,

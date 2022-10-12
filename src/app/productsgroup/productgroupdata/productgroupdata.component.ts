@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls } from 'src/app/helper';
@@ -13,13 +13,13 @@ import { ProductGroupsService } from '../productgroups.service';
   styleUrls: ['./productgroupdata.component.scss'],
 })
 export class ProductGroupDataComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   productGroup!: any;
   public staticText: any = {};
   private _hasChange: boolean = false;
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<ProductGroupDataComponent>,
     private httpService: ProductGroupsService,
     private alertService: AlertService,

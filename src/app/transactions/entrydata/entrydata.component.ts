@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { GlobalConstants } from 'src/app/common';
 import { findInvalidControls } from 'src/app/helper';
 
@@ -10,7 +10,7 @@ import { findInvalidControls } from 'src/app/helper';
 })
 export class entryDataComponent implements OnInit {
 
-  entryForm: FormGroup;
+  entryForm: UntypedFormGroup;
   vehicleList: any = [];
   transportersList: any = [];
   suppliersList: any = [];
@@ -25,7 +25,7 @@ export class entryDataComponent implements OnInit {
   selectedGood:string='';
  
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
 

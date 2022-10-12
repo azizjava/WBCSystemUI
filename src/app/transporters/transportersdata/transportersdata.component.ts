@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalConstants } from 'src/app/common';
@@ -15,14 +15,14 @@ import { TransportersService } from '../transporters.service';
   styleUrls: ['./transportersdata.component.scss'],
 })
 export class TransportersdataComponent implements OnInit {
-  transporterForm: FormGroup;
+  transporterForm: UntypedFormGroup;
   transporterUser!: Transporter;
   public staticText: any = {};
 
   private _hasChange: boolean = false;
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private httpService: TransportersService,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls } from 'src/app/helper';
@@ -19,7 +19,7 @@ import { VehiclesService } from '../vehicles.service';
   styleUrls: ['./vehicledata.component.scss'],
 })
 export class VehicleDataComponent implements OnInit {
-  vehicleForm: FormGroup;
+  vehicleForm: UntypedFormGroup;
   vehicleData!: any;
   public staticText: any = {};
   transPortersList!: TransporterList[];
@@ -27,7 +27,7 @@ export class VehicleDataComponent implements OnInit {
   private _hasChange: boolean = false;
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<VehicleDataComponent>,
     private httpService: VehiclesService,
     private transportersService: TransportersService,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -19,14 +19,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class SignUpComponent implements OnInit {
 
-  signupForm: FormGroup;
+  signupForm: UntypedFormGroup;
   loading = false;  
   userLanguages: any = [];
   userRoles: any = [];
   passwordResetQuestion: any = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService

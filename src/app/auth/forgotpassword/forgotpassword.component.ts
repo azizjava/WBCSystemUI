@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/models';
@@ -12,10 +12,10 @@ import { AlertService, AuthenticationService } from 'src/app/services';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  public userForm!: FormGroup;
+  public userForm!: UntypedFormGroup;
   userDetails!: User;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService) { }
