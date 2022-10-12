@@ -65,14 +65,14 @@ export class ProductsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (this.actionName === "edit") {
-        const selRecord: Products = {
-          Id: dialogData.data?.Id, ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, ProductPrice: result.productPrice };
-        this._updateRecord(selRecord);
+        // const selRecord: Products = {
+        //   Id: dialogData.data?.Id, ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, ProductPrice: result.productPrice };
+        // this._updateRecord(selRecord);
       }
       else if (this.actionName === "add") { 
-        const selRecord: Products = {
-          Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, ProductPrice: result.productPrice };
-        this._addRecord(selRecord); 
+        // const selRecord: Products = {
+        //   Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), ProductCode: result.productCode, ProductName: result.productName, GroupCode: result.groupCode, ProductPrice: result.productPrice };
+        // this._addRecord(selRecord); 
       }
     });
 

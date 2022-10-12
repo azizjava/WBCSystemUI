@@ -49,6 +49,10 @@ export class AuthenticationService {
           return true;
         }),
         catchError((error: any) => {
+          if (error.status == 0){
+            console.log(error?.message);
+            return throwError("API is not running!!");
+          }
           const errorMsg = error?.error;
           console.log(errorMsg);
           this.alertService.error(errorMsg);
