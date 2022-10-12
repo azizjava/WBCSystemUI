@@ -40,21 +40,11 @@
     </div>
 
     <div class="col">
-   
-      <mat-form-field appearance="fill">
-        <mat-label>Group Code</mat-label>
-        <mat-select formControlName="groupCode" required (selectionChange)="OnSelectionChange($event)">
-          <mat-option *ngFor="let item of transPortersList" [value]="item.GroupCode">
-            {{item.GroupCode}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="form.controls['groupCode'].errors &&
-          form.controls['groupCode'].errors['required'] &&
-          form.controls['groupCode'].touched
-                ">Group Code is required
-        </mat-error>
-        <mat-hint>You can pick up your Group Code here</mat-hint>
-      </mat-form-field>
+
+      <angular2-multiselect [data]="productGroupsList"  appendTo="body" [settings]="dropdownSettings"
+         formControlName="groupCode" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)">
+      </angular2-multiselect>
     </div>
 
     
