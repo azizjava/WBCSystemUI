@@ -87,14 +87,14 @@
 	},
 	"suppliers":{
 		"tbl_header":{
-			"code":"شفرة",
-			"name":"اسم",
+			"suppliercode":"كود المورد",
+			"suppliername":"اسم المورد",
 			"contactperson":"الشخص الذي يمكن الاتصال به",
 			"mobileno":"رقم الموبايل",
-			"phoneno":"الهاتف لا",
+			"telephoneno":"الهاتف لا",
 			"faxno":"فاكس",
 			"address":"تبوك",
-			"actions":"أجراءات"
+			"actions":"عمل"
 		}
 	},
 	"transporters":{		

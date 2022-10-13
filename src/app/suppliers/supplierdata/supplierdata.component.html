@@ -2,24 +2,24 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Code</mat-label>
-          <input matInput placeholder="Supplier Code" formControlName="code" name="code" />
-          <mat-error *ngIf="form.controls['code'].errors && 
-          form.controls['code'].errors['required'] &&
-          form.controls['code'].touched
-                ">Supplier Code is required
+          <mat-label>{{staticText.supplierCode}}</mat-label>
+          <input matInput placeholder="{{staticText.supplierCode}}" formControlName="supplierCode" name="supplierCode" />
+          <mat-error *ngIf="form.controls['supplierCode'].errors && 
+          form.controls['supplierCode'].errors['required'] &&
+          form.controls['supplierCode'].touched
+                ">{{staticText.supplierCode}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Name" formControlName="name" name="name" />
-          <mat-error *ngIf="form.controls['name'].errors && 
-          form.controls['name'].errors['required'] &&
-          form.controls['name'].touched
-                ">Name is required
+          <mat-label>{{staticText.supplierName}}</mat-label>
+          <input matInput placeholder="{{staticText.supplierCode}}" formControlName="supplierName" name="supplierName" />
+          <mat-error *ngIf="form.controls['supplierName'].errors && 
+          form.controls['supplierName'].errors['required'] &&
+          form.controls['supplierName'].touched
+                ">{{staticText.supplierName}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
@@ -28,25 +28,25 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Contact Person</mat-label>
-          <input matInput placeholder="Contact Person" formControlName="contactPerson" name="contactPerson" />
+          <mat-label>{{staticText.contactPerson}}</mat-label>
+          <input matInput placeholder="{{staticText.contactPerson}}" formControlName="contactPerson" name="contactPerson" />
           <mat-error *ngIf="form.controls['contactPerson'].errors &&
           form.controls['contactPerson'].errors['required'] &&
           form.controls['contactPerson'].touched
-                ">Contact Person is required
+                ">{{staticText.contactPerson}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Mobile No</mat-label>
-          <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Mobile No"
+          <mat-label>{{staticText.mobileNo}}</mat-label>
+          <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.mobileNo}}"
             formControlName="mobileNo" name="mobileNo" />
           <mat-error *ngIf="form.controls['mobileNo'].errors &&
           form.controls['mobileNo'].errors['mobileNo'] &&
           form.controls['mobileNo'].touched
-                ">Mobile No is required
+                ">{{staticText.mobileNo}} {{staticText.required}}
           </mat-error>
           <mat-error *ngIf="form.controls['mobileNo'].errors &&
           form.controls['mobileNo'].errors['pattern'] &&
@@ -62,13 +62,13 @@
     <div class="row mb-2">
         <div class="col">
             <mat-form-field class="full-width">
-              <mat-label>Phone No</mat-label>
-              <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="Phone No"
-                formControlName="phoneNo" name="phoneNo" />
-              <mat-error *ngIf="form.controls['phoneNo'].errors &&
-              form.controls['phoneNo'].errors['required'] &&
-              form.controls['phoneNo'].touched
-                    ">Phone No is required
+              <mat-label>{{staticText.telephoneNo}}</mat-label>
+              <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.telephoneNo}}"
+                formControlName="telephoneNo" name="telephoneNo" />
+              <mat-error *ngIf="form.controls['telephoneNo'].errors &&
+              form.controls['telephoneNo'].errors['required'] &&
+              form.controls['telephoneNo'].touched
+                    ">{{staticText.telephoneNo}} {{staticText.required}}
               </mat-error>
              
             </mat-form-field>
@@ -76,13 +76,13 @@
   
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-label>Fax No</mat-label>
-            <input matInput   placeholder="Fax No"
+            <mat-label>{{staticText.faxNo}}</mat-label>
+            <input matInput   placeholder="{{staticText.faxNo}}"
               formControlName="faxNo" name="faxNo" />
             <mat-error *ngIf="form.controls['faxNo'].errors &&
             form.controls['faxNo'].errors['required'] &&
             form.controls['faxNo'].touched
-                  ">Fax No is required
+                  ">{{staticText.faxNo}} {{staticText.required}}
             </mat-error>
           
           </mat-form-field>
@@ -93,13 +93,13 @@
     <div class="row mb-2">
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>Address</mat-label>
-          <input matInput placeholder="Address"
+          <mat-label>{{staticText.address}}</mat-label>
+          <input matInput placeholder="{{staticText.address}}"
             formControlName="address" name="address" />
           <mat-error *ngIf="form.controls['address'].errors &&
           form.controls['address'].errors['required'] &&
           form.controls['address'].touched
-                ">Phone No is required
+                ">{{staticText.address}} {{staticText.required}}
           </mat-error>
          
         </mat-form-field>
@@ -113,11 +113,11 @@
     <div class="d-flex justify-content-between w-100">
 
       <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
-        Save
+        {{staticText.save}}
       </button>
 
       <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-        Cancel
+        {{staticText.cancel}}
       </button>
 
     </div>

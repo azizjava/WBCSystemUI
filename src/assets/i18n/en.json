@@ -89,11 +89,11 @@
 	},
 	"suppliers":{
 		"tbl_header":{
-			"code":"Code",
-			"name":"Name",
+			"suppliercode":"Supplier Code",
+			"suppliername":"Name of Supplier",
 			"contactperson":"Contact Person",
 			"mobileno":"Mobile No",
-			"phoneno":"Telephone No",
+			"telephoneno":"Telephone No",
 			"faxno":"Fax",
 			"address":"Address",
 			"actions":"Action"
