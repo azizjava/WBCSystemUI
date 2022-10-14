@@ -77,14 +77,14 @@
 	},
 	"customers":{
 		"tbl_header":{
-			"code":"Code",
-			"name":"Name",
+			"customercode":"Customer Code",
+			"customername":"Name of Customer",
 			"contactperson":"Contact Person",
 			"mobileno":"Mobile No",
-			"phoneno": "Telephone No",
+			"telephoneno":"Telephone No",
 			"faxno":"Fax",
 			"address":"Address",
-			"actions":"Actions"
+			"actions":"Action"
 		}
 	},
 	"suppliers":{

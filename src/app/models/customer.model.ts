@@ -1,10 +1,12 @@
 export class Customer {
-    public Id: string;
-    public Code: string;
-    public Name: string;
-    public ContactPerson: string;
-    public MobileNo: string;
-    public PhoneNo: string;
-    public FaxNo: string;
-    public Address: string;
+    // public Id: string;
+    public address: string;
+    public contactPerson: string;
+    public customerCode: string;
+    public customerName: string;
+    public faxNo: string;
+    public localCreatedDateTime!: Date;
+    public lastModifiedByUser!: string; 
+    public mobileNo: string;
+    public telephoneNo: string; 
   }
