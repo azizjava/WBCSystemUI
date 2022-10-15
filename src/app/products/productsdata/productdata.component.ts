@@ -25,7 +25,7 @@ import { ProductsService } from '../products.service';
 })
 export class ProductDataComponent implements OnInit, AfterViewChecked {
   public form: UntypedFormGroup;
-  public vehicleUser!: Product;
+  public productData!: Product;
   public productGroupsList: any = [];
   public dropdownSettings: any = {};
   public selectedItems: ProductGroup[] = [];
@@ -67,12 +67,12 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     };
 
     if (this.data.actionName !== 'add') {
-      this.vehicleUser = this.data.data;
-      this.form.controls['productCode'].setValue(this.vehicleUser?.productCode);
-      this.form.controls['productName'].setValue(this.vehicleUser?.productName);
-      this.form.controls['productPrice'].setValue(this.vehicleUser?.productPrice);
+      this.productData = this.data.data;
+      this.form.controls['productCode'].setValue(this.productData?.productCode);
+      this.form.controls['productName'].setValue(this.productData?.productName);
+      this.form.controls['productPrice'].setValue(this.productData?.productPrice);
 
-      this.selectedItems = this.vehicleUser?.productGroup;
+      this.selectedItems = this.productData?.productGroup;
 
       if (this.data.actionName === 'view') {
         this.form.disable();
@@ -136,7 +136,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       });
     } else if (this.data.actionName === 'edit') {
       if (this._hasChange) {
-        newRecord.productCode = this.vehicleUser?.productCode;
+        newRecord.productCode = this.productData?.productCode;
         this.httpService
           .updateProduct(newRecord.productCode, newRecord)
           .subscribe({
