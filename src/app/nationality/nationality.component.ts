@@ -3,46 +3,54 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
-import { modelDialog, Nationality,  tableOperation } from '../models';
+import { modelDialog, Nationality, tableOperation } from '../models';
+import { AlertService } from '../services';
+import { NationalityService } from './nationality.service';
 import { NationalityDataComponent } from './nationalitydata/nationalitydata.component';
-
-
 
 @Component({
   selector: 'app-nationality',
   templateUrl: './nationality.component.html',
-  styleUrls: ['./nationality.component.scss']
+  styleUrls: ['./nationality.component.scss'],
 })
 export class NationalityComponent implements OnInit {
-
-
-  tblColumns: string[] = ['Nationality',  'Actions'];
-  tableData: any = [];
+  tblColumns: string[] = ['driverNationality', 'Actions'];
+  tableData: Nationality[] = [];
 
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
-  public sortColumn = { name: 'Nationality', dir: 'asc' };
-  public visibleColumns = ['Nationality',  'Actions'];
+  public sortColumn = { name: 'driverNationality', dir: 'asc' };
+  public visibleColumns = ['driverNationality', 'Actions'];
 
-
-  constructor(private translate: TranslateService, private matDialog: MatDialog) { }
+  constructor(
+    private translate: TranslateService,
+    private httpService: NationalityService,
+    private alertService: AlertService,
+    private matDialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getTranslatedText();
-    this.getData();
+    this.getAllNationalities();
   }
 
   selectedRecord(actionData: tableOperation): void {
     this.actionName = actionData.action;
 
-    const dialogData = { actionName: this.actionName, headerText: 'Information', data: actionData.data };
+    const dialogData = {
+      actionName: this.actionName,
+      headerText: 'Information',
+      data: actionData.data,
+    };
 
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
+    } else if (this.actionName === 'edit') {
+      this.getTransporterById(dialogData);
+    } else {
+      this.openDialog(dialogData);
     }
-    else { this.openDialog(dialogData); }
-
   }
 
   searchValueChanged(value: string) {
@@ -50,7 +58,6 @@ export class NationalityComponent implements OnInit {
   }
 
   private openDialog(dialogData: modelDialog): void {
-
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.data = dialogData;
@@ -59,98 +66,88 @@ export class NationalityComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'custom-dialog';
 
-    const dialogRef = this.matDialog.open(NationalityDataComponent, dialogConfig);
+    const dialogRef = this.matDialog.open(
+      NationalityDataComponent,
+      dialogConfig
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (this.actionName === "edit") {
-        const selRecord: Nationality = { Id: dialogData.data?.Id, Nationality: result?.nationality };
-        this._updateRecord(selRecord);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (this.actionName === 'edit') {
+          console.log('Updated Record !!', result.driverNationality);
+          this.alertService.success(
+            `${result.driverNationality} updated successfully`
+          );
+        } else if (this.actionName === 'add') {
+          console.log('New Record !!', result.driverNationality);
+          this.alertService.success(
+            `${result.driverNationality} inserted successfully`
+          );
+        }
+
+        this.getAllNationalities();
       }
-      else if (this.actionName === "add") {
-        const selRecord: Nationality = { Id: GlobalConstants.commonFunction.getNewUniqueId(this.tableData), Nationality: result?.nationality };
-        this._addRecord(selRecord); }
     });
-
   }
-
   private deleteDialog(dialogData: modelDialog): void {
-
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.data = dialogData;
-    dialogConfig.data.message = "Are you sure you want to delete this item ?";
+    dialogConfig.data.message = 'Are you sure you want to delete this item ?';
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
 
     const dialogRef = this.matDialog.open(ConfirmDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this._deleteRecord(dialogData.data);
     });
-
   }
 
   private _deleteRecord(selRecord: Nationality) {
-    console.log('Deleted Record !!', selRecord);
-    const selIndex = this.tableData.findIndex((i: any) => i.Id === selRecord.Id);
-    if (this.tableData[selIndex]) {
-      this.tableData.splice(selIndex, 1);
-      this.tableData = [...this.tableData];
-    }
-  }
-
-  private _addRecord(selRecord: Nationality) {
-   console.log('New Record !!', selRecord);
-   this.tableData.push(selRecord);  //add the new model object to the dataSource
-   this.tableData = [...this.tableData];  //refresh the dataSource
-  }
-
-  private _updateRecord(selRecord: Nationality) {
-    console.log('Updated Record !!', selRecord);
-    const selIndex = this.tableData.findIndex((i: any) => i.Id === selRecord.Id);
-    if (this.tableData[selIndex]) {
-      this.tableData[selIndex].Nationality = selRecord.Nationality;
-    }
-  }
-
-
-  private getTranslatedText(): void {
-
-    this.translate.get(['']).subscribe((translated: string) => {
-
-      this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchnationality')
-      }
-
+    this.httpService.deleteNationality(selRecord.driverNationality).subscribe({
+      next: () => {
+        console.log('Deleted Record !!', selRecord);
+        this.getAllNationalities();
+      },
+      error: (e) => console.error(e),
     });
   }
 
+  private getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        searchPlaceholder: this.translate.instant(
+          'placeholder.searchnationality'
+        ),
+      };
+    });
+  }
 
-  private getData(): void {
+  private getAllNationalities(): void {
+    this.httpService.getAllDriverNationalities().subscribe({
+      next: (data: Nationality[]) => {
+        this.tableData = data;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
 
-    this.tableData = [
-      {
-        "Id": "1",
-        "Nationality": "Indian"
-      },
-      {
-        "Id": "2",
-        "Nationality": "Pakistani"
-      },
-      {
-        "Id": "3",
-        "Nationality": "Saudi"
-      },
-      {
-        "Id": "4",
-        "Nationality": "Syrian"
-      },
-
-      {
-        "Id": "5",
-        "Nationality": "Turk"
-      },
-     
-    ]
+  private getTransporterById(dialogData: any): void {
+    this.httpService
+      .getNationalityById(dialogData.data?.supplierCode)
+      .subscribe({
+        next: (data: Nationality) => {
+          dialogData.data = data;
+          this.openDialog(dialogData);
+        },
+        error: (error: string) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
   }
 }

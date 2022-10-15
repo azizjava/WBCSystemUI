@@ -1,5 +1,5 @@
 export class Nationality {
-    public Id: string;
-    public Nationality: string;
+    // public Id: string;
+    public driverNationality: string;
   }
   
