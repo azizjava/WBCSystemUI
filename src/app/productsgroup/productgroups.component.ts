@@ -1,14 +1,12 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
-import { modelDialog, ProductGroup,  tableOperation } from '../models';
+import { modelDialog, ProductGroup, tableOperation } from '../models';
 import { AlertService } from '../services';
 import { ProductGroupDataComponent } from './productgroupdata/productgroupdata.component';
 import { ProductGroupsService } from './productgroups.service';
-
 
 @Component({
   selector: 'app-products',
@@ -48,10 +46,9 @@ export class ProductGroupsComponent implements OnInit {
 
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
-    }  else if (this.actionName === 'edit') {
+    } else if (this.actionName === 'edit') {
       this.getProductGroupById(dialogData);
-    }
-    else {
+    } else {
       this.openDialog(dialogData);
     }
   }
@@ -81,7 +78,9 @@ export class ProductGroupsComponent implements OnInit {
           this.alertService.success(`${result.groupCode} updated successfully`);
         } else if (this.actionName === 'add') {
           console.log('New Record !!', result.groupCode);
-          this.alertService.success(`${result.groupCode} inserted successfully`);
+          this.alertService.success(
+            `${result.groupCode} inserted successfully`
+          );
         }
 
         this.getAllProductGroups();
@@ -114,21 +113,6 @@ export class ProductGroupsComponent implements OnInit {
     });
   }
 
-  private _addRecord(selRecord: ProductGroup) {
-    console.log('New Record !!', selRecord);
-    this.tableData.push(selRecord); //add the new model object to the dataSource
-    this.tableData = [...this.tableData]; //refresh the dataSource
-  }
-
-  private _updateRecord(selRecord: ProductGroup) {
-    console.log('Updated Record !!', selRecord);
-    const selIndex = 0;
-    if (this.tableData[selIndex]) {
-      this.tableData[selIndex].GroupCode = selRecord.GroupCode;
-      this.tableData[selIndex].GroupName = selRecord.GroupName;
-    }
-  }
-
   private getTranslatedText(): void {
     this.translate.get(['']).subscribe((translated: string) => {
       this.staticText = {
@@ -140,7 +124,7 @@ export class ProductGroupsComponent implements OnInit {
   private getAllProductGroups(): void {
     this.httpService.getAllProductGroups().subscribe({
       next: (data: ProductGroup[]) => {
-        this.tableData = data;   
+        this.tableData = data;
       },
       error: (error: string) => {
         console.log(error);
@@ -161,5 +145,4 @@ export class ProductGroupsComponent implements OnInit {
       },
     });
   }
-
 }
