@@ -1,15 +1,19 @@
 <form class="nationality-form" [formGroup]="form">
+
   <div class="row mb-2">
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Nationality</mat-label>
-        <input matInput placeholder="Nationality" formControlName="nationality" name="nationality" />
-        <mat-error *ngIf="form.controls['nationality'].errors && 
-          form.controls['nationality'].errors['operatorId'] &&
-          form.controls['nationality'].touched">Nationality is required
+        <mat-label>{{staticText.nationality}}</mat-label>
+        <input matInput placeholder="{{staticText.nationality}}" formControlName="driverNationality" name="driverNationality" />
+        <mat-error *ngIf="form.controls['driverNationality'].errors &&
+        form.controls['driverNationality'].errors['required'] &&
+        form.controls['driverNationality'].touched
+              ">{{staticText.nationality}} {{staticText.required}}
         </mat-error>
+
       </mat-form-field>
     </div>
+
 
   </div>
 
