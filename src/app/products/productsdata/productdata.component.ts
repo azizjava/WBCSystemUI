@@ -11,10 +11,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls } from 'src/app/helper';
-import { modelDialog, Products, ProductGroup } from 'src/app/models';
+import { modelDialog, Product, ProductGroup } from 'src/app/models';
 import { ProductGroupsService } from 'src/app/productsgroup/productgroups.service';
 import { AlertService } from 'src/app/services';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-productdata',
@@ -22,17 +24,21 @@ import { AlertService } from 'src/app/services';
   styleUrls: ['./productdata.component.scss'],
 })
 export class ProductDataComponent implements OnInit, AfterViewChecked {
-  form: UntypedFormGroup;
-  vehicleUser!: Products;
-  productGroupsList: any = [];
-  dropdownSettings: any = {};
-  selectedItems = [];
+  public form: UntypedFormGroup;
+  public vehicleUser!: Product;
+  public productGroupsList: any = [];
+  public dropdownSettings: any = {};
+  public selectedItems: ProductGroup[] = [];
+  public staticText: any = {};
+  private _hasChange: boolean = false;
 
   constructor(
     private _formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<ProductDataComponent>,
     private pgService: ProductGroupsService,
     private alertService: AlertService,
+    private httpService: ProductsService,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog,
     private changeDetector: ChangeDetectorRef
   ) {
@@ -62,33 +68,23 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
 
     if (this.data.actionName !== 'add') {
       this.vehicleUser = this.data.data;
-      this.form.controls['productCode'].setValue(this.vehicleUser?.ProductCode);
-      this.form.controls['productName'].setValue(this.vehicleUser?.ProductName);
-      this.form.controls['productPrice'].setValue(
-        this.vehicleUser?.ProductPrice
-      );
-      this.form.controls['groupCode'].setValue(this.vehicleUser?.GroupCode);
+      this.form.controls['productCode'].setValue(this.vehicleUser?.productCode);
+      this.form.controls['productName'].setValue(this.vehicleUser?.productName);
+      this.form.controls['productPrice'].setValue(this.vehicleUser?.productPrice);
+
+      this.selectedItems = this.vehicleUser?.productGroup;
 
       if (this.data.actionName === 'view') {
         this.form.disable();
       }
     }
+
+    this._getTranslatedText();
+    this._onFormValueChange();
   }
 
   ngAfterViewChecked() {
     this.changeDetector.detectChanges();
-  }
-
-  public close() {
-    this.dialogRef.close();
-  }
-
-  public save() {
-    // stop here if form is invalid
-    if (!findInvalidControls(this.form)) {
-      return;
-    }
-    this.dialogRef.close(this.form.value);
   }
 
   public OnSelectionChange(event: any) {
@@ -108,8 +104,79 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
   public onSelectAll(items: any) {
     console.log(items);
   }
-  public onDeSelectAll(items: any) {
-    console.log(items);
+
+  public close() {
+    this.dialogRef.close();
+  }
+
+  public save() {
+    // stop here if form is invalid
+    if (!findInvalidControls(this.form)) {
+      return;
+    }
+
+    const result = this.form.value;
+
+    const newRecord: Product = {
+      productCode: result.productCode,
+      productName: result.productName,
+      productPrice: result.productPrice,
+      productGroup: this.selectedItems,
+    };
+
+    if (this.data.actionName === 'add') {
+      this.httpService.createNewProduct(newRecord).subscribe({
+        next: (res: any) => {
+          this.dialogRef.close(res);
+        },
+        error: (error: string) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+    } else if (this.data.actionName === 'edit') {
+      if (this._hasChange) {
+        newRecord.productCode = this.vehicleUser?.productCode;
+        this.httpService
+          .updateProduct(newRecord.productCode, newRecord)
+          .subscribe({
+            next: (res) => {
+              this.dialogRef.close(res);
+            },
+            error: (error) => {
+              console.log(error);
+              this.alertService.error(error);
+            },
+          });
+      } else {
+        this.dialogRef.close();
+      }
+    }
+  }
+
+
+  private _getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        productcode: this.translate.instant('products.tbl_header.productcode'),
+        productname: this.translate.instant('products.tbl_header.productname'),
+        productprice: this.translate.instant('products.tbl_header.productprice'),
+        groupcode: this.translate.instant('products.tbl_header.groupcode'),
+        required: this.translate.instant('common.required'),
+        save: this.translate.instant('actions.save'),
+        cancel: this.translate.instant('actions.cancel'),        
+      };
+      this.dropdownSettings.text = this.translate.instant('products.tbl_header.selectgroup');
+    });
+  }
+
+  private _onFormValueChange() {
+    const initialValue = this.form.value;
+    this.form.valueChanges.subscribe((value) => {
+      this._hasChange = Object.keys(initialValue).some(
+        (key) => this.form.value[key] != initialValue[key]
+      );
+    });
   }
 
   private _getTransPortersList(): any {

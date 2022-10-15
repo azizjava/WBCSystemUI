@@ -2,24 +2,24 @@
   <div class="row mb-2">
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Product Code</mat-label>
-        <input matInput placeholder="Product Code" formControlName="productCode" name="productCode" />
+        <mat-label>{{staticText.productcode}}</mat-label>
+        <input matInput placeholder="{{staticText.productcode}}" formControlName="productCode" name="productCode" />
         <mat-error *ngIf="form.controls['productCode'].errors && 
-          form.controls['productCode'].errors['productCode'] &&
+          form.controls['productCode'].errors['required'] &&
           form.controls['productCode'].touched
-                ">Product Code is required
+                ">{{staticText.productcode}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Product Name</mat-label>
-        <input matInput placeholder="Product Name" formControlName="productName" name="productName" />
+        <mat-label>{{staticText.productname}}</mat-label>
+        <input matInput placeholder="{{staticText.productname}}" formControlName="productName" name="productName" />
         <mat-error *ngIf="form.controls['productName'].errors && 
           form.controls['productName'].errors['required'] &&
           form.controls['productName'].touched
-                ">Product Name is required
+                ">{{staticText.productname}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -29,12 +29,12 @@
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Product Price</mat-label>
-        <input matInput placeholder="Product Price" formControlName="productPrice" name="productPrice" />
+        <mat-label>{{staticText.productprice}}</mat-label>
+        <input matInput placeholder="{{staticText.productprice}}" formControlName="productPrice" name="productPrice" />
         <mat-error *ngIf="form.controls['productPrice'].errors &&
           form.controls['productPrice'].errors['required'] &&
           form.controls['productPrice'].touched
-                ">Product Price is required
+                ">{{staticText.productprice}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -55,11 +55,11 @@
 
     <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
       mat-button (click)="save()">
-      Save
+      {{staticText.save}}
     </button>
 
     <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-      Cancel
+      {{staticText.cancel}}
     </button>
 
   </div>

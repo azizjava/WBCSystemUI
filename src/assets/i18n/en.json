@@ -117,8 +117,9 @@
 			"productcode":"Product Code",
 			"productname":"Product Name",
 			"productprice":"Product Price",
-			"groupcode":"Group Code",
-			"actions":"Actions"
+			"productgroupname":"Product Group",
+			"actions":"Actions",
+			"selectgroup":"Select Product group"
 		}
 	},
 	"productgroups":{

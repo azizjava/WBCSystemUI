@@ -114,9 +114,9 @@
 			"productcode":"كود المنتج",
 			"productname":"اسم المنتج",
 			"productprice":"سعر المنتج",
-			"groupcode":"كود المجموعة",
-			"groupname":"أسم المجموعة",
-			"actions":"عمل"
+			"productgroupname":"مجموعة المنتجات",
+			"actions":"عمل",
+			"selectgroup":"حدد مجموعة المنتجات"
 		}
 	},
 	"productgroups":{
