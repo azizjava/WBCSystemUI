@@ -14,14 +14,14 @@ import { NationalityDataComponent } from './nationalitydata/nationalitydata.comp
   styleUrls: ['./nationality.component.scss'],
 })
 export class NationalityComponent implements OnInit {
-  tblColumns: string[] = ['driverNationality', 'Actions'];
+  tblColumns: string[] = ['driverNationalityName', 'Actions'];
   tableData: Nationality[] = [];
 
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
-  public sortColumn = { name: 'driverNationality', dir: 'asc' };
-  public visibleColumns = ['driverNationality', 'Actions'];
+  public sortColumn = { name: 'driverNationalityName', dir: 'asc' };
+  public visibleColumns = ['driverNationalityName', 'Actions'];
 
   constructor(
     private translate: TranslateService,
@@ -74,14 +74,14 @@ export class NationalityComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (this.actionName === 'edit') {
-          console.log('Updated Record !!', result.driverNationality);
+          console.log('Updated Record !!', result.driverNationalityName);
           this.alertService.success(
-            `${result.driverNationality} updated successfully`
+            `${result.driverNationalityName} updated successfully`
           );
         } else if (this.actionName === 'add') {
-          console.log('New Record !!', result.driverNationality);
+          console.log('New Record !!', result.driverNationalityName);
           this.alertService.success(
-            `${result.driverNationality} inserted successfully`
+            `${result.driverNationalityName} inserted successfully`
           );
         }
 
@@ -105,9 +105,13 @@ export class NationalityComponent implements OnInit {
   }
 
   private _deleteRecord(selRecord: Nationality) {
-    this.httpService.deleteNationality(selRecord.driverNationality).subscribe({
+    this.httpService.deleteNationality(selRecord.driverNationalityName).subscribe({
       next: () => {
-        console.log('Deleted Record !!', selRecord);
+        console.log('Deleted Record !!', selRecord.driverNationalityName);
+        this.alertService.success(
+          `${selRecord.driverNationalityName} deleted successfully`
+        );
+
         this.getAllNationalities();
       },
       error: (e) => console.error(e),
@@ -138,7 +142,7 @@ export class NationalityComponent implements OnInit {
 
   private getTransporterById(dialogData: any): void {
     this.httpService
-      .getNationalityById(dialogData.data?.supplierCode)
+      .getNationalityById(dialogData.data?.driverNationalityName)
       .subscribe({
         next: (data: Nationality) => {
           dialogData.data = data;

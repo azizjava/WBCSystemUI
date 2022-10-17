@@ -41,7 +41,7 @@ export class NationalityDataComponent implements OnInit {
     if (this.data.actionName !== 'add') {
       this.recordData = this.data.data;
       this.form.controls['driverNationality'].setValue(
-        this.recordData?.driverNationality
+        this.recordData?.driverNationalityName
       );
 
       if (this.data.actionName === 'view') {
@@ -66,7 +66,7 @@ export class NationalityDataComponent implements OnInit {
     const result = this.form.value;
 
     const newRecord: Nationality = {
-      driverNationality: result.driverNationality,
+      driverNationalityName: result.driverNationality,
     };
 
     if (this.data.actionName === 'add') {
@@ -81,9 +81,8 @@ export class NationalityDataComponent implements OnInit {
       });
     } else if (this.data.actionName === 'edit') {
       if (this._hasChange) {
-        newRecord.driverNationality = this.recordData?.driverNationality;
         this.httpService
-          .updateNationality(newRecord.driverNationality, newRecord)
+          .updateNationality(this.recordData?.driverNationalityName, newRecord)
           .subscribe({
             next: (res) => {
               this.dialogRef.close(res);

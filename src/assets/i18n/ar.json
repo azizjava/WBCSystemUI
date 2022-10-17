@@ -146,6 +146,7 @@
 	"nationality":{
 		"tbl_header":{
 			"drivernationality":"جنسية",
+			"drivernationalityname":"جنسية",
 			"actions":"عمل"
 		}
 	},

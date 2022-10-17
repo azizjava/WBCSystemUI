@@ -149,6 +149,7 @@
 	"nationality":{
 		"tbl_header":{
 			"drivernationality":"Nationality",
+			"drivernationalityname":"Nationality",
 			"actions":"Actions"
 		}
 	},
