@@ -50,7 +50,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       productCode: ['', [Validators.required, Validators.maxLength(30)]],
       productName: ['', [Validators.required, Validators.maxLength(30)]],
       productPrice: ['', [Validators.required, Validators.maxLength(30)]],
-      groupCode: ['', [Validators.required]],
+      groupCode: [''],
     });
 
     this.dropdownSettings = {
