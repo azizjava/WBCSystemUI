@@ -34,8 +34,8 @@
       <mat-form-field class="full-width">
         <mat-label>Vehicle Plate No</mat-label>
         <mat-select formControlName="vehicleNo" placeholder="Mode">
-          <mat-option *ngFor="let option of vehicleList" [value]="option.PlateNo">
-            {{option.Id}}
+          <mat-option *ngFor="let option of vehicleList" [value]="option.vehicleType">
+            {{option.plateNo}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['vehicleNo'].errors && 
@@ -59,8 +59,8 @@
       <mat-form-field class="full-width">
         <mat-label>Transporter</mat-label>
         <mat-select formControlName="transporter" placeholder="Mode">
-          <mat-option *ngFor="let option of transportersList" [value]="option.Code">
-            {{option.Id}}
+          <mat-option *ngFor="let option of transportersList" [value]="option.nameOfTransporter">
+            {{option.transporterCode}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['transporter'].errors && 
@@ -83,8 +83,8 @@
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="supplier" placeholder="Supplier">
-          <mat-option *ngFor="let option of suppliersList" [value]="option.Code">
-            {{option.Id}}
+          <mat-option *ngFor="let option of suppliersList" [value]="option.supplierName">
+            {{option.supplierCode}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['supplier'].errors && 
@@ -106,8 +106,8 @@
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="customer" placeholder="Customer">
-          <mat-option *ngFor="let option of customersList" [value]="option.Code">
-            {{option.Id}}
+          <mat-option *ngFor="let option of customersList" [value]="option.customerName">
+            {{option.customerCode}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['customer'].errors && 
@@ -132,8 +132,8 @@
       <mat-form-field class="full-width">
         <mat-label>Product</mat-label>
         <mat-select formControlName="products" placeholder="Mode">
-          <mat-option *ngFor="let option of productsList" [value]="option.Code">
-            {{option.Id}}
+          <mat-option *ngFor="let option of productsList" [value]="option.productName">
+            {{option.productCode}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['products'].errors && 
@@ -180,8 +180,8 @@
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="nationality" placeholder="Nationality">
-          <mat-option *ngFor="let option of nationalityList" [value]="option.Nationality">
-            {{option.Nationality}}
+          <mat-option *ngFor="let option of nationalityList" [value]="option.driverNationalityName">
+            {{option.driverNationalityCode}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['nationality'].errors && 

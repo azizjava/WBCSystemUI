@@ -1,7 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { GlobalConstants } from 'src/app/common';
+import { CustomersService } from 'src/app/customer/Customers.service';
 import { findInvalidControls } from 'src/app/helper';
+import { Customer, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
+import { NationalityService } from 'src/app/nationality/nationality.service';
+import { ProductsService } from 'src/app/products/products.service';
+import { AlertService } from 'src/app/services';
+import { SuppliersService } from 'src/app/suppliers/suppliers.service';
+import { TransportersService } from 'src/app/transporters/transporters.service';
+import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 
 @Component({
   selector: 'app-transactionentrydata',
@@ -25,7 +33,15 @@ export class entryDataComponent implements OnInit {
   selectedGood:string='';
  
 
-  constructor(private _formBuilder: UntypedFormBuilder) { }
+  constructor(private _formBuilder: UntypedFormBuilder,
+    private transporterService: TransportersService,
+    private vehiclesService: VehiclesService,
+    private productService: ProductsService,
+    private nationalityService: NationalityService,
+    private alertService : AlertService,
+    private supplierService: SuppliersService,
+    private customerService: CustomersService,
+    ) { }
 
   ngOnInit(): void {
 
@@ -106,128 +122,13 @@ export class entryDataComponent implements OnInit {
   }
 
   private populateListData(): void {    
-    this.nationalityList = GlobalConstants.commonFunction.getNationalityList();
     this.goodsList = GlobalConstants.commonFunction.getGoodsOption();
-
-    /* TODO */
-    /* Need to relace with actual data */
-
-    this.vehicleList = [
-      {
-        Id: 'V-1',
-        PlateNo: 'Vehicle-01',
-      },
-      {
-        Id: 'V-2',
-        PlateNo: 'Vehicle-02',
-      },
-      {
-        Id: 'V-3',
-        PlateNo: 'Vehicle-03',
-      },
-      {
-        Id: 'V-4',
-        PlateNo: 'Vehicle-04',
-      },
-
-      {
-        Id: 'V-5',
-        PlateNo: 'Vehicle-05',
-      },
-     
-    ];
-
-    this.transportersList = [
-      {
-        Id: 'T-1',
-        Code: 'Transporter-1',
-      },
-      {
-        Id: 'T-2',
-        Code: 'Transporter-2',
-      },
-      {
-        Id: 'T-3',
-        Code: 'Transporter-3',
-      },
-      {
-        Id: 'T-4',
-        Code: 'Transporter-4',
-      },
-      {
-        Id: 'T-5',
-        Code: 'Transporter-5',
-      },
-    ];
-
-    this.suppliersList = [
-      {
-        Id: 'S-1',
-        Code: 'Supplier-1',
-      },
-      {
-        Id: 'S-2',
-        Code: 'Supplier-2',
-      },
-      {
-        Id: 'S-3',
-        Code: 'Supplier-3',
-      },
-      {
-        Id: 'S-4',
-        Code: 'Supplier-4',
-      },
-      {
-        Id: 'S-5',
-        Code: 'Supplier-5',
-      },
-    ];
-
-    this.customersList = [
-      {
-        Id: 'C-1',
-        Code: 'Customer-1',
-      },
-      {
-        Id: 'C-2',
-        Code: 'Customer-2',
-      },
-      {
-        Id: 'C-3',
-        Code: 'Customer-3',
-      },
-      {
-        Id: 'C-4',
-        Code: 'Customer-4',
-      },
-      {
-        Id: 'C-5',
-        Code: 'Customer-5',
-      },
-    ];
-
-    this.productsList = [
-      {
-        Id: 'P-1',
-        Code: 'Product-1',
-      },
-      {
-        Id: 'P-2',
-        Code: 'Product-2',
-      },
-      {
-        Id: 'P-3',
-        Code: 'Product-3',
-      },
-      {
-        Id: 'P-4',
-        Code: 'Product-4',
-      },
-      {
-        Id: 'P-5',
-        Code: 'Product-5',
-      },
-    ];
+    this.getAllVehicles();
+    this.getAllTransporters();
+    this.getAllNationalities();
+    this.getAllSuppliers();
+    this.getAllProducts();
+    this.getAllCustomers();
 
     this.operatorIDList = [
       {
@@ -251,6 +152,78 @@ export class entryDataComponent implements OnInit {
         Code: 'Operator-5',
       },
     ];
+  }
+
+  private getAllVehicles(): void {
+    this.vehiclesService.getAllVehicles().subscribe({
+      next: (data: Vehicle[]) => {
+        this.vehicleList = data;       
+      },
+      error: (error: string) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private getAllTransporters(): void {
+    this.transporterService.getAllTransporters().subscribe({
+      next: (data: Transporter[]) => {
+        this.transportersList = data;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private getAllNationalities(): void {
+    this.nationalityService.getAllDriverNationalities().subscribe({
+      next: (data: Nationality[]) => {
+        this.nationalityList = data;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private getAllSuppliers(): void {
+    this.supplierService.getAllSuppliers().subscribe({
+      next: (data: Supplier[]) => {
+        this.suppliersList = data;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private getAllProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (data: Product[]) => {
+        this.productsList = data;       
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private getAllCustomers(): void {
+    this.customerService.getAllCustomers().subscribe({
+      next: (data: Customer[]) => {
+        this.customersList = data;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
   }
 
 }
