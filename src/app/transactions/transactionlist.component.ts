@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, tableOperation, Transporter } from '../models';
 import { AlertService } from '../services';
-import { TransactionDataComponent } from './transactiondata/transactions.component';
 import { TransactionsService } from './transactions.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { TransactionsService } from './transactions.service';
 })
 export class TransactionsListComponent implements OnInit {
   tblColumns: string[] = [
-    'sequenceNo',
+    'transporterCode',
     'nameOfTransporter',
     'contactPerson',
     'mobileNo',
@@ -36,12 +36,14 @@ export class TransactionsListComponent implements OnInit {
     private translate: TranslateService,
     private matDialog: MatDialog,
     private httpService: TransactionsService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.getTranslatedText();
-    this.getAllTransporters();
+    this.getAllTransactions();
   }
 
   selectedRecord(actionData: tableOperation): void {
@@ -55,48 +57,18 @@ export class TransactionsListComponent implements OnInit {
 
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
-    }
-    else if (this.actionName === 'edit') {
-      this.getTransporterById(dialogData);
-    }
-
-    else {
-      this.openDialog(dialogData);
-    }
+    } else if (this.actionName === 'edit') {
+      this.router.navigate(['/dashboard/transactions/add'], { queryParams: { id: dialogData.data?.transporterCode } });
+    } else {
+      this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
+    }     
+   
   }
 
   searchValueChanged(value: string) {
     this.searchInput = value;
   }
 
-  private openDialog(dialogData: modelDialog): void {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.data = dialogData;
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.panelClass = 'custom-dialog';
-
-    const dialogRef = this.matDialog.open(
-      TransactionDataComponent,
-      dialogConfig
-    );
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (this.actionName === 'edit') {
-          console.log('Updated Record !!', result.transporterCode);
-          this.alertService.success(`${result.transporterCode} updated successfully`);
-        } else if (this.actionName === 'add') {
-          console.log('New Record !!', result.transporterCode);
-          this.alertService.success(`${result.transporterCode} inserted successfully`);
-        }
-
-        this.getAllTransporters();
-      }
-    });
-  }
 
   private deleteDialog(dialogData: modelDialog): void {
     const dialogConfig = new MatDialogConfig();
@@ -117,7 +89,7 @@ export class TransactionsListComponent implements OnInit {
     this.httpService.deleteTransporter(selRecord.transporterCode).subscribe({
       next: (res) => {
         console.log('Deleted Record !!', selRecord);
-        this.getAllTransporters();
+        this.getAllTransactions();
       },
       error: (e) => {
         console.error(e)
@@ -136,7 +108,7 @@ export class TransactionsListComponent implements OnInit {
     });
   }
 
-  private getAllTransporters(): void {
+  private getAllTransactions(): void {
     this.httpService.getAllTransporters().subscribe({
       next: (data: Transporter[]) => {
         this.tableData = data;
@@ -148,16 +120,5 @@ export class TransactionsListComponent implements OnInit {
     });
   }
 
-  private getTransporterById(dialogData: any): void {
-    this.httpService.getTransporterById(dialogData.data?.transporterCode).subscribe({
-      next: (data: Transporter) => {        
-        dialogData.data = data;
-        this.openDialog(dialogData);
-      },
-      error: (error) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });
-  }
+ 
 }
