@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { GlobalConstants } from 'src/app/common';
 import { CustomersService } from 'src/app/customer/Customers.service';
@@ -41,7 +41,14 @@ export class entryDataComponent implements OnInit {
     private alertService : AlertService,
     private supplierService: SuppliersService,
     private customerService: CustomersService,
-    ) { }
+    private zone: NgZone,
+    ) {
+      this.zone.runOutsideAngular(() => {
+        setInterval(() => {
+          this.entryForm.controls['timeIn'].setValue(GlobalConstants.commonFunction.getFormattedTime());
+        }, 1000);
+      });
+    }
 
   ngOnInit(): void {
 
