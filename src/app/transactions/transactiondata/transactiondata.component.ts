@@ -4,10 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transactions',
-  templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss']
+  templateUrl: './transactiondata.component.html',
+  styleUrls: ['./transactiondata.component.scss']
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionDataComponent implements OnInit {
 
  
   public actionItem: any = {isFirst:true, isLast:false, activeItem : 0};

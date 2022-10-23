@@ -7,10 +7,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TransactionsComponent } from './transactions.component';
-import { entryDataComponent } from './entrydata/entrydata.component';
 import { TransactionsRoutingModule } from './transactions-routing.module';
-import { exitDataComponent } from './exitdata/exitdata.component';
+import { TransactionsListComponent } from './transactionlist.component';
+import { TransactionDataComponent } from './transactiondata/transactions.component';
+import { entryDataComponent } from './transactiondata/entrydata/entrydata.component';
+import { exitDataComponent } from './transactiondata/exitdata/exitdata.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -19,7 +20,8 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    TransactionsComponent,
+    TransactionsListComponent,
+    TransactionDataComponent,
     entryDataComponent,
     exitDataComponent,
   ],
