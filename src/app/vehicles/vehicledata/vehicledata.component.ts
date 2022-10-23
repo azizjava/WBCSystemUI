@@ -20,7 +20,7 @@ import { VehiclesService } from '../vehicles.service';
 })
 export class VehicleDataComponent implements OnInit {
   vehicleForm: UntypedFormGroup;
-  vehicleData!: any;
+  vehicleData!: Vehicle;
   public staticText: any = {};
   transPortersList!: TransporterList[];
 
@@ -40,7 +40,7 @@ export class VehicleDataComponent implements OnInit {
   ngOnInit(): void {
     this.vehicleForm = this._formBuilder.group({
       plateNo: ['', [Validators.required, Validators.maxLength(30)]],
-      type: ['', [Validators.required, Validators.maxLength(30)]],
+      type: ['', [Validators.maxLength(30)]],
       transporterCode: ['', [Validators.required]],
       transporterName: ['', [Validators.required]],
     });
@@ -50,7 +50,7 @@ export class VehicleDataComponent implements OnInit {
       this.vehicleForm.controls['plateNo'].setValue(this.vehicleData?.plateNo);
       this.vehicleForm.controls['type'].setValue(this.vehicleData?.vehicleType);
       this.vehicleForm.controls['transporterCode'].setValue(
-        this.vehicleData.transporters?.transporterCode
+        this.vehicleData?.transporters?.transporterCode
       );
       this.vehicleForm.controls['transporterName'].setValue(
         this.vehicleData.transporters?.nameOfTransporter

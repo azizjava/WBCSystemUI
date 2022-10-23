@@ -34,11 +34,12 @@ export class SupplierdataComponent implements OnInit {
       {
         supplierCode: ['', [Validators.required, Validators.maxLength(30)]],
         supplierName: ['', [Validators.required, Validators.maxLength(30)]],
-        contactPerson: ['', [Validators.required]],
-        mobileNo: ['', [Validators.required]],
-        telephoneNo: ['', [Validators.required]],     
-        faxNo: ['', [Validators.required]],
-        address: ['', [Validators.required]],
+        contactPerson: [''],
+        mobileNo: [''],
+        telephoneNo: [''],     
+        faxNo: [''],
+        address: [''
+      ],
       });
 
     if (this.data.actionName !== 'add') {

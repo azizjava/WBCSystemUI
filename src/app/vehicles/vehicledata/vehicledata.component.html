@@ -30,7 +30,7 @@
    
       <mat-form-field appearance="fill">
         <mat-label>{{staticText.transportercode}}</mat-label>
-        <mat-select placeholder="{{staticText.transportercode}}" formControlName="transporterCode" required (selectionChange)="OnSelectionChange($event)">
+        <mat-select placeholder="{{staticText.transportercode}}" formControlName="transporterCode" required (selectionChange)="OnSelectionChange($event)" name ="transporterCode">
           <mat-option *ngFor="let item of transPortersList" [value]="item.transporterCode">
             {{item.transporterCode}}
           </mat-option>

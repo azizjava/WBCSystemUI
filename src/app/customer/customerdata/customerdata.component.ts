@@ -37,11 +37,11 @@ export class CustomerdataComponent implements OnInit {
     this.form = this._formBuilder.group({
       customerCode: ['', [Validators.required, Validators.maxLength(30)]],
       customerName: ['', [Validators.required, Validators.maxLength(30)]],
-      contactPerson: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required]],
-      telephoneNo: ['', [Validators.required]],
-      faxNo: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      contactPerson: [''],
+      mobileNo: [''],
+      telephoneNo: [''],
+      faxNo: [''],
+      address: [''],
     });
 
     if (this.data.actionName !== 'add') {

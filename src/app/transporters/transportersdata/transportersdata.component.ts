@@ -35,13 +35,11 @@ export class TransportersdataComponent implements OnInit {
     this.transporterForm = this._formBuilder.group({
       code: ['', [Validators.required, Validators.maxLength(30)]],
       name: ['', [Validators.required, Validators.maxLength(30)]],
-      contactPerson: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required]],
-      phoneNo: ['', [Validators.required]],
-      // mobileNo: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
-      // phoneNo: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
-      faxNo: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      contactPerson: [''],
+      mobileNo: [''],
+      phoneNo: [''],    
+      faxNo: [''],
+      address: [''],
     });
 
     if (this.data.actionName !== 'add') {
