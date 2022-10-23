@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 import { VehiclesComponent } from './vehicles.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 describe('VehicleComponent', () => {
   let component: VehiclesComponent;
@@ -8,7 +11,12 @@ describe('VehicleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VehiclesComponent ]
+      imports:[HttpClientModule,     
+        TranslateModule.forRoot()],
+      declarations: [ VehiclesComponent ],
+      providers:[
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialog, useValue: {} },]
     })
     .compileComponents();
   });

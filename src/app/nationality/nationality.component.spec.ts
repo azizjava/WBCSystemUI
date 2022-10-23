@@ -1,6 +1,9 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 import { NationalityComponent } from './nationality.component';
+
 
 describe('NationalityComponent', () => {
   let component: NationalityComponent;
@@ -8,7 +11,11 @@ describe('NationalityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NationalityComponent ]
+      imports:[HttpClientModule,       
+        TranslateModule.forRoot()],
+      declarations: [ NationalityComponent ],
+      providers:[        
+        { provide: MatDialog, useValue: {} }]
     })
     .compileComponents();
   });

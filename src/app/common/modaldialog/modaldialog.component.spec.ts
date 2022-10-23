@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ModaldialogComponent } from './modaldialog.component';
 
@@ -8,7 +12,14 @@ describe('ModaldialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModaldialogComponent ]
+      imports:[HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot()],
+      declarations: [ ModaldialogComponent ],
+      providers:[
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} }]
     })
     .compileComponents();
   });

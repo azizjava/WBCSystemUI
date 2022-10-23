@@ -33,7 +33,7 @@
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-label>Vehicle Plate No</mat-label>
-        <mat-select formControlName="vehicleNo" placeholder="Mode">
+        <mat-select formControlName="vehicleNo" placeholder="Mode" name="vehicleNo">
           <mat-option *ngFor="let option of vehicleList" [value]="option.vehicleType">
             {{option.plateNo}}
           </mat-option>

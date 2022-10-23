@@ -1,20 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CustomerdataComponent } from './customerdata.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { TransportersdataComponent } from './transportersdata.component';
 
-describe('TransportersdataComponent', () => {
-  let component: TransportersdataComponent;
-  let fixture: ComponentFixture<TransportersdataComponent>;
+describe('CustomerdataComponent', () => {
+  let component: CustomerdataComponent;
+  let fixture: ComponentFixture<CustomerdataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransportersdataComponent ]
+      imports:[HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot()],
+      declarations: [ CustomerdataComponent ],
+      providers:[
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} }]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransportersdataComponent);
+    fixture = TestBed.createComponent(CustomerdataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

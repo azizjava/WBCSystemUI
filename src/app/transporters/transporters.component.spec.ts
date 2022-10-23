@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { TransportersComponent } from './transporters.component';
 
@@ -8,7 +11,11 @@ describe('TransportersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransportersComponent ]
+      imports:[HttpClientModule,       
+        TranslateModule.forRoot()],
+      declarations: [ TransportersComponent ],
+      providers:[
+        { provide: MatDialog, useValue: {} }]
     })
     .compileComponents();
   });

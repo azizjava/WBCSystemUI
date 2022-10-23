@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 import { TransportersdataComponent } from './transportersdata.component';
+
 
 describe('TransportersdataComponent', () => {
   let component: TransportersdataComponent;
@@ -8,7 +12,14 @@ describe('TransportersdataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransportersdataComponent ]
+      imports:[HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot()],
+      declarations: [ TransportersdataComponent ],
+      providers:[
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} }]
     })
     .compileComponents();
   });

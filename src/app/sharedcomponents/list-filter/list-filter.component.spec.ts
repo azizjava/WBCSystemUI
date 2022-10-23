@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ListFilterComponent } from './list-filter.component';
 
@@ -8,6 +9,9 @@ describe('ListFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot()
+      ],
       declarations: [ ListFilterComponent ]
     })
     .compileComponents();
