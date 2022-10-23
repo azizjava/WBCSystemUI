@@ -31,6 +31,12 @@ describe('ProductGroupDataComponent', () => {
     .compileComponents();
   });
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProductGroupDataComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
