@@ -12,6 +12,7 @@ export class TransactionDataComponent implements OnInit {
   public actionItem: any = { isFirst: true, isLast: false, activeItem: 0 };
   public id: string;
   public isAddMode: boolean;
+  public staticText: any = {};
 
   constructor(
     private translate: TranslateService,
@@ -24,9 +25,20 @@ export class TransactionDataComponent implements OnInit {
       this.id = params['id'];
     });
     this.isAddMode = !this.id;
+    this._getTranslatedText();
   }
 
   public changeCard(isForward: boolean = true) {
     this.actionItem = { isFirst: !isForward, isLast: isForward };
+  }
+
+  private _getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        entryHeaderText: this.translate.instant('transactions.data.entry.header'),
+        exitHeaderText: this.translate.instant('transactions.data.exit.header'),
+        supplierName: this.translate.instant('suppliers.tbl_header.suppliername'),       
+      };
+    });
   }
 }

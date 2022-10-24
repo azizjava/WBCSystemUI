@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { modelDialog, User } from '../models';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,6 +21,8 @@ export class DashboardComponent implements OnInit {
     public NavMenu: LeftMenuItem[] = [];
     public selectedMenu: string = '';
 
+    private _hideHeaderText :boolean =false;
+
     constructor(private router: Router,
         private route: ActivatedRoute,
         private authenticationService: AuthenticationService,
@@ -34,6 +36,17 @@ export class DashboardComponent implements OnInit {
                 translate.use(x?.language);
             }
 
+        });
+
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd && this.router.url.includes('transactions/')) {        
+                this.selectedMenu = "";
+                this._hideHeaderText =true;             
+            }
+            else{
+                this._hideHeaderText =false;
+            }
+           
         });
 
     }
@@ -125,7 +138,7 @@ export class DashboardComponent implements OnInit {
                 this.NavMenu.push(element);
             });
 
-            this.selectedMenu = this.NavMenu.filter(x => (x.routePath && this.router.url.includes(x.routePath)))[0]?.menuName;
+            this.selectedMenu = !this._hideHeaderText && this.NavMenu.filter(x => (x.routePath && this.router.url.includes(x.routePath)))[0]?.menuName || "";
         });
 
 

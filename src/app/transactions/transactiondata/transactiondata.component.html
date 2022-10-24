@@ -12,6 +12,10 @@
       <div class="card">
         <div class="card-body">
 
+          <div class="d-flex justify-content-center">
+            <h2 class="mb-3">{{ actionItem.isFirst ? staticText.entryHeaderText : staticText.exitHeaderText }}</h2>
+          </div>
+
           <app-transactionentrydata *ngIf="actionItem.isFirst"></app-transactionentrydata>
 
           <app-transactionexitdata *ngIf="actionItem.isLast"></app-transactionexitdata>
