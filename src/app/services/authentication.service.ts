@@ -101,7 +101,8 @@ export class AuthenticationService {
       userName: data.username,
       language:lang,
       token:data.accessToken,
-      password:''
+      password:'',
+      role: data.roles[0]
     };
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);

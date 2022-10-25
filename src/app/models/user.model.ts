@@ -6,6 +6,7 @@ export class User {
     language!:string;
     userName!:string;
     registeredDate?:Date;
+    role!:string;
 }
 
 export interface tableOperation {
