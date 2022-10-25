@@ -1,27 +1,26 @@
 <form class="entryData-form" [formGroup]="entryForm">
 
-  <div class="row form-col">    
-    <div class="col-4">  
+  <div class="row form-col">
+    <div class="col-4">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Operator"
-          formControlName="operator" name="operator" />
+        <input matInput placeholder="Operator" formControlName="operator" name="operator" />
         <mat-error *ngIf="entryForm.controls['operator'].errors &&
         entryForm.controls['operator'].errors['required'] &&
         entryForm.controls['operator'].touched
               ">Operator ID is required
-        </mat-error>         
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-label>Date In</mat-label>
-        <input [readonly]="true" matInput formControlName="dateIn" name="dateIn">         
+        <input [readonly]="true" matInput formControlName="dateIn" name="dateIn">
       </mat-form-field>
     </div>
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-label>Time In</mat-label>
-        <input [readonly]="true" matInput formControlName="timeIn" name="timeIn">         
+        <input [readonly]="true" matInput formControlName="timeIn" name="timeIn">
       </mat-form-field>
     </div>
   </div>
@@ -29,7 +28,7 @@
   <div class="row form-col">
     <div class="col-3">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo"  />
+        <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo" />
         <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
               entryForm.controls['sequenceNo'].errors['required'] &&
               entryForm.controls['sequenceNo'].touched
@@ -40,13 +39,12 @@
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-label>First Weight</mat-label>
-        <input matInput placeholder="First Weight"
-          formControlName="firstWeight" name="firstWeight" />
+        <input matInput placeholder="First Weight" formControlName="firstWeight" name="firstWeight" />
         <mat-error *ngIf="entryForm.controls['firstWeight'].errors &&
         entryForm.controls['firstWeight'].errors['required'] &&
         entryForm.controls['firstWeight'].touched
               ">First Weight is required
-        </mat-error>         
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-4">
@@ -55,20 +53,18 @@
           <mat-option *ngFor="let option of goodsList" [value]="option.key">
             {{option.value}}
           </mat-option>
-        </mat-select>       
+        </mat-select>
       </mat-form-field>
     </div>
   </div>
 
 
   <div class="row form-col">
-    <!-- <div class="col-3">
-      <label for="colFormLabelSm" class="lbl-text">Vehicle Plate No</label>
-    </div> -->
     <div class="col-5">
       <mat-form-field class="full-width">
         <mat-label>Vehicle Plate No</mat-label>
-        <mat-select formControlName="vehicleNo" placeholder="Mode" name="vehicleNo" (selectionChange)="onVehicleChange($event)">
+        <mat-select formControlName="vehicleNo" placeholder="Mode" name="vehicleNo"
+          (selectionChange)="onVehicleChange($event)">
           <mat-option *ngFor="let option of vehicleList" [value]="option.plateNo">
             {{option.vehicleType}}
           </mat-option>
@@ -80,9 +76,6 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <!-- <div class="col-4 text-center">
-      <label for="colFormLabelSm" class="selected-text">{{entryForm.controls['vehicleNo'].value}}</label>
-    </div> -->
     <div class="col-5">
       <mat-form-field class="full-width">
         <mat-label>Transporter</mat-label>
@@ -101,35 +94,7 @@
   </div>
 
 
-  <!-- <div class="row form-col">
-    <div class="col-3">
-      <label for="colFormLabelSm" class="lbl-text">Transporter</label>
-    </div>
-    <div class="col-3">
-      <mat-form-field class="full-width">
-        <mat-label>Transporter</mat-label>
-        <mat-select formControlName="transporter" placeholder="Mode">
-          <mat-option *ngFor="let option of transportersList" [value]="option.nameOfTransporter">
-            {{option.transporterCode}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="entryForm.controls['transporter'].errors && 
-        entryForm.controls['transporter'].errors['required'] &&
-        entryForm.controls['transporter'].touched
-              ">Transporter is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-4 text-center">
-      <label for="colFormLabelSm" class="selected-text">{{entryForm.controls['transporter'].value}}</label>
-    </div>
-  </div> -->
-
-
-  <div class="row form-col" >
-    <!-- <div class="col-3">
-      <label for="colFormLabelSm" class="lbl-text">Supplier</label>
-    </div> -->
+  <div class="row form-col">
     <div class="col-5" *ngIf="selectedGood ==='incoming'">
       <mat-form-field class="full-width">
         <mat-select formControlName="supplier" placeholder="Supplier">
@@ -175,61 +140,9 @@
     </div>
   </div>
 
-  <!-- <div class="row form-col" *ngIf="selectedGood ==='outgoing'">
-    <div class="col-3">
-      <label for="colFormLabelSm" class="lbl-text">Customer</label>
-    </div>
-    <div class="col-3">
-      <mat-form-field class="full-width">
-        <mat-select formControlName="customer" placeholder="Customer">
-          <mat-option *ngFor="let option of customersList" [value]="option.customerName">
-            {{option.customerCode}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="entryForm.controls['customer'].errors && 
-        entryForm.controls['customer'].errors['required'] &&
-        entryForm.controls['customer'].touched
-              ">Customer is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-4 text-center">
-      <label for="colFormLabelSm" class="selected-text">{{entryForm.controls['supplier'].value}}</label>
-    </div>
-  </div> -->
-
-
-
-  <!-- <div class="row form-col">
-    <div class="col-3">
-      <label for="colFormLabelSm" class="lbl-text">Product</label>
-    </div>
-    <div class="col-3">
-      <mat-form-field class="full-width">
-        <mat-label>Product</mat-label>
-        <mat-select formControlName="products" placeholder="Mode">
-          <mat-option *ngFor="let option of productsList" [value]="option.productName">
-            {{option.productCode}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="entryForm.controls['products'].errors && 
-        entryForm.controls['products'].errors['required'] &&
-        entryForm.controls['products'].touched
-              ">Product is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-4 text-center">
-      <label for="colFormLabelSm" class="selected-text">{{entryForm.controls['products'].value}}</label>
-    </div>
-  </div> -->
-
-
-
- 
 
   <div class="row form-col">
-   
+
     <div class="col-3">
       <mat-form-field class="full-width">
         <mat-select formControlName="nationality" placeholder="Nationality">
@@ -246,101 +159,42 @@
     </div>
     <div class="col-4">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Driver Licence No."
-          formControlName="licenceNo" name="pieces" />
+        <input matInput placeholder="Driver Licence No." formControlName="licenceNo" name="pieces" />
         <mat-error *ngIf="entryForm.controls['licenceNo'].errors &&
         entryForm.controls['licenceNo'].errors['required'] &&
         entryForm.controls['licenceNo'].touched
               ">Driver Licence No is required
-        </mat-error>         
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-4">
       <mat-form-field class="full-width">
         <mat-label>Driver Name</mat-label>
-        <input matInput placeholder="Driver Name"
-          formControlName="driverName" name="driverName" />
+        <input matInput placeholder="Driver Name" formControlName="driverName" name="driverName" />
         <mat-error *ngIf="entryForm.controls['driverName'].errors &&
         entryForm.controls['driverName'].errors['required'] &&
         entryForm.controls['driverName'].touched
               ">Driver Name is required
-        </mat-error>         
+        </mat-error>
       </mat-form-field>
     </div>
   </div>
 
 
-  <div class="row form-col">    
+  <div class="row form-col">
     <div class="col-4">
       <mat-form-field class="full-width">
-        <input matInput placeholder="No.of Pieces"
-          formControlName="pieces" name="pieces" />
+        <input matInput placeholder="No.of Pieces" formControlName="pieces" name="pieces" />
         <mat-error *ngIf="entryForm.controls['pieces'].errors &&
         entryForm.controls['pieces'].errors['required'] &&
         entryForm.controls['pieces'].touched
               ">Pieces is required
-        </mat-error>         
+        </mat-error>
       </mat-form-field>
     </div>
-    
+
   </div>
 
-
-  <!-- <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Driver Name</label>
-    </div>
-    
-    
-  </div> -->
-
-  <!-- <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Driver Licence No.</label>
-    </div>
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Driver Licence No."
-          formControlName="licenceNo" name="pieces" />
-        <mat-error *ngIf="entryForm.controls['licenceNo'].errors &&
-        entryForm.controls['licenceNo'].errors['required'] &&
-        entryForm.controls['licenceNo'].touched
-              ">Driver Licence No is required
-        </mat-error>         
-      </mat-form-field>
-    </div>
-    
-  </div> -->
-
-
-
-  
-<!-- 
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Date In</label>
-    </div>
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Date In</mat-label>
-        <input [readonly]="true" matInput formControlName="dateIn" name="dateIn">         
-      </mat-form-field>
-    </div>
-    
-  </div> -->
-
-  <!-- <div class="row mb-1 form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Time In</label>
-    </div>
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Time In</mat-label>
-        <input [readonly]="true" matInput formControlName="timeIn" name="timeIn">         
-      </mat-form-field>
-    </div>
-    
-  </div> -->
 
   <div class="row mb-1 form-col">
 
@@ -359,25 +213,25 @@
           <mat-label>Value</mat-label>
           <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
         </mat-form-field>
-      </div>      
+      </div>
 
     </div>
 
-    
-    
+
+
   </div>
 
-  <div class="row mb-1 form-col" *ngIf ="emptyKeyValue">
+  <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
     <mat-error>
       Please fill all key value pair values
-    </mat-error>  
+    </mat-error>
   </div>
-  
+
 
   <div class="mb-1 d-flex justify-content-end w-100">
     <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="addKeyValues()">
       Add Key Value
-    </button>  
+    </button>
   </div>
 
   <div class="row form-col">
@@ -388,7 +242,7 @@
       <mat-form-field class="full-width">
         <mat-label>Add Instructions/Comments</mat-label>
         <textarea matInput placeholder="Instructions/Comments" formControlName="instructions"
-          name="instructions" ></textarea>
+          name="instructions"></textarea>
         <mat-error *ngIf="entryForm.controls['instructions'].errors &&
         entryForm.controls['instructions'].errors['required'] &&
         entryForm.controls['instructions'].touched
@@ -398,16 +252,16 @@
     </div>
 
   </div>
-  
-  <div class="mb-1 d-flex justify-content-evenly w-100">  
-    <button class="btn btn-sm" [disabled]="!entryForm.valid"  mat-flat-button color="primary" type="submit" mat-button (click)="save()">
+
+  <div class="mb-1 d-flex justify-content-evenly w-100">
+    <button class="btn btn-sm" [disabled]="!entryForm.valid" mat-flat-button color="primary" type="submit" mat-button
+      (click)="save()">
       Save
     </button>
-  
+
     <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="edit()">
       Edit
-    </button>  
+    </button>
   </div>
 
-
- </form>
+</form>

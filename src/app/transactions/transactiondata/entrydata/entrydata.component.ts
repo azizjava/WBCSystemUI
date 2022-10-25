@@ -80,6 +80,20 @@ export class entryDataComponent implements OnInit {
     if (!findInvalidControls(this.entryForm)) {
       return;
     }
+
+    const result = this.entryForm.value;
+
+    const newRecord: any = {
+      transporterCode: result.code,
+      nameOfTransporter: result.name,
+      contactPerson: result.contactPerson,
+      mobileNo: result.mobileNo.toString(),
+      telephoneNo: result.phoneNo.toString(),
+      timeIn: GlobalConstants.commonFunction.getFormattedTime(),
+      dateIn: GlobalConstants.commonFunction.getFormattedDate(),
+      localCreatedDateTime: new Date(),
+      lastModifiedByUser: this.authenticationService.currentUserValue.userName,
+    };
   }
 
   addKeyValues() {
@@ -99,7 +113,7 @@ export class entryDataComponent implements OnInit {
     // stop here if form is invalid
     if (!findInvalidControls(this.entryForm)) {
       return;
-    }
+    }   
   }
 
   public trackByFn(index: number, item: any) {
