@@ -1,9 +1,54 @@
 <form class="exitData-form" [formGroup]="exitForm">
 
   <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Second Weight</label>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="login User Name" formControlName="loginUserName" name="loginUserName" />       
+      </mat-form-field>
     </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Date Out</mat-label>
+        <input [readonly]="true" matInput formControlName="dateOut" name="dateOut">
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Time Out</mat-label>
+        <input [readonly]="true" matInput formControlName="timeOut" name="timeOut">
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row form-col">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo" />
+        <mat-error *ngIf="exitForm.controls['sequenceNo'].errors && 
+        exitForm.controls['sequenceNo'].errors['required'] &&
+        exitForm.controls['sequenceNo'].touched
+                    ">Sequence No is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>Second Weight</mat-label>
+        <input matInput placeholder="Second Weight" formControlName="secondWeight" name="secondWeight" />
+        <mat-error *ngIf="exitForm.controls['secondWeight'].errors &&
+        exitForm.controls['secondWeight'].errors['required'] &&
+        exitForm.controls['secondWeight'].touched
+              ">Driver Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+
+  <!-- <div class="row form-col">
+    
     <div class="col-4">
       <mat-form-field class="full-width">
         <mat-label>Second Weight</mat-label>
@@ -16,12 +61,10 @@
       </mat-form-field>
     </div>
 
-  </div>
+  </div> -->
 
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Date Out</label>
-    </div>
+  <!-- <div class="row form-col">
+  
     <div class="col-4">
       <mat-form-field class="full-width">
         <mat-label>Date Out</mat-label>
@@ -34,12 +77,10 @@
       </mat-form-field>
     </div>
 
-  </div>
+  </div> -->
 
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Time Out</label>
-    </div>
+  <!-- <div class="row form-col">
+  
     <div class="col-4">
       <mat-form-field class="full-width">
         <mat-label>Time Out</mat-label>
@@ -52,14 +93,12 @@
       </mat-form-field>
     </div>
 
-  </div>
+  </div> -->
 
 
   <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Deduct Weight</label>
-    </div>
-    <div class="col-4">
+    
+    <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Deduct Weight</mat-label>
         <input matInput placeholder="Deduct Weight" formControlName="deductWeight" name="deductWeight" />
@@ -71,14 +110,7 @@
       </mat-form-field>
     </div>
 
-  </div>
-
-
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Net Weight</label>
-    </div>
-    <div class="col-4">
+    <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Net Weight</mat-label>
         <input matInput placeholder="Net Weight" formControlName="netWeight" name="netWeight" />
@@ -92,11 +124,26 @@
 
   </div>
 
+<!-- 
   <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Price/Ton</label>
-    </div>
+    
     <div class="col-4">
+      <mat-form-field class="full-width">
+        <mat-label>Net Weight</mat-label>
+        <input matInput placeholder="Net Weight" formControlName="netWeight" name="netWeight" />
+        <mat-error *ngIf="exitForm.controls['netWeight'].errors &&
+        exitForm.controls['netWeight'].errors['required'] &&
+        exitForm.controls['netWeight'].touched
+              ">Net Weight is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div> -->
+
+  <div class="row form-col">
+   
+    <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Price/Ton</mat-label>
         <input matInput placeholder="Price/Ton" formControlName="priceTons" name="priceTons" />
@@ -108,14 +155,7 @@
       </mat-form-field>
     </div>
 
-  </div>
-
-
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Total Price</label>
-    </div>
-    <div class="col-4">
+    <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Total Price</mat-label>
         <input matInput placeholder="Total Price" formControlName="totalPrice" name="totalPrice" />
@@ -130,10 +170,25 @@
   </div>
 
 
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Login User Name</label>
+  <!-- <div class="row form-col">
+    
+    <div class="col-4">
+      <mat-form-field class="full-width">
+        <mat-label>Total Price</mat-label>
+        <input matInput placeholder="Total Price" formControlName="totalPrice" name="totalPrice" />
+        <mat-error *ngIf="exitForm.controls['totalPrice'].errors &&
+        exitForm.controls['totalPrice'].errors['required'] &&
+        exitForm.controls['totalPrice'].touched
+              ">Total Price is required
+        </mat-error>
+      </mat-form-field>
     </div>
+
+  </div> -->
+
+
+  <!-- <div class="row form-col">
+   
     <div class="col-4">
       <mat-form-field class="full-width">
         <mat-label>Login User Name</mat-label>
@@ -146,15 +201,13 @@
       </mat-form-field>
     </div>
 
-  </div>
+  </div> -->
 
   
 
   <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Delivery Note No.</label>
-    </div>
-    <div class="col-4">
+   
+    <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Delivery Note No.</mat-label>
         <input matInput placeholder="Delivery Note No." formControlName="deliveryNoteNo" name="deliveryNoteNo" />
@@ -166,13 +219,7 @@
       </mat-form-field>
     </div>
 
-  </div>
-
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Order No</label>
-    </div>
-    <div class="col-4">
+    <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Order No</mat-label>
         <input matInput placeholder="Order No" formControlName="orderNo" name="orderNo" />
@@ -186,11 +233,25 @@
 
   </div>
 
-  <div class="row form-col">
-    <div class="col-6">
-      <label for="colFormLabelSm" class="lbl-text">Delivery Instructions/Comments</label>
-    </div>
+  <!-- <div class="row form-col">
+   
     <div class="col-4">
+      <mat-form-field class="full-width">
+        <mat-label>Order No</mat-label>
+        <input matInput placeholder="Order No" formControlName="orderNo" name="orderNo" />
+        <mat-error *ngIf="exitForm.controls['orderNo'].errors &&
+        exitForm.controls['orderNo'].errors['required'] &&
+        exitForm.controls['orderNo'].touched
+              ">Order No is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div> -->
+
+  <div class="row form-col">
+  
+    <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Delivery Instructions/Comments</mat-label>
         <textarea matInput placeholder="Delivery Instructions/Comments" formControlName="instructions"
@@ -205,12 +266,53 @@
 
   </div>
 
+  <div class="row mb-1 form-col">
+
+    <div class="row form-col" *ngFor="let item of keyValueData ;let index = index; trackBy:trackByFn">
+
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Key</mat-label>
+          <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Value</mat-label>
+          <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+  <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
+    <mat-error>
+      Please fill all key value pair values
+    </mat-error>
+  </div>
+
+
+  <div class="mb-1 d-flex justify-content-end w-100">
+    <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="addKeyValues()">
+      Add Key Value
+    </button>
+  </div>
+
 
 
   <div class="d-flex justify-content-between w-100">
 
     <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
       Save
+    </button>
+
+    <button class="btn btn-sm btn-link" mat-flat-button  type="submit" mat-button (click)="cancel()">
+      Cancel
     </button>
 
   </div>
