@@ -6,7 +6,7 @@ import { findInvalidControls } from 'src/app/helper';
 import { Customer, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { NationalityService } from 'src/app/nationality/nationality.service';
 import { ProductsService } from 'src/app/products/products.service';
-import { AlertService } from 'src/app/services';
+import { AlertService, AuthenticationService } from 'src/app/services';
 import { SuppliersService } from 'src/app/suppliers/suppliers.service';
 import { TransportersService } from 'src/app/transporters/transporters.service';
 import { VehiclesService } from 'src/app/vehicles/vehicles.service';
@@ -24,7 +24,6 @@ export class entryDataComponent implements OnInit {
   suppliersList: any = [];
   customersList: any = [];
   productsList: any = [];
-  operatorIDList: any = [];
   nationalityList: any = [];
   goodsList: any = [];
   keyValueData: any =[];
@@ -41,6 +40,7 @@ export class entryDataComponent implements OnInit {
     private alertService : AlertService,
     private supplierService: SuppliersService,
     private customerService: CustomersService,
+    private authenticationService: AuthenticationService,
     private zone: NgZone,
     ) {
       this.zone.runOutsideAngular(() => {
@@ -60,18 +60,17 @@ export class entryDataComponent implements OnInit {
         supplier: ['', [Validators.required, Validators.maxLength(50)]],
         customer: ['', [Validators.maxLength(50)]], 
         products: ['', [Validators.required, Validators.maxLength(50)]],
-        operator: ['', [Validators.required, Validators.maxLength(50)]],
+        operator: [{value :this.authenticationService.currentUserValue.userName , disabled: true}],
         nationality: ['', [Validators.required, Validators.maxLength(50)]],
         pieces: ['', [Validators.required, Validators.maxLength(50)]],
         driverName: ['', [Validators.required, Validators.maxLength(50)]],
         licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
         firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
-        dateIn: [GlobalConstants.commonFunction.getFormattedDate()],
-        timeIn: [GlobalConstants.commonFunction.getFormattedTime()],
+        dateIn: [{value :GlobalConstants.commonFunction.getFormattedDate(), disabled: true}],
+        timeIn: [{value :GlobalConstants.commonFunction.getFormattedTime(),disabled: true}],
         instructions: ['', [Validators.maxLength(250)]],
        
       });
-
       this.populateListData();
       this.selectedGood = this.goodsList[0].key;
   }  
@@ -84,19 +83,14 @@ export class entryDataComponent implements OnInit {
   }
 
   addKeyValues() {
-
-    if(this.keyValueData.length ===0){
+    if (this.keyValueData.length === 0) {
       this.emptyKeyValue = false;
-      this.keyValueData.push({ key :'', value:''});
-    }
-
-    else {
-
-      this.emptyKeyValue =this.keyValueData.some((obj:any) =>  !obj.key || !obj.value);
-      if(!this.emptyKeyValue){
-        this.keyValueData.push({ key :'', value:''});
+      this.keyValueData.push({ key: '', value: '' });
+    } else {
+      this.emptyKeyValue = this.keyValueData.some((obj: any) => !obj.key);
+      if (!this.emptyKeyValue) {
+        this.keyValueData.push({ key: '', value: '' });
       }
-
     }
   }
 
@@ -112,9 +106,7 @@ export class entryDataComponent implements OnInit {
     return item;
 }
 
-  onChange(event:any) {
-    console.log(this.selectedGood);
-
+  public onChange(event:any) {
     const supplierControl = this.entryForm.get('supplier');
     const customerControl = this.entryForm.get('customer');
 
@@ -128,6 +120,13 @@ export class entryDataComponent implements OnInit {
     }
   }
 
+  onVehicleChange(event:any) {
+
+    const supplierControl = this.entryForm.get('vehicleNo')?.value;
+
+    this.getAllTransporters();
+  }
+
   private populateListData(): void {    
     this.goodsList = GlobalConstants.commonFunction.getGoodsOption();
     this.getAllVehicles();
@@ -136,29 +135,6 @@ export class entryDataComponent implements OnInit {
     this.getAllSuppliers();
     this.getAllProducts();
     this.getAllCustomers();
-
-    this.operatorIDList = [
-      {
-        Id: 'OP-1',
-        Code: 'Operator-1',
-      },
-      {
-        Id: 'OP-2',
-        Code: 'Operator-2',
-      },
-      {
-        Id: 'OP-3',
-        Code: 'Operator-3',
-      },
-      {
-        Id: 'OP-4',
-        Code: 'Operator-4',
-      },
-      {
-        Id: 'OP-5',
-        Code: 'Operator-5',
-      },
-    ];
   }
 
   private getAllVehicles(): void {
