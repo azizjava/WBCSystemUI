@@ -4,7 +4,6 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
 import { findInvalidControls } from 'src/app/helper';
@@ -54,6 +53,7 @@ export class exitDataComponent implements OnInit {
       netWeight: ['', [Validators.required, Validators.maxLength(50)]],
       priceTons: ['', [Validators.required, Validators.maxLength(50)]],
       totalPrice: ['', [Validators.required, Validators.maxLength(50)]],
+      role: [{value :this.authenticationService.currentUserValue.role , disabled: true}],
       loginUserName: [
         {
           value: this.authenticationService.currentUserValue.userName,

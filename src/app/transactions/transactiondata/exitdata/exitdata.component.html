@@ -3,7 +3,12 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="login User Name" formControlName="loginUserName" name="loginUserName" />       
+        <input matInput placeholder="login User Name" formControlName="loginUserName" name="loginUserName" />
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Role" formControlName="role" name="role" />
       </mat-form-field>
     </div>
     <div class="col">
@@ -46,58 +51,8 @@
 
   </div>
 
-
-  <!-- <div class="row form-col">
-    
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Second Weight</mat-label>
-        <input matInput placeholder="Driver Name" formControlName="secondWeight" name="secondWeight" />
-        <mat-error *ngIf="exitForm.controls['secondWeight'].errors &&
-        exitForm.controls['secondWeight'].errors['required'] &&
-        exitForm.controls['secondWeight'].touched
-              ">Driver Name is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div> -->
-
-  <!-- <div class="row form-col">
-  
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Date Out</mat-label>
-        <input matInput placeholder="Date Out" formControlName="dateOut" name="dateOut" />
-        <mat-error *ngIf="exitForm.controls['dateOut'].errors &&
-        exitForm.controls['dateOut'].errors['required'] &&
-        exitForm.controls['dateOut'].touched
-              ">Date Out is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div> -->
-
-  <!-- <div class="row form-col">
-  
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Time Out</mat-label>
-        <input matInput placeholder="Time Out" formControlName="timeOut" name="timeOut" />
-        <mat-error *ngIf="exitForm.controls['timeOut'].errors &&
-        exitForm.controls['timeOut'].errors['required'] &&
-        exitForm.controls['timeOut'].touched
-              ">Time Out is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div> -->
-
-
   <div class="row form-col">
-    
+
     <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Deduct Weight</mat-label>
@@ -124,25 +79,8 @@
 
   </div>
 
-<!-- 
   <div class="row form-col">
-    
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Net Weight</mat-label>
-        <input matInput placeholder="Net Weight" formControlName="netWeight" name="netWeight" />
-        <mat-error *ngIf="exitForm.controls['netWeight'].errors &&
-        exitForm.controls['netWeight'].errors['required'] &&
-        exitForm.controls['netWeight'].touched
-              ">Net Weight is required
-        </mat-error>
-      </mat-form-field>
-    </div>
 
-  </div> -->
-
-  <div class="row form-col">
-   
     <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Price/Ton</mat-label>
@@ -169,44 +107,8 @@
 
   </div>
 
-
-  <!-- <div class="row form-col">
-    
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Total Price</mat-label>
-        <input matInput placeholder="Total Price" formControlName="totalPrice" name="totalPrice" />
-        <mat-error *ngIf="exitForm.controls['totalPrice'].errors &&
-        exitForm.controls['totalPrice'].errors['required'] &&
-        exitForm.controls['totalPrice'].touched
-              ">Total Price is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div> -->
-
-
-  <!-- <div class="row form-col">
-   
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Login User Name</mat-label>
-        <input matInput placeholder="Price/Ton" formControlName="priceTons" name="Login User Name" />
-        <mat-error *ngIf="exitForm.controls['loginUserName'].errors &&
-        exitForm.controls['loginUserName'].errors['required'] &&
-        exitForm.controls['loginUserName'].touched
-              ">Login User Name is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div> -->
-
-  
-
   <div class="row form-col">
-   
+
     <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Delivery Note No.</mat-label>
@@ -233,29 +135,13 @@
 
   </div>
 
-  <!-- <div class="row form-col">
-   
-    <div class="col-4">
-      <mat-form-field class="full-width">
-        <mat-label>Order No</mat-label>
-        <input matInput placeholder="Order No" formControlName="orderNo" name="orderNo" />
-        <mat-error *ngIf="exitForm.controls['orderNo'].errors &&
-        exitForm.controls['orderNo'].errors['required'] &&
-        exitForm.controls['orderNo'].touched
-              ">Order No is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div> -->
-
   <div class="row form-col">
-  
+
     <div class="col">
       <mat-form-field class="full-width">
         <mat-label>Delivery Instructions/Comments</mat-label>
         <textarea matInput placeholder="Delivery Instructions/Comments" formControlName="instructions"
-          name="instructions" ></textarea>
+          name="instructions"></textarea>
         <mat-error *ngIf="exitForm.controls['instructions'].errors &&
         exitForm.controls['instructions'].errors['required'] &&
         exitForm.controls['instructions'].touched
@@ -286,8 +172,6 @@
 
     </div>
 
-
-
   </div>
 
   <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
@@ -303,17 +187,17 @@
     </button>
   </div>
 
-
-
   <div class="d-flex justify-content-between w-100">
+    <button class="btn btn-sm" [disabled]="!entryForm.valid" mat-flat-button color="primary" mat-button
+      (click)="save()">
+      Print
+    </button>
 
     <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
       Save
     </button>
-
-    <button class="btn btn-sm btn-link" mat-flat-button  type="submit" mat-button (click)="cancel()">
+    <button class="btn btn-sm btn-link" mat-flat-button  mat-button (click)="cancel()">
       Cancel
     </button>
-
   </div>
 </form>
