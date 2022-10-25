@@ -1,5 +1,6 @@
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
 import { CustomersService } from 'src/app/customer/Customers.service';
 import { findInvalidControls } from 'src/app/helper';
@@ -42,6 +43,8 @@ export class entryDataComponent implements OnInit {
     private customerService: CustomersService,
     private authenticationService: AuthenticationService,
     private zone: NgZone,
+    private router: Router,
+    private route: ActivatedRoute,
     ) {
       this.zone.runOutsideAngular(() => {
         setInterval(() => {
@@ -61,6 +64,7 @@ export class entryDataComponent implements OnInit {
         customer: ['', [Validators.maxLength(50)]], 
         products: ['', [Validators.required, Validators.maxLength(50)]],
         operator: [{value :this.authenticationService.currentUserValue.userName , disabled: true}],
+        role: [{value :this.authenticationService.currentUserValue.role , disabled: true}],
         nationality: ['', [Validators.required, Validators.maxLength(50)]],
         pieces: ['', [Validators.required, Validators.maxLength(50)]],
         driverName: ['', [Validators.required, Validators.maxLength(50)]],
@@ -109,16 +113,21 @@ export class entryDataComponent implements OnInit {
   }
 
 
-  edit() {
+  public edit(): void {
     // stop here if form is invalid
     if (!findInvalidControls(this.entryForm)) {
       return;
     }   
   }
 
+  public cancel(): void {
+    this.router.navigate(['/dashboard/transactions'],  {relativeTo: this.route});
+  }
+
   public trackByFn(index: number, item: any) {
     return item;
-}
+  }
+  
 
   public onChange(event:any) {
     const supplierControl = this.entryForm.get('supplier');
