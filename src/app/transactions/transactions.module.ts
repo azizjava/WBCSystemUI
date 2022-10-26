@@ -12,6 +12,7 @@ import { TransactionsListComponent } from './transactionlist.component';
 import { TransactionDataComponent } from './transactiondata/transactiondata.component';
 import { entryDataComponent } from './transactiondata/entrydata/entrydata.component';
 import { exitDataComponent } from './transactiondata/exitdata/exitdata.component';
+import { weightBridgeComponent } from './weightbridge/weightbridge.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,6 +25,7 @@ export function createTranslateLoader(http: HttpClient) {
     TransactionDataComponent,
     entryDataComponent,
     exitDataComponent,
+    weightBridgeComponent
   ],
   imports: [
     CommonModule,
