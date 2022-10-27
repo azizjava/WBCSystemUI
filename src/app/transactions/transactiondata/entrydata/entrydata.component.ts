@@ -77,6 +77,7 @@ export class entryDataComponent implements OnInit {
       });
       this.populateListData();
       this.selectedGood = this.goodsList[0].key;
+      this.keyValueData.push({ key: '', value: '' });
   }  
 
   save() {
@@ -126,6 +127,10 @@ export class entryDataComponent implements OnInit {
 
   public trackByFn(index: number, item: any) {
     return item;
+  }
+
+  public onWeightChange(event :number):void{
+    this.entryForm.controls['firstWeight'].setValue(event);
   }
   
 

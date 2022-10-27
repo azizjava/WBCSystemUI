@@ -64,6 +64,8 @@ export class exitDataComponent implements OnInit {
       deliveryNoteNo: ['', [Validators.required, Validators.maxLength(50)]],
       orderNo: ['', [Validators.required, Validators.maxLength(50)]],
     });
+    this.keyValueData.push({ key: '', value: '' });   
+
   }
 
   public save() {
@@ -93,5 +95,9 @@ export class exitDataComponent implements OnInit {
 
   public trackByFn(index: number, item: any) {
     return item;
+  }
+
+  public onWeightChange(event :number):void{
+    this.exitForm.controls['secondWeight'].setValue(event);
   }
 }
