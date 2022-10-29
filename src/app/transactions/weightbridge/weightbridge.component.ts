@@ -21,12 +21,7 @@ export class weightBridgeComponent implements OnInit {
     this._calculateWeight(true);
   }
 
-  public firstWeightChangeEvent(): void {
-    this._calculateWeight(true);
-    this.onWeightChange.emit(this.weight);
-  }
-
-  public secondWeightChangeEvent(): void {
+  public weightChangeEvent(): void {
     this._calculateWeight();
     this.onWeightChange.emit(this.weight);
   }

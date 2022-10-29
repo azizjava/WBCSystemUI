@@ -11,11 +11,11 @@
 
     <div class="col-lg-2 col-md-3 col-sm-6">
       <div class="d-grid gap-2">
-        <button class="btn btn-sm btn-light" *ngIf="isFirstScreen"  type="reset" mat-flat-button mat-button (click)="firstWeightChangeEvent()">
+        <button class="btn btn-sm btn-light" *ngIf="isFirstScreen"  type="reset" mat-flat-button mat-button (click)="weightChangeEvent()">
           First Weight
         </button>
 
-        <button class="btn btn-sm btn-light" *ngIf="!isFirstScreen" mat-flat-button mat-button (click)="secondWeightChangeEvent()">
+        <button class="btn btn-sm btn-light" *ngIf="!isFirstScreen" mat-flat-button mat-button (click)="weightChangeEvent()">
           Second Weight
         </button>
       </div>

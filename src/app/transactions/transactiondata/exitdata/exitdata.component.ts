@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -16,6 +16,9 @@ import { AuthenticationService } from 'src/app/services';
   styleUrls: ['./exitData.component.scss'],
 })
 export class exitDataComponent implements OnInit {
+
+  @Input() weight : number =0; 
+  
   exitForm: UntypedFormGroup;
   vehicleList: any = [];
   transportersList: any = [];
@@ -68,6 +71,12 @@ export class exitDataComponent implements OnInit {
 
   }
 
+  public ngOnChanges(changes: SimpleChanges) {
+    if (!changes['weight']?.firstChange) {
+      this.exitForm.controls['secondWeight'].setValue(changes['weight'].currentValue);
+    }
+  }
+
   public save() {
     // stop here if form is invalid
     if (!findInvalidControls(this.exitForm)) {
@@ -96,8 +105,5 @@ export class exitDataComponent implements OnInit {
   public trackByFn(index: number, item: any) {
     return item;
   }
-
-  public onWeightChange(event :number):void{
-    this.exitForm.controls['secondWeight'].setValue(event);
-  }
+ 
 }

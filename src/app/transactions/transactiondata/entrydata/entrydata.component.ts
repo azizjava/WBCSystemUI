@@ -1,4 +1,4 @@
-import { Component, Inject, NgZone, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
@@ -18,6 +18,8 @@ import { VehiclesService } from 'src/app/vehicles/vehicles.service';
   styleUrls: ['./entrydata.component.scss']
 })
 export class entryDataComponent implements OnInit {
+
+  @Input() weight : number =0; 
 
   entryForm: UntypedFormGroup;
   vehicleList: any = [];
@@ -78,7 +80,13 @@ export class entryDataComponent implements OnInit {
       this.populateListData();
       this.selectedGood = this.goodsList[0].key;
       this.keyValueData.push({ key: '', value: '' });
-  }  
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (!changes['weight']?.firstChange) {
+      this.entryForm.controls['firstWeight'].setValue(changes['weight'].currentValue);
+    }
+  }
 
   save() {
     // stop here if form is invalid
@@ -128,11 +136,6 @@ export class entryDataComponent implements OnInit {
   public trackByFn(index: number, item: any) {
     return item;
   }
-
-  public onWeightChange(event :number):void{
-    this.entryForm.controls['firstWeight'].setValue(event);
-  }
-  
 
   public onChange(event:any) {
     const supplierControl = this.entryForm.get('supplier');
