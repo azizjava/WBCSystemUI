@@ -1,4 +1,3 @@
-<app-weightbridge [isFirstScreen] ="true" (onWeightChange)="onWeightChange($event)"></app-weightbridge>
 
 <form class="entryData-form" [formGroup]="entryForm">
 
@@ -244,7 +243,7 @@
   <div class="row form-col">    
 
     <div class="col">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" appearance="outline">
         <mat-label>Add Instructions/Comments</mat-label>
         <textarea matInput placeholder="Instructions/Comments" formControlName="instructions"
           name="instructions"></textarea>

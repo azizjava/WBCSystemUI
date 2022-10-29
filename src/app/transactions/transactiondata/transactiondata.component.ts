@@ -8,11 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './transactiondata.component.html',
   styleUrls: ['./transactiondata.component.scss'],
 })
-export class TransactionDataComponent implements OnInit {
+export class TransactionDataComponent implements OnInit {   
   public actionItem: any = { isFirst: true, isLast: false, activeItem: 0 };
   public id: string;
   public isAddMode: boolean;
   public staticText: any = {};
+  public weight:number =0;
 
   constructor(
     private translate: TranslateService,
@@ -30,6 +31,10 @@ export class TransactionDataComponent implements OnInit {
 
   public changeCard(isForward: boolean = true) {
     this.actionItem = { isFirst: !isForward, isLast: isForward };
+  }
+
+  public onWeightChange(event :number):void{
+    this.weight = event;
   }
 
   private _getTranslatedText(): void {

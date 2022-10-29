@@ -12,13 +12,15 @@
       <div class="card">
         <div class="card-body">
 
+          <app-weightbridge [isFirstScreen] ="actionItem.isFirst" (onWeightChange)="onWeightChange($event)"></app-weightbridge>
+
           <div class="d-flex justify-content-center">
             <h2 class="mb-3">{{ actionItem.isFirst ? staticText.entryHeaderText : staticText.exitHeaderText }}</h2>
           </div>
 
-          <app-transactionentrydata *ngIf="actionItem.isFirst"></app-transactionentrydata>
+          <app-transactionentrydata *ngIf="actionItem.isFirst" [weight] ="weight"></app-transactionentrydata>
 
-          <app-transactionexitdata *ngIf="actionItem.isLast"></app-transactionexitdata>
+          <app-transactionexitdata *ngIf="actionItem.isLast" [weight] ="weight" ></app-transactionexitdata>
           
         </div>
       </div>
