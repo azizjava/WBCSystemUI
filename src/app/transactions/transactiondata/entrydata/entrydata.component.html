@@ -71,11 +71,14 @@
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['vehicleNo'].errors && 
-        entryForm.controls['vehicleNo'].errors['required'] &&
-        entryForm.controls['vehicleNo'].touched
-              ">Vehicle Plate No is required
+              entryForm.controls['vehicleNo'].errors['required'] &&
+              entryForm.controls['vehicleNo'].touched
+                    ">Vehicle Plate No is required
         </mat-error>
-      </mat-form-field>
+        <a matSuffix class="btn btn-sm btn-outline-primary" role="button" aria-pressed="true" (click)="addNew($event, 'vehicleNo')">
+          <mat-icon class="icon-line-height" matTooltip="add New Vehicle">add</mat-icon>
+        </a>      
+      </mat-form-field>   
     </div>
     <div class="col">
       <mat-form-field class="full-width">
@@ -108,6 +111,9 @@
         entryForm.controls['supplier'].touched
               ">Supplier is required
         </mat-error>
+        <a matSuffix class="btn btn-sm btn-outline-primary" role="button" aria-pressed="true" (click)="addNew($event,'supplier')">
+          <mat-icon class="icon-line-height" matTooltip="add New Supplier">add</mat-icon>
+        </a>
       </mat-form-field>
     </div>
     <div class="col" *ngIf="selectedGood ==='outgoing'">
@@ -122,6 +128,9 @@
         entryForm.controls['customer'].touched
               ">Customer is required
         </mat-error>
+        <a matSuffix class="btn btn-sm btn-outline-primary" role="button" aria-pressed="true" (click)="addNew($event, 'customer')">
+          <mat-icon class="icon-line-height" matTooltip="add New Supplier">add</mat-icon>
+        </a>
       </mat-form-field>
     </div>
     <div class="col">
@@ -136,7 +145,7 @@
         entryForm.controls['products'].errors['required'] &&
         entryForm.controls['products'].touched
               ">Product is required
-        </mat-error>
+        </mat-error>      
       </mat-form-field>
     </div>
   </div>

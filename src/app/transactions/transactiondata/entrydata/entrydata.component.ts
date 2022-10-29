@@ -15,11 +15,10 @@ import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 @Component({
   selector: 'app-transactionentrydata',
   templateUrl: './entrydata.component.html',
-  styleUrls: ['./entrydata.component.scss']
+  styleUrls: ['./entrydata.component.scss'],
 })
 export class entryDataComponent implements OnInit {
-
-  @Input() weight : number =0; 
+  @Input() weight: number = 0;
 
   entryForm: UntypedFormGroup;
   vehicleList: any = [];
@@ -29,62 +28,83 @@ export class entryDataComponent implements OnInit {
   productsList: any = [];
   nationalityList: any = [];
   goodsList: any = [];
-  keyValueData: any =[];
-  emptyKeyValue:boolean =false;
+  keyValueData: any = [];
+  emptyKeyValue: boolean = false;
 
-  selectedGood:string='';
- 
+  selectedGood: string = '';
 
-  constructor(private _formBuilder: UntypedFormBuilder,
+  constructor(
+    private _formBuilder: UntypedFormBuilder,
     private transporterService: TransportersService,
     private vehiclesService: VehiclesService,
     private productService: ProductsService,
     private nationalityService: NationalityService,
-    private alertService : AlertService,
+    private alertService: AlertService,
     private supplierService: SuppliersService,
     private customerService: CustomersService,
     private authenticationService: AuthenticationService,
     private zone: NgZone,
     private router: Router,
-    private route: ActivatedRoute,
-    ) {
-      this.zone.runOutsideAngular(() => {
-        setInterval(() => {
-          this.entryForm.controls['timeIn'].setValue(GlobalConstants.commonFunction.getFormattedTime());
-        }, 1000);
-      });
-    }
+    private route: ActivatedRoute
+  ) {
+    this.zone.runOutsideAngular(() => {
+      setInterval(() => {
+        this.entryForm.controls['timeIn'].setValue(
+          GlobalConstants.commonFunction.getFormattedTime()
+        );
+      }, 1000);
+    });
+  }
 
   ngOnInit(): void {
-
-    this.entryForm = this._formBuilder.group(
-      {
-        sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],      
-        vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
-        transporter: ['', [Validators.required, Validators.maxLength(50)]],
-        supplier: ['', [Validators.required, Validators.maxLength(50)]],
-        customer: ['', [Validators.maxLength(50)]], 
-        products: ['', [Validators.required, Validators.maxLength(50)]],
-        operator: [{value :this.authenticationService.currentUserValue.userName , disabled: true}],
-        role: [{value :this.authenticationService.currentUserValue.role , disabled: true}],
-        nationality: ['', [Validators.required, Validators.maxLength(50)]],
-        pieces: ['', [Validators.required, Validators.maxLength(50)]],
-        driverName: ['', [Validators.required, Validators.maxLength(50)]],
-        licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
-        firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
-        dateIn: [{value :GlobalConstants.commonFunction.getFormattedDate(), disabled: true}],
-        timeIn: [{value :GlobalConstants.commonFunction.getFormattedTime(),disabled: true}],
-        instructions: ['', [Validators.maxLength(250)]],
-       
-      });
-      this.populateListData();
-      this.selectedGood = this.goodsList[0].key;
-      this.keyValueData.push({ key: '', value: '' });
+    this.entryForm = this._formBuilder.group({
+      sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],
+      vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
+      transporter: ['', [Validators.required, Validators.maxLength(50)]],
+      supplier: ['', [Validators.required, Validators.maxLength(50)]],
+      customer: ['', [Validators.maxLength(50)]],
+      products: ['', [Validators.required, Validators.maxLength(50)]],
+      operator: [
+        {
+          value: this.authenticationService.currentUserValue.userName,
+          disabled: true,
+        },
+      ],
+      role: [
+        {
+          value: this.authenticationService.currentUserValue.role,
+          disabled: true,
+        },
+      ],
+      nationality: ['', [Validators.required, Validators.maxLength(50)]],
+      pieces: ['', [Validators.required, Validators.maxLength(50)]],
+      driverName: ['', [Validators.required, Validators.maxLength(50)]],
+      licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
+      firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
+      dateIn: [
+        {
+          value: GlobalConstants.commonFunction.getFormattedDate(),
+          disabled: true,
+        },
+      ],
+      timeIn: [
+        {
+          value: GlobalConstants.commonFunction.getFormattedTime(),
+          disabled: true,
+        },
+      ],
+      instructions: ['', [Validators.maxLength(250)]],
+    });
+    this.populateListData();
+    this.selectedGood = this.goodsList[0].key;
+    this.keyValueData.push({ key: '', value: '' });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
     if (!changes['weight']?.firstChange) {
-      this.entryForm.controls['firstWeight'].setValue(changes['weight'].currentValue);
+      this.entryForm.controls['firstWeight'].setValue(
+        changes['weight'].currentValue
+      );
     }
   }
 
@@ -121,44 +141,43 @@ export class entryDataComponent implements OnInit {
     }
   }
 
-
   public edit(): void {
     // stop here if form is invalid
     if (!findInvalidControls(this.entryForm)) {
       return;
-    }   
+    }
   }
 
   public cancel(): void {
-    this.router.navigate(['/dashboard/transactions'],  {relativeTo: this.route});
+    this.router.navigate(['/dashboard/transactions'], {
+      relativeTo: this.route,
+    });
   }
 
   public trackByFn(index: number, item: any) {
     return item;
   }
 
-  public onChange(event:any) {
+  public onChange(event: any) {
     const supplierControl = this.entryForm.get('supplier');
     const customerControl = this.entryForm.get('customer');
 
-    if(this.selectedGood ==='incoming'){
+    if (this.selectedGood === 'incoming') {
       supplierControl?.setValidators([Validators.required]);
       customerControl?.setValidators(null);
-    }
-    else{
+    } else {
       customerControl?.setValidators([Validators.required]);
       supplierControl?.setValidators(null);
     }
   }
 
-  onVehicleChange(event:any) {
-
+  onVehicleChange(event: any) {
     const supplierControl = this.entryForm.get('vehicleNo')?.value;
 
     this.getAllTransporters();
   }
 
-  private populateListData(): void {    
+  private populateListData(): void {
     this.goodsList = GlobalConstants.commonFunction.getGoodsOption();
     this.getAllVehicles();
     this.getAllTransporters();
@@ -171,7 +190,7 @@ export class entryDataComponent implements OnInit {
   private getAllVehicles(): void {
     this.vehiclesService.getAllVehicles().subscribe({
       next: (data: Vehicle[]) => {
-        this.vehicleList = data;       
+        this.vehicleList = data;
       },
       error: (error: string) => {
         console.log(error);
@@ -219,7 +238,7 @@ export class entryDataComponent implements OnInit {
   private getAllProducts(): void {
     this.productService.getAllProducts().subscribe({
       next: (data: Product[]) => {
-        this.productsList = data;       
+        this.productsList = data;
       },
       error: (error) => {
         console.log(error);
@@ -240,4 +259,26 @@ export class entryDataComponent implements OnInit {
     });
   }
 
+  public printLayout(): void {}
+
+  public addNew(event: Event, controlName: string): void {
+    event.stopPropagation();
+    switch (controlName) {
+      case 'vehicleNo':
+        this._addNewVehicle();
+        break;
+      case 'supplier':
+        this._addNewSupplier();
+        break;
+      case 'customer':
+        this._addNewCustomer();
+        break;
+    }
+  }
+
+  private _addNewSupplier(): void {}
+
+  private _addNewVehicle(): void {}
+
+  private _addNewCustomer(): void {}
 }
