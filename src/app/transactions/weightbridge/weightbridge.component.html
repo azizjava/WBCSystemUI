@@ -1,21 +1,23 @@
-<div class="weightBridge-form">
+<div class="weightBridge-form d-print-none">
 
   <div class="row form-col">
-    <div class="col-lg-2 col-md-3 col-sm-6 mb-1 d-flex flex-row justify-content-center align-items-center">
-      <div class="rectangle">
-        <div>
+    <div class="col-lg-2 col-md-5 col-sm-6 mb-1 d-flex flex-row align-items-center">
+      <div class="rectangle" [ngClass]="{'disconnected':!connectStatus}"  >
+        <div *ngIf="connectStatus">
           {{weight}}
         </div>
       </div>
     </div>
 
-    <div class="col-lg-2 col-md-3 col-sm-6">
+    <div class="col-lg-2 col-md-4 col-sm-6">
       <div class="d-grid gap-2">
-        <button class="btn btn-sm btn-light" *ngIf="isFirstScreen"  type="reset" mat-flat-button mat-button (click)="weightChangeEvent()">
+        <button class="btn btn-sm btn-info" [disabled]="!connectStatus" *ngIf="isFirstScreen" type="reset" mat-flat-button mat-button
+          (click)="weightChangeEvent()">
           First Weight
         </button>
 
-        <button class="btn btn-sm btn-light" *ngIf="!isFirstScreen" mat-flat-button mat-button (click)="weightChangeEvent()">
+        <button class="btn btn-sm btn-info" [disabled]="!connectStatus" *ngIf="!isFirstScreen" mat-flat-button mat-button
+          (click)="weightChangeEvent()">
           Second Weight
         </button>
       </div>
@@ -27,17 +29,8 @@
 
   <div class="row">
 
-    <div class="mb-1 mt-1 d-flex">
-
-      <button class="btn btn-sm btn-primary" *ngIf="!connectStatus" mat-flat-button mat-button
-        (click)="connectStatus =!connectStatus">
-        Connect
-      </button>
-
-      <button class="btn btn-sm btn-secondary" *ngIf="connectStatus" mat-flat-button mat-button
-        (click)="connectStatus =!connectStatus">
-        Disconnect
-      </button>
+    <div class="mb-1 mt-1 d-flex col-lg-2 col-md-5 col-sm-6">
+      <ui-switch [(ngModel)]="connectStatus" ></ui-switch>
     </div>
 
   </div>

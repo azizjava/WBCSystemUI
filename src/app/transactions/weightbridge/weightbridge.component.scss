@@ -16,4 +16,10 @@
             width: 100%;
         }     
     }
+
+    .disconnected {
+        cursor: not-allowed;
+        opacity:0.1;
+        background-color: #FFFFFF;
+    }
 }  

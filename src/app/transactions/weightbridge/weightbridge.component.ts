@@ -24,7 +24,7 @@ export class weightBridgeComponent implements OnInit {
   public weightChangeEvent(): void {
     this._calculateWeight();
     this.onWeightChange.emit(this.weight);
-  }
+  }  
 
   private _calculateWeight(isFirst :boolean = false) : void {
     this.weight = this._randomIntFromInterval();
