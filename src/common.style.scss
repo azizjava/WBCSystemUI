@@ -146,7 +146,7 @@ mat-icon.disable {
   width: 135px !important;
 
   @media (max-width: 568px) {
-    width: 98vw !important;
+    width: 70vw !important;
   } 
 
   @include media-breakpoint-up(sm) {
@@ -154,7 +154,7 @@ mat-icon.disable {
   }
 
   @include media-breakpoint-up(lg) {
-    width: 125px !important;
+    width: 130px !important;
   }
  
 }
