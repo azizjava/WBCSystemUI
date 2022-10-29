@@ -42,7 +42,7 @@ export class VehicleDataComponent implements OnInit {
       plateNo: ['', [Validators.required, Validators.maxLength(30)]],
       type: ['', [Validators.maxLength(30)]],
       transporterCode: ['', [Validators.required]],
-      transporterName: ['', [Validators.required]],
+      transporterName: [{value:'', disabled:true}, [Validators.required]],
     });
 
     if (this.data.actionName !== 'add') {
