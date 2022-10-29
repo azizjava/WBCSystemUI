@@ -13,6 +13,7 @@ import { TransactionDataComponent } from './transactiondata/transactiondata.comp
 import { entryDataComponent } from './transactiondata/entrydata/entrydata.component';
 import { exitDataComponent } from './transactiondata/exitdata/exitdata.component';
 import { weightBridgeComponent } from './weightbridge/weightbridge.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -34,6 +35,15 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     TransactionsRoutingModule,
     SharedcomponentsModule,
+    UiSwitchModule.forRoot({
+      size: 'medium',
+      color: 'rgb(0, 189, 99)',
+      switchColor: '#FFFFFF',
+      defaultBgColor: '#ca2222',
+      defaultBoColor : '#476EFF',
+      checkedLabel: 'Connected',
+      uncheckedLabel: 'Disconnected'
+    }),
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
       isolate: false,

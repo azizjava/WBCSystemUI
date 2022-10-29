@@ -140,3 +140,25 @@ body {
 mat-icon.disable {
   filter:opacity(0.5);
 }
+
+.switch.switch-medium {     
+  color: white !important;
+  width: 135px !important;
+
+  @media (max-width: 568px) {
+    width: 98vw !important;
+  } 
+
+  @include media-breakpoint-up(sm) {
+    width: 30vw !important;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 125px !important;
+  }
+ 
+}
+
+.switch.switch-medium > .switch-pane > span {
+  font-size: 12px !important;
+}
