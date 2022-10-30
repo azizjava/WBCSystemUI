@@ -143,18 +143,10 @@ mat-icon.disable {
 
 .switch.switch-medium {     
   color: white !important;
-  width: 135px !important;
+  min-width: 90% !important;
 
   @media (max-width: 568px) {
-    width: 70vw !important;
-  } 
-
-  @include media-breakpoint-up(sm) {
-    width: 30vw !important;
-  }
-
-  @include media-breakpoint-up(lg) {
-    width: 130px !important;
+    min-width: 99% !important;
   }
  
 }

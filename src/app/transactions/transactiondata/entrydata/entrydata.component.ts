@@ -193,10 +193,14 @@ export class entryDataComponent implements OnInit {
     this.getAllCustomers();
   }
 
-  private getAllVehicles(): void {
+  private getAllVehicles(newRecord? : Vehicle ): void {
     this.vehiclesService.getAllVehicles().subscribe({
       next: (data: Vehicle[]) => {
         this.vehicleList = data;
+        if(newRecord){
+          this.entryForm.controls['vehicleNo'].setValue(newRecord?.plateNo);
+          this.entryForm.controls['transporter'].setValue(newRecord?.transporters.nameOfTransporter);
+        }
       },
       error: (error: string) => {
         console.log(error);
@@ -290,8 +294,9 @@ export class entryDataComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if(result) {
-        controlName === 'vehicleNo' ?  this.getAllVehicles() :( controlName === 'supplier' ? this.getAllSuppliers() : this.getAllCustomers());
+        controlName === 'vehicleNo' ?  this.getAllVehicles(result) :( controlName === 'supplier' ? this.getAllSuppliers() : this.getAllCustomers());
       }
+
     });
   }
 }
