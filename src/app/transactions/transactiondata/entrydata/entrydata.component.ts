@@ -1,15 +1,20 @@
+import { ComponentType } from '@angular/cdk/portal';
 import { Component, Input, NgZone, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
+import { CustomerdataComponent } from 'src/app/customer/customerdata/customerdata.component';
 import { CustomersService } from 'src/app/customer/Customers.service';
 import { findInvalidControls } from 'src/app/helper';
-import { Customer, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
+import { Customer, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { NationalityService } from 'src/app/nationality/nationality.service';
 import { ProductsService } from 'src/app/products/products.service';
 import { AlertService, AuthenticationService } from 'src/app/services';
+import { SupplierdataComponent } from 'src/app/suppliers/supplierdata/supplierdata.component';
 import { SuppliersService } from 'src/app/suppliers/suppliers.service';
 import { TransportersService } from 'src/app/transporters/transporters.service';
+import { VehicleDataComponent } from 'src/app/vehicles/vehicledata/vehicledata.component';
 import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 
 @Component({
@@ -45,7 +50,8 @@ export class entryDataComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private zone: NgZone,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private matDialog: MatDialog
   ) {
     this.zone.runOutsideAngular(() => {
       setInterval(() => {
@@ -263,22 +269,29 @@ export class entryDataComponent implements OnInit {
 
   public addNew(event: Event, controlName: string): void {
     event.stopPropagation();
-    switch (controlName) {
-      case 'vehicleNo':
-        this._addNewVehicle();
-        break;
-      case 'supplier':
-        this._addNewSupplier();
-        break;
-      case 'customer':
-        this._addNewCustomer();
-        break;
-    }
+
+    this._openDialog(controlName);
   }
 
-  private _addNewSupplier(): void {}
+  private _openDialog(controlName: string): void {
+    const dialogData = {
+      actionName: 'add',
+      headerText: 'Information',
+    };
 
-  private _addNewVehicle(): void {}
+    const dialogConfig = new MatDialogConfig();
+    const template: ComponentType<any> = controlName === 'vehicleNo' ? VehicleDataComponent :( controlName === 'supplier' ? SupplierdataComponent : CustomerdataComponent);
+    dialogConfig.data = dialogData;
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'custom-dialog';
 
-  private _addNewCustomer(): void {}
+    const dialogRef = this.matDialog.open(template, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        controlName === 'vehicleNo' ?  this.getAllVehicles() :( controlName === 'supplier' ? this.getAllSuppliers() : this.getAllCustomers());
+      }
+    });
+  }
 }

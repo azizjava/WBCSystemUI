@@ -40,7 +40,7 @@ export class VehicleDataComponent implements OnInit {
   ngOnInit(): void {
     this.vehicleForm = this._formBuilder.group({
       plateNo: ['', [Validators.required, Validators.maxLength(30)]],
-      type: ['', [Validators.maxLength(30)]],
+      type: ['', [Validators.required,Validators.maxLength(30)]],
       transporterCode: ['', [Validators.required]],
       transporterName: [{value:'', disabled:true}, [Validators.required]],
     });
