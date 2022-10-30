@@ -10,7 +10,7 @@ export class weightBridgeComponent implements OnInit {
 
   @Input() isFirstScreen : boolean =true; 
 
-  @Output() onWeightChange:EventEmitter<number> =new EventEmitter<number>();
+  @Output() weightChange:EventEmitter<number> =new EventEmitter<number>();
 
   public connectStatus: boolean = false;
   public weight:number = 0;
@@ -23,7 +23,7 @@ export class weightBridgeComponent implements OnInit {
 
   public weightChangeEvent(): void {
     this._calculateWeight();
-    this.onWeightChange.emit(this.weight);
+    this.weightChange.emit(this.weight);
   }  
 
   private _calculateWeight(isFirst :boolean = false) : void {

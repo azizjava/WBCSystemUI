@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-body">
 
-          <app-weightbridge [isFirstScreen] ="actionItem.isFirst" (onWeightChange)="onWeightChange($event)"></app-weightbridge>
+          <app-weightbridge [isFirstScreen] ="actionItem.isFirst" (weightChange)="onWeightChange($event)"></app-weightbridge>
 
           <div class="d-flex justify-content-center">
             <h2 class="mb-3">{{ actionItem.isFirst ? staticText.entryHeaderText : staticText.exitHeaderText }}</h2>
