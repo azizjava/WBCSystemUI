@@ -1,8 +1,10 @@
 <div class="weightBridge-form d-print-none">
 
   <div class="row form-col">
+    <p class="text-primary fs-5 ms-5">{{ 'Weigh Bridge' }}</p>
     <div class="col-lg-2 col-md-5 col-sm-6 mb-1 d-flex flex-row align-items-center">
-      <div class="rectangle" [ngClass]="{'disconnected':!connectStatus}"  >
+     
+      <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!connectStatus}">
         <div *ngIf="connectStatus">
           {{weight}}
         </div>
