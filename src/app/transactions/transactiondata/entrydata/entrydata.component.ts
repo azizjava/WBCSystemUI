@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, Input, NgZone, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +22,7 @@ import { VehiclesService } from 'src/app/vehicles/vehicles.service';
   templateUrl: './entrydata.component.html',
   styleUrls: ['./entrydata.component.scss'],
 })
-export class entryDataComponent implements OnInit {
+export class entryDataComponent implements OnInit, OnChanges {
   @Input() weight: number = 0;
 
   entryForm: UntypedFormGroup;
@@ -66,7 +66,9 @@ export class entryDataComponent implements OnInit {
     this.entryForm = this._formBuilder.group({
       sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],
       vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
-      transporter: ['', [Validators.required, Validators.maxLength(50)]],
+      transporter: [{ value: this.authenticationService.currentUserValue.userName,
+        disabled: true,
+      }, [Validators.required, Validators.maxLength(50)]],
       supplier: ['', [Validators.required, Validators.maxLength(50)]],
       customer: ['', [Validators.maxLength(50)]],
       products: ['', [Validators.required, Validators.maxLength(50)]],
@@ -83,7 +85,7 @@ export class entryDataComponent implements OnInit {
         },
       ],
       nationality: ['', [Validators.required, Validators.maxLength(50)]],
-      pieces: ['', [Validators.required, Validators.maxLength(50)]],
+      pieces: ['', [Validators.maxLength(50)]],
       driverName: ['', [Validators.required, Validators.maxLength(50)]],
       licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
       firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
@@ -178,9 +180,13 @@ export class entryDataComponent implements OnInit {
   }
 
   onVehicleChange(event: any) {
-    const supplierControl = this.entryForm.get('vehicleNo')?.value;
+    const plateNo = this.entryForm.get('vehicleNo')?.value;
+    const transporterData = this.vehicleList.find((v:Vehicle) => v.plateNo === plateNo)?.transporters ;
 
-    this.getAllTransporters();
+    if(transporterData){
+      this.entryForm.controls['transporter'].setValue(transporterData.nameOfTransporter);
+    }    
+    
   }
 
   private populateListData(): void {
