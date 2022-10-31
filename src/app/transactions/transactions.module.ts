@@ -37,7 +37,7 @@ export function createTranslateLoader(http: HttpClient) {
     SharedcomponentsModule,
     UiSwitchModule.forRoot({
       size: 'medium',
-      color: 'rgb(0, 189, 99)',
+      color: '#0d6efd',
       switchColor: '#FFFFFF',
       defaultBgColor: '#ca2222',
       defaultBoColor : '#476EFF',

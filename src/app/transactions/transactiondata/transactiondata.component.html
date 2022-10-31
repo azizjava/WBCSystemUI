@@ -18,6 +18,8 @@
             <h2 class="mb-3">{{ actionItem.isFirst ? staticText.entryHeaderText : staticText.exitHeaderText }}</h2>
           </div>
 
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4 border-bottom"></div>         
+
           <app-transactionentrydata *ngIf="actionItem.isFirst" [weight] ="weight"></app-transactionentrydata>
 
           <app-transactionexitdata *ngIf="actionItem.isLast" [weight] ="weight" ></app-transactionexitdata>
