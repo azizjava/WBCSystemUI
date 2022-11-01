@@ -139,36 +139,35 @@
 
   <div class="row mb-1 form-col">
 
-    <div class="row form-col" >
+    <ng-container *ngFor="let item of keyValueData ;let index = index; last as isLast; trackBy:trackByFn">    
+      
+      <div class="row form-col">
+      
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Key</mat-label>
+            <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+      
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Value</mat-label>
+            <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
 
-      <ng-container *ngFor="let item of keyValueData ;let index = index; trackBy:trackByFn">     
-
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>Key</mat-label>
-          <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
+        <div class="col d-print-none" *ngIf="isLast" >
+          <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="addKeyValues()">
+            Add Key Value
+          </button>
+        </div>
+      
       </div>
+  </ng-container>  
 
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>Value</mat-label>
-          <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-      </div>
+</div>
 
-    </ng-container>
-
-    <div class="col">
-      <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="addKeyValues()">
-        Add Key Value
-      </button>
-    </div>
-  
-
-    </div>
-
-  </div>
   <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
     <mat-error>
       Please fill all key value pair values
@@ -193,8 +192,6 @@
 
   </div>
 
-
- 
 
   <div class="d-flex justify-content-between w-100 d-print-none">
     <button class="btn btn-sm" [disabled]="!exitForm.valid" mat-flat-button color="primary" mat-button

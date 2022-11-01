@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -15,7 +15,7 @@ import { AuthenticationService } from 'src/app/services';
   templateUrl: './exitData.component.html',
   styleUrls: ['./exitData.component.scss'],
 })
-export class exitDataComponent implements OnInit {
+export class exitDataComponent implements OnInit, OnChanges {
 
   @Input() weight : number =0; 
   
