@@ -177,7 +177,7 @@
       <mat-form-field class="full-width">
         <mat-select formControlName="nationality" placeholder="Nationality">
           <mat-option *ngFor="let option of nationalityList" [value]="option.driverNationalityName">
-            {{option.driverNationalityCode}}
+            {{option.driverNationalityName}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="entryForm.controls['nationality'].errors && 
@@ -229,7 +229,7 @@
           </div>
 
           <div class="col d-print-none" *ngIf="isLast" >
-            <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="addKeyValues()">
+            <button class="btn btn-sm" type="button" mat-flat-button color="primary" mat-button (click)="addKeyValues($event)">
               Add Key Value
             </button>
           </div>
@@ -269,8 +269,7 @@
 
   <div class="mb-1 d-flex justify-content-evenly d-print-none">
 
-    <button class="btn btn-sm" [disabled]="!entryForm.valid" mat-flat-button color="primary" type="submit" mat-button
-      (click)="printLayout()">
+    <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
       Print
     </button>
 
@@ -279,7 +278,7 @@
       Save
     </button>
 
-    <button class="btn btn-sm btn-link" mat-flat-button  type="submit" mat-button (click)="cancel()">
+    <button class="btn btn-sm btn-link" mat-flat-button  mat-button (click)="cancel()">
       Cancel
     </button>
   </div>

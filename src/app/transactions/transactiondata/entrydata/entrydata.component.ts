@@ -137,7 +137,8 @@ export class entryDataComponent implements OnInit, OnChanges {
     };
   }
 
-  addKeyValues() {
+  addKeyValues(event: Event) {
+    event.stopPropagation(); 
     if (this.keyValueData.length === 0) {
       this.emptyKeyValue = false;
       this.keyValueData.push({ key: '', value: '' });
@@ -275,10 +276,12 @@ export class entryDataComponent implements OnInit, OnChanges {
     });
   }
 
-  public printLayout(): void {}
+  public printLayout(): void {
+     window.print();
+  }
 
   public addNew(event: Event, controlName: string): void {
-    event.stopPropagation();
+    event.stopPropagation();    
 
     this._openDialog(controlName);
   }
