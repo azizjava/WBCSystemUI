@@ -11,6 +11,8 @@
 	"actions":{
 		"save":"يحفظ",
 		"cancel":"يلغي",
+		"print":"مطبعة",
+		"add":"Add",
 		"updateprofile":"تحديث الملف الشخصي"
 	},
 	"actiontooltip":{
@@ -182,7 +184,30 @@
 		},
 		"data":{
 			"entry":{
-				"header" :"Entry"
+				"header" :"دخول",
+				"operator":"المشغل أو العامل",
+				"role":"دور",
+				"datein":"التاريخ في",
+				"timein":"حان الوقت",
+				"sequenceno":"تسلسل لا",
+				"firstweight":"الوزن الأول",
+				"vehicleno":"رقم لوحة المركبة",
+				"addvehicle":"إضافة مركبة جديدة",
+				"transporter":"الناقل",
+				"supplier":"المورد",
+				"addsupplier":"إضافة مورد جديد",
+				"customer":"عميل",
+				"addcustomer":"إضافة عميل جديد",
+				"product":"منتج",
+				"licenceno":"رقم رخصة القيادة",
+				"drivername":"اسم السائق",
+				"nationality":"جنسية",
+				"pieces":"لا القطع",
+				"key":"مفتاح",
+				"value":"قيمة",
+				"addkeyvalues":"أضف قيمة المفتاح",
+				"emptykeyvalue":"يرجى ملء جميع قيم زوج القيمة الرئيسية",
+				"instructions":"أضف تعليمات / تعليقات"
 			},
 			"exit":{
 				"header" :"Exit"

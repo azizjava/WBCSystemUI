@@ -4,24 +4,22 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Operator" formControlName="operator" name="operator" />
+        <input matInput placeholder="{{staticText.operator}}" formControlName="operator" name="operator" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Role" formControlName="role" name="role" />
+        <input matInput placeholder="{{staticText.role}}" formControlName="role" name="role" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Date In</mat-label>
-        <input [readonly]="true" matInput formControlName="dateIn" name="dateIn">
+        <input [readonly]="true" matInput placeholder="{{staticText.datein}}" formControlName="dateIn" name="dateIn">
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Time In</mat-label>
-        <input [readonly]="true" matInput formControlName="timeIn" name="timeIn">
+        <input [readonly]="true" matInput placeholder="{{staticText.timein}}" formControlName="timeIn" name="timeIn">
       </mat-form-field>
     </div>
   </div>
@@ -29,22 +27,22 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo" />
+        <input matInput placeholder="{{staticText.sequenceno}}" formControlName="sequenceNo" name="sequenceNo" />
         <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
               entryForm.controls['sequenceNo'].errors['required'] &&
               entryForm.controls['sequenceNo'].touched
-                    ">Sequence No is required
+                    ">{{staticText.sequenceno}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>First Weight</mat-label>
-        <input matInput placeholder="First Weight" formControlName="firstWeight" name="firstWeight" />
+        <mat-label>{{staticText.firstweight}}</mat-label>
+        <input matInput placeholder="{{staticText.firstweight}}" formControlName="firstWeight" name="firstWeight" />
         <mat-error *ngIf="entryForm.controls['firstWeight'].errors &&
         entryForm.controls['firstWeight'].errors['required'] &&
         entryForm.controls['firstWeight'].touched
-              ">First Weight is required
+              ">{{staticText.firstweight}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -63,8 +61,8 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Vehicle Plate No</mat-label>
-        <mat-select formControlName="vehicleNo" placeholder="Mode" name="vehicleNo"
+        <mat-label>{{staticText.vehicleno}}</mat-label>
+        <mat-select formControlName="vehicleNo" placeholder="{{staticText.vehicleno}}" name="vehicleNo"
           (selectionChange)="onVehicleChange($event)">
           <mat-option *ngFor="let option of vehicleList" [value]="option.plateNo">
             {{option.vehicleType}}
@@ -73,17 +71,17 @@
         <mat-error *ngIf="entryForm.controls['vehicleNo'].errors && 
               entryForm.controls['vehicleNo'].errors['required'] &&
               entryForm.controls['vehicleNo'].touched
-                    ">Vehicle Plate No is required
+                    ">{{staticText.vehicleno}} {{staticText.required}}
         </mat-error>
         <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button" aria-pressed="true" (click)="addNew($event, 'vehicleNo')">
-          <mat-icon class="icon-line-height" matTooltip="add New Vehicle">add</mat-icon>
+          <mat-icon class="icon-line-height" matTooltip="{{staticText.addvehicle}}">add</mat-icon>
         </a>      
       </mat-form-field>   
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Transporter</mat-label>
-        <mat-select formControlName="transporter" placeholder="Mode">
+        <mat-label>{{staticText.transporter}}</mat-label>
+        <mat-select formControlName="transporter" placeholder="{{staticText.transporter}}">
           <mat-option *ngFor="let option of transportersList" [value]="option.nameOfTransporter">
             {{option.transporterCode}}
           </mat-option>
@@ -91,7 +89,7 @@
         <mat-error *ngIf="entryForm.controls['transporter'].errors && 
         entryForm.controls['transporter'].errors['required'] &&
         entryForm.controls['transporter'].touched
-              ">Transporter is required
+              ">{{staticText.transporter}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -101,7 +99,7 @@
   <div class="row form-col">
     <div class="col" *ngIf="selectedGood ==='incoming'">
       <mat-form-field class="full-width">
-        <mat-select formControlName="supplier" placeholder="Supplier">
+        <mat-select formControlName="supplier" placeholder="{{staticText.supplier}}">
           <mat-option *ngFor="let option of suppliersList" [value]="option.supplierName">
             {{option.supplierCode}}
           </mat-option>
@@ -109,16 +107,16 @@
         <mat-error *ngIf="entryForm.controls['supplier'].errors && 
         entryForm.controls['supplier'].errors['required'] &&
         entryForm.controls['supplier'].touched
-              ">Supplier is required
+              ">{{staticText.supplier}} {{staticText.required}}
         </mat-error>
         <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button" aria-pressed="true" (click)="addNew($event,'supplier')">
-          <mat-icon class="icon-line-height" matTooltip="add New Supplier">add</mat-icon>
+          <mat-icon class="icon-line-height" matTooltip="{{staticText.addsupplier}}">add</mat-icon>
         </a>
       </mat-form-field>
     </div>
     <div class="col" *ngIf="selectedGood ==='outgoing'">
       <mat-form-field class="full-width">
-        <mat-select formControlName="customer" placeholder="Customer">
+        <mat-select formControlName="customer" placeholder="{{staticText.customer}}">
           <mat-option *ngFor="let option of customersList" [value]="option.customerName">
             {{option.customerCode}}
           </mat-option>
@@ -126,17 +124,17 @@
         <mat-error *ngIf="entryForm.controls['customer'].errors && 
         entryForm.controls['customer'].errors['required'] &&
         entryForm.controls['customer'].touched
-              ">Customer is required
+              ">{{staticText.customer}} {{staticText.required}}
         </mat-error>
         <a matSuffix class="btn btn-sm btn-outline-primary d-print-none" role="button" aria-pressed="true" (click)="addNew($event, 'customer')">
-          <mat-icon class="icon-line-height" matTooltip="add New Supplier">add</mat-icon>
+          <mat-icon class="icon-line-height" matTooltip="{{staticText.addcustomer}}">add</mat-icon>
         </a>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Product</mat-label>
-        <mat-select formControlName="products" placeholder="Mode">
+        <mat-label>{{staticText.product}}</mat-label>
+        <mat-select formControlName="products" placeholder="{{staticText.product}}">
           <mat-option *ngFor="let option of productsList" [value]="option.productName">
             {{option.productCode}}
           </mat-option>
@@ -144,7 +142,7 @@
         <mat-error *ngIf="entryForm.controls['products'].errors && 
         entryForm.controls['products'].errors['required'] &&
         entryForm.controls['products'].touched
-              ">Product is required
+              ">{{staticText.product}} {{staticText.required}}
         </mat-error>      
       </mat-form-field>
     </div>
@@ -154,28 +152,28 @@
   <div class="row form-col">  
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Driver Licence No." formControlName="licenceNo" name="pieces" />
+        <input matInput placeholder="{{staticText.licenceno}}" formControlName="licenceNo" name="licenceNo" />
         <mat-error *ngIf="entryForm.controls['licenceNo'].errors &&
         entryForm.controls['licenceNo'].errors['required'] &&
         entryForm.controls['licenceNo'].touched
-              ">Driver Licence No is required
+              ">{{staticText.licenceno}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Driver Name</mat-label>
-        <input matInput placeholder="Driver Name" formControlName="driverName" name="driverName" />
+        <mat-label>{{staticText.drivername}}</mat-label>
+        <input matInput placeholder="{{staticText.drivername}}" formControlName="driverName" name="driverName" />
         <mat-error *ngIf="entryForm.controls['driverName'].errors &&
         entryForm.controls['driverName'].errors['required'] &&
         entryForm.controls['driverName'].touched
-              ">Driver Name is required
+              ">{{staticText.drivername}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-select formControlName="nationality" placeholder="Nationality">
+        <mat-select formControlName="nationality" placeholder="{{staticText.nationality}}">
           <mat-option *ngFor="let option of nationalityList" [value]="option.driverNationalityName">
             {{option.driverNationalityName}}
           </mat-option>
@@ -183,7 +181,7 @@
         <mat-error *ngIf="entryForm.controls['nationality'].errors && 
         entryForm.controls['nationality'].errors['required'] &&
         entryForm.controls['nationality'].touched
-              ">Nationality is required
+              ">{{staticText.nationality}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -193,11 +191,11 @@
   <div class="row form-col">
     <div class="col-md-4 col-sm-12">
       <mat-form-field class="full-width">
-        <input matInput placeholder="No.of Pieces" formControlName="pieces" name="pieces" />
+        <input matInput placeholder="{{staticText.pieces}}" formControlName="pieces" name="pieces" />
         <mat-error *ngIf="entryForm.controls['pieces'].errors &&
         entryForm.controls['pieces'].errors['required'] &&
         entryForm.controls['pieces'].touched
-              ">Pieces is required
+              ">{{staticText.pieces}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -216,21 +214,21 @@
         
           <div class="col">
             <mat-form-field class="full-width">
-              <mat-label>Key</mat-label>
+              <mat-label>{{staticText.key}}</mat-label>
               <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </div>
         
           <div class="col">
             <mat-form-field class="full-width">
-              <mat-label>Value</mat-label>
+              <mat-label>{{staticText.value}}</mat-label>
               <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </div>
 
           <div class="col d-print-none" *ngIf="isLast" >
             <button class="btn btn-sm" type="button" mat-flat-button color="primary" mat-button (click)="addKeyValues($event)">
-              Add Key Value
+              {{staticText.addkeyvalues}}
             </button>
           </div>
         
@@ -242,7 +240,7 @@
  
   <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
     <mat-error>
-      Please fill all key value pair values
+      {{staticText.emptykeyvalue}}
     </mat-error>
   </div>
 
@@ -251,13 +249,13 @@
 
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Add Instructions/Comments</mat-label>
-        <textarea matInput placeholder="Instructions/Comments" formControlName="instructions"
+        <mat-label>{{staticText.instructions}}</mat-label>
+        <textarea matInput placeholder="{{staticText.instructions}}" formControlName="instructions"
           name="instructions"></textarea>
         <mat-error *ngIf="entryForm.controls['instructions'].errors &&
         entryForm.controls['instructions'].errors['required'] &&
         entryForm.controls['instructions'].touched
-              ">Instructions/Comments is required
+              ">{{staticText.instructions}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -270,16 +268,16 @@
   <div class="mb-1 d-flex justify-content-evenly d-print-none">
 
     <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
-      Print
+      {{staticText.print}}
     </button>
 
     <button class="btn btn-sm" [disabled]="!entryForm.valid" mat-flat-button color="primary" type="submit" mat-button
       (click)="save()">
-      Save
+      {{staticText.save}}
     </button>
 
     <button class="btn btn-sm btn-link" mat-flat-button  mat-button (click)="cancel()">
-      Cancel
+      {{staticText.cancel}}
     </button>
   </div>
 

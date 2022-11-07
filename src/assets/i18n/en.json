@@ -11,6 +11,8 @@
 	"actions":{
 		"save":"Save",
 		"cancel":"Cancel",
+		"print":"Print",
+		"add":"Add",
 		"updateprofile":"Update Profile"
 	},
 
@@ -185,7 +187,30 @@
 		},
 		"data":{
 			"entry":{
-				"header" :"Entry"
+				"header" :"Entry",
+				"operator":"Operator",
+				"role":"Role",
+				"datein":"Date In",
+				"timein":"Time In",
+				"sequenceno":"Sequence No",
+				"firstweight":"First Weight",
+				"vehicleno":"Vehicle Plate No",
+				"addvehicle":"Add New Vehicle",
+				"transporter":"Transporter",
+				"supplier":"Supplier",
+				"addsupplier":"Add New Supplier",
+				"customer":"Customer",
+				"addcustomer":"Add New Customer",
+				"product":"Product",
+				"licenceno":"Driver Licence No.",
+				"drivername":"Driver Name",
+				"nationality":"Nationality",
+				"pieces":"No.of Pieces",
+				"key":"Key",
+				"value":"Value",
+				"addkeyvalues":"Add Key Value",
+				"emptykeyvalue":"Please fill all key value pair values",
+				"instructions":"Add Instructions/Comments"
 			},
 			"exit":{
 				"header" :"Exit"
