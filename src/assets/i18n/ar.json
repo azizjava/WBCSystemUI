@@ -161,5 +161,32 @@
 			"address":"Address",
 			"action":"Action"
 		}
+	},
+	"transactions":{
+		"Weighbridge":{
+			"header":"وزن الجسر رقم 1",
+			"connect":"متصل",
+			"disconnect":"انقطع الاتصال",
+			"firstweight":"الوزن الأول",
+			"secondweight":"الوزن الثاني"
+		},
+		"tbl_header":{
+			"transportercode":"Transporter Code",
+			"nameoftransporter":"Name",
+			"contactperson":"Contact Person",
+			"mobileno":"Mobile No",
+			"telephoneno":"Telephone No",
+			"faxno":"Fax",
+			"address":"Address",
+			"actions":"Action"
+		},
+		"data":{
+			"entry":{
+				"header" :"Entry"
+			},
+			"exit":{
+				"header" :"Exit"
+			}
+		}		
 	}
 }

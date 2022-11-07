@@ -165,6 +165,14 @@
 		}
 	},
 	"transactions":{
+		"Weighbridge":{
+			"header":"Weigh Bridge No.1",
+			"connect":"Connected",
+			"disconnect":"Disconnected",
+			"firstweight":"First Weight",
+			"secondweight":"Second Weight"
+		},
+
 		"tbl_header":{
 			"transportercode":"Transporter Code",
 			"nameoftransporter":"Name",

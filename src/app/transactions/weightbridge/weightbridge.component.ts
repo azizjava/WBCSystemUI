@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Inject, Input, NgZone, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-weightbridge',
@@ -14,10 +15,12 @@ export class weightBridgeComponent implements OnInit {
 
   public connectStatus: boolean = false;
   public weight:number = 0;
+  public staticText: any = {};
 
-  public constructor() {}
+  public constructor( private translate: TranslateService,) {}
 
   public ngOnInit(): void {
+    this.getTranslatedText();
     this._calculateWeight(true);
   }
 
@@ -32,5 +35,17 @@ export class weightBridgeComponent implements OnInit {
 
   private _randomIntFromInterval(min: number =1, max:number =100) {
     return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  private getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        header: this.translate.instant('transactions.Weighbridge.header'),
+        connect: this.translate.instant('transactions.Weighbridge.connect'),
+        disconnect: this.translate.instant('transactions.Weighbridge.disconnect'),
+        firstweight: this.translate.instant('transactions.Weighbridge.firstweight'),
+        secondweight: this.translate.instant('transactions.Weighbridge.secondweight'),
+      };
+    });
   }
 }

@@ -1,7 +1,7 @@
 <div class="weightBridge-form d-print-none">
 
   <div class="row form-col">
-    <p class="text-muted fs-5 ms-5">{{ 'Weigh Bridge' }}</p>
+    <p class="text-muted fs-5 ms-5">{{ staticText.header }}</p>
     <div class="col-lg-2 col-md-5 col-sm-6 mb-1 d-flex flex-row align-items-center">
      
       <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!connectStatus}">
@@ -15,12 +15,12 @@
       <div class="d-grid gap-2">
         <button class="btn btn-sm btn-primary" [disabled]="!connectStatus" *ngIf="isFirstScreen" type="reset" mat-flat-button mat-button
           (click)="weightChangeEvent()">
-          First Weight
+          {{ staticText.firstweight}}
         </button>
 
         <button class="btn btn-sm btn-primary" [disabled]="!connectStatus" *ngIf="!isFirstScreen" mat-flat-button mat-button
           (click)="weightChangeEvent()">
-          Second Weight
+          {{ staticText.secondweight }}
         </button>
       </div>
 
