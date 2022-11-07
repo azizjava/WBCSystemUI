@@ -158,7 +158,7 @@
         </div>
 
         <div class="col d-print-none" *ngIf="isLast" >
-          <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="addKeyValues()">
+          <button class="btn btn-sm" mat-flat-button color="primary" type ="button" mat-button (click)="addKeyValues($event)">
             Add Key Value
           </button>
         </div>
@@ -193,13 +193,13 @@
   </div>
 
 
-  <div class="d-flex justify-content-between w-100 d-print-none">
-    <button class="btn btn-sm" [disabled]="!exitForm.valid" mat-flat-button color="primary" mat-button
-      (click)="save()">
+  <div class="d-flex justify-content-between w-100 d-print-none">  
+
+    <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
       Print
     </button>
 
-    <button class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
+    <button class="btn btn-sm"  [disabled]="!exitForm.valid" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
       Save
     </button>
     <button class="btn btn-sm btn-link" mat-flat-button  mat-button (click)="cancel()">

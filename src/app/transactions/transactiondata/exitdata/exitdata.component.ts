@@ -77,6 +77,10 @@ export class exitDataComponent implements OnInit, OnChanges {
     }
   }
 
+  public printLayout(): void {
+    window.print();
+ }
+
   public save() {
     // stop here if form is invalid
     if (!findInvalidControls(this.exitForm)) {
@@ -90,7 +94,8 @@ export class exitDataComponent implements OnInit, OnChanges {
     });
   }
 
-  public addKeyValues() {
+  public addKeyValues(event :Event) {
+    event.stopPropagation();
     if (this.keyValueData.length === 0) {
       this.emptyKeyValue = false;
       this.keyValueData.push({ key: '', value: '' });
