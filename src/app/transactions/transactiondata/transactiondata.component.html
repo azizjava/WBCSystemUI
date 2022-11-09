@@ -3,7 +3,7 @@
   <div class="card-layout">
 
     <div class="item d-print-none">
-      <mat-icon class="material-icons" [ngClass]="{'disable':actionItem.isFirst}" [attr.disabled]="actionItem.isFirst" (click)="changeCard(false)">
+      <mat-icon class="material-icons" [attr.title] ="staticText.entryHeaderText"  [ngClass]="{'disable':actionItem.isFirst}" [attr.disabled]="actionItem.isFirst" (click)="changeCard(false)">
         arrow_back
       </mat-icon>
     </div>
@@ -29,7 +29,7 @@
     </div>
   
     <div class="item d-print-none">
-      <mat-icon class="material-icons cursor-pointer" [ngClass]="{'disable':actionItem.isLast}" [attr.disabled]="actionItem.isLast" (click)="changeCard(true)">
+      <mat-icon class="material-icons cursor-pointer" [attr.title] ="staticText.exitHeaderText"  [ngClass]="{'disable':actionItem.isLast}" [attr.disabled]="actionItem.isLast" (click)="changeCard(true)">
         arrow_forward
       </mat-icon>
     </div>

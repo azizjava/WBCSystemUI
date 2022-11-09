@@ -210,7 +210,24 @@
 				"instructions":"أضف تعليمات / تعليقات"
 			},
 			"exit":{
-				"header" :"Exit"
+				"header" :"مخرج",
+				"operator":"المشغل أو العامل",
+				"role":"دور",
+				"secondweight":"الوزن الثاني",
+				"dateout":"تاريخ خارج",
+				"timeout":"نفذ الوقت",
+				"deductweight":"الوزن المقتطع",
+				"netweight":"الوزن الصافي",
+				"price":"السعر / طن",
+				"deliverynote":"تسليم مذكرة لا.",
+				"orderno":"رقم الطلب",
+				"totalprice":"السعر الكلي",
+				"key":"مفتاح",
+				"value":"قيمة",
+				"addkeyvalues":"أضف قيمة المفتاح",
+				"emptykeyvalue":"يرجى ملء جميع قيم زوج القيمة الرئيسية",
+				"instructions":"أضف تعليمات / تعليقات",
+				"loginusername":"ادخل اسم المستخدم"
 			}
 		}		
 	}

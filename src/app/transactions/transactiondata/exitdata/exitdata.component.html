@@ -3,24 +3,22 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="login User Name" formControlName="loginUserName" name="loginUserName" />
+        <input matInput placeholder="{{staticText.loginusername}}"  formControlName="loginUserName" name="loginUserName" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Role" formControlName="role" name="role" />
+        <input matInput placeholder="{{staticText.role}}" formControlName="role" name="role" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Date Out</mat-label>
-        <input [readonly]="true" matInput formControlName="dateOut" name="dateOut">
+        <input [readonly]="true" matInput placeholder="{{staticText.dateout}}" formControlName="dateOut" name="dateOut">
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Time Out</mat-label>
-        <input [readonly]="true" matInput formControlName="timeOut" name="timeOut">
+        <input [readonly]="true" matInput placeholder="{{staticText.timeout}}" formControlName="timeOut" name="timeOut">
       </mat-form-field>
     </div>
   </div>
@@ -29,22 +27,21 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Sequence No" formControlName="sequenceNo" name="sequenceNo" />
+        <input matInput placeholder="{{staticText.sequenceno}}" formControlName="sequenceNo" name="sequenceNo" />
         <mat-error *ngIf="exitForm.controls['sequenceNo'].errors && 
         exitForm.controls['sequenceNo'].errors['required'] &&
         exitForm.controls['sequenceNo'].touched
-                    ">Sequence No is required
+                    ">{{staticText.sequenceno}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Second Weight</mat-label>
-        <input matInput placeholder="Second Weight" formControlName="secondWeight" name="secondWeight" />
+        <input matInput placeholder="{{staticText.secondweight}}" formControlName="secondWeight" name="secondWeight" />
         <mat-error *ngIf="exitForm.controls['secondWeight'].errors &&
         exitForm.controls['secondWeight'].errors['required'] &&
         exitForm.controls['secondWeight'].touched
-              ">Driver Name is required
+              ">{{staticText.secondweight}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -55,24 +52,22 @@
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Deduct Weight</mat-label>
-        <input matInput placeholder="Deduct Weight" formControlName="deductWeight" name="deductWeight" />
+        <input matInput placeholder="{{staticText.deductweight}}" formControlName="deductWeight" name="deductWeight" />
         <mat-error *ngIf="exitForm.controls['deductWeight'].errors &&
         exitForm.controls['deductWeight'].errors['required'] &&
         exitForm.controls['deductWeight'].touched
-              ">Deduct Weight is required
+              ">{{staticText.deductweight}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Net Weight</mat-label>
-        <input matInput placeholder="Net Weight" formControlName="netWeight" name="netWeight" />
+        <input matInput placeholder="{{staticText.netweight}}" formControlName="netWeight" name="netWeight" />
         <mat-error *ngIf="exitForm.controls['netWeight'].errors &&
         exitForm.controls['netWeight'].errors['required'] &&
         exitForm.controls['netWeight'].touched
-              ">Net Weight is required
+              ">{{staticText.netweight}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -83,24 +78,22 @@
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Price/Ton</mat-label>
-        <input matInput placeholder="Price/Ton" formControlName="priceTons" name="priceTons" />
+        <input matInput placeholder="{{staticText.price}}" formControlName="priceTons" name="priceTons" />
         <mat-error *ngIf="exitForm.controls['priceTons'].errors &&
         exitForm.controls['priceTons'].errors['required'] &&
         exitForm.controls['priceTons'].touched
-              ">Price/Ton is required
+              ">{{staticText.price}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Total Price</mat-label>
-        <input matInput placeholder="Total Price" formControlName="totalPrice" name="totalPrice" />
+        <input matInput placeholder="{{staticText.totalprice}}" formControlName="totalPrice" name="totalPrice" />
         <mat-error *ngIf="exitForm.controls['totalPrice'].errors &&
         exitForm.controls['totalPrice'].errors['required'] &&
         exitForm.controls['totalPrice'].touched
-              ">Total Price is required
+              ">{{staticText.totalprice}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -111,24 +104,22 @@
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Delivery Note No.</mat-label>
-        <input matInput placeholder="Delivery Note No." formControlName="deliveryNoteNo" name="deliveryNoteNo" />
+        <input matInput placeholder="{{staticText.instructions}}" formControlName="deliveryNoteNo" name="deliveryNoteNo" />
         <mat-error *ngIf="exitForm.controls['deliveryNoteNo'].errors &&
         exitForm.controls['deliveryNoteNo'].errors['required'] &&
         exitForm.controls['deliveryNoteNo'].touched
-              ">Delivery Note No. is required
+              ">{{staticText.instructions}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
 
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>Order No</mat-label>
-        <input matInput placeholder="Order No" formControlName="orderNo" name="orderNo" />
+        <input matInput placeholder="{{staticText.orderno}}" formControlName="orderNo" name="orderNo" />
         <mat-error *ngIf="exitForm.controls['orderNo'].errors &&
         exitForm.controls['orderNo'].errors['required'] &&
         exitForm.controls['orderNo'].touched
-              ">Order No is required
+              ">{{staticText.orderno}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -145,21 +136,21 @@
       
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-label>Key</mat-label>
+            <mat-label>{{staticText.key}}</mat-label>
             <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
           </mat-form-field>
         </div>
       
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-label>Value</mat-label>
+            <mat-label>{{staticText.value}}</mat-label>
             <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
           </mat-form-field>
         </div>
 
         <div class="col d-print-none" *ngIf="isLast" >
           <button class="btn btn-sm" mat-flat-button color="primary" type ="button" mat-button (click)="addKeyValues($event)">
-            Add Key Value
+            {{staticText.addkeyvalues}}
           </button>
         </div>
       
@@ -170,7 +161,7 @@
 
   <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
     <mat-error>
-      Please fill all key value pair values
+      {{staticText.emptykeyvalue}}
     </mat-error>
   </div>
 
@@ -179,13 +170,12 @@
 
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Delivery Instructions/Comments</mat-label>
-        <textarea matInput placeholder="Delivery Instructions/Comments" formControlName="instructions"
+        <textarea matInput placeholder="{{staticText.instructions}}" formControlName="instructions"
           name="instructions"></textarea>
         <mat-error *ngIf="exitForm.controls['instructions'].errors &&
         exitForm.controls['instructions'].errors['required'] &&
         exitForm.controls['instructions'].touched
-              ">Delivery Instructions/Comments is required
+              ">{{staticText.instructions}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -196,14 +186,14 @@
   <div class="d-flex justify-content-between w-100 d-print-none">  
 
     <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
-      Print
+      {{staticText.print}}
     </button>
 
     <button class="btn btn-sm"  [disabled]="!exitForm.valid" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
-      Save
+      {{staticText.save}}
     </button>
     <button class="btn btn-sm btn-link" mat-flat-button  mat-button (click)="cancel()">
-      Cancel
+      {{staticText.cancel}}
     </button>
   </div>
 </form>

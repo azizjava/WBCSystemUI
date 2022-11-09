@@ -213,7 +213,24 @@
 				"instructions":"Add Instructions/Comments"
 			},
 			"exit":{
-				"header" :"Exit"
+				"header" :"Exit",
+				"operator":"Operator",
+				"role":"Role",
+				"secondweight":"Second Weight",
+				"dateout":"Date Out",
+				"timeout":"Time Out",
+				"deductweight":"Deduct Weight",
+				"netweight":"Net Weight",
+				"price":"Price/Ton",
+				"deliverynote":"Delivery Note No.",
+				"orderno":"Order No",
+				"totalprice":"Total Price",
+				"key":"Key",
+				"value":"Value",
+				"addkeyvalues":"Add Key Value",
+				"emptykeyvalue":"Please fill all key value pair values",
+				"instructions":"Add Instructions/Comments",
+				"loginusername":"Login User Name"
 			}
 		}		
 	}
