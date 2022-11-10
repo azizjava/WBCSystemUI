@@ -49,7 +49,7 @@ export class TransactionsListComponent implements OnInit {
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
     } else if (this.actionName === 'edit') {
-      this.router.navigate(['/dashboard/transactions/add'], { queryParams: { id: dialogData.data?.transporterCode } });
+      this.router.navigate(['/dashboard/transactions/add'], { queryParams: { sequenceno: dialogData.data?.sequenceNo } });
     } else {
       this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
     }     

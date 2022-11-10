@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 
@@ -10,22 +10,19 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class TransactionDataComponent implements OnInit {   
   public actionItem: any = { isFirst: true, isLast: false, activeItem: 0 };
-  public id: string;
-  public isAddMode: boolean;
+  public sequenceno: string;
   public staticText: any = {};
   public weight:number =0;
 
   constructor(
     private translate: TranslateService,
     private route: ActivatedRoute,
-    private router: Router
   ) {}
 
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.id = params['id'];
+      this.sequenceno = params['sequenceno'];
     });
-    this.isAddMode = !this.id;
     this._getTranslatedText();
   }
 
@@ -42,7 +39,7 @@ export class TransactionDataComponent implements OnInit {
       this.staticText = {
         entryHeaderText: this.translate.instant('transactions.data.entry.header'),
         exitHeaderText: this.translate.instant('transactions.data.exit.header'),
-        supplierName: this.translate.instant('suppliers.tbl_header.suppliername'),       
+        supplierName: this.translate.instant('suppliers.tbl_header.suppliername'),
       };
     });
   }
