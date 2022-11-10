@@ -14,23 +14,14 @@ import { TransactionsService } from './transactions.service';
   styleUrls: ['./transactionlist.component.scss'],
 })
 export class TransactionsListComponent implements OnInit {
-  tblColumns: string[] = [
-    'transporterCode',
-    'nameOfTransporter',
-    'contactPerson',
-    'mobileNo',
-    'telephoneNo',
-    'faxNo',
-    'address',
-    'Actions',
-  ];
+  tblColumns: string[] = ['sequenceNo', 'transactionStatus', 'entryDateAndTime', 'entryLoginUserName',  'vehiclePlateNo', 'transporterCode', 'Actions'];
   tableData: any = [];
 
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
-  public sortColumn = { name: 'Name', dir: 'asc' };
-  public visibleColumns = ['sequenceNo', 'nameOfTransporter', 'Actions'];
+  public sortColumn = { name: 'entryDateAndTime', dir: 'asc' };
+  public visibleColumns = ['sequenceNo', 'transactionStatus', 'dailyTransactionEntry.entryDateAndTime', 'Actions'];
 
   constructor(
     private translate: TranslateService,
@@ -86,7 +77,7 @@ export class TransactionsListComponent implements OnInit {
   }
 
   private _deleteRecord(selRecord: Transporter) {
-    this.httpService.deleteTransporter(selRecord.transporterCode).subscribe({
+    this.httpService.deleteTransaction(selRecord.transporterCode).subscribe({
       next: (res) => {
         console.log('Deleted Record !!', selRecord);
         this.getAllTransactions();
@@ -109,11 +100,22 @@ export class TransactionsListComponent implements OnInit {
   }
 
   private getAllTransactions(): void {
-    this.httpService.getAllTransporters().subscribe({
-      next: (data: Transporter[]) => {
-        this.tableData = data;
+    this.httpService.getAllTransactions().subscribe({
+      next: (data: any[]) => {
+        this.tableData = [];
+        data.forEach((response: any) => {         
+          this.tableData.push({sequenceNo : response.sequenceNo, 
+            transactionStatus: response.transactionStatus,
+            entryDateAndTime: response.dailyTransactionEntry.entryDateAndTime,
+            vehiclePlateNo: response.dailyTransactionEntry.vehiclePlateNo,
+            transporterCode: response.dailyTransactionEntry.transporterCode,
+            entryLoginUserName: response.dailyTransactionEntry.entryLoginUserName,
+          });
+        });
+
       },
       error: (error) => {
+        this.tableData = [];
         console.log(error);
         this.alertService.error(error);
       },

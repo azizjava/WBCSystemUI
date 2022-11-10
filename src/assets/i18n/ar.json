@@ -173,14 +173,13 @@
 			"secondweight":"الوزن الثاني"
 		},
 		"tbl_header":{
-			"transportercode":"Transporter Code",
-			"nameoftransporter":"Name",
-			"contactperson":"Contact Person",
-			"mobileno":"Mobile No",
-			"telephoneno":"Telephone No",
-			"faxno":"Fax",
-			"address":"Address",
-			"actions":"Action"
+			"sequenceno":"رقم التسلسل",
+			"transactionstatus":"حالة عملية",
+			"entrydateandtime":"تاريخ الدخول والوقت",
+			"entryloginusername":"ادخل اسم المستخدم",
+			"vehicleplateno":"لوحة لا",
+			"transportercode":"كود الناقل",
+			"actions":"عمل"
 		},
 		"data":{
 			"entry":{

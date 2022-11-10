@@ -176,13 +176,12 @@
 		},
 
 		"tbl_header":{
+			"sequenceno":"Sequence No.",
+			"transactionstatus":"Transaction Status",
+			"entrydateandtime":"Entry DateAndTime",
+			"entryloginusername":"Login User Name",
+			"vehicleplateno":"Plate No",
 			"transportercode":"Transporter Code",
-			"nameoftransporter":"Name",
-			"contactperson":"Contact Person",
-			"mobileno":"Mobile No",
-			"telephoneno":"Telephone No",
-			"faxno":"Fax",
-			"address":"Address",
 			"actions":"Action"
 		},
 		"data":{
