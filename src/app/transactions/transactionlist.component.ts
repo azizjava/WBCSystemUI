@@ -20,8 +20,8 @@ export class TransactionsListComponent implements OnInit {
   public searchInput: string = '';
   public staticText: any = {};
   public actionName: string = '';
-  public sortColumn = { name: 'entryDateAndTime', dir: 'asc' };
-  public visibleColumns = ['sequenceNo', 'transactionStatus', 'dailyTransactionEntry.entryDateAndTime', 'Actions'];
+  public sortColumn = { name: 'entryDateAndTime', dir: 'desc' };
+  public visibleColumns = ['sequenceNo', 'transactionStatus', 'Actions'];
 
   constructor(
     private translate: TranslateService,
