@@ -9,7 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { GlobalConstants } from 'src/app/common';
 import { findInvalidControls } from 'src/app/helper';
 import { modelDialog, Transporter } from 'src/app/models';
-import { AuthenticationService } from 'src/app/services';
+import { AlertService, AuthenticationService } from 'src/app/services';
+import { TransactionsService } from '../../transactions.service';
 
 @Component({
   selector: 'app-transactionexitdata',
@@ -18,7 +19,8 @@ import { AuthenticationService } from 'src/app/services';
 })
 export class exitDataComponent implements OnInit, OnChanges {
 
-  @Input() weight : number =0; 
+  @Input() weight : number = 0; 
+  @Input() sequenceno : string = '';
 
   public staticText: any = {};
   
@@ -33,11 +35,13 @@ export class exitDataComponent implements OnInit, OnChanges {
   emptyKeyValue: boolean = false;
 
   constructor(
+    private httpService: TransactionsService,
     private _formBuilder: UntypedFormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
+    private alertService: AlertService,
   ) {}
 
   ngOnInit(): void {
@@ -85,12 +89,48 @@ export class exitDataComponent implements OnInit, OnChanges {
     window.print();
  }
 
-  public save() {
-    // stop here if form is invalid
-    if (!findInvalidControls(this.exitForm)) {
-      return;
-    }
+ save() {
+  // stop here if form is invalid
+  if (!findInvalidControls(this.exitForm)) {
+    return;
   }
+
+  const result = this.exitForm.value;
+
+  const newRecord = {
+    dailyTransactionExit: {
+      deductWeight: result.deductWeight,
+      deliveryNoteNo: result.deliveryNoteNo,
+      driverName: result.driverName,
+      exitDate: GlobalConstants.commonFunction.getFormattedDate(),
+      exitTime:GlobalConstants.commonFunction.getFormattedTime().toUpperCase(),
+      entryDeliveryInstructions: result.instructions,
+      exitKeyPairs: this.keyValueData,
+      exitLoginRoleName: this.authenticationService.currentUserValue.role,
+      exitLoginUserName: this.authenticationService.currentUserValue.userName,
+      secondWeight: result.secondWeight,
+      netWeight: result.netWeight,
+      orderNo: result.orderNo,
+      pricePerTon: result.priceTons,
+      totalPrice: result.totalPrice,     
+    },
+    
+    sequenceNo: this.sequenceno,
+    transactionStatus: 'Exit Completed',
+  };
+
+  console.log(newRecord);
+
+  this.httpService.updateTransaction(this.sequenceno, newRecord).subscribe({
+    next: (res) => {
+      console.log(res);
+    },
+    error: (error) => {
+      console.log(error);
+      this.alertService.error(error);
+    },
+  });
+}
 
   public cancel(): void {
     this.router.navigate(['/dashboard/transactions'], {

@@ -17,6 +17,7 @@ import { SuppliersService } from 'src/app/suppliers/suppliers.service';
 import { TransportersService } from 'src/app/transporters/transporters.service';
 import { VehicleDataComponent } from 'src/app/vehicles/vehicledata/vehicledata.component';
 import { VehiclesService } from 'src/app/vehicles/vehicles.service';
+import { TransactionsService } from '../../transactions.service';
 
 @Component({
   selector: 'app-transactionentrydata',
@@ -25,6 +26,7 @@ import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 })
 export class entryDataComponent implements OnInit, OnChanges {
   @Input() weight: number = 0;
+  @Input() sequenceno : string = ''; 
 
   public staticText: any = {};
 
@@ -42,6 +44,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   selectedGood: string = '';
 
   constructor(
+    private httpService: TransactionsService,
     private _formBuilder: UntypedFormBuilder,
     private transporterService: TransportersService,
     private vehiclesService: VehiclesService,
@@ -70,9 +73,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.entryForm = this._formBuilder.group({
       sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],
       vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
-      transporter: [{ value: this.authenticationService.currentUserValue.userName,
-        disabled: true,
-      }, [Validators.required, Validators.maxLength(50)]],
+      transporter: [{ value: '', disabled: true,}, [Validators.required, Validators.maxLength(50)]],
       supplier: ['', [Validators.required, Validators.maxLength(50)]],
       customer: ['', [Validators.maxLength(50)]],
       products: ['', [Validators.required, Validators.maxLength(50)]],
@@ -109,7 +110,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     });
     this.populateListData();
     this.selectedGood = this.goodsList[0].key;
-    this.keyValueData.push({ key: '', value: '' });
+    this.keyValueData.push({ name: '', value: '' });
     this.getTranslatedText();
   }
 
@@ -129,28 +130,53 @@ export class entryDataComponent implements OnInit, OnChanges {
 
     const result = this.entryForm.value;
 
-    const newRecord: any = {
-      transporterCode: result.code,
-      nameOfTransporter: result.name,
-      contactPerson: result.contactPerson,
-      mobileNo: result.mobileNo.toString(),
-      telephoneNo: result.phoneNo.toString(),
-      timeIn: GlobalConstants.commonFunction.getFormattedTime(),
-      dateIn: GlobalConstants.commonFunction.getFormattedDate(),
-      localCreatedDateTime: new Date(),
-      lastModifiedByUser: this.authenticationService.currentUserValue.userName,
+    const newRecord = {
+      dailyTransactionEntry: {
+        customerCode: result.customer,
+        driverLicenseNo: result.licenceNo,
+        driverName: result.driverName,
+        entryDate: GlobalConstants.commonFunction.getFormattedDate(),
+        entryTime:GlobalConstants.commonFunction.getFormattedTime().toUpperCase(),
+        entryDeliveryInstructions: result.instructions,
+        entryKeyPairs: this.keyValueData,
+        entryLoginRoleName: this.authenticationService.currentUserValue.role,
+        entryLoginUserName: this.authenticationService.currentUserValue.userName,
+        firstWeight: result.firstWeight,
+        goodsType: this.selectedGood,
+        nationality: result.nationality,
+        noOfPieces: result.pieces,
+        productCode: result.products,
+        supplierCode: result.supplier,
+        transporterCode: this.entryForm.controls['transporter'].value,
+        vehiclePlateNo: result.vehicleNo,
+      },
+      dailyTransactionExit: {},
+      sequenceNo: 'new',
+      transactionStatus: 'Entry Completed',
     };
+
+    console.log(newRecord);
+
+    this.httpService.createNewTransaction(newRecord).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
   }
 
   addKeyValues(event: Event) {
     event.stopPropagation(); 
     if (this.keyValueData.length === 0) {
       this.emptyKeyValue = false;
-      this.keyValueData.push({ key: '', value: '' });
+      this.keyValueData.push({ name: '', value: '' });
     } else {
-      this.emptyKeyValue = this.keyValueData.some((obj: any) => !obj.key);
+      this.emptyKeyValue = this.keyValueData.some((obj: any) => !obj.name);
       if (!this.emptyKeyValue) {
-        this.keyValueData.push({ key: '', value: '' });
+        this.keyValueData.push({ name: '', value: '' });
       }
     }
   }
@@ -190,9 +216,78 @@ export class entryDataComponent implements OnInit, OnChanges {
     const transporterData = this.vehicleList.find((v:Vehicle) => v.plateNo === plateNo)?.transporters ;
 
     if(transporterData){
-      this.entryForm.controls['transporter'].setValue(transporterData.nameOfTransporter);
+      this.entryForm.controls['transporter'].setValue(transporterData.transporterCode);
     }    
     
+  }
+
+  
+  public printLayout(): void {
+     window.print();
+  }
+
+  public addNew(event: Event, controlName: string): void {
+    event.stopPropagation();    
+
+    this._openDialog(controlName);
+  }
+
+  private _openDialog(controlName: string): void {
+    const dialogData = {
+      actionName: 'add',
+      headerText: 'Information',
+    };
+
+    const dialogConfig = new MatDialogConfig();
+    const template: ComponentType<any> = controlName === 'vehicleNo' ? VehicleDataComponent :( controlName === 'supplier' ? SupplierdataComponent : CustomerdataComponent);
+    dialogConfig.data = dialogData;
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'custom-dialog';
+
+    const dialogRef = this.matDialog.open(template, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        controlName === 'vehicleNo' ?  this.getAllVehicles(result) :( controlName === 'supplier' ? this.getAllSuppliers() : this.getAllCustomers());
+      }
+
+    });
+  }
+
+  private getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        save: this.translate.instant('actions.save'),
+        cancel: this.translate.instant('actions.cancel'),
+        print: this.translate.instant('actions.print'),
+        add: this.translate.instant('actions.add'),
+        required: this.translate.instant('common.required'),
+        operator: this.translate.instant('transactions.data.entry.operator'),
+        role: this.translate.instant('transactions.data.entry.role'),
+        datein: this.translate.instant('transactions.data.entry.datein'),
+        timein: this.translate.instant('transactions.data.entry.timein'),
+        sequenceno: this.translate.instant('transactions.data.entry.sequenceno'),
+        firstweight: this.translate.instant('transactions.data.entry.firstweight'),
+        vehicleno: this.translate.instant('transactions.data.entry.vehicleno'),
+        addvehicle: this.translate.instant('transactions.data.entry.addvehicle'),
+        transporter: this.translate.instant('transactions.data.entry.transporter'),
+        supplier: this.translate.instant('transactions.data.entry.supplier'),
+        addsupplier: this.translate.instant('transactions.data.entry.addsupplier'),
+        customer: this.translate.instant('transactions.data.entry.customer'),
+        addcustomer: this.translate.instant('transactions.data.entry.addcustomer'),
+        product: this.translate.instant('transactions.data.entry.product'),
+        licenceno: this.translate.instant('transactions.data.entry.licenceno'),
+        drivername: this.translate.instant('transactions.data.entry.drivername'),
+        nationality: this.translate.instant('transactions.data.entry.nationality'),
+        pieces: this.translate.instant('transactions.data.entry.pieces'),
+        key: this.translate.instant('transactions.data.entry.key'),
+        value: this.translate.instant('transactions.data.entry.value'),
+        addkeyvalues: this.translate.instant('transactions.data.entry.addkeyvalues'),
+        emptykeyvalue: this.translate.instant('transactions.data.entry.emptykeyvalue'),
+        instructions: this.translate.instant('transactions.data.entry.instructions'),      
+      };
+    });
   }
 
   private populateListData(): void {
@@ -203,6 +298,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.getAllSuppliers();
     this.getAllProducts();
     this.getAllCustomers();
+    this.sequenceno && this.getTransactionById();
   }
 
   private getAllVehicles(newRecord? : Vehicle ): void {
@@ -281,71 +377,34 @@ export class entryDataComponent implements OnInit, OnChanges {
     });
   }
 
-  public printLayout(): void {
-     window.print();
-  }
-
-  public addNew(event: Event, controlName: string): void {
-    event.stopPropagation();    
-
-    this._openDialog(controlName);
-  }
-
-  private _openDialog(controlName: string): void {
-    const dialogData = {
-      actionName: 'add',
-      headerText: 'Information',
-    };
-
-    const dialogConfig = new MatDialogConfig();
-    const template: ComponentType<any> = controlName === 'vehicleNo' ? VehicleDataComponent :( controlName === 'supplier' ? SupplierdataComponent : CustomerdataComponent);
-    dialogConfig.data = dialogData;
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.panelClass = 'custom-dialog';
-
-    const dialogRef = this.matDialog.open(template, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
-        controlName === 'vehicleNo' ?  this.getAllVehicles(result) :( controlName === 'supplier' ? this.getAllSuppliers() : this.getAllCustomers());
-      }
-
+  private getTransactionById(): void {
+    this.httpService.getTransactionById(this.sequenceno).subscribe({
+      next: (data: any) => {
+       console.log(data);
+       this.entryForm.controls['sequenceNo'].setValue(data?.sequenceNo);
+       this.entryForm.controls['vehicleNo'].setValue(data?.vehiclePlateNo);
+       this.entryForm.controls['transporter'].setValue(data?.transporterCode);
+       this.entryForm.controls['supplier'].setValue(data?.supplierCode);
+       this.entryForm.controls['customer'].setValue(data?.customerCode);
+       this.entryForm.controls['products'].setValue(data?.productCode);
+       this.entryForm.controls['operator'].setValue(data?.entryLoginUserName);
+       this.entryForm.controls['role'].setValue(data?.entryLoginRoleName);
+       this.selectedGood = data?.goodsType;
+       this.keyValueData =data?.entryKeyPairs;
+       this.entryForm.controls['nationality'].setValue(data?.nationality);
+       this.entryForm.controls['pieces'].setValue(data?.noOfPieces);
+       this.entryForm.controls['driverName'].setValue(data?.driverName);
+       this.entryForm.controls['licenceNo'].setValue(data?.driverLicenseNo);
+       this.entryForm.controls['firstWeight'].setValue(data?.firstWeight);
+       this.entryForm.controls['dateIn'].setValue(data?.entryDate);
+       this.entryForm.controls['timeIn'].setValue(data?.entryTime);
+       this.entryForm.controls['instructions'].setValue(data?.entryDeliveryInstructions);
+       
+      },
+      error: (error) => {
+        this.alertService.error(error);
+      },
     });
   }
 
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        save: this.translate.instant('actions.save'),
-        cancel: this.translate.instant('actions.cancel'),
-        print: this.translate.instant('actions.print'),
-        add: this.translate.instant('actions.add'),
-        required: this.translate.instant('common.required'),
-        operator: this.translate.instant('transactions.data.entry.operator'),
-        role: this.translate.instant('transactions.data.entry.role'),
-        datein: this.translate.instant('transactions.data.entry.datein'),
-        timein: this.translate.instant('transactions.data.entry.timein'),
-        sequenceno: this.translate.instant('transactions.data.entry.sequenceno'),
-        firstweight: this.translate.instant('transactions.data.entry.firstweight'),
-        vehicleno: this.translate.instant('transactions.data.entry.vehicleno'),
-        addvehicle: this.translate.instant('transactions.data.entry.addvehicle'),
-        transporter: this.translate.instant('transactions.data.entry.transporter'),
-        supplier: this.translate.instant('transactions.data.entry.supplier'),
-        addsupplier: this.translate.instant('transactions.data.entry.addsupplier'),
-        customer: this.translate.instant('transactions.data.entry.customer'),
-        addcustomer: this.translate.instant('transactions.data.entry.addcustomer'),
-        product: this.translate.instant('transactions.data.entry.product'),
-        licenceno: this.translate.instant('transactions.data.entry.licenceno'),
-        drivername: this.translate.instant('transactions.data.entry.drivername'),
-        nationality: this.translate.instant('transactions.data.entry.nationality'),
-        pieces: this.translate.instant('transactions.data.entry.pieces'),
-        key: this.translate.instant('transactions.data.entry.key'),
-        value: this.translate.instant('transactions.data.entry.value'),
-        addkeyvalues: this.translate.instant('transactions.data.entry.addkeyvalues'),
-        emptykeyvalue: this.translate.instant('transactions.data.entry.emptykeyvalue'),
-        instructions: this.translate.instant('transactions.data.entry.instructions'),      
-      };
-    });
-  }
 }

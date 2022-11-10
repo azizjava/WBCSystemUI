@@ -66,6 +66,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
     public ngOnChanges(changes: SimpleChanges) {
         if (!changes['tableData']?.firstChange) {
             this.dataSource = new MatTableDataSource(this.tableData);
+            this.dataSource.sort = this.sort; 
         }
       }
 
