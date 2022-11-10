@@ -76,8 +76,8 @@ export class TransactionsListComponent implements OnInit {
     });
   }
 
-  private _deleteRecord(selRecord: Transporter) {
-    this.httpService.deleteTransaction(selRecord.transporterCode).subscribe({
+  private _deleteRecord(selRecord: any) {
+    this.httpService.deleteTransaction(selRecord.sequenceNo).subscribe({
       next: (res) => {
         console.log('Deleted Record !!', selRecord);
         this.getAllTransactions();

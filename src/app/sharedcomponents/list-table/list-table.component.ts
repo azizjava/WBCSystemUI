@@ -73,7 +73,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
         this.dataSource.paginator = this.paginator;
         this.translate.get(['']).subscribe((translated: string) => {
             if(this.dataSource.paginator){
-                this.dataSource.paginator._intl.itemsPerPageLabel = this.translate.instant("common.itemsperpagelabel");
+                // this.dataSource.paginator._intl.itemsPerPageLabel = this.translate.instant("common.itemsperpagelabel");
             }
         });        
     }   
