@@ -151,21 +151,37 @@ export class entryDataComponent implements OnInit, OnChanges {
         vehiclePlateNo: result.vehicleNo,
       },
       dailyTransactionExit: {},
-      sequenceNo: 'new',
+      sequenceNo: this.sequenceno || 'new',
       transactionStatus: 'Entry Completed',
     };
 
-    console.log(newRecord);
+if(this.sequenceno !== ""){
+  this.httpService.updateTransaction(newRecord).subscribe({
+    next: (res) => {
+      console.log(res);
+      this.alertService.success(`${result.sequenceNo} updated successfully`);
+    },
+    error: (error) => {
+      console.log(error);
+      this.alertService.error(error);
+    },
+  });
+}
+else{
+  this.httpService.createNewTransaction(newRecord).subscribe({
+    next: (res: any) => {
+      console.log(res);
+      this.alertService.success(`${res.sequenceNo} inserted successfully`);
+    },
+    error: (error) => {
+      console.log(error);
+      this.alertService.error(error);
+    },
+  });
+}
+   
 
-    this.httpService.createNewTransaction(newRecord).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (error) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });
+   
   }
 
   addKeyValues(event: Event) {
@@ -380,25 +396,56 @@ export class entryDataComponent implements OnInit, OnChanges {
   private getTransactionById(): void {
     this.httpService.getTransactionById(this.sequenceno).subscribe({
       next: (data: any) => {
-       console.log(data);
-       this.entryForm.controls['sequenceNo'].setValue(data?.sequenceNo);
-       this.entryForm.controls['vehicleNo'].setValue(data?.vehiclePlateNo);
-       this.entryForm.controls['transporter'].setValue(data?.transporterCode);
-       this.entryForm.controls['supplier'].setValue(data?.supplierCode);
-       this.entryForm.controls['customer'].setValue(data?.customerCode);
-       this.entryForm.controls['products'].setValue(data?.productCode);
-       this.entryForm.controls['operator'].setValue(data?.entryLoginUserName);
-       this.entryForm.controls['role'].setValue(data?.entryLoginRoleName);
-       this.selectedGood = data?.goodsType;
-       this.keyValueData =data?.entryKeyPairs;
-       this.entryForm.controls['nationality'].setValue(data?.nationality);
-       this.entryForm.controls['pieces'].setValue(data?.noOfPieces);
-       this.entryForm.controls['driverName'].setValue(data?.driverName);
-       this.entryForm.controls['licenceNo'].setValue(data?.driverLicenseNo);
-       this.entryForm.controls['firstWeight'].setValue(data?.firstWeight);
-       this.entryForm.controls['dateIn'].setValue(data?.entryDate);
-       this.entryForm.controls['timeIn'].setValue(data?.entryTime);
-       this.entryForm.controls['instructions'].setValue(data?.entryDeliveryInstructions);
+        if (data && data.dailyTransactionEntry) {
+          this.entryForm.controls['sequenceNo'].setValue(data.sequenceNo);
+          this.entryForm.controls['vehicleNo'].setValue(
+            data.dailyTransactionEntry.vehiclePlateNo
+          );
+          this.entryForm.controls['transporter'].setValue(
+            data.dailyTransactionEntry.transporterCode
+          );
+          this.entryForm.controls['supplier'].setValue(
+            data.dailyTransactionEntry.supplierCode
+          );
+          this.entryForm.controls['customer'].setValue(
+            data.dailyTransactionEntry.customerCode
+          );
+          this.entryForm.controls['products'].setValue(
+            data.dailyTransactionEntry.productCode
+          );
+          this.entryForm.controls['operator'].setValue(
+            data.dailyTransactionEntry.entryLoginUserName
+          );
+          this.entryForm.controls['role'].setValue(
+            data.dailyTransactionEntry.entryLoginRoleName
+          );
+          this.selectedGood = data.dailyTransactionEntry.goodsType;
+          this.keyValueData = data.dailyTransactionEntry.entryKeyPairs;
+          this.entryForm.controls['nationality'].setValue(
+            +data.dailyTransactionEntry?.nationality
+          );
+          this.entryForm.controls['pieces'].setValue(
+            data.dailyTransactionEntry.noOfPieces
+          );
+          this.entryForm.controls['driverName'].setValue(
+            data.dailyTransactionEntry.driverName
+          );
+          this.entryForm.controls['licenceNo'].setValue(
+            data.dailyTransactionEntry.driverLicenseNo
+          );
+          this.entryForm.controls['firstWeight'].setValue(
+            data.dailyTransactionEntry.firstWeight
+          );
+          this.entryForm.controls['dateIn'].setValue(
+            data.dailyTransactionEntry.entryDate
+          );
+          this.entryForm.controls['timeIn'].setValue(
+            data.dailyTransactionEntry.entryTime
+          );
+          this.entryForm.controls['instructions'].setValue(
+            data.dailyTransactionEntry.entryDeliveryInstructions
+          );
+        }
        
       },
       error: (error) => {

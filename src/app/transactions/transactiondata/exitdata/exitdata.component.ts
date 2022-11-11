@@ -121,7 +121,7 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   console.log(newRecord);
 
-  this.httpService.updateTransaction(this.sequenceno, newRecord).subscribe({
+  this.httpService.updateTransaction(newRecord).subscribe({
     next: (res) => {
       console.log(res);
     },

@@ -173,7 +173,7 @@
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-select formControlName="nationality" placeholder="{{staticText.nationality}}">
+        <mat-select formControlName="nationality" name="nationality" placeholder="{{staticText.nationality}}">
           <mat-option *ngFor="let option of nationalityList" [value]="option.driverNationalityCode">
             {{option.driverNationalityName}}
           </mat-option>

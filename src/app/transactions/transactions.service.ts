@@ -30,8 +30,8 @@ export class TransactionsService {
   }
  
 
-  updateTransaction(id: any, data: any): Observable<any> {
-    return this.http.put(`${this.baseURL}/update/${id}`, data);
+  updateTransaction(data: any): Observable<any> {
+    return this.http.put(`${this.baseURL}/update`, data);
   }
 
   deleteTransaction(id: any): Observable<any> {
