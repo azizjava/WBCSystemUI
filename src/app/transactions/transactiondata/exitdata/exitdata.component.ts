@@ -21,6 +21,7 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   @Input() weight : number = 0; 
   @Input() sequenceno : string = '';
+  @Input() transactionData: any;
 
   public staticText: any = {};
   
@@ -46,7 +47,7 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.exitForm = this._formBuilder.group({
-      sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],
+      sequenceNo: [this.sequenceno, [Validators.required, Validators.maxLength(50)]],
       secondWeight: ['', [Validators.required, Validators.maxLength(50)]],
       dateOut: [
         {
@@ -75,13 +76,17 @@ export class exitDataComponent implements OnInit, OnChanges {
       deliveryNoteNo: ['', [Validators.required, Validators.maxLength(50)]],
       orderNo: ['', [Validators.required, Validators.maxLength(50)]],
     });
-    this.keyValueData.push({ key: '', value: '' });   
     this.getTranslatedText();
+    this.getTransactionById();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (!changes['weight']?.firstChange) {
+    if (changes['weight'] && !changes['weight']?.firstChange) {
       this.exitForm.controls['secondWeight'].setValue(changes['weight'].currentValue);
+    }
+
+    if (changes['transactionData'] && !changes['transactionData']?.firstChange) {
+      this.getTransactionById();
     }
   }
 
@@ -104,7 +109,7 @@ export class exitDataComponent implements OnInit, OnChanges {
       driverName: result.driverName,
       exitDate: GlobalConstants.commonFunction.getFormattedDate(),
       exitTime:GlobalConstants.commonFunction.getFormattedTime().toUpperCase(),
-      entryDeliveryInstructions: result.instructions,
+      exitDeliveryInstructions: result.instructions,
       exitKeyPairs: this.keyValueData,
       exitLoginRoleName: this.authenticationService.currentUserValue.role,
       exitLoginUserName: this.authenticationService.currentUserValue.userName,
@@ -114,7 +119,7 @@ export class exitDataComponent implements OnInit, OnChanges {
       pricePerTon: result.priceTons,
       totalPrice: result.totalPrice,     
     },
-    
+    dailyTransactionEntry:this.transactionData.dailyTransactionEntry,
     sequenceNo: this.sequenceno,
     transactionStatus: 'Exit Completed',
   };
@@ -124,6 +129,9 @@ export class exitDataComponent implements OnInit, OnChanges {
   this.httpService.updateTransaction(newRecord).subscribe({
     next: (res) => {
       console.log(res);
+      this.alertService.success(
+        `${result.sequenceNo} updated successfully`
+      );
     },
     error: (error) => {
       console.log(error);
@@ -183,5 +191,29 @@ export class exitDataComponent implements OnInit, OnChanges {
 
       };
     });
+  }
+
+  private getTransactionById(): void {
+    if (this.transactionData &&  this.transactionData.dailyTransactionExit) {
+
+      const data = this.transactionData.dailyTransactionExit;
+
+        this.exitForm.controls['deductWeight'].setValue(data.deductWeight);
+        this.exitForm.controls['deliveryNoteNo'].setValue(data.deliveryNoteNo);
+        this.exitForm.controls['dateOut'].setValue(data.exitDate);
+        this.exitForm.controls['instructions'].setValue(data.exitDeliveryInstructions);
+        this.exitForm.controls['role'].setValue(data.exitLoginRoleName);
+        this.keyValueData = data.exitKeyPairs;
+        
+        this.exitForm.controls['loginUserName'].setValue(data.exitLoginUserName);
+        this.exitForm.controls['timeOut'].setValue(data.exitTime);
+        this.exitForm.controls['netWeight'].setValue(data.netWeight);
+        this.exitForm.controls['orderNo'].setValue(data.orderNo);
+        this.exitForm.controls['priceTons'].setValue(data.pricePerTon);
+        this.exitForm.controls['secondWeight'].setValue(data.secondWeight);
+        this.exitForm.controls['totalPrice'].setValue(data.totalPrice);
+      
+    }
+    
   }
 }

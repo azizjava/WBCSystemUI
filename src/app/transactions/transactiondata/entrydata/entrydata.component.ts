@@ -26,7 +26,8 @@ import { TransactionsService } from '../../transactions.service';
 })
 export class entryDataComponent implements OnInit, OnChanges {
   @Input() weight: number = 0;
-  @Input() sequenceno : string = ''; 
+  @Input() sequenceno: string = '';
+  @Input() transactionData: any;
 
   public staticText: any = {};
 
@@ -58,7 +59,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private matDialog: MatDialog,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) {
     this.zone.runOutsideAngular(() => {
       setInterval(() => {
@@ -73,7 +74,10 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.entryForm = this._formBuilder.group({
       sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],
       vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
-      transporter: [{ value: '', disabled: true,}, [Validators.required, Validators.maxLength(50)]],
+      transporter: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.maxLength(50)],
+      ],
       supplier: ['', [Validators.required, Validators.maxLength(50)]],
       customer: ['', [Validators.maxLength(50)]],
       products: ['', [Validators.required, Validators.maxLength(50)]],
@@ -115,10 +119,12 @@ export class entryDataComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (!changes['weight']?.firstChange) {
-      this.entryForm.controls['firstWeight'].setValue(
-        changes['weight'].currentValue
-      );
+    if (changes['weight'] && !changes['weight']?.firstChange) {
+      this.entryForm.controls['firstWeight'].setValue(changes['weight'].currentValue);
+    }
+
+    if (changes['transactionData'] && !changes['transactionData']?.firstChange) {
+      this.sequenceno && this.getTransactionById();
     }
   }
 
@@ -136,11 +142,14 @@ export class entryDataComponent implements OnInit, OnChanges {
         driverLicenseNo: result.licenceNo,
         driverName: result.driverName,
         entryDate: GlobalConstants.commonFunction.getFormattedDate(),
-        entryTime:GlobalConstants.commonFunction.getFormattedTime().toUpperCase(),
+        entryTime: GlobalConstants.commonFunction
+          .getFormattedTime()
+          .toUpperCase(),
         entryDeliveryInstructions: result.instructions,
         entryKeyPairs: this.keyValueData,
         entryLoginRoleName: this.authenticationService.currentUserValue.role,
-        entryLoginUserName: this.authenticationService.currentUserValue.userName,
+        entryLoginUserName:
+          this.authenticationService.currentUserValue.userName,
         firstWeight: result.firstWeight,
         goodsType: this.selectedGood,
         nationality: result.nationality,
@@ -151,41 +160,39 @@ export class entryDataComponent implements OnInit, OnChanges {
         vehiclePlateNo: result.vehicleNo,
       },
       dailyTransactionExit: {},
-      sequenceNo: this.sequenceno || 'new',
+      sequenceNo: this.sequenceno || 'new11',
       transactionStatus: 'Entry Completed',
     };
 
-if(this.sequenceno !== ""){
-  this.httpService.updateTransaction(newRecord).subscribe({
-    next: (res) => {
-      console.log(res);
-      this.alertService.success(`${result.sequenceNo} updated successfully`);
-    },
-    error: (error) => {
-      console.log(error);
-      this.alertService.error(error);
-    },
-  });
-}
-else{
-  this.httpService.createNewTransaction(newRecord).subscribe({
-    next: (res: any) => {
-      console.log(res);
-      this.alertService.success(`${res.sequenceNo} inserted successfully`);
-    },
-    error: (error) => {
-      console.log(error);
-      this.alertService.error(error);
-    },
-  });
-}
-   
-
-   
+    if (this.sequenceno && this.sequenceno !== '') {
+      this.httpService.updateTransaction(newRecord).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.alertService.success(
+            `${result.sequenceNo} updated successfully`
+          );
+        },
+        error: (error) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+    } else {
+      this.httpService.createNewTransaction(newRecord).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.alertService.success(`${res.sequenceNo} inserted successfully`);
+        },
+        error: (error) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+    }
   }
 
   addKeyValues(event: Event) {
-    event.stopPropagation(); 
+    event.stopPropagation();
     if (this.keyValueData.length === 0) {
       this.emptyKeyValue = false;
       this.keyValueData.push({ name: '', value: '' });
@@ -229,21 +236,23 @@ else{
 
   onVehicleChange(event: any) {
     const plateNo = this.entryForm.get('vehicleNo')?.value;
-    const transporterData = this.vehicleList.find((v:Vehicle) => v.plateNo === plateNo)?.transporters ;
+    const transporterData = this.vehicleList.find(
+      (v: Vehicle) => v.plateNo === plateNo
+    )?.transporters;
 
-    if(transporterData){
-      this.entryForm.controls['transporter'].setValue(transporterData.transporterCode);
-    }    
-    
+    if (transporterData) {
+      this.entryForm.controls['transporter'].setValue(
+        transporterData.transporterCode
+      );
+    }
   }
 
-  
   public printLayout(): void {
-     window.print();
+    window.print();
   }
 
   public addNew(event: Event, controlName: string): void {
-    event.stopPropagation();    
+    event.stopPropagation();
 
     this._openDialog(controlName);
   }
@@ -255,7 +264,12 @@ else{
     };
 
     const dialogConfig = new MatDialogConfig();
-    const template: ComponentType<any> = controlName === 'vehicleNo' ? VehicleDataComponent :( controlName === 'supplier' ? SupplierdataComponent : CustomerdataComponent);
+    const template: ComponentType<any> =
+      controlName === 'vehicleNo'
+        ? VehicleDataComponent
+        : controlName === 'supplier'
+        ? SupplierdataComponent
+        : CustomerdataComponent;
     dialogConfig.data = dialogData;
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
@@ -264,10 +278,13 @@ else{
     const dialogRef = this.matDialog.open(template, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
-        controlName === 'vehicleNo' ?  this.getAllVehicles(result) :( controlName === 'supplier' ? this.getAllSuppliers() : this.getAllCustomers());
+      if (result) {
+        controlName === 'vehicleNo'
+          ? this.getAllVehicles(result)
+          : controlName === 'supplier'
+          ? this.getAllSuppliers()
+          : this.getAllCustomers();
       }
-
     });
   }
 
@@ -283,25 +300,47 @@ else{
         role: this.translate.instant('transactions.data.entry.role'),
         datein: this.translate.instant('transactions.data.entry.datein'),
         timein: this.translate.instant('transactions.data.entry.timein'),
-        sequenceno: this.translate.instant('transactions.data.entry.sequenceno'),
-        firstweight: this.translate.instant('transactions.data.entry.firstweight'),
+        sequenceno: this.translate.instant(
+          'transactions.data.entry.sequenceno'
+        ),
+        firstweight: this.translate.instant(
+          'transactions.data.entry.firstweight'
+        ),
         vehicleno: this.translate.instant('transactions.data.entry.vehicleno'),
-        addvehicle: this.translate.instant('transactions.data.entry.addvehicle'),
-        transporter: this.translate.instant('transactions.data.entry.transporter'),
+        addvehicle: this.translate.instant(
+          'transactions.data.entry.addvehicle'
+        ),
+        transporter: this.translate.instant(
+          'transactions.data.entry.transporter'
+        ),
         supplier: this.translate.instant('transactions.data.entry.supplier'),
-        addsupplier: this.translate.instant('transactions.data.entry.addsupplier'),
+        addsupplier: this.translate.instant(
+          'transactions.data.entry.addsupplier'
+        ),
         customer: this.translate.instant('transactions.data.entry.customer'),
-        addcustomer: this.translate.instant('transactions.data.entry.addcustomer'),
+        addcustomer: this.translate.instant(
+          'transactions.data.entry.addcustomer'
+        ),
         product: this.translate.instant('transactions.data.entry.product'),
         licenceno: this.translate.instant('transactions.data.entry.licenceno'),
-        drivername: this.translate.instant('transactions.data.entry.drivername'),
-        nationality: this.translate.instant('transactions.data.entry.nationality'),
+        drivername: this.translate.instant(
+          'transactions.data.entry.drivername'
+        ),
+        nationality: this.translate.instant(
+          'transactions.data.entry.nationality'
+        ),
         pieces: this.translate.instant('transactions.data.entry.pieces'),
         key: this.translate.instant('transactions.data.entry.key'),
         value: this.translate.instant('transactions.data.entry.value'),
-        addkeyvalues: this.translate.instant('transactions.data.entry.addkeyvalues'),
-        emptykeyvalue: this.translate.instant('transactions.data.entry.emptykeyvalue'),
-        instructions: this.translate.instant('transactions.data.entry.instructions'),      
+        addkeyvalues: this.translate.instant(
+          'transactions.data.entry.addkeyvalues'
+        ),
+        emptykeyvalue: this.translate.instant(
+          'transactions.data.entry.emptykeyvalue'
+        ),
+        instructions: this.translate.instant(
+          'transactions.data.entry.instructions'
+        ),
       };
     });
   }
@@ -317,13 +356,15 @@ else{
     this.sequenceno && this.getTransactionById();
   }
 
-  private getAllVehicles(newRecord? : Vehicle ): void {
+  private getAllVehicles(newRecord?: Vehicle): void {
     this.vehiclesService.getAllVehicles().subscribe({
       next: (data: Vehicle[]) => {
         this.vehicleList = data;
-        if(newRecord){
+        if (newRecord) {
           this.entryForm.controls['vehicleNo'].setValue(newRecord?.plateNo);
-          this.entryForm.controls['transporter'].setValue(newRecord?.transporters.nameOfTransporter);
+          this.entryForm.controls['transporter'].setValue(
+            newRecord?.transporters.nameOfTransporter
+          );
         }
       },
       error: (error: string) => {
@@ -394,64 +435,66 @@ else{
   }
 
   private getTransactionById(): void {
+    if (this.transactionData &&  this.transactionData.dailyTransactionEntry) {
+
+      const data = this.transactionData;
+
+      if (data && data.dailyTransactionEntry) {
+        this.entryForm.controls['sequenceNo'].setValue(data.sequenceNo);
+        this.entryForm.controls['vehicleNo'].setValue(
+          data.dailyTransactionEntry.vehiclePlateNo
+        );
+        this.entryForm.controls['transporter'].setValue(
+          data.dailyTransactionEntry.transporterCode
+        );
+        this.entryForm.controls['supplier'].setValue(
+          data.dailyTransactionEntry.supplierCode
+        );
+        this.entryForm.controls['customer'].setValue(
+          data.dailyTransactionEntry.customerCode
+        );
+        this.entryForm.controls['products'].setValue(
+          data.dailyTransactionEntry.productCode
+        );
+        this.entryForm.controls['operator'].setValue(
+          data.dailyTransactionEntry.entryLoginUserName
+        );
+        this.entryForm.controls['role'].setValue(
+          data.dailyTransactionEntry.entryLoginRoleName
+        );
+        this.selectedGood = data.dailyTransactionEntry.goodsType;
+        this.keyValueData = data.dailyTransactionEntry.entryKeyPairs;
+        this.entryForm.controls['nationality'].setValue(
+          +data.dailyTransactionEntry?.nationality
+        );
+        this.entryForm.controls['pieces'].setValue(
+          data.dailyTransactionEntry.noOfPieces
+        );
+        this.entryForm.controls['driverName'].setValue(
+          data.dailyTransactionEntry.driverName
+        );
+        this.entryForm.controls['licenceNo'].setValue(
+          data.dailyTransactionEntry.driverLicenseNo
+        );
+        this.entryForm.controls['firstWeight'].setValue(
+          data.dailyTransactionEntry.firstWeight
+        );
+        this.entryForm.controls['dateIn'].setValue(
+          data.dailyTransactionEntry.entryDate
+        );
+        this.entryForm.controls['timeIn'].setValue(
+          data.dailyTransactionEntry.entryTime
+        );
+        this.entryForm.controls['instructions'].setValue(
+          data.dailyTransactionEntry.entryDeliveryInstructions
+        );
+      }
+    }
     this.httpService.getTransactionById(this.sequenceno).subscribe({
-      next: (data: any) => {
-        if (data && data.dailyTransactionEntry) {
-          this.entryForm.controls['sequenceNo'].setValue(data.sequenceNo);
-          this.entryForm.controls['vehicleNo'].setValue(
-            data.dailyTransactionEntry.vehiclePlateNo
-          );
-          this.entryForm.controls['transporter'].setValue(
-            data.dailyTransactionEntry.transporterCode
-          );
-          this.entryForm.controls['supplier'].setValue(
-            data.dailyTransactionEntry.supplierCode
-          );
-          this.entryForm.controls['customer'].setValue(
-            data.dailyTransactionEntry.customerCode
-          );
-          this.entryForm.controls['products'].setValue(
-            data.dailyTransactionEntry.productCode
-          );
-          this.entryForm.controls['operator'].setValue(
-            data.dailyTransactionEntry.entryLoginUserName
-          );
-          this.entryForm.controls['role'].setValue(
-            data.dailyTransactionEntry.entryLoginRoleName
-          );
-          this.selectedGood = data.dailyTransactionEntry.goodsType;
-          this.keyValueData = data.dailyTransactionEntry.entryKeyPairs;
-          this.entryForm.controls['nationality'].setValue(
-            +data.dailyTransactionEntry?.nationality
-          );
-          this.entryForm.controls['pieces'].setValue(
-            data.dailyTransactionEntry.noOfPieces
-          );
-          this.entryForm.controls['driverName'].setValue(
-            data.dailyTransactionEntry.driverName
-          );
-          this.entryForm.controls['licenceNo'].setValue(
-            data.dailyTransactionEntry.driverLicenseNo
-          );
-          this.entryForm.controls['firstWeight'].setValue(
-            data.dailyTransactionEntry.firstWeight
-          );
-          this.entryForm.controls['dateIn'].setValue(
-            data.dailyTransactionEntry.entryDate
-          );
-          this.entryForm.controls['timeIn'].setValue(
-            data.dailyTransactionEntry.entryTime
-          );
-          this.entryForm.controls['instructions'].setValue(
-            data.dailyTransactionEntry.entryDeliveryInstructions
-          );
-        }
-       
-      },
+      next: (data: any) => {},
       error: (error) => {
         this.alertService.error(error);
       },
     });
   }
-
 }

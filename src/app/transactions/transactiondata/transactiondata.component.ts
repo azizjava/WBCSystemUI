@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertService } from 'src/app/services';
+import { TransactionsService } from '../transactions.service';
 
 
 @Component({
@@ -13,15 +15,19 @@ export class TransactionDataComponent implements OnInit {
   public sequenceno: string;
   public staticText: any = {};
   public weight:number =0;
+  public transactionData:any;
 
   constructor(
     private translate: TranslateService,
     private route: ActivatedRoute,
+    private httpService: TransactionsService,
+    private alertService: AlertService,
   ) {}
 
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.sequenceno = params['sequenceno'];
+      this.sequenceno && this._getTransactionById();
     });
     this._getTranslatedText();
   }
@@ -43,4 +49,18 @@ export class TransactionDataComponent implements OnInit {
       };
     });
   }
+
+  
+  private _getTransactionById(): void {
+    this.httpService.getTransactionById(this.sequenceno).subscribe({
+      next: (data: any) => {
+       this.transactionData = data;  
+       
+      },
+      error: (error) => {
+        this.alertService.error(error);
+      },
+    });
+  }
+
 }

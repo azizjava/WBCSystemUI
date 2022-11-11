@@ -106,10 +106,10 @@ export class TransactionsListComponent implements OnInit {
         data.forEach((response: any) => {         
           this.tableData.push({sequenceNo : response.sequenceNo, 
             transactionStatus: response.transactionStatus,
-            entryDateAndTime: response.dailyTransactionEntry.entryDateAndTime,
-            vehiclePlateNo: response.dailyTransactionEntry.vehiclePlateNo,
-            transporterCode: response.dailyTransactionEntry.transporterCode,
-            entryLoginUserName: response.dailyTransactionEntry.entryLoginUserName,
+            entryDateAndTime: response.dailyTransactionEntry?.entryDateAndTime,
+            vehiclePlateNo: response.dailyTransactionEntry?.vehiclePlateNo,
+            transporterCode: response.dailyTransactionEntry?.transporterCode,
+            entryLoginUserName: response.dailyTransactionEntry?.entryLoginUserName,
           });
         });
 
