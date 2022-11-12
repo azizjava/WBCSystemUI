@@ -128,13 +128,11 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   this.httpService.updateTransaction(newRecord).subscribe({
     next: (res) => {
-      console.log(res);
       this.alertService.success(
         `${result.sequenceNo} updated successfully`
       );
     },
     error: (error) => {
-      console.log(error);
       this.alertService.error(error);
     },
   });
@@ -188,7 +186,6 @@ export class exitDataComponent implements OnInit, OnChanges {
         instructions: this.translate.instant('transactions.data.exit.instructions'),    
         loginusername: this.translate.instant('transactions.data.exit.loginusername'),
         sequenceno: this.translate.instant('transactions.data.entry.sequenceno'),
-
       };
     });
   }
@@ -198,6 +195,7 @@ export class exitDataComponent implements OnInit, OnChanges {
 
       const data = this.transactionData.dailyTransactionExit;
 
+      if(data.exitLoginUserName){
         this.exitForm.controls['deductWeight'].setValue(data.deductWeight);
         this.exitForm.controls['deliveryNoteNo'].setValue(data.deliveryNoteNo);
         this.exitForm.controls['dateOut'].setValue(data.exitDate);
@@ -212,6 +210,7 @@ export class exitDataComponent implements OnInit, OnChanges {
         this.exitForm.controls['priceTons'].setValue(data.pricePerTon);
         this.exitForm.controls['secondWeight'].setValue(data.secondWeight);
         this.exitForm.controls['totalPrice'].setValue(data.totalPrice);
+      }      
       
     }
     
