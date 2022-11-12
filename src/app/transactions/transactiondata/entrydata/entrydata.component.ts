@@ -226,12 +226,16 @@ export class entryDataComponent implements OnInit, OnChanges {
     const customerControl = this.entryForm.get('customer');
 
     if (this.selectedGood === 'incoming') {
-      supplierControl?.setValidators([Validators.required]);
-      customerControl?.setValidators(null);
-    } else {
-      customerControl?.setValidators([Validators.required]);
-      supplierControl?.setValidators(null);
+      supplierControl?.addValidators(Validators.required);
+      customerControl?.clearValidators();
+      
+    } else {   
+      customerControl?.addValidators(Validators.required);
+      supplierControl?.clearValidators();
     }
+
+    supplierControl?.updateValueAndValidity();
+    customerControl?.updateValueAndValidity();   
   }
 
   onVehicleChange(event: any) {

@@ -113,7 +113,15 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     private _changeColumns(isDesktop: boolean = true) {
-        this.displayedColumns = isDesktop ? this.tblColumns : this.visibleColumns;
+
+        const displayedColumns = isDesktop ? this.tblColumns : this.visibleColumns;
+        if(this.componentName ==='transactions'){
+            let last = displayedColumns.pop();
+            if(last)
+            displayedColumns.unshift(last);
+        }
+       
+        this.displayedColumns = displayedColumns;
     }
 
     private _getTranslatedText(): void {

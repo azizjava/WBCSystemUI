@@ -76,8 +76,10 @@ export class exitDataComponent implements OnInit, OnChanges {
       deliveryNoteNo: ['', [Validators.required, Validators.maxLength(50)]],
       orderNo: ['', [Validators.required, Validators.maxLength(50)]],
     });
+      
     this.getTranslatedText();
     this.getTransactionById();
+    this.keyValueData.length ===0 && this.keyValueData.push({ name: '', value: '' });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -148,11 +150,11 @@ export class exitDataComponent implements OnInit, OnChanges {
     event.stopPropagation();
     if (this.keyValueData.length === 0) {
       this.emptyKeyValue = false;
-      this.keyValueData.push({ key: '', value: '' });
+      this.keyValueData.push({ name: '', value: '' });
     } else {
-      this.emptyKeyValue = this.keyValueData.some((obj: any) => !obj.key);
+      this.emptyKeyValue = this.keyValueData.some((obj: any) => !obj.name);
       if (!this.emptyKeyValue) {
-        this.keyValueData.push({ key: '', value: '' });
+        this.keyValueData.push({ name: '', value: '' });
       }
     }
   }
