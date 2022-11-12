@@ -92,9 +92,7 @@ export class TransactionsListComponent implements OnInit {
   private getTranslatedText(): void {
     this.translate.get(['']).subscribe((translated: string) => {
       this.staticText = {
-        searchPlaceholder: this.translate.instant(
-          'placeholder.searchtransporters'
-        ),
+        searchPlaceholder: this.translate.instant('placeholder.searchtransaction'),       
       };
     });
   }

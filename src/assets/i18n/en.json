@@ -30,7 +30,8 @@
 		"searchsupplier":"Search Supplier",
 		"searchoperator":"Search Operator",
 		"searchnationality":"Search Nationality",
-		"searchproduct":"Search Product"
+		"searchproduct":"Search Product",
+		"searchtransaction":"Search Transaction"
 	},
 
 	"login": {

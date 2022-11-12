@@ -28,7 +28,8 @@
 		"searchsupplier":"بحث عن مورد",
 		"searchoperator":"بحث عن مورد",
 		"searchnationality":"البحث عن الجنسية",
-		"searchproduct":"البحث عن المنتج"
+		"searchproduct":"البحث عن المنتج",
+		"searchtransaction":"البحث عن معاملة"
 	},
 	"login": {
 		"title": "Login Form",
