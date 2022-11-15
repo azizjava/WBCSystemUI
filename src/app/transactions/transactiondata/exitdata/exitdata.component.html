@@ -104,11 +104,11 @@
 
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{staticText.instructions}}" formControlName="deliveryNoteNo" name="deliveryNoteNo" />
+        <input matInput placeholder="{{staticText.deliveryNoteNo}}" formControlName="deliveryNoteNo" name="deliveryNoteNo" />
         <mat-error *ngIf="exitForm.controls['deliveryNoteNo'].errors &&
         exitForm.controls['deliveryNoteNo'].errors['required'] &&
         exitForm.controls['deliveryNoteNo'].touched
-              ">{{staticText.instructions}} {{staticText.required}}
+              ">{{staticText.deliveryNoteNo}} {{staticText.required}}
         </mat-error>
       </mat-form-field>
     </div>

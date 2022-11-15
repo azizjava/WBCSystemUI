@@ -185,6 +185,7 @@ export class exitDataComponent implements OnInit, OnChanges {
         value: this.translate.instant('transactions.data.exit.value'),
         addkeyvalues: this.translate.instant('transactions.data.exit.addkeyvalues'),
         emptykeyvalue: this.translate.instant('transactions.data.exit.emptykeyvalue'),
+        deliveryNoteNo:this.translate.instant('transactions.data.exit.deliverynote'),
         instructions: this.translate.instant('transactions.data.exit.instructions'),    
         loginusername: this.translate.instant('transactions.data.exit.loginusername'),
         sequenceno: this.translate.instant('transactions.data.entry.sequenceno'),
