@@ -1,6 +1,6 @@
 11/15/2022
 
-1. In the Transaction List screen add Start date & End Date date controls next to Add New Transaction button - Todo
+1. In the Transaction List screen add Start date & End Date date controls next to Add New Transaction button - In Progress
 
    a. Default Start date is last 3 month and end Date is today's date
 

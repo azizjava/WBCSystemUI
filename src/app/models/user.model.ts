@@ -20,3 +20,8 @@ export interface tableOperation {
     username!:string;
     role!:string[];
 }
+
+export interface dateRange {
+  startDate:Date,
+  endDate:Date
+}
