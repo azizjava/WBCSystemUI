@@ -27,11 +27,13 @@
 		"searchtransporters":"Search Transporter",
 		"searchcustomers":"Search Customer",
 		"searchvehicles":"Search Vehicle",
-		"searchsupplier":"Search Supplier",
-		"searchoperator":"Search Operator",
+		"searchsuppliers":"Search Supplier",
+		"searchoperators":"Search Operator",
 		"searchnationality":"Search Nationality",
-		"searchproduct":"Search Product",
-		"searchtransaction":"Search Transaction"
+		"searchproducts":"Search Product",
+		"searchproductgroups":"Search Product Group",
+		"searchtransactions":"Search Transaction",
+		"searchbytransactionid":"Search Transaction By Id"
 	},
 
 	"login": {

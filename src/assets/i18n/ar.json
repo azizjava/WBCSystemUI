@@ -25,11 +25,13 @@
 		"searchtransporters":"بحث الناقلين",
 		"searchcustomers":"البحث عن العملاء",
 		"searchvehicles":"البحث عن مركبة",
-		"searchsupplier":"بحث عن مورد",
-		"searchoperator":"بحث عن مورد",
+		"searchsuppliers":"بحث عن مورد",
+		"searchoperators":"بحث عن مورد",
 		"searchnationality":"البحث عن الجنسية",
-		"searchproduct":"البحث عن المنتج",
-		"searchtransaction":"البحث عن معاملة"
+		"searchproducts":"البحث عن المنتج",
+		"searchproductgroups":"بحث في مجموعة المنتجات",
+		"searchtransactions":"البحث عن معاملة",
+		"searchbytransactionid":"البحث عن المعاملة بالمعرف"
 	},
 	"login": {
 		"title": "Login Form",
