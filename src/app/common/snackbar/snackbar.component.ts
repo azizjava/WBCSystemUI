@@ -52,7 +52,7 @@ export class SnackbarComponent implements OnInit {
   }
 
   openSnackBar() {
-    this._snackBar.open(this.message?.text, '', {
+    this._snackBar.open(this.message?.text || this.message, '', {
       duration: 2500,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
