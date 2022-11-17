@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, Nationality, tableOperation } from '../models';
@@ -18,20 +17,17 @@ export class NationalityComponent implements OnInit {
   tableData: Nationality[] = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'driverNationalityName', dir: 'asc' };
   public visibleColumns = ['driverNationalityName', 'Actions'];
 
   constructor(
-    private translate: TranslateService,
     private httpService: NationalityService,
     private alertService: AlertService,
     private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllNationalities();
   }
 
@@ -116,17 +112,7 @@ export class NationalityComponent implements OnInit {
       },
       error: (e) => console.error(e),
     });
-  }
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant(
-          'placeholder.searchnationality'
-        ),
-      };
-    });
-  }
+  } 
 
   private getAllNationalities(): void {
     this.httpService.getAllDriverNationalities().subscribe({

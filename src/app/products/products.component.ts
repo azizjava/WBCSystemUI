@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, Product, ProductGroup, tableOperation, Vehicle } from '../models';
@@ -24,20 +23,17 @@ export class ProductsComponent implements OnInit {
   tableData: any = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'productCode', dir: 'asc' };
   public visibleColumns = ['productCode', 'productName', 'Actions'];
 
   constructor(
-    private translate: TranslateService,
     private matDialog: MatDialog,
     private httpService: ProductsService,
     private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllProducts();
   }
 
@@ -115,15 +111,7 @@ export class ProductsComponent implements OnInit {
       },
       error: (e) => console.error(e),
     });
-  }
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchproduct'),
-      };
-    });
-  }
+  }  
 
   private getAllProducts(): void {
     this.httpService.getAllProducts().subscribe({

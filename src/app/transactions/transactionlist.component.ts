@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { dateRange, modelDialog, tableOperation, Transporter } from '../models';
@@ -14,17 +13,15 @@ import { TransactionsService } from './transactions.service';
   styleUrls: ['./transactionlist.component.scss'],
 })
 export class TransactionsListComponent implements OnInit {
-  tblColumns: string[] = ['sequenceNo', 'transactionStatus', 'entryDateAndTime', 'entryLoginUserName',  'vehiclePlateNo', 'transporterCode', 'Actions'];
+  tblColumns: string[] = [ 'Actions','sequenceNo', 'transactionStatus', 'entryDateAndTime', 'entryLoginUserName',  'vehiclePlateNo', 'transporterCode'];
   tableData: any = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'entryDateAndTime', dir: 'desc' };
-  public visibleColumns = ['sequenceNo', 'transactionStatus', 'Actions'];
+  public visibleColumns = [ 'Actions','sequenceNo', 'transactionStatus'];
 
   constructor(
-    private translate: TranslateService,
     private matDialog: MatDialog,
     private httpService: TransactionsService,
     private alertService: AlertService,
@@ -33,7 +30,6 @@ export class TransactionsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllTransactions();
   }
 
@@ -91,16 +87,7 @@ export class TransactionsListComponent implements OnInit {
         console.error(e)
       },
     });
-  }
-
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchtransaction'),       
-      };
-    });
-  }
+  }  
 
   private getAllTransactions(): void {
     this.httpService.getAllTransactions().subscribe({

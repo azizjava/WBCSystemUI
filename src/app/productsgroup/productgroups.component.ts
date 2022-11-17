@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, ProductGroup, tableOperation } from '../models';
@@ -18,20 +17,17 @@ export class ProductGroupsComponent implements OnInit {
   tableData: ProductGroup[] = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'groupCode', dir: 'asc' };
   public visibleColumns = ['groupCode', 'groupName', 'Actions'];
 
   constructor(
-    private translate: TranslateService,
     private httpService: ProductGroupsService,
     private alertService: AlertService,
     private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllProductGroups();
   }
 
@@ -113,13 +109,7 @@ export class ProductGroupsComponent implements OnInit {
     });
   }
 
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchvehicles'),
-      };
-    });
-  }
+  
 
   private getAllProductGroups(): void {
     this.httpService.getAllProductGroups().subscribe({

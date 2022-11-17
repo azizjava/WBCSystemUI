@@ -27,20 +27,17 @@ export class CustomersComponent implements OnInit {
   tableData: Customer[] = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'customerName', dir: 'asc' };
   public visibleColumns = ['customerCode', 'customerName', 'Actions'];
 
   constructor(
-    private translate: TranslateService,
     private httpService: CustomersService,
     private alertService: AlertService,
     private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllCustomers();
   }
 
@@ -119,17 +116,7 @@ export class CustomersComponent implements OnInit {
       },
       error: (e) => console.error(e),
     });
-  }
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant(
-          'placeholder.searchcustomers'
-        ),
-      };
-    });
-  }
+  }  
 
   private getAllCustomers(): void {
     this.httpService.getAllCustomers().subscribe({

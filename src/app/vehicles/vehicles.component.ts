@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { modelDialog, tableOperation, Vehicle } from '../models';
 import { AlertService } from '../services';
@@ -25,20 +24,17 @@ export class VehiclesComponent implements OnInit {
   public vehiclesData: Vehicle[] = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'plateNo', dir: 'asc' };
   public visibleColumns = ['plateNo', 'vehicleType', 'Actions'];
 
   constructor(
-    private translate: TranslateService,
     private matDialog: MatDialog,
     private httpService: VehiclesService,
     private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllVehicles();
   }
 
@@ -114,15 +110,7 @@ export class VehiclesComponent implements OnInit {
         console.error(e)
       },
     });
-  }
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchvehicles'),
-      };
-    });
-  }
+  }  
 
   private getAllVehicles(): void {
     this.httpService.getAllVehicles().subscribe({

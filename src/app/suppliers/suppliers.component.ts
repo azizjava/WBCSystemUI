@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, Supplier, tableOperation } from '../models';
@@ -27,20 +26,17 @@ export class SuppliersComponent implements OnInit {
   tableData: Supplier[] = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'supplierName', dir: 'asc' };
   public visibleColumns = ['supplierCode', 'supplierName', 'Actions'];
 
   constructor(
-    private translate: TranslateService,
     private httpService: SuppliersService,
     private alertService: AlertService,
     private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllSuppliers();
   }
 
@@ -119,15 +115,7 @@ export class SuppliersComponent implements OnInit {
       },
       error: (e) => console.error(e),
     });
-  }
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchsupplier'),
-      };
-    });
-  }
+  }  
 
   private getAllSuppliers(): void {
     this.httpService.getAllSuppliers().subscribe({

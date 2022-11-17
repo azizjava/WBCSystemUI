@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, tableOperation, Transporter } from '../models';
@@ -28,20 +27,17 @@ export class TransportersComponent implements OnInit {
   tableData: any = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'Name', dir: 'asc' };
   public visibleColumns = ['transporterCode', 'nameOfTransporter', 'Actions'];
 
   constructor(
-    private translate: TranslateService,
     private matDialog: MatDialog,
     private httpService: TransportersService,
     private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getAllTransporters();
   }
 
@@ -121,16 +117,6 @@ export class TransportersComponent implements OnInit {
         this.getAllTransporters();
       },
       error: (e) => console.error(e),
-    });
-  }
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        searchPlaceholder: this.translate.instant(
-          'placeholder.searchtransporters'
-        ),
-      };
     });
   }
 

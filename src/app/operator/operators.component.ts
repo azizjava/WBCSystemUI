@@ -1,7 +1,6 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, Operator,  tableOperation } from '../models';
@@ -20,16 +19,14 @@ export class OperatorsComponent implements OnInit {
   tableData: any = [];
 
   public searchInput: string = '';
-  public staticText: any = {};
   public actionName: string = '';
   public sortColumn = { name: 'OperatorId', dir: 'asc' };
   public visibleColumns = ['OperatorId', 'OperatorName', 'Actions'];
 
 
-  constructor(private translate: TranslateService, private matDialog: MatDialog) { }
+  constructor(private matDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getTranslatedText();
     this.getData();
   }
 
@@ -116,19 +113,6 @@ export class OperatorsComponent implements OnInit {
       this.tableData[selIndex].OperatorName = selRecord.OperatorName;
     }
   }
-
-
-  private getTranslatedText(): void {
-
-    this.translate.get(['']).subscribe((translated: string) => {
-
-      this.staticText = {
-        searchPlaceholder: this.translate.instant('placeholder.searchoperator')
-      }
-
-    });
-  }
-
 
   private getData(): void {
 
