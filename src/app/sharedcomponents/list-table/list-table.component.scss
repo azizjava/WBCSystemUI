@@ -24,4 +24,19 @@
   }
 
   
+
+@media (max-width: 568px) {
+
+  .mat-icon-button i,
+  .mat-icon-button .mat-icon {
+    line-height: 20px;
+    transform: scale(.75);
+  }
+
+  .action-column {    
+    width: 8rem;
+  }
+}
+
+  
 }

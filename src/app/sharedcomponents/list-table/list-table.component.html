@@ -2,15 +2,32 @@
 
     <div class="row">
 
-        <div class="col-md-6"><button mat-flat-button color="primary" type="submit" class="btn btn-md mt-1" mat-button
+        <div class="col-lg-1 col-md-2 mt-4">
+            <button mat-flat-button color="primary" type="submit" class="btn btn-md" mat-button
                 (click)="selectedRecord(null,'add')" matTooltip="{{staticText.add}}">
                 <mat-icon>add</mat-icon>{{'common.addnew' | translate }}
-            </button></div>
-        <div class="col-md-6">
+            </button>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 mt-1">
+                <mat-form-field appearance="standard">
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [formGroup]="rangeGroup" >
+                        <input matStartDate formControlName="fromDate" placeholder="Start date"  #dateRangeStart>
+                        <input matEndDate formControlName="toDate" placeholder="End date" #dateRangeEnd
+                        (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                    </mat-date-range-input>
+                    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+        </div>
+                
+        <div class="col-lg-8 col-md-6 mt-3">
             <mat-form-field>
                 <mat-label>{{'common.filter' | translate }}</mat-label>
-                <input matInput (keyup)="applyFilter($event)" [formControl]="searchControl"
-                    [placeholder]="placeholderText" #input autocomplete="off" />
+                <input matInput (keyup)="applyFilter($event)" [formControl]="searchControl" [placeholder]="placeholderText"
+                    #input autocomplete="off" />
             </mat-form-field>
         </div>
     </div>

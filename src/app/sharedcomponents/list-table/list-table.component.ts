@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { tableOperation } from 'src/app/models';
+import { GlobalConstants } from 'src/app/common';
+import { dateRange, tableOperation } from 'src/app/models';
 import { AuthenticationService } from 'src/app/services';
 
 @Component({
@@ -27,6 +29,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
 
 
     @Output() actionEvent = new EventEmitter<tableOperation>();
+    @Output() dateSelectionEvent = new EventEmitter<dateRange>();
 
     public searchControl: UntypedFormControl = new UntypedFormControl('');
     public dataSource!: MatTableDataSource<any>;
@@ -34,6 +37,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
     public pageSizeOptions: number[] = [5, 10, 25, 100];
     public displayedColumns: string[] = [];
     public staticText: any = {};
+    public rangeGroup : FormGroup;
 
     private debounce: number = 400;
 
@@ -58,8 +62,14 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
         this._changeColumns(window?.innerWidth > 900 ? true : false);
         this.sort.sort(({ id: this.sortColumn?.name, start: this.sortColumn?.dir }) as MatSortable);
         this.dataSource.sort = this.sort;
-        this.displayedColumns = this.tblColumns;       
-       
+        this.displayedColumns = this.tblColumns;        
+        this.rangeGroup = new FormGroup({
+            fromDate: new FormControl<Date | null>(GlobalConstants.commonFunction.getOlderDate(-3)),
+            toDate: new FormControl<Date | null>(new Date())
+        });
+
+        const dataRage: dateRange = { startDate: GlobalConstants.commonFunction.getOlderDate(-3), endDate: new Date() };
+        this.dateSelectionEvent.emit(dataRage);
         this._getTranslatedText();
     }
 
@@ -68,7 +78,7 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
             this.dataSource = new MatTableDataSource(this.tableData);
             this.dataSource.sort = this.sort; 
         }
-      }
+    }
 
     public ngAfterViewInit(): void {
         this.dataSource.paginator = this.paginator;
@@ -92,6 +102,13 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
         
         return this.translate.instant(`${this.componentName}.tbl_header.${columnName.toString().toLowerCase()}`);
     }
+
+    public dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+        if(dateRangeEnd.value){
+            const dataRage: dateRange = { startDate: new Date(dateRangeStart.value), endDate: new Date(dateRangeEnd.value) };
+            this.dateSelectionEvent.emit(dataRage);
+        }
+    }   
 
     @HostListener('window:resize', ['$event'])
     private onResize(event: any) {
@@ -133,5 +150,5 @@ export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
             add: this.translate.instant('actiontooltip.add'),        
           };
         });
-      }
+      }      
 }

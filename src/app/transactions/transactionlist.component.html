@@ -1,5 +1,5 @@
 <div class="transactionslist">
     <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
       [componentName] ="'transactions'" [visibleColumns]='visibleColumns' [placeholderText]="staticText.searchPlaceholder"
-        (actionEvent)="selectedRecord($event)"></app-list-table>
+        (actionEvent)="selectedRecord($event)" (dateSelectionEvent)="dateSelectionChangedEvent($event)"></app-list-table>
 </div>

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
-import { modelDialog, tableOperation, Transporter } from '../models';
+import { dateRange, modelDialog, tableOperation, Transporter } from '../models';
 import { AlertService } from '../services';
 import { TransactionsService } from './transactions.service';
 
@@ -54,6 +54,11 @@ export class TransactionsListComponent implements OnInit {
       this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
     }     
    
+  }
+
+  public dateSelectionChangedEvent(dataRage: dateRange){
+
+    console.log(dataRage);
   }
 
   searchValueChanged(value: string) {
