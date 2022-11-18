@@ -5,7 +5,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { GlobalConstants } from 'src/app/common';
 import { findInvalidControls } from 'src/app/helper';
 import { modelDialog, Transporter } from 'src/app/models';
@@ -23,7 +22,6 @@ export class exitDataComponent implements OnInit, OnChanges {
   @Input() sequenceno : string = '';
   @Input() transactionData: any;
 
-  public staticText: any = {};
   
   exitForm: UntypedFormGroup;
   vehicleList: any = [];
@@ -41,7 +39,6 @@ export class exitDataComponent implements OnInit, OnChanges {
     private authenticationService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
-    private translate: TranslateService,
     private alertService: AlertService,
   ) {}
 
@@ -77,7 +74,6 @@ export class exitDataComponent implements OnInit, OnChanges {
       orderNo: ['', [Validators.required, Validators.maxLength(50)]],
     });
       
-    this.getTranslatedText();
     this.getTransactionById();
     this.keyValueData.length ===0 && this.keyValueData.push({ name: '', value: '' });
   }
@@ -163,35 +159,7 @@ export class exitDataComponent implements OnInit, OnChanges {
     return item;
   }
  
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        save: this.translate.instant('actions.save'),
-        cancel: this.translate.instant('actions.cancel'),
-        print: this.translate.instant('actions.print'),
-        add: this.translate.instant('actions.add'),
-        required: this.translate.instant('common.required'),
-        operator: this.translate.instant('transactions.data.exit.operator'),
-        role: this.translate.instant('transactions.data.exit.role'),
-        dateout: this.translate.instant('transactions.data.exit.dateout'),
-        timeout: this.translate.instant('transactions.data.exit.timeout'),
-        deductweight: this.translate.instant('transactions.data.exit.deductweight'),
-        secondweight: this.translate.instant('transactions.data.exit.secondweight'),
-        netweight: this.translate.instant('transactions.data.exit.netweight'),
-        price: this.translate.instant('transactions.data.exit.price'),
-        totalprice: this.translate.instant('transactions.data.exit.totalprice'),
-        orderno: this.translate.instant('transactions.data.exit.orderno'),
-        key: this.translate.instant('transactions.data.exit.key'),
-        value: this.translate.instant('transactions.data.exit.value'),
-        addkeyvalues: this.translate.instant('transactions.data.exit.addkeyvalues'),
-        emptykeyvalue: this.translate.instant('transactions.data.exit.emptykeyvalue'),
-        deliveryNoteNo:this.translate.instant('transactions.data.exit.deliverynote'),
-        instructions: this.translate.instant('transactions.data.exit.instructions'),    
-        loginusername: this.translate.instant('transactions.data.exit.loginusername'),
-        sequenceno: this.translate.instant('transactions.data.entry.sequenceno'),
-      };
-    });
-  }
+ 
 
   private getTransactionById(): void {
     if (this.transactionData &&  this.transactionData.dailyTransactionExit) {
