@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,144 +11,138 @@ import { dateRange, tableOperation } from 'src/app/models';
 import { AuthenticationService } from 'src/app/services';
 
 @Component({
-    selector: 'app-list-table',
-    templateUrl: './list-table.component.html',
-    styleUrls: ['./list-table.component.scss']
+  selector: 'app-list-table',
+  templateUrl: './list-table.component.html',
+  styleUrls: ['./list-table.component.scss'],
 })
-export class ListTableComponent implements OnInit, AfterViewInit, OnChanges {
+export class ListTableComponent implements OnInit, OnChanges {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @Input() tblColumns: string[] = [];
+  @Input() tableData: any = [];
+  @Input() sortColumn: any = null;
+  @Input() visibleColumns: string[] = [];
+  @Input() componentName: string = '';
 
-    @Input() placeholderText: string = "";
-    @Input() tblColumns: string[] = [];
-    @Input() tableData: any = [];
-    @Input() sortColumn: any = null;
-    @Input() visibleColumns: string[] = [];
-    @Input() componentName: string = "";
+  @Output() actionEvent = new EventEmitter<tableOperation>();
+  @Output() dateSelectionEvent = new EventEmitter<dateRange>();
 
+  public searchControl: UntypedFormControl = new UntypedFormControl('');
+  public dataSource!: MatTableDataSource<any>;
+  public pageSize: number = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  public displayedColumns: string[] = [];
+  public rangeGroup: FormGroup;
+  public placeholderText: string = '';
 
-    @Output() actionEvent = new EventEmitter<tableOperation>();
-    @Output() dateSelectionEvent = new EventEmitter<dateRange>();
+  private debounce: number = 400;
 
-    public searchControl: UntypedFormControl = new UntypedFormControl('');
-    public dataSource!: MatTableDataSource<any>;
-    public pageSize: number = 10;
-    public pageSizeOptions: number[] = [5, 10, 25, 100];
-    public displayedColumns: string[] = [];
-    public staticText: any = {};
-    public rangeGroup : FormGroup;
+  constructor(
+    private translate: TranslateService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser.subscribe((x) => {
+      if (x) {
+        this.translate.setDefaultLang(x?.language || 'en');
+        translate.use(x?.language);
+      }
+    });
+  }
 
-    private debounce: number = 400;
+  public ngOnInit(): void {
+    this.translatePaginator();
+    this.dataSource = new MatTableDataSource(this.tableData);
 
-    constructor(private translate: TranslateService, private authenticationService: AuthenticationService,) {
-        this.authenticationService.currentUser.subscribe(x => {
-            if (x) {
-                this.translate.setDefaultLang(x?.language || 'en');
-                translate.use(x?.language);
-            }
-        });
-     }
+    this.searchControl.valueChanges
+      .pipe(debounceTime(this.debounce), distinctUntilChanged())
+      .subscribe((value) => {
+        this.getFilteredData(value);
+      });
 
-    public ngOnInit(): void {
-        this.dataSource = new MatTableDataSource(this.tableData);
+    this.sort.sort({
+      id: this.sortColumn?.name,
+      start: this.sortColumn?.dir,
+    } as MatSortable);
+    this.dataSource.sort = this.sort;
+    this.displayedColumns = this.tblColumns;
+    this._changeColumns(window?.innerWidth > 900 ? true : false);
+    this.rangeGroup = new FormGroup({
+      fromDate: new FormControl<Date | null>(
+        GlobalConstants.commonFunction.getOlderDate(-1)
+      ),
+      toDate: new FormControl<Date | null>(new Date()),
+    });
 
-        this.searchControl.valueChanges
-            .pipe(debounceTime(this.debounce), distinctUntilChanged())
-            .subscribe(value => {
-                this.getFilteredData(value);
-            });
+    const dataRage: dateRange = {
+      startDate: GlobalConstants.commonFunction.getOlderDate(-3),
+      endDate: new Date(),
+    };
+    this.dateSelectionEvent.emit(dataRage);
+    this.placeholderText = `placeholder.search${this.componentName}`;
+  }
 
-        this._changeColumns(window?.innerWidth > 900 ? true : false);
-        this.sort.sort(({ id: this.sortColumn?.name, start: this.sortColumn?.dir }) as MatSortable);
-        this.dataSource.sort = this.sort;
-        this.displayedColumns = this.tblColumns;        
-        this.rangeGroup = new FormGroup({
-            fromDate: new FormControl<Date | null>(GlobalConstants.commonFunction.getOlderDate(-3)),
-            toDate: new FormControl<Date | null>(new Date())
-        });
-
-        const dataRage: dateRange = { startDate: GlobalConstants.commonFunction.getOlderDate(-3), endDate: new Date() };
-        this.dateSelectionEvent.emit(dataRage);
-        this._getTranslatedText();
+  public ngOnChanges(changes: SimpleChanges) {
+    if (!changes['tableData']?.firstChange) {
+      this.dataSource = new MatTableDataSource(this.tableData);
+      this.dataSource.sort = this.sort;
     }
+  }
+  
 
-    public ngOnChanges(changes: SimpleChanges) {
-        if (!changes['tableData']?.firstChange) {
-            this.dataSource = new MatTableDataSource(this.tableData);
-            this.dataSource.sort = this.sort; 
-        }
+  async translatePaginator() {
+    const label = await this.translate.get('common.itemsperpagelabel').toPromise();
+    this.paginator._intl.itemsPerPageLabel = label;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  public selectedRecord(row: any, action: string) {
+    const data: tableOperation = { data: row, action: action };
+    this.actionEvent.emit(data);
+  }
+
+  public trackByFn(index: number, item: any) {
+    return item;
+  }
+
+  public getTableHeader(columnName: string) {
+    return this.translate.instant(
+      `${this.componentName}.tbl_header.${columnName.toString().toLowerCase()}`
+    );
+  }
+
+  public dateRangeChange(
+    dateRangeStart: HTMLInputElement,
+    dateRangeEnd: HTMLInputElement
+  ) {
+    if (dateRangeEnd.value) {
+      const dataRage: dateRange = {
+        startDate: new Date(dateRangeStart.value),
+        endDate: new Date(dateRangeEnd.value),
+      };
+      this.dateSelectionEvent.emit(dataRage);
     }
+  }
 
-    public ngAfterViewInit(): void {
-        this.dataSource.paginator = this.paginator;
-        this.translate.get(['']).subscribe((translated: string) => {
-            if(this.dataSource.paginator){
-                // this.dataSource.paginator._intl.itemsPerPageLabel = this.translate.instant("common.itemsperpagelabel");
-            }
-        });        
-    }   
+  @HostListener('window:resize', ['$event'])
+  private onResize(event: any) {
+    this._changeColumns(event?.target?.innerWidth > 900 ? true : false);
+  }
 
-    public selectedRecord(row: any, action: string) {
-        const data: tableOperation = { data: row, action: action };
-        this.actionEvent.emit(data);
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.getFilteredData(filterValue);
+  }
+
+  getFilteredData(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
+  }
 
-    public trackByFn(index: number, item: any) {
-        return item;
-    }
-
-    public getTableHeader(columnName: string) {
-        
-        return this.translate.instant(`${this.componentName}.tbl_header.${columnName.toString().toLowerCase()}`);
-    }
-
-    public dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
-        if(dateRangeEnd.value){
-            const dataRage: dateRange = { startDate: new Date(dateRangeStart.value), endDate: new Date(dateRangeEnd.value) };
-            this.dateSelectionEvent.emit(dataRage);
-        }
-    }   
-
-    @HostListener('window:resize', ['$event'])
-    private onResize(event: any) {
-        this._changeColumns(event?.target?.innerWidth > 900 ? true : false);
-    }
-
-    applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.getFilteredData(filterValue);
-    }
-
-    getFilteredData(filterValue: string) {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-
-        if (this.dataSource.paginator) {
-            this.dataSource.paginator.firstPage();
-        }
-
-    }
-
-    private _changeColumns(isDesktop: boolean = true) {
-
-        const displayedColumns = isDesktop ? this.tblColumns : this.visibleColumns;
-        if(this.componentName ==='transactions'){
-            let last = displayedColumns.pop();
-            if(last)
-            displayedColumns.unshift(last);
-        }
-       
-        this.displayedColumns = displayedColumns;
-    }
-
-    private _getTranslatedText(): void {
-        this.translate.get(['']).subscribe((translated: string) => {
-          this.staticText = {
-            view: this.translate.instant('actiontooltip.view'),
-            edit: this.translate.instant('actiontooltip.edit'),
-            delete: this.translate.instant('actiontooltip.delete'),
-            add: this.translate.instant('actiontooltip.add'),        
-          };
-        });
-      }      
+  private _changeColumns(isDesktop: boolean = true) {
+    this.displayedColumns = isDesktop ? this.tblColumns : this.visibleColumns;
+  }
 }
