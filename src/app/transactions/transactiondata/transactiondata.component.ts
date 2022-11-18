@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from 'src/app/services';
 import { TransactionsService } from '../transactions.service';
 
@@ -13,12 +12,10 @@ import { TransactionsService } from '../transactions.service';
 export class TransactionDataComponent implements OnInit {   
   public actionItem: any = { isFirst: true, isLast: false, activeItem: 0 };
   public sequenceno: string;
-  public staticText: any = {};
   public weight:number =0;
   public transactionData:any;
 
   constructor(
-    private translate: TranslateService,
     private route: ActivatedRoute,
     private httpService: TransactionsService,
     private alertService: AlertService,
@@ -29,7 +26,6 @@ export class TransactionDataComponent implements OnInit {
       this.sequenceno = params['sequenceno'];
       this.sequenceno && this._getTransactionById();
     });
-    this._getTranslatedText();
   }
 
   public changeCard(isForward: boolean = true) {
@@ -39,17 +35,6 @@ export class TransactionDataComponent implements OnInit {
   public onWeightChange(event :number):void{
     this.weight = event;
   }
-
-  private _getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        entryHeaderText: this.translate.instant('transactions.data.entry.header'),
-        exitHeaderText: this.translate.instant('transactions.data.exit.header'),
-        supplierName: this.translate.instant('suppliers.tbl_header.suppliername'),
-      };
-    });
-  }
-
   
   private _getTransactionById(): void {
     this.httpService.getTransactionById(this.sequenceno).subscribe({

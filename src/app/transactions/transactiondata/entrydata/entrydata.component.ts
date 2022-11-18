@@ -3,7 +3,6 @@ import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@ang
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { GlobalConstants } from 'src/app/common';
 import { CustomerdataComponent } from 'src/app/customer/customerdata/customerdata.component';
 import { CustomersService } from 'src/app/customer/Customers.service';
@@ -29,7 +28,6 @@ export class entryDataComponent implements OnInit, OnChanges {
   @Input() sequenceno: string = '';
   @Input() transactionData: any;
 
-  public staticText: any = {};
 
   entryForm: UntypedFormGroup;
   vehicleList: any = [];
@@ -59,7 +57,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private matDialog: MatDialog,
-    private translate: TranslateService
   ) {
     this.zone.runOutsideAngular(() => {
       setInterval(() => {
@@ -115,7 +112,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.populateListData();
     this.selectedGood = this.goodsList[0].key;
     this.keyValueData.push({ name: '', value: '' });
-    this.getTranslatedText();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -290,64 +286,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           : this.getAllCustomers();
       }
     });
-  }
-
-  private getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        save: this.translate.instant('actions.save'),
-        cancel: this.translate.instant('actions.cancel'),
-        print: this.translate.instant('actions.print'),
-        add: this.translate.instant('actions.add'),
-        required: this.translate.instant('common.required'),
-        operator: this.translate.instant('transactions.data.entry.operator'),
-        role: this.translate.instant('transactions.data.entry.role'),
-        datein: this.translate.instant('transactions.data.entry.datein'),
-        timein: this.translate.instant('transactions.data.entry.timein'),
-        sequenceno: this.translate.instant(
-          'transactions.data.entry.sequenceno'
-        ),
-        firstweight: this.translate.instant(
-          'transactions.data.entry.firstweight'
-        ),
-        vehicleno: this.translate.instant('transactions.data.entry.vehicleno'),
-        addvehicle: this.translate.instant(
-          'transactions.data.entry.addvehicle'
-        ),
-        transporter: this.translate.instant(
-          'transactions.data.entry.transporter'
-        ),
-        supplier: this.translate.instant('transactions.data.entry.supplier'),
-        addsupplier: this.translate.instant(
-          'transactions.data.entry.addsupplier'
-        ),
-        customer: this.translate.instant('transactions.data.entry.customer'),
-        addcustomer: this.translate.instant(
-          'transactions.data.entry.addcustomer'
-        ),
-        product: this.translate.instant('transactions.data.entry.product'),
-        licenceno: this.translate.instant('transactions.data.entry.licenceno'),
-        drivername: this.translate.instant(
-          'transactions.data.entry.drivername'
-        ),
-        nationality: this.translate.instant(
-          'transactions.data.entry.nationality'
-        ),
-        pieces: this.translate.instant('transactions.data.entry.pieces'),
-        key: this.translate.instant('transactions.data.entry.key'),
-        value: this.translate.instant('transactions.data.entry.value'),
-        addkeyvalues: this.translate.instant(
-          'transactions.data.entry.addkeyvalues'
-        ),
-        emptykeyvalue: this.translate.instant(
-          'transactions.data.entry.emptykeyvalue'
-        ),
-        instructions: this.translate.instant(
-          'transactions.data.entry.instructions'
-        ),
-      };
-    });
-  }
+  } 
 
   private populateListData(): void {
     this.goodsList = GlobalConstants.commonFunction.getGoodsOption();

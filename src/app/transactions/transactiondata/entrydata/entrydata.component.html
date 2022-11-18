@@ -4,22 +4,22 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{staticText.operator}}" formControlName="operator" name="operator" />
+        <input matInput placeholder="{{'transactions.data.entry.operator' | translate }}" formControlName="operator" name="operator" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{staticText.role}}" formControlName="role" name="role" />
+        <input matInput placeholder="{{'transactions.data.entry.role' | translate }}" formControlName="role" name="role" />
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <input [readonly]="true" matInput placeholder="{{staticText.datein}}" formControlName="dateIn" name="dateIn">
+        <input [readonly]="true" matInput placeholder="{{'transactions.data.entry.datein' | translate }}" formControlName="dateIn" name="dateIn">
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <input [readonly]="true" matInput placeholder="{{staticText.timein}}" formControlName="timeIn" name="timeIn">
+        <input [readonly]="true" matInput placeholder="{{'transactions.data.entry.timein' | translate }}" formControlName="timeIn" name="timeIn">
       </mat-form-field>
     </div>
   </div>
@@ -27,22 +27,22 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{staticText.sequenceno}}" formControlName="sequenceNo" name="sequenceNo" />
+        <input matInput placeholder="{{'transactions.data.entry.sequenceno' | translate }}" formControlName="sequenceNo" name="sequenceNo" />
         <mat-error *ngIf="entryForm.controls['sequenceNo'].errors && 
               entryForm.controls['sequenceNo'].errors['required'] &&
               entryForm.controls['sequenceNo'].touched
-                    ">{{staticText.sequenceno}} {{staticText.required}}
+                    ">{{'transactions.data.entry.sequenceno' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{staticText.firstweight}}</mat-label>
-        <input matInput placeholder="{{staticText.firstweight}}" formControlName="firstWeight" name="firstWeight" />
+        <mat-label>{{'transactions.data.entry.firstweight' | translate }}</mat-label>
+        <input matInput placeholder="{{'transactions.data.entry.firstweight' | translate }}" formControlName="firstWeight" name="firstWeight" />
         <mat-error *ngIf="entryForm.controls['firstWeight'].errors &&
         entryForm.controls['firstWeight'].errors['required'] &&
         entryForm.controls['firstWeight'].touched
-              ">{{staticText.firstweight}} {{staticText.required}}
+              ">{{'transactions.data.entry.firstweight' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -61,8 +61,8 @@
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{staticText.vehicleno}}</mat-label>
-        <mat-select formControlName="vehicleNo" placeholder="{{staticText.vehicleno}}" name="vehicleNo"
+        <mat-label>{{'transactions.data.entry.vehicleno' | translate }}</mat-label>
+        <mat-select formControlName="vehicleNo" placeholder="{{'transactions.data.entry.vehicleno' | translate }}" name="vehicleNo"
           (selectionChange)="onVehicleChange($event)">
           <mat-option *ngFor="let option of vehicleList" [value]="option.plateNo">
             {{option.vehicleType}}
@@ -71,17 +71,17 @@
         <mat-error *ngIf="entryForm.controls['vehicleNo'].errors && 
               entryForm.controls['vehicleNo'].errors['required'] &&
               entryForm.controls['vehicleNo'].touched
-                    ">{{staticText.vehicleno}} {{staticText.required}}
+                    ">{{'transactions.data.entry.vehicleno' | translate }} {{'common.required' | translate }}
         </mat-error>
         <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button" aria-pressed="true" (click)="addNew($event, 'vehicleNo')">
-          <mat-icon class="icon-line-height" matTooltip="{{staticText.addvehicle}}">add</mat-icon>
+          <mat-icon class="icon-line-height" matTooltip="{{'transactions.data.entry.addvehicle' | translate }}">add</mat-icon>
         </a>      
       </mat-form-field>   
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{staticText.transporter}}</mat-label>
-        <mat-select formControlName="transporter" placeholder="{{staticText.transporter}}" name="transporter">
+        <mat-label>{{'transactions.data.entry.transporter' | translate }}</mat-label>
+        <mat-select formControlName="transporter" placeholder="{{'transactions.data.entry.transporter' | translate }}" name="transporter">
           <mat-option *ngFor="let option of transportersList" [value]="option.transporterCode">
             {{option.nameOfTransporter}}
           </mat-option>
@@ -89,7 +89,7 @@
         <mat-error *ngIf="entryForm.controls['transporter'].errors && 
         entryForm.controls['transporter'].errors['required'] &&
         entryForm.controls['transporter'].touched
-              ">{{staticText.transporter}} {{staticText.required}}
+              ">{{'transactions.data.entry.transporter' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -99,7 +99,7 @@
   <div class="row form-col">
     <div class="col" *ngIf="selectedGood ==='incoming'">
       <mat-form-field class="full-width">
-        <mat-select formControlName="supplier" placeholder="{{staticText.supplier}}">
+        <mat-select formControlName="supplier" placeholder="{{'transactions.data.entry.supplier' | translate }}">
           <mat-option *ngFor="let option of suppliersList" [value]="option.supplierCode">
             {{option.supplierName}}
           </mat-option>
@@ -107,16 +107,16 @@
         <mat-error *ngIf="entryForm.controls['supplier'].errors && 
         entryForm.controls['supplier'].errors['required'] &&
         entryForm.controls['supplier'].touched
-              ">{{staticText.supplier}} {{staticText.required}}
+              ">{{'transactions.data.entry.supplier' | translate }} {{'common.required' | translate }}
         </mat-error>
         <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button" aria-pressed="true" (click)="addNew($event,'supplier')">
-          <mat-icon class="icon-line-height" matTooltip="{{staticText.addsupplier}}">add</mat-icon>
+          <mat-icon class="icon-line-height" matTooltip="{{'transactions.data.entry.addsupplier' | translate }}">add</mat-icon>
         </a>
       </mat-form-field>
     </div>
     <div class="col" *ngIf="selectedGood ==='outgoing'">
       <mat-form-field class="full-width">
-        <mat-select formControlName="customer" placeholder="{{staticText.customer}}">
+        <mat-select formControlName="customer" placeholder="{{'transactions.data.entry.customer' | translate }}">
           <mat-option *ngFor="let option of customersList" [value]="option.customerCode">
             {{option.customerName}}
           </mat-option>
@@ -124,17 +124,17 @@
         <mat-error *ngIf="entryForm.controls['customer'].errors && 
         entryForm.controls['customer'].errors['required'] &&
         entryForm.controls['customer'].touched
-              ">{{staticText.customer}} {{staticText.required}}
+              ">{{'transactions.data.entry.customer' | translate }} {{'common.required' | translate }}
         </mat-error>
         <a matSuffix class="btn btn-sm btn-outline-primary d-print-none" role="button" aria-pressed="true" (click)="addNew($event, 'customer')">
-          <mat-icon class="icon-line-height" matTooltip="{{staticText.addcustomer}}">add</mat-icon>
+          <mat-icon class="icon-line-height" matTooltip="{{'transactions.data.entry.addcustomer' | translate }}">add</mat-icon>
         </a>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{staticText.product}}</mat-label>
-        <mat-select formControlName="products" placeholder="{{staticText.product}}">
+        <mat-label>{{'transactions.data.entry.product' | translate }}</mat-label>
+        <mat-select formControlName="products" placeholder="{{'transactions.data.entry.product' | translate }}">
           <mat-option *ngFor="let option of productsList" [value]="option.productCode">
             {{option.productName}}
           </mat-option>
@@ -142,7 +142,7 @@
         <mat-error *ngIf="entryForm.controls['products'].errors && 
         entryForm.controls['products'].errors['required'] &&
         entryForm.controls['products'].touched
-              ">{{staticText.product}} {{staticText.required}}
+              ">{{'transactions.data.entry.product' | translate }} {{'common.required' | translate }}
         </mat-error>      
       </mat-form-field>
     </div>
@@ -152,28 +152,28 @@
   <div class="row form-col">  
     <div class="col">
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{staticText.licenceno}}" formControlName="licenceNo" name="licenceNo" />
+        <input matInput placeholder="{{'transactions.data.entry.licenceno' | translate }}" formControlName="licenceNo" name="licenceNo" />
         <mat-error *ngIf="entryForm.controls['licenceNo'].errors &&
         entryForm.controls['licenceNo'].errors['required'] &&
         entryForm.controls['licenceNo'].touched
-              ">{{staticText.licenceno}} {{staticText.required}}
+              ">{{'transactions.data.entry.licenceno' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{staticText.drivername}}</mat-label>
-        <input matInput placeholder="{{staticText.drivername}}" formControlName="driverName" name="driverName" />
+        <mat-label>{{'transactions.data.entry.drivername' | translate }}</mat-label>
+        <input matInput placeholder="{{'transactions.data.entry.drivername' | translate }}" formControlName="driverName" name="driverName" />
         <mat-error *ngIf="entryForm.controls['driverName'].errors &&
         entryForm.controls['driverName'].errors['required'] &&
         entryForm.controls['driverName'].touched
-              ">{{staticText.drivername}} {{staticText.required}}
+              ">{{'transactions.data.entry.drivername' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-select formControlName="nationality" name="nationality" placeholder="{{staticText.nationality}}">
+        <mat-select formControlName="nationality" name="nationality" placeholder="{{'transactions.data.entry.nationality' | translate }}">
           <mat-option *ngFor="let option of nationalityList" [value]="option.driverNationalityCode">
             {{option.driverNationalityName}}
           </mat-option>
@@ -181,7 +181,7 @@
         <mat-error *ngIf="entryForm.controls['nationality'].errors && 
         entryForm.controls['nationality'].errors['required'] &&
         entryForm.controls['nationality'].touched
-              ">{{staticText.nationality}} {{staticText.required}}
+              ">{{'transactions.data.entry.nationality' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -191,11 +191,11 @@
   <div class="row form-col">
     <div class="col-md-4 col-sm-12">
       <mat-form-field class="full-width">
-        <input matInput placeholder="{{staticText.pieces}}" formControlName="pieces" name="pieces" />
+        <input matInput placeholder="{{'transactions.data.entry.pieces' | translate }}" formControlName="pieces" name="pieces" />
         <mat-error *ngIf="entryForm.controls['pieces'].errors &&
         entryForm.controls['pieces'].errors['required'] &&
         entryForm.controls['pieces'].touched
-              ">{{staticText.pieces}} {{staticText.required}}
+              ">{{'transactions.data.entry.pieces' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -214,21 +214,21 @@
         
           <div class="col">
             <mat-form-field class="full-width">
-              <mat-label>{{staticText.key}}</mat-label>
+              <mat-label>{{'transactions.data.entry.key' | translate }}</mat-label>
               <input [(ngModel)]="item.name" matInput name=name{{index}} [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </div>
         
           <div class="col">
             <mat-form-field class="full-width">
-              <mat-label>{{staticText.value}}</mat-label>
+              <mat-label>{{'transactions.data.entry.value' | translate }}</mat-label>
               <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </div>
 
           <div class="col d-print-none" *ngIf="isLast" >
             <button class="btn btn-sm" type="button" mat-flat-button color="primary" mat-button (click)="addKeyValues($event)">
-              {{staticText.addkeyvalues}}
+              {{'transactions.data.entry.addkeyvalues' | translate }}
             </button>
           </div>
         
@@ -240,7 +240,7 @@
  
   <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
     <mat-error>
-      {{staticText.emptykeyvalue}}
+      {{'transactions.data.entry.emptykeyvalue' | translate }}
     </mat-error>
   </div>
 
@@ -249,13 +249,13 @@
 
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>{{staticText.instructions}}</mat-label>
-        <textarea matInput placeholder="{{staticText.instructions}}" formControlName="instructions"
+        <mat-label>{{'transactions.data.entry.instructions' | translate }}</mat-label>
+        <textarea matInput placeholder="{{'transactions.data.entry.instructions' | translate }}" formControlName="instructions"
           name="instructions"></textarea>
         <mat-error *ngIf="entryForm.controls['instructions'].errors &&
         entryForm.controls['instructions'].errors['required'] &&
         entryForm.controls['instructions'].touched
-              ">{{staticText.instructions}} {{staticText.required}}
+              ">{{'transactions.data.entry.instructions' | translate }} {{'common.required' | translate }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -268,16 +268,16 @@
   <div class="mb-1 d-flex justify-content-evenly d-print-none">
 
     <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
-      {{staticText.print}}
+      {{'actions.print' | translate }}
     </button>
 
     <button class="btn btn-sm" [disabled]="!entryForm.valid" mat-flat-button color="primary" type="submit" mat-button
       (click)="save()">
-      {{staticText.save}}
+      {{'actions.save' | translate }}
     </button>
 
     <button class="btn btn-sm btn-link" mat-flat-button  mat-button (click)="cancel()">
-      {{staticText.cancel}}
+      {{'actions.cancel' | translate }}
     </button>
   </div>
 
