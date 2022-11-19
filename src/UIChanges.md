@@ -14,4 +14,5 @@
 
 11/17/2022
 
-1.Add Search by Sequence No text box next to Date range control and followed by Search button
+1.Add Search by Sequence No text box next to Date range control and followed by Search button - DONE
+
