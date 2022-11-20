@@ -1,185 +1,202 @@
 <form class="exitData-form" [formGroup]="exitForm">
 
-  <div class="row form-col">
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.loginusername' | translate }}"  formControlName="loginUserName" name="loginUserName" />
-      </mat-form-field>
-    </div>
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.role' | translate }}" formControlName="role" name="role" />
-      </mat-form-field>
-    </div>
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input [readonly]="true" matInput placeholder="{{'transactions.data.exit.dateout' | translate }}" formControlName="dateOut" name="dateOut">
-      </mat-form-field>
-    </div>
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input [readonly]="true" matInput placeholder="{{'transactions.data.exit.timeout' | translate }}" formControlName="timeOut" name="timeOut">
-      </mat-form-field>
-    </div>
-  </div>
-
-
-  <div class="row form-col">
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.entry.sequenceno' | translate }}" formControlName="sequenceNo" name="sequenceNo" />
-        <mat-error *ngIf="exitForm.controls['sequenceNo'].errors && 
-        exitForm.controls['sequenceNo'].errors['required'] &&
-        exitForm.controls['sequenceNo'].touched
-                    ">{{'transactions.data.entry.sequenceno' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.secondweight' | translate }}" formControlName="secondWeight" name="secondWeight" />
-        <mat-error *ngIf="exitForm.controls['secondWeight'].errors &&
-        exitForm.controls['secondWeight'].errors['required'] &&
-        exitForm.controls['secondWeight'].touched
-              ">{{'transactions.data.exit.secondweight' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div>
-
-  <div class="row form-col">
-
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.deductweight' | translate }}" formControlName="deductWeight" name="deductWeight" />
-        <mat-error *ngIf="exitForm.controls['deductWeight'].errors &&
-        exitForm.controls['deductWeight'].errors['required'] &&
-        exitForm.controls['deductWeight'].touched
-              ">{{'transactions.data.exit.deductweight' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.netweight' | translate }}" formControlName="netWeight" name="netWeight" />
-        <mat-error *ngIf="exitForm.controls['netWeight'].errors &&
-        exitForm.controls['netWeight'].errors['required'] &&
-        exitForm.controls['netWeight'].touched
-              ">{{'transactions.data.exit.netweight' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div>
-
-  <div class="row form-col">
-
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.price' | translate }}" formControlName="priceTons" name="priceTons" />
-        <mat-error *ngIf="exitForm.controls['priceTons'].errors &&
-        exitForm.controls['priceTons'].errors['required'] &&
-        exitForm.controls['priceTons'].touched
-              ">{{'transactions.data.exit.price' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.totalprice' | translate }}" formControlName="totalPrice" name="totalPrice" />
-        <mat-error *ngIf="exitForm.controls['totalPrice'].errors &&
-        exitForm.controls['totalPrice'].errors['required'] &&
-        exitForm.controls['totalPrice'].touched
-              ">{{'transactions.data.exit.totalprice' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div>
-
-  <div class="row form-col">
-
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.deliverynote' | translate }}" formControlName="deliveryNoteNo" name="deliveryNoteNo" />
-        <mat-error *ngIf="exitForm.controls['deliveryNoteNo'].errors &&
-        exitForm.controls['deliveryNoteNo'].errors['required'] &&
-        exitForm.controls['deliveryNoteNo'].touched
-              ">{{'transactions.data.exit.deliverynote' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="{{'transactions.data.exit.orderno' | translate }}" formControlName="orderNo" name="orderNo" />
-        <mat-error *ngIf="exitForm.controls['orderNo'].errors &&
-        exitForm.controls['orderNo'].errors['required'] &&
-        exitForm.controls['orderNo'].touched
-              ">{{'transactions.data.exit.orderno' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-  </div>
-
- 
-
-  <div class="row mb-1 form-col">
-
-    <ng-container *ngFor="let item of keyValueData ;let index = index; last as isLast; trackBy:trackByFn">    
-      
-      <div class="row form-col">
-      
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>{{'transactions.data.exit.key' | translate }}</mat-label>
-            <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
-        </div>
-      
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>{{'transactions.data.exit.value' | translate }}</mat-label>
-            <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
-        </div>
-
-        <div class="col d-print-none" *ngIf="isLast" >
-          <button class="btn btn-sm" mat-flat-button color="primary" type ="button" mat-button (click)="addKeyValues($event)">
-            {{'transactions.data.exit.addkeyvalues' | translate }}
-          </button>
-        </div>
-      
-      </div>
-  </ng-container>  
-
-</div>
-
-  <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
-    <mat-error>
-      {{'transactions.data.exit.emptykeyvalue' | translate }}
-    </mat-error>
-  </div>
-
+  <div class="classscroll">
   
-  <div class="row form-col">
-
-    <div class="col">
-      <mat-form-field class="full-width" appearance="outline">
-        <textarea matInput placeholder="{{'transactions.data.exit.instructions' | translate }}" formControlName="instructions"
-          name="instructions"></textarea>
-        <mat-error *ngIf="exitForm.controls['instructions'].errors &&
-        exitForm.controls['instructions'].errors['required'] &&
-        exitForm.controls['instructions'].touched
-              ">{{'transactions.data.exit.instructions' | translate }} {{'common.required' | translate }}
-        </mat-error>
-      </mat-form-field>
+    <div class="row form-col">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.loginusername' | translate }}"
+            formControlName="loginUserName" name="loginUserName" />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.role' | translate }}" formControlName="role"
+            name="role" />
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input [readonly]="true" matInput placeholder="{{'transactions.data.exit.dateout' | translate }}"
+            formControlName="dateOut" name="dateOut">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input [readonly]="true" matInput placeholder="{{'transactions.data.exit.timeout' | translate }}"
+            formControlName="timeOut" name="timeOut">
+        </mat-form-field>
+      </div>
     </div>
-
+  
+  
+    <div class="row form-col">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.entry.sequenceno' | translate }}" formControlName="sequenceNo"
+            name="sequenceNo" />
+          <mat-error *ngIf="exitForm.controls['sequenceNo'].errors && 
+          exitForm.controls['sequenceNo'].errors['required'] &&
+          exitForm.controls['sequenceNo'].touched
+                      ">{{'transactions.data.entry.sequenceno' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.secondweight' | translate }}"
+            formControlName="secondWeight" name="secondWeight" />
+          <mat-error *ngIf="exitForm.controls['secondWeight'].errors &&
+          exitForm.controls['secondWeight'].errors['required'] &&
+          exitForm.controls['secondWeight'].touched
+                ">{{'transactions.data.exit.secondweight' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+    </div>
+  
+    <div class="row form-col">
+  
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.deductweight' | translate }}"
+            formControlName="deductWeight" name="deductWeight" />
+          <mat-error *ngIf="exitForm.controls['deductWeight'].errors &&
+          exitForm.controls['deductWeight'].errors['required'] &&
+          exitForm.controls['deductWeight'].touched
+                ">{{'transactions.data.exit.deductweight' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.netweight' | translate }}" formControlName="netWeight"
+            name="netWeight" />
+          <mat-error *ngIf="exitForm.controls['netWeight'].errors &&
+          exitForm.controls['netWeight'].errors['required'] &&
+          exitForm.controls['netWeight'].touched
+                ">{{'transactions.data.exit.netweight' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+    </div>
+  
+    <div class="row form-col">
+  
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.price' | translate }}" formControlName="priceTons"
+            name="priceTons" />
+          <mat-error *ngIf="exitForm.controls['priceTons'].errors &&
+          exitForm.controls['priceTons'].errors['required'] &&
+          exitForm.controls['priceTons'].touched
+                ">{{'transactions.data.exit.price' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.totalprice' | translate }}" formControlName="totalPrice"
+            name="totalPrice" />
+          <mat-error *ngIf="exitForm.controls['totalPrice'].errors &&
+          exitForm.controls['totalPrice'].errors['required'] &&
+          exitForm.controls['totalPrice'].touched
+                ">{{'transactions.data.exit.totalprice' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+    </div>
+  
+    <div class="row form-col">
+  
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.deliverynote' | translate }}"
+            formControlName="deliveryNoteNo" name="deliveryNoteNo" />
+          <mat-error *ngIf="exitForm.controls['deliveryNoteNo'].errors &&
+          exitForm.controls['deliveryNoteNo'].errors['required'] &&
+          exitForm.controls['deliveryNoteNo'].touched
+                ">{{'transactions.data.exit.deliverynote' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'transactions.data.exit.orderno' | translate }}" formControlName="orderNo"
+            name="orderNo" />
+          <mat-error *ngIf="exitForm.controls['orderNo'].errors &&
+          exitForm.controls['orderNo'].errors['required'] &&
+          exitForm.controls['orderNo'].touched
+                ">{{'transactions.data.exit.orderno' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+    </div>
+  
+  
+  
+    <div class="row mb-1 form-col">
+  
+      <ng-container *ngFor="let item of keyValueData ;let index = index; last as isLast; trackBy:trackByFn">
+  
+        <div class="row form-col">
+  
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>{{'transactions.data.exit.key' | translate }}</mat-label>
+              <input [(ngModel)]="item.key" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+          </div>
+  
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>{{'transactions.data.exit.value' | translate }}</mat-label>
+              <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+          </div>
+  
+          <div class="col d-print-none" *ngIf="isLast">
+            <button class="btn btn-sm" mat-flat-button color="primary" type="button" mat-button
+              (click)="addKeyValues($event)">
+              {{'transactions.data.exit.addkeyvalues' | translate }}
+            </button>
+          </div>
+  
+        </div>
+      </ng-container>
+  
+    </div>
+  
+    <div class="row mb-1 form-col" *ngIf="emptyKeyValue">
+      <mat-error>
+        {{'transactions.data.exit.emptykeyvalue' | translate }}
+      </mat-error>
+    </div>
+  
+  
+    <div class="row form-col">
+  
+      <div class="col">
+        <mat-form-field class="full-width" appearance="outline">
+          <textarea matInput placeholder="{{'transactions.data.exit.instructions' | translate }}"
+            formControlName="instructions" name="instructions"></textarea>
+          <mat-error *ngIf="exitForm.controls['instructions'].errors &&
+          exitForm.controls['instructions'].errors['required'] &&
+          exitForm.controls['instructions'].touched
+                ">{{'transactions.data.exit.instructions' | translate }} {{'common.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+    </div>
+  
   </div>
 
 

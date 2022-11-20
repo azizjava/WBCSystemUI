@@ -1,3 +1,5 @@
+@import 'styles.scss';
+
 .exitData-form {
 
     .form-col {
@@ -21,6 +23,38 @@
         textarea {
             resize: none;
         }        
+    }
+
+    .classscroll {
+        height: calc(80vh - 1rem);
+        overflow: hidden;
+        overflow-y: auto;
+
+        @include media-breakpoint-up(md){
+            height: calc(60vh - 1rem);
+        }
+        
+        @include media-breakpoint-down(sm) {
+            height: calc(50vh - 1rem);
+            padding: 0 5px;
+            margin-bottom: 1rem;
+        }
+
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(104, 140, 240, 0.3);
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+            border-radius: 10px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+        }
     }
 }
   

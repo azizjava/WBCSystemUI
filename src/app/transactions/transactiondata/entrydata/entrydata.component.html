@@ -1,6 +1,8 @@
 
 <form class="entryData-form" [formGroup]="entryForm">
 
+  <div class="classscroll">
+
   <div class="row form-col">
     <div class="col">
       <mat-form-field class="full-width">
@@ -67,16 +69,17 @@
           <mat-option *ngFor="let option of vehicleList" [value]="option.plateNo">
             {{option.vehicleType}}
           </mat-option>
-        </mat-select>
+        </mat-select>         
         <mat-error *ngIf="entryForm.controls['vehicleNo'].errors && 
-              entryForm.controls['vehicleNo'].errors['required'] &&
-              entryForm.controls['vehicleNo'].touched
-                    ">{{'transactions.data.entry.vehicleno' | translate }} {{'common.required' | translate }}
-        </mat-error>
-        <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button" aria-pressed="true" (click)="addNew($event, 'vehicleNo')">
+                    entryForm.controls['vehicleNo'].errors['required'] &&
+                    entryForm.controls['vehicleNo'].touched
+                          ">{{'transactions.data.entry.vehicleno' | translate }} {{'common.required' | translate }}
+        </mat-error> 
+        <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button" aria-pressed="true"
+          (click)="addNew($event, 'vehicleNo')">
           <mat-icon class="icon-line-height" matTooltip="{{'transactions.data.entry.addvehicle' | translate }}">add</mat-icon>
-        </a>      
-      </mat-form-field>   
+        </a>
+      </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width">
@@ -143,7 +146,7 @@
         entryForm.controls['products'].errors['required'] &&
         entryForm.controls['products'].touched
               ">{{'transactions.data.entry.product' | translate }} {{'common.required' | translate }}
-        </mat-error>      
+        </mat-error>           
       </mat-form-field>
     </div>
   </div>
@@ -263,7 +266,7 @@
   </div>
 
 
-  
+</div>
 
   <div class="mb-1 d-flex justify-content-evenly d-print-none">
 

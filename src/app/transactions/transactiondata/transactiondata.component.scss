@@ -36,13 +36,7 @@
       }
       
       .item-center { 
-        flex-grow: 1;
-
-        .card-body {
-          height: calc(80vh - 1rem);
-          overflow: hidden;
-          overflow-y: auto;
-        }
+        flex-grow: 1;        
       }
       
       .item + .item { 
