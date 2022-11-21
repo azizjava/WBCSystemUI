@@ -176,6 +176,16 @@ export class GlobalConstants {
       return  day + '/' + month + '/' + + year;
     },
 
+    getFormattedSelectedDate(inputDate : Date) {
+      const date = inputDate;
+      let year = date.getFullYear();
+      let month = (1 + date.getMonth()).toString().padStart(2, '0');
+      let day = date.getDate().toString().padStart(2, '0');
+
+      return  day + '/' + month + '/' + + year;
+    },
+
+
     getOlderDate(months: number) :Date {
       const date = this.addMonths(new Date(),months);      
       return date;

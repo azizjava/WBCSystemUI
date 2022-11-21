@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, UntypedFormControl, Validators } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { DateRange, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,7 +15,7 @@ import { AuthenticationService } from 'src/app/services';
   templateUrl: './list-table.component.html',
   styleUrls: ['./list-table.component.scss'],
 })
-export class ListTableComponent implements OnInit, OnChanges {
+export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -27,6 +27,7 @@ export class ListTableComponent implements OnInit, OnChanges {
 
   @Output() actionEvent = new EventEmitter<tableOperation>();
   @Output() dateSelectionEvent = new EventEmitter<dateRange>();
+  @Output() sequenceNoChange = new EventEmitter<string>();
 
   public searchControl: UntypedFormControl = new UntypedFormControl('');
   public dataSource!: MatTableDataSource<any>;
@@ -75,8 +76,8 @@ export class ListTableComponent implements OnInit, OnChanges {
     });
 
     const dataRage: dateRange = {
-      startDate: GlobalConstants.commonFunction.getOlderDate(-3),
-      endDate: new Date(),
+      startDate: GlobalConstants.commonFunction.getFormattedSelectedDate(GlobalConstants.commonFunction.getOlderDate(-1)),
+      endDate: GlobalConstants.commonFunction.getFormattedSelectedDate(new Date()),
     };
     this.dateSelectionEvent.emit(dataRage);
     this.placeholderText = `placeholder.search${this.componentName}`;
@@ -87,6 +88,15 @@ export class ListTableComponent implements OnInit, OnChanges {
       this.dataSource = new MatTableDataSource(this.tableData);
       this.dataSource.sort = this.sort;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.rangeGroup = new FormGroup({
+      fromDate: new FormControl<Date | null>(
+        GlobalConstants.commonFunction.getOlderDate(-1)
+      ),
+      toDate: new FormControl<Date | null>(new Date()),
+    });
   }
   
 
@@ -117,8 +127,8 @@ export class ListTableComponent implements OnInit, OnChanges {
   ) {
     if (dateRangeEnd.value) {
       const dataRage: dateRange = {
-        startDate: new Date(dateRangeStart.value),
-        endDate: new Date(dateRangeEnd.value),
+        startDate: GlobalConstants.commonFunction.getFormattedSelectedDate(new Date(dateRangeStart.value)),
+        endDate:GlobalConstants.commonFunction.getFormattedSelectedDate(new Date(dateRangeEnd.value)),
       };
       this.dateSelectionEvent.emit(dataRage);
     }
@@ -132,6 +142,10 @@ export class ListTableComponent implements OnInit, OnChanges {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.getFilteredData(filterValue);
+  }
+
+  onSeqNoChange(event: HTMLInputElement){
+    this.sequenceNoChange.emit(event.value);
   }
 
   getFilteredData(filterValue: string) {

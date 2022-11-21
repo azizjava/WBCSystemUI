@@ -22,6 +22,6 @@ export interface tableOperation {
 }
 
 export interface dateRange {
-  startDate:Date,
-  endDate:Date
+  startDate:string,
+  endDate:string
 }

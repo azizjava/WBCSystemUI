@@ -12,7 +12,7 @@ import { TransactionsService } from './transactions.service';
   templateUrl: './transactionlist.component.html',
   styleUrls: ['./transactionlist.component.scss'],
 })
-export class TransactionsListComponent implements OnInit {
+export class TransactionsListComponent {
   tblColumns: string[] = [ 'Actions','sequenceNo', 'transactionStatus', 'entryDateAndTime', 'entryLoginUserName',  'vehiclePlateNo', 'transporterCode'];
   tableData: any = [];
 
@@ -20,6 +20,8 @@ export class TransactionsListComponent implements OnInit {
   public actionName: string = '';
   public sortColumn = { name: 'entryDateAndTime', dir: 'desc' };
   public visibleColumns = [ 'Actions','sequenceNo', 'transactionStatus'];
+  public dateRange: dateRange | null;
+  public sequenceNo : string ="";
 
   constructor(
     private matDialog: MatDialog,
@@ -29,9 +31,7 @@ export class TransactionsListComponent implements OnInit {
     private route: ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {
-    this.getAllTransactions();
-  }
+ 
 
   selectedRecord(actionData: tableOperation): void {
     this.actionName = actionData.action;
@@ -53,12 +53,18 @@ export class TransactionsListComponent implements OnInit {
   }
 
   public dateSelectionChangedEvent(dataRage: dateRange){
+    this.dateRange = dataRage;
+    this.getAllTransactions();
+  }
 
-    console.log(dataRage);
+  onsequenceNoChange(sequenceNo: string) :void {
+    this.sequenceNo = sequenceNo;
+    this.getAllTransactions();
   }
 
   searchValueChanged(value: string) {
     this.searchInput = value;
+    this.dateRange = null;
   }
 
 
@@ -90,7 +96,12 @@ export class TransactionsListComponent implements OnInit {
   }  
 
   private getAllTransactions(): void {
-    this.httpService.getAllTransactions().subscribe({
+    const searchFilter = {
+     "entryEndDate": this.sequenceNo ? "" : this.dateRange?.endDate,
+     "entryStartDate": this.sequenceNo ? "": this.dateRange?.startDate,
+     "sequenceNo": this.sequenceNo
+    };
+    this.httpService.getAllTransactions(searchFilter).subscribe({
       next: (data: any[]) => {
         this.tableData = [];
         data.forEach((response: any) => {         

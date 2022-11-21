@@ -15,9 +15,9 @@ export class TransactionsService {
     this.baseURL = environment.baseURL +'/dailytransaction';
   }
    
-  getAllTransactions(): Observable<any[]> {
+  getAllTransactions(data : any): Observable<any[]> {
     return this.http
-      .get<Transporter[]>(`${this.baseURL}/listAllDailyTransactions`);      
+      .post<Transporter[]>(`${this.baseURL}/listAllDailyTransactions`,data);      
   }
 
   getTransactionById(code: any): Observable<any> {
