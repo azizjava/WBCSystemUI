@@ -107,6 +107,12 @@
           exitForm.controls['totalPrice'].touched
                 ">{{'transactions.data.exit.totalprice' | translate }} {{'common.required' | translate }}
           </mat-error>
+
+          <mat-error *ngIf="exitForm.controls['totalPrice'].errors &&
+          exitForm.controls['totalPrice'].errors['invalidNumberFormat'] &&
+          exitForm.controls['totalPrice'].touched
+                "> {{'transactions.data.exit.totalprice' | translate }} {{'common.invalid' | translate }}
+        </mat-error>
         </mat-form-field>
       </div>
   

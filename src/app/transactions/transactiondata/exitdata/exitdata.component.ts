@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
-import { findInvalidControls } from 'src/app/helper';
+import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { modelDialog, Transporter } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { TransactionsService } from '../../transactions.service';
@@ -61,7 +61,7 @@ export class exitDataComponent implements OnInit, OnChanges {
       deductWeight: ['', [Validators.required, Validators.maxLength(50)]],
       netWeight: ['', [Validators.required, Validators.maxLength(50)]],
       priceTons: ['', [Validators.required, Validators.maxLength(50)]],
-      totalPrice: ['', [Validators.required, Validators.maxLength(50)]],
+      totalPrice: ['', [Validators.required, Validators.maxLength(50), patternNumberValidator()]],
       role: [{value :this.authenticationService.currentUserValue.role , disabled: true}],
       loginUserName: [
         {

@@ -1,4 +1,4 @@
-import { UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 
 // custom validator to check that two fields match
 export function MustMatch(controlName: string, matchingControlName: string) {
@@ -19,3 +19,13 @@ export function MustMatch(controlName: string, matchingControlName: string) {
         }
     }
 }
+
+export function patternNumberValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } |null => {
+      if (!control.value) {
+        return null;
+      }
+      const valid = control.value.match(/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?$/);
+      return valid ? null : { invalidNumberFormat: true };
+    };
+  }

@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { findInvalidControls } from 'src/app/helper';
+import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { modelDialog, Product, ProductGroup } from 'src/app/models';
 import { ProductGroupsService } from 'src/app/productsgroup/productgroups.service';
 import { AlertService } from 'src/app/services';
@@ -49,7 +49,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     this.form = this._formBuilder.group({
       productCode: ['', [Validators.required, Validators.maxLength(30)]],
       productName: ['', [Validators.required, Validators.maxLength(30)]],
-      productPrice: ['', [Validators.required, Validators.maxLength(30)]],
+      productPrice: ['', [Validators.required, Validators.maxLength(30), patternNumberValidator()]],
       groupCode: [''],
     });
 

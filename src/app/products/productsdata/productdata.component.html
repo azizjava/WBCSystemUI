@@ -36,6 +36,13 @@
           form.controls['productPrice'].touched
                 ">{{staticText.productprice}} {{staticText.required}}
         </mat-error>
+
+        <mat-error *ngIf="form.controls['productPrice'].errors &&
+        form.controls['productPrice'].errors['invalidNumberFormat'] &&
+        form.controls['productPrice'].touched
+              "> {{staticText.productprice}} {{'common.invalid' | translate }}
+      </mat-error>
+      
       </mat-form-field>
     </div>
 
