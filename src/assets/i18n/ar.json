@@ -6,7 +6,8 @@
 		"filter":"منقي",
 		"addnew":"اضف جديد",
 		"itemsperpagelabel":"مواد لكل صفحة",
-		"required":"مطلوب "
+		"required":"مطلوب ",
+		"invalid" :"غير صالح"
 	},
 	"actions":{
 		"save":"يحفظ",

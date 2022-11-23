@@ -1,12 +1,13 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
 import { CustomerdataComponent } from 'src/app/customer/customerdata/customerdata.component';
 import { CustomersService } from 'src/app/customer/Customers.service';
-import { findInvalidControls } from 'src/app/helper';
+import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { Customer, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { NationalityService } from 'src/app/nationality/nationality.service';
 import { ProductsService } from 'src/app/products/products.service';
@@ -40,7 +41,11 @@ export class entryDataComponent implements OnInit, OnChanges {
   keyValueData: any = [];
   emptyKeyValue: boolean = false;
 
-  selectedGood: string = '';
+  filteredVehicleList: Observable<any[]>;
+  filteredProductsList: Observable<any[]>;
+  filteredSupplierList: Observable<any[]>;
+  filteredCustomerList: Observable<any[]>;
+  selectedGood: string = '';  
 
   constructor(
     private httpService: TransactionsService,
@@ -91,7 +96,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         },
       ],
       nationality: ['', [Validators.required, Validators.maxLength(50)]],
-      pieces: ['', [Validators.maxLength(50)]],
+      pieces: ['', [Validators.maxLength(50), patternNumberValidator()]],
       driverName: ['', [Validators.required, Validators.maxLength(50)]],
       licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
       firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
@@ -112,6 +117,15 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.populateListData();
     this.selectedGood = this.goodsList[0].key;
     this.keyValueData.push({ name: '', value: '' });
+
+    this.entryForm.get('vehicleNo')?.statusChanges.subscribe(v => 
+      {
+        if(v ==='INVALID'){
+          this.entryForm.controls['transporter'].setValue('');
+        }
+      });
+
+      
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -222,11 +236,11 @@ export class entryDataComponent implements OnInit, OnChanges {
     const customerControl = this.entryForm.get('customer');
 
     if (this.selectedGood === 'incoming') {
-      supplierControl?.addValidators(Validators.required);
+      supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.suppliersList, 'supplierCode')]);
       customerControl?.clearValidators();
       
     } else {   
-      customerControl?.addValidators(Validators.required);
+      customerControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.customersList, 'customerCode')]);
       supplierControl?.clearValidators();
     }
 
@@ -249,7 +263,7 @@ export class entryDataComponent implements OnInit, OnChanges {
 
   public printLayout(): void {
     window.print();
-  }
+  }   
 
   public addNew(event: Event, controlName: string): void {
     event.stopPropagation();
@@ -282,8 +296,8 @@ export class entryDataComponent implements OnInit, OnChanges {
         controlName === 'vehicleNo'
           ? this.getAllVehicles(result)
           : controlName === 'supplier'
-          ? this.getAllSuppliers()
-          : this.getAllCustomers();
+          ? this.getAllSuppliers(result)
+          : this.getAllCustomers(result);
       }
     });
   } 
@@ -297,18 +311,26 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.getAllProducts();
     this.getAllCustomers();
     this.sequenceno && this.getTransactionById();
+    this._setAutoCompleteVehicleData();
+    this._setAutoCompleteProductData();
+    this._setAutoCompleteSupplierData();
+    this._setAutoCompleteCustomerData();
   }
 
   private getAllVehicles(newRecord?: Vehicle): void {
+    const vehicleNoControl = this.entryForm.get('vehicleNo');
     this.vehiclesService.getAllVehicles().subscribe({
       next: (data: Vehicle[]) => {
         this.vehicleList = data;
         if (newRecord) {
-          this.entryForm.controls['vehicleNo'].setValue(newRecord?.plateNo);
+          vehicleNoControl?.setValue(newRecord?.plateNo);
           this.entryForm.controls['transporter'].setValue(
             newRecord?.transporters.nameOfTransporter
           );
         }
+        vehicleNoControl?.clearValidators();
+        vehicleNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.vehicleList, 'plateNo')]);
+        vehicleNoControl?.updateValueAndValidity();
       },
       error: (error: string) => {
         console.log(error);
@@ -341,10 +363,17 @@ export class entryDataComponent implements OnInit, OnChanges {
     });
   }
 
-  private getAllSuppliers(): void {
+  private getAllSuppliers(newRecord?: Supplier): void {
+    const supplierControl = this.entryForm.get('supplier');
     this.supplierService.getAllSuppliers().subscribe({
       next: (data: Supplier[]) => {
         this.suppliersList = data;
+        if (newRecord) {
+          supplierControl?.setValue(newRecord?.supplierCode);          
+        }
+        supplierControl?.clearValidators();
+        supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.suppliersList, 'supplierCode')]);
+        supplierControl?.updateValueAndValidity();
       },
       error: (error) => {
         console.log(error);
@@ -354,9 +383,14 @@ export class entryDataComponent implements OnInit, OnChanges {
   }
 
   private getAllProducts(): void {
+    const productsControl = this.entryForm.get('products');
     this.productService.getAllProducts().subscribe({
       next: (data: Product[]) => {
         this.productsList = data;
+
+        productsControl?.clearValidators();
+        productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productCode')]);
+        productsControl?.updateValueAndValidity();
       },
       error: (error) => {
         console.log(error);
@@ -365,10 +399,23 @@ export class entryDataComponent implements OnInit, OnChanges {
     });
   }
 
-  private getAllCustomers(): void {
+  private getAllCustomers(newRecord?: Customer): void {
+    const customerControl = this.entryForm.get('customer');
     this.customerService.getAllCustomers().subscribe({
       next: (data: Customer[]) => {
         this.customersList = data;
+        if (newRecord) {
+          customerControl?.setValue(newRecord?.customerCode);          
+        }
+        customerControl?.clearValidators();
+        if (this.selectedGood !== 'incoming') {
+          customerControl?.addValidators([
+            Validators.required,
+            Validators.maxLength(50),
+            autocompleteObjectValidator(this.customersList, 'customerCode'),
+          ]);
+        }
+        customerControl?.updateValueAndValidity();
       },
       error: (error) => {
         console.log(error);
@@ -432,12 +479,75 @@ export class entryDataComponent implements OnInit, OnChanges {
           data.dailyTransactionEntry.entryDeliveryInstructions
         );
       }
+
+      this.entryForm.updateValueAndValidity();
+
+      const controls = this.entryForm.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          console.log(controls[name]);
+          this.entryForm.controls[name].markAllAsTouched();
+          this.entryForm.controls[name].markAsDirty();
+        }
+      }
     }
-    this.httpService.getTransactionById(this.sequenceno).subscribe({
-      next: (data: any) => {},
-      error: (error) => {
-        this.alertService.error(error);
-      },
-    });
+
+    
+
+    
   }
+
+  private _setAutoCompleteVehicleData() :void {
+    this.filteredVehicleList = this.entryForm.get('vehicleNo')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.vehicleList,item,"plateNo") : this.vehicleList.slice())),
+    );   
+  }
+
+  private _setAutoCompleteProductData() :void {
+    this.filteredProductsList = this.entryForm.get('products')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.productsList,item,"productCode") : this.productsList.slice())),
+    );   
+  }
+
+  private _setAutoCompleteSupplierData() :void {
+    this.filteredSupplierList = this.entryForm.get('supplier')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.suppliersList,item,"supplierCode") : this.suppliersList.slice())),
+    );   
+  }
+
+  private _setAutoCompleteCustomerData() :void {
+    this.filteredCustomerList = this.entryForm.get('customer')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.customersList,item,"customerCode") : this.customersList.slice())),
+    );   
+  }
+
+  
+
+  private _filterData(list:any, value: string,key :string): Vehicle[] {
+    if (value === '') {
+      return list.slice();
+    }
+    
+    const filterValue = value?.toLowerCase();
+    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue));
+  }
+}
+
+
+function autocompleteObjectValidator(listObj: any, keyName: string): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    if(!control.value) { return null;}
+    let index = listObj?.findIndex((obj: any) => obj[keyName] === control.value);
+    if (index !== -1) {  return null; }
+
+    return { invalidData: { value: control.value } };
+  };
 }

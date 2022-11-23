@@ -6,7 +6,8 @@
 		"filter":"Filter",
 		"addnew":"Add New",
 		"itemsperpagelabel":"Items per page",
-		"required":" is required"
+		"required":" is required",
+		"invalid" :"is not valid"
 	},
 	"actions":{
 		"save":"Save",
