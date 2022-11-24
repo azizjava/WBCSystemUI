@@ -509,7 +509,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredProductsList = this.entryForm.get('products')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.productsList,item,"productCode") : this.productsList.slice())),
+      map((item :any)=> (item ? this._filterData(this.productsList,item,"productName") : this.productsList.slice())),
     );   
   }
 
@@ -517,7 +517,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredSupplierList = this.entryForm.get('supplier')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.suppliersList,item,"supplierCode") : this.suppliersList.slice())),
+      map((item :any)=> (item ? this._filterData(this.suppliersList,item,"supplierName") : this.suppliersList.slice())),
     );   
   }
 
@@ -525,7 +525,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredCustomerList = this.entryForm.get('customer')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.customersList,item,"customerCode") : this.customersList.slice())),
+      map((item :any)=> (item ? this._filterData(this.customersList,item,"customerName") : this.customersList.slice())),
     );   
   }
 

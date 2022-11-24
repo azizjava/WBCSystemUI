@@ -69,7 +69,7 @@
         <mat-autocomplete #autoVehicle="matAutocomplete" (optionSelected)='onVehicleChange($event)'>
       
           <mat-option *ngFor="let option of filteredVehicleList | async" [value]="option.plateNo">
-            {{option.vehicleType}}
+            {{option.plateNo}}
           </mat-option>
         </mat-autocomplete>      
       
