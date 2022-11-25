@@ -70,7 +70,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       this.productData = this.data.data;
       this.form.controls['productCode'].setValue(this.productData?.productCode);
       this.form.controls['productName'].setValue(this.productData?.productName);
-      this.form.controls['productPrice'].setValue(this.productData?.productPrice);
+      this.form.controls['productPrice'].setValue(this.productData?.productPrice.toString());
 
       this.selectedItems = this.productData?.productGroup;
 
