@@ -2,10 +2,31 @@
 
   <div class="row">
 
-    <div class="text-muted fs-5 ms-1 mb-2 col-lg-2 col-md-4 col-sm-6 mb-1">{{'transactions.Weighbridge.header' | translate }}</div>
+    <div class="text-muted fs-5 ms-1 mb-2 col-lg-3 col-md-4 col-sm-6 mb-1">{{'transactions.Weighbridge.header' | translate }}</div>
 
     <div class="col-lg-2 col-md-4 col-sm-6 mb-2">
-      <div class="d-grid gap-1">
+      <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!connectStatus}">
+        <div *ngIf="connectStatus">
+          {{weight}}
+        </div>
+      </div>
+    </div>
+  
+
+  </div>
+
+  
+
+  <div class="row form-col">
+
+    <div class="mt-2 mb-2 col-lg-3 col-md-4 col-sm-6">
+      <ui-switch [(ngModel)]="connectStatus" checkedLabel="{{'transactions.Weighbridge.connect' | translate }}"
+        uncheckedLabel="{{'transactions.Weighbridge.disconnect' | translate }}">
+      </ui-switch>
+    </div>  
+
+    <div class="col-lg-2 col-md-4 col-sm-6 mb-1" >
+      <div class="d-grid gap-1 mt-2">
         <button class="btn btn-sm btn-primary rounded-pill action-btn" [disabled]="!connectStatus" *ngIf="isFirstScreen" type="reset"
           mat-flat-button mat-button (click)="weightChangeEvent()">
           {{'transactions.Weighbridge.firstweight' | translate }}
@@ -19,42 +40,6 @@
 
     </div>
 
-  </div>
-
-  
-
-  <div class="row form-col">
-    <!-- <p class="text-muted fs-5 ms-3 mb-2">{{'transactions.Weighbridge.header' | translate }}</p> -->
-
-    <div class="mt-2 mb-2 col-lg-2 col-md-4 col-sm-6">
-      <ui-switch [(ngModel)]="connectStatus" checkedLabel="{{'transactions.Weighbridge.connect' | translate }}"
-        uncheckedLabel="{{'transactions.Weighbridge.disconnect' | translate }}">
-      </ui-switch>
-    </div>
-
-    <div class="col-lg-2 col-md-4 col-sm-6 mb-1">
-
-      <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!connectStatus}">
-        <div *ngIf="connectStatus">
-          {{weight}}
-        </div>
-      </div>
-    </div>
-<!-- 
-    <div class="col-lg-2 col-md-4 col-sm-6 mb-1 mt-2">
-      <div class="d-grid gap-2">
-        <button class="btn btn-sm btn-primary rounded-pill" [disabled]="!connectStatus" *ngIf="isFirstScreen" type="reset"
-          mat-flat-button mat-button (click)="weightChangeEvent()">
-          {{'transactions.Weighbridge.firstweight' | translate }}
-        </button>
-
-        <button class="btn btn-sm btn-primary rounded-pill" [disabled]="!connectStatus" *ngIf="!isFirstScreen" mat-flat-button
-          mat-button (click)="weightChangeEvent()">
-          {{'transactions.Weighbridge.secondweight' | translate }}
-        </button>
-      </div>
-
-    </div> -->
 
   </div>
 
