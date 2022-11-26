@@ -6,13 +6,22 @@
 
 2. Aziz has to modify the listTransaction API call. ( From date , To date and Sort by column Name) - Todo
 
-3. Meter Settings in a single row( connect button, meter and weight btn ) - Todo
+3. Meter Settings in a single row( connect button, meter and weight btn ) - DONE
 
-4. Transacation Entry screen add Auto Complete textbox to Vehicle,Supplier, Customer ,Product - Todo
+4. Transacation Entry screen add Auto Complete textbox to Vehicle,Supplier, Customer ,Product - DONE
 
 5.Product and Product Group Issues in API - Aziz -Todo
 
 11/17/2022
 
 1.Add Search by Sequence No text box next to Date range control and followed by Search button - DONE
+
+
+11/26/2022
+
+1. Supplier Code & Supplier Name should be there ( search by Supplier Code)
+
+2.Products and No of Pieces should be same line.
+
+3.First Weight should be Bottom and weight should top - DONE
 
