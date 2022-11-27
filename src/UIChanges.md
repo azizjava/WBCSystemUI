@@ -19,7 +19,7 @@
 
 11/26/2022
 
-1. Supplier Code & Supplier Name should be there ( search by Supplier Code)
+1. Supplier Code & Supplier Name should be there ( search by Supplier Code) - Todo
 
 2.Products and No of Pieces should be same line.
 
