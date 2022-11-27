@@ -93,17 +93,10 @@
     </div>
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{'transactions.data.entry.transporter' | translate }}</mat-label>
-        <mat-select formControlName="transporter" placeholder="{{'transactions.data.entry.transporter' | translate }}" name="transporter">
-          <mat-option *ngFor="let option of transportersList" [value]="option.transporterCode">
-            {{option.nameOfTransporter}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="entryForm.controls['transporter'].errors && 
-        entryForm.controls['transporter'].errors['required'] &&
-        entryForm.controls['transporter'].touched
-              ">{{'transactions.data.entry.transporter' | translate }} {{'common.required' | translate }}
-        </mat-error>
+        <mat-label>{{'transactions.data.entry.transporter' | translate }}</mat-label>     
+
+        <input type="text" placeholder="{{'transactions.data.entry.transporter' | translate }}" matInput  
+        formControlName="transporter" name="transporter"  readonly>
       </mat-form-field>
     </div>
   </div>
@@ -111,31 +104,26 @@
 
   <div class="row form-col">
     <div class="col" *ngIf="selectedGood ==='incoming'">
-      <mat-form-field class="full-width">
-        <!-- <mat-select formControlName="supplier" placeholder="{{'transactions.data.entry.supplier' | translate }}">
-          <mat-option *ngFor="let option of suppliersList" [value]="option.supplierCode">
-            {{option.supplierName}}
-          </mat-option>
-        </mat-select> -->
+      <mat-form-field class="full-width">       
 
-        <input type="text" placeholder="{{'transactions.data.entry.supplier' | translate }}" matInput
-          formControlName="supplier" name="supplier" [matAutocomplete]="autoSupplier">
-        <mat-autocomplete #autoSupplier="matAutocomplete">
+        <input type="text" placeholder="{{'transactions.data.entry.suppliercode' | translate }}" matInput
+          formControlName="supplier" name="supplier" [matAutocomplete]="autoSupplier" >
+        <mat-autocomplete #autoSupplier="matAutocomplete" (optionSelected)='onSupplierChange($event)'>
         
           <mat-option *ngFor="let option of filteredSupplierList | async" [value]="option.supplierCode">
-            {{option.supplierName}}
+            {{option.supplierCode}}
           </mat-option>
         </mat-autocomplete>
         <mat-error *ngIf="entryForm.controls['supplier'].errors && 
         entryForm.controls['supplier'].errors['required'] &&
         entryForm.controls['supplier'].touched
-              ">{{'transactions.data.entry.supplier' | translate }} {{'common.required' | translate }}
+              ">{{'transactions.data.entry.suppliercode' | translate }} {{'common.required' | translate }}
         </mat-error>
 
         <mat-error *ngIf="entryForm.controls['supplier'].errors && 
         entryForm.controls['supplier'].errors['invalidData'] &&
         entryForm.controls['supplier'].touched
-              ">{{'transactions.data.entry.supplier' | translate }} {{'common.invalid' | translate }}
+              ">{{'transactions.data.entry.suppliercode' | translate }} {{'common.invalid' | translate }}
         </mat-error> 
         <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button" aria-pressed="true" (click)="addNew($event,'supplier')">
           <mat-icon class="icon-line-height" matTooltip="{{'transactions.data.entry.addsupplier' | translate }}">add</mat-icon>
@@ -144,29 +132,25 @@
     </div>
     <div class="col" *ngIf="selectedGood ==='outgoing'">
       <mat-form-field class="full-width">
-        <!-- <mat-select formControlName="customer" placeholder="{{'transactions.data.entry.customer' | translate }}">
-          <mat-option *ngFor="let option of customersList" [value]="option.customerCode">
-            {{option.customerName}}
-          </mat-option>
-        </mat-select> -->
-        <input type="text" placeholder="{{'transactions.data.entry.customer' | translate }}" matInput formControlName="customer"
+      
+        <input type="text" placeholder="{{'transactions.data.entry.customercode' | translate }}" matInput formControlName="customer"
           name="customer" [matAutocomplete]="autoCustomer">
-        <mat-autocomplete #autoCustomer="matAutocomplete">
+        <mat-autocomplete #autoCustomer="matAutocomplete" (optionSelected)='onCustomerChange($event)'>
         
           <mat-option *ngFor="let option of filteredCustomerList | async" [value]="option.customerCode">
-            {{option.customerName}}
+            {{option.customerCode}}
           </mat-option>
         </mat-autocomplete>
         <mat-error *ngIf="entryForm.controls['customer'].errors && 
         entryForm.controls['customer'].errors['required'] &&
         entryForm.controls['customer'].touched
-              ">{{'transactions.data.entry.customer' | translate }} {{'common.required' | translate }}
+              ">{{'transactions.data.entry.customercode' | translate }} {{'common.required' | translate }}
         </mat-error>
 
         <mat-error *ngIf="entryForm.controls['customer'].errors && 
         entryForm.controls['customer'].errors['invalidData'] &&
         entryForm.controls['customer'].touched
-              ">{{'transactions.data.entry.customer' | translate }} {{'common.invalid' | translate }}
+              ">{{'transactions.data.entry.customercode' | translate }} {{'common.invalid' | translate }}
         </mat-error> 
 
         <a matSuffix class="btn btn-sm btn-outline-primary d-print-none" role="button" aria-pressed="true" (click)="addNew($event, 'customer')">
@@ -175,32 +159,27 @@
       </mat-form-field>
     </div>
     <div class="col">
-      <mat-form-field class="full-width">
-        <mat-label>{{'transactions.data.entry.product' | translate }}</mat-label>
-        <!-- <mat-select formControlName="products" placeholder="{{'transactions.data.entry.product' | translate }}">
-          <mat-option *ngFor="let option of productsList" [value]="option.productCode">
-            {{option.productName}}
-          </mat-option>
-        </mat-select> -->
-        <input type="text" placeholder="{{'transactions.data.entry.product' | translate }}"  matInput
-          formControlName="products" name="products" [matAutocomplete]="autoProducts">
-        <mat-autocomplete #autoProducts="matAutocomplete">
+      <ng-container *ngIf="selectedGood ==='incoming'">
+
+        <mat-form-field class="full-width">
+          <mat-label>{{'transactions.data.entry.suppliername' | translate }}</mat-label>     
+  
+          <input type="text" placeholder="{{'transactions.data.entry.suppliername' | translate }}" matInput  
+          formControlName="supplierName" name="supplierName"  readonly>
+        </mat-form-field>
+
+      </ng-container>
+
+      <ng-container *ngIf="selectedGood ==='outgoing'">
+
+        <mat-form-field class="full-width">
+          <mat-label>{{'transactions.data.entry.customername' | translate }}</mat-label>     
+  
+          <input type="text" placeholder="{{'transactions.data.entry.customername' | translate }}" matInput  
+          formControlName="customerName" name="customerName"  readonly>
+        </mat-form-field>
         
-          <mat-option *ngFor="let option of filteredProductsList | async" [value]="option.productCode">
-            {{option.productName}}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error *ngIf="entryForm.controls['products'].errors && 
-        entryForm.controls['products'].errors['required'] &&
-        entryForm.controls['products'].touched
-              ">{{'transactions.data.entry.product' | translate }} {{'common.required' | translate }}
-        </mat-error>
-        <mat-error *ngIf="entryForm.controls['products'].errors && 
-        entryForm.controls['products'].errors['invalidData'] &&
-        entryForm.controls['products'].touched
-              ">{{'transactions.data.entry.product' | translate }} {{'common.invalid' | translate }}
-</mat-error>      
-      </mat-form-field>
+      </ng-container>
     </div>
   </div>
 
@@ -245,6 +224,31 @@
 
 
   <div class="row form-col">
+
+    <div class="col-md-4 col-sm-12">
+      <mat-form-field class="full-width">
+        <mat-label>{{'transactions.data.entry.product' | translate }}</mat-label>
+      
+        <input type="text" placeholder="{{'transactions.data.entry.product' | translate }}"  matInput
+          formControlName="products" name="products" [matAutocomplete]="autoProducts">
+        <mat-autocomplete #autoProducts="matAutocomplete">
+        
+          <mat-option *ngFor="let option of filteredProductsList | async" [value]="option.productName">
+            {{option.productName}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="entryForm.controls['products'].errors && 
+        entryForm.controls['products'].errors['required'] &&
+        entryForm.controls['products'].touched
+              ">{{'transactions.data.entry.product' | translate }} {{'common.required' | translate }}
+        </mat-error>
+        <mat-error *ngIf="entryForm.controls['products'].errors && 
+        entryForm.controls['products'].errors['invalidData'] &&
+        entryForm.controls['products'].touched
+              ">{{'transactions.data.entry.product' | translate }} {{'common.invalid' | translate }}
+</mat-error>      
+      </mat-form-field>
+    </div>
     <div class="col-md-4 col-sm-12">
       <mat-form-field class="full-width">
         <input matInput placeholder="{{'transactions.data.entry.pieces' | translate }}" formControlName="pieces" name="pieces" />
