@@ -94,13 +94,12 @@ export class GlobalConstants {
           menuIcon: 'local_shipping',
           routePath: 'vehicles',
         },
-        //   { menuName: 'Operator', menuIcon: '', routePath: 'operators' },
         {
           menuName: 'Nationality',
           menuIcon: '',
           routePath: 'nationality',
         },
-        { menuName: 'Reports', menuIcon: 'analytics' },
+        { menuName: 'Reports', menuIcon: 'analytics' , routePath: 'reports'},
       ];
     },
     getCurrentYear(): number {
