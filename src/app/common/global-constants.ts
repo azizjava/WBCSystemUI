@@ -201,6 +201,38 @@ export class GlobalConstants {
       var strTime = hours + ':' + minutes1 + ' ' + ampm;
       return strTime;
     },
+
+    getAdminReportsOption(): any[] {
+      let menu = [
+        { key: 'customers', value: 'List Of Customers' },
+        { key: 'suppliers', value: 'List Of Suppliers' },
+        { key: 'transporter', value: 'List Of Transporters' },
+        { key: 'products', value: 'List Of Products' },
+        { key: 'vehicles', value: 'List Of Vehicles' },
+        { key: 'customers', value: 'List Of Customers' },
+        { key: 'customerprice', value: 'Customer Price List' },
+        { key: 'supplierprice', value: 'Supplier Price List' },
+      ];
+      return menu;
+    },
+
+    getTransactionReportsOption(): any[] {
+      let menu = [
+        { key: 'customerreport', value: 'Report By Customer' },
+        { key: 'supplierreport', value: 'Report By Supplier' },
+        { key: 'vehiclereport', value: 'Report By Vehicle' },
+        { key: 'transporterreport', value: 'Report By Transporter' },
+        { key: 'productstock', value: 'Product Stock Status' },
+        { key: 'incomingprodcut', value: 'Incoming Products' },
+        { key: 'outgoingprodcut', value: 'Outgoing Products' },
+        { key: 'datereport', value: 'Report By Date' },
+        { key: 'datetimereport', value: 'Report By Date & Time' },
+        { key: 'loginhistory', value: 'Log In/Out History' },
+       
+      
+      ];
+      return menu;
+    },
   };
 }
 

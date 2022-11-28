@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
+import { InputFilterComponent } from './reportsfilter/inputfilter.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -18,6 +19,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     ReportsComponent,
+    InputFilterComponent
   ],
   imports: [
     CommonModule,
