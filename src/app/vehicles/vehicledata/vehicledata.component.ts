@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { map, Observable, startWith } from 'rxjs';
 import { findInvalidControls } from 'src/app/helper';
 import {
   modelDialog,
@@ -23,6 +24,7 @@ export class VehicleDataComponent implements OnInit {
   vehicleData!: Vehicle;
   public staticText: any = {};
   transPortersList!: TransporterList[];
+  filteredTransporterList: Observable<any[]>;
 
   private _hasChange: boolean = false;
 
@@ -68,6 +70,15 @@ export class VehicleDataComponent implements OnInit {
     this._getTransPortersList();
     this._getTranslatedText();
     this._onFormValueChange();
+    this._setAutoCompleteTransportersData();
+
+
+    this.vehicleForm.controls['transporterCode']?.valueChanges.subscribe(value => {
+      console.log(value);
+      if(this.vehicleForm.controls['transporterCode']?.hasError('invalidData')){
+        this.vehicleForm.controls['transporterName'].setValue("");
+      }
+    });
   }
 
   public close() {
@@ -123,10 +134,23 @@ export class VehicleDataComponent implements OnInit {
     this.vehicleForm.controls['transporterName'].setValue(name);
   }
 
+  public onTransporterChange(event: any) {    
+    const data = this.transPortersList.find((s: any) => s.transporterCode === this.vehicleForm.get('transporterCode')?.value);
+    this.vehicleForm.controls['transporterName'].setValue("");
+    if (data) {
+      this.vehicleForm.controls['transporterName'].setValue(data.nameOfTransporter);
+    }
+  }
+
   private _getTransPortersList(): any {
     this.transportersService.getAllTransporters().subscribe({
       next: (data: Transporter[]) => {
         this.transPortersList = data;
+        this.vehicleForm.get('transporterCode')?.addValidators([
+          Validators.required,
+          Validators.maxLength(50),
+          autocompleteObjectValidator(this.transPortersList, 'transporterCode'),
+        ]);
       },
       error: (error) => {
         console.log(error);
@@ -158,4 +182,33 @@ export class VehicleDataComponent implements OnInit {
       );
     });
   }
+
+  private _setAutoCompleteTransportersData() :void {
+    this.filteredTransporterList = this.vehicleForm.get('transporterCode')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.transPortersList,item,"transporterCode") : this.transPortersList?.slice())),
+    );   
+  }
+
+  private _filterData(list:any, value: string,key :string): any[] {
+    if (value === '') {
+      return list.slice();
+    }
+    
+    const filterValue = value?.toLowerCase();
+    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue));
+  }
+}
+
+  function autocompleteObjectValidator(listObj: any, keyName: string, ): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if(!control.value) { return null;}
+      let index = listObj?.findIndex((obj: any) => obj[keyName] === control.value);
+      if (index !== -1) {  return null; }
+  
+      return {     
+        invalidData: { value: control.value } 
+      };
+    };
 }
