@@ -29,3 +29,4 @@
 
 Add auto complete for transporter code in Vehicle screen - Todo
 
+Entry Screen - Add Customer size is more - Todo
