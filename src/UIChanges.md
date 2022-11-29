@@ -19,9 +19,13 @@
 
 11/26/2022
 
-1. Supplier Code & Supplier Name should be there ( search by Supplier Code) - Todo
+1. Supplier Code & Supplier Name should be there ( search by Supplier Code) - DONE
 
-2.Products and No of Pieces should be same line.
+2.Products and No of Pieces should be same line.- DONE
 
 3.First Weight should be Bottom and weight should top - DONE
+
+11/29/2022
+
+Add auto complete for transporter code in Vehicle screen - Todo
 
