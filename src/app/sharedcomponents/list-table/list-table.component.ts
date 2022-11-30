@@ -9,11 +9,13 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
 import { dateRange, tableOperation } from 'src/app/models';
 import { AuthenticationService } from 'src/app/services';
+import { DateAdapter } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-list-table',
   templateUrl: './list-table.component.html',
-  styleUrls: ['./list-table.component.scss'],
+  styleUrls: ['./list-table.component.scss'], 
 })
 export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,7 +43,8 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
 
   constructor(
     private translate: TranslateService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private dateAdapter: DateAdapter<Date>
   ) {
     this.authenticationService.currentUser.subscribe((x) => {
       if (x) {
@@ -49,6 +52,7 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
         translate.use(x?.language);
       }
     });
+    this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
   }
 
   public ngOnInit(): void {
@@ -127,8 +131,8 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   ) {
     if (dateRangeEnd.value) {
       const dataRage: dateRange = {
-        startDate: GlobalConstants.commonFunction.getFormattedSelectedDate(new Date(dateRangeStart.value)),
-        endDate:GlobalConstants.commonFunction.getFormattedSelectedDate(new Date(dateRangeEnd.value)),
+        startDate: dateRangeStart.value,
+        endDate:dateRangeEnd.value,
       };
       this.dateSelectionEvent.emit(dataRage);
     }
