@@ -74,7 +74,10 @@ export class entryDataComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.entryForm = this._formBuilder.group({
-      sequenceNo: [0, [Validators.required, Validators.maxLength(50)]],
+      sequenceNo: [{
+        value: 0,
+        disabled: true,
+      } ],
       vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
       transporter: [
         { value: '', disabled: true },

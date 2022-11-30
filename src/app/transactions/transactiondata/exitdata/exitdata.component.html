@@ -33,13 +33,9 @@
     <div class="row form-col">
       <div class="col">
         <mat-form-field class="full-width">
-          <input matInput placeholder="{{'transactions.data.entry.sequenceno' | translate }}" formControlName="sequenceNo"
+          <input [readonly]="true" matInput placeholder="{{'transactions.data.entry.sequenceno' | translate }}" formControlName="sequenceNo"
             name="sequenceNo" />
-          <mat-error *ngIf="exitForm.controls['sequenceNo'].errors && 
-          exitForm.controls['sequenceNo'].errors['required'] &&
-          exitForm.controls['sequenceNo'].touched
-                      ">{{'transactions.data.entry.sequenceno' | translate }} {{'common.required' | translate }}
-          </mat-error>
+         
         </mat-form-field>
       </div>
       <div class="col">

@@ -44,7 +44,10 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.exitForm = this._formBuilder.group({
-      sequenceNo: [this.sequenceno, [Validators.required, Validators.maxLength(50)]],
+      sequenceNo: [{
+        value:this.sequenceno ?? 0,
+        disabled: true,
+      } ],
       secondWeight: ['', [Validators.required, Validators.maxLength(50)]],
       dateOut: [
         {

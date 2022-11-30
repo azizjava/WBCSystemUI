@@ -27,6 +27,10 @@
 
 11/29/2022
 
-Add auto complete for transporter code in Vehicle screen - Todo
+Add auto complete for transporter code in Vehicle screen - DONE
 
-Entry Screen - Add Customer size is more - Todo
+Entry Screen - Add Customer size is more - DONE
+
+Entry & Exit screen - Make sequenceno readonly - DONE
+
+Add auto complete In Nationality screen - DONE
