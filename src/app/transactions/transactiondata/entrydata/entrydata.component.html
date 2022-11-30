@@ -203,17 +203,25 @@
       </mat-form-field>
     </div>
     <div class="col">
-      <mat-form-field class="full-width">
-        <mat-select formControlName="nationality" name="nationality" placeholder="{{'transactions.data.entry.nationality' | translate }}">
-          <mat-option *ngFor="let option of nationalityList" [value]="option.driverNationalityCode">
+      <mat-form-field class="full-width">        
+        <input type="text" placeholder="{{'transactions.data.entry.nationality' | translate }}" matInput
+          formControlName="nationality" name="nationality" [matAutocomplete]="autoNationality" >
+        <mat-autocomplete #autoNationality="matAutocomplete">
+      
+          <mat-option *ngFor="let option of filteredNationalityList | async" [value]="option.driverNationalityName">
             {{option.driverNationalityName}}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete> 
         <mat-error *ngIf="entryForm.controls['nationality'].errors && 
         entryForm.controls['nationality'].errors['required'] &&
         entryForm.controls['nationality'].touched
               ">{{'transactions.data.entry.nationality' | translate }} {{'common.required' | translate }}
         </mat-error>
+        <mat-error *ngIf="entryForm.controls['nationality'].errors && 
+        entryForm.controls['nationality'].errors['invalidData'] &&
+        entryForm.controls['nationality'].touched
+              ">{{'transactions.data.entry.nationality' | translate }} {{'common.invalid' | translate }}
+        </mat-error> 
       </mat-form-field>
     </div>
   </div>

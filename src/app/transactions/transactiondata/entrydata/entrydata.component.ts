@@ -45,6 +45,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   filteredProductsList: Observable<any[]>;
   filteredSupplierList: Observable<any[]>;
   filteredCustomerList: Observable<any[]>;
+  filteredNationalityList: Observable<any[]>;
   selectedGood: string = '';  
 
   constructor(
@@ -180,7 +181,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           this.authenticationService.currentUserValue.userName,
         firstWeight: result.firstWeight,
         goodsType: this.selectedGood,
-        nationality: result.nationality,
+        nationality: this._getSelectedValue(this.nationalityList,result.nationality,"driverNationalityName", "driverNationalityCode"),
         noOfPieces: result.pieces,
         productCode: this._getSelectedValue(this.productsList,result.products,"productName", "productCode"),
         supplierCode: result.supplier,
@@ -351,6 +352,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this._setAutoCompleteProductData();
     this._setAutoCompleteSupplierData();
     this._setAutoCompleteCustomerData();
+    this._setAutoCompleteNationalityData();
   }
 
   private getAllVehicles(newRecord?: Vehicle): void {
@@ -379,6 +381,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.transporterService.getAllTransporters().subscribe({
       next: (data: Transporter[]) => {
         this.transportersList = data;
+        
       },
       error: (error) => {
         console.log(error);
@@ -388,9 +391,16 @@ export class entryDataComponent implements OnInit, OnChanges {
   }
 
   private getAllNationalities(): void {
+    const nationalityControl = this.entryForm.get('nationality');
     this.nationalityService.getAllDriverNationalities().subscribe({
       next: (data: Nationality[]) => {
-        this.nationalityList = data;
+        this.nationalityList = data;        
+        nationalityControl?.clearValidators();
+        nationalityControl?.setValue(
+          this._getSelectedValue(this.nationalityList,this.transactionData?.dailyTransactionEntry?.nationality,"driverNationalityCode" ,"driverNationalityName" ), 
+        );
+        nationalityControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.nationalityList, 'driverNationalityName')]);
+        nationalityControl?.updateValueAndValidity();
       },
       error: (error) => {
         console.log(error);
@@ -410,7 +420,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           supplierName?.setValue(this._getSelectedValue(this.suppliersList,newRecord?.supplierCode,"supplierCode", "supplierName"));
         }
         else{
-          supplierName?.setValue(this._getSelectedValue(this.suppliersList,this.transactionData.dailyTransactionEntry?.supplierCode,"supplierCode", "supplierName"));  
+          supplierName?.setValue(this._getSelectedValue(this.suppliersList,this.transactionData?.dailyTransactionEntry?.supplierCode,"supplierCode", "supplierName"));  
         }                
         supplierControl?.clearValidators();
         supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.suppliersList, 'supplierCode')]);
@@ -428,7 +438,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.productService.getAllProducts().subscribe({
       next: (data: Product[]) => {
         this.productsList = data;
-        productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData.dailyTransactionEntry.productCode,"productCode","productName"));
+        productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
         productsControl?.clearValidators();
         productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
         productsControl?.updateValueAndValidity();
@@ -455,7 +465,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           customerName?.setValue(this._getSelectedValue(this.customersList,newRecord?.customerCode,"customerCode", "customerName"));
         }
         else{
-          customerName?.setValue(this._getSelectedValue(this.customersList,this.transactionData.dailyTransactionEntry?.customerCode,"customerCode", "customerName"));  
+          customerName?.setValue(this._getSelectedValue(this.customersList,this.transactionData?.dailyTransactionEntry?.customerCode,"customerCode", "customerName"));  
         }  
         
         customerControl?.clearValidators();
@@ -506,7 +516,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         this.selectedGood = data.dailyTransactionEntry.goodsType;
         this.keyValueData = data.dailyTransactionEntry.entryKeyPairs;
         this.entryForm.controls['nationality'].setValue(
-          +data.dailyTransactionEntry?.nationality
+          data.dailyTransactionEntry?.nationality
         );
         this.entryForm.controls['pieces'].setValue(
           data.dailyTransactionEntry.noOfPieces
@@ -580,6 +590,14 @@ export class entryDataComponent implements OnInit, OnChanges {
     );   
   }
 
+  private _setAutoCompleteNationalityData() :void {
+    this.filteredNationalityList = this.entryForm.get('nationality')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.nationalityList,item,"driverNationalityName") : this.nationalityList.slice())),
+    );   
+  }
+
   
 
   private _filterData(list:any, value: string,key :string): any[] {
@@ -595,7 +613,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     if (list) {
       const filterValue = value?.toLowerCase();
       const filterList = list.find((item: any) =>
-        item[key].toLowerCase().includes(filterValue)
+        item[key].toString().toLowerCase().includes(filterValue)
       );
       return (filterList && filterList[returnKey]) ?? '';
     }
