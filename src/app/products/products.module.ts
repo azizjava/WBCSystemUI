@@ -10,7 +10,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ProductDataComponent } from './productsdata/productdata.component';
 import { ProductsComponent } from './products.component';
 import { ProductsRoutingModule } from './products-routing.module';
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,7 +21,6 @@ export function createTranslateLoader(http: HttpClient) {
    ProductsComponent
   ],
   imports: [
-    AngularMultiSelectModule,
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
