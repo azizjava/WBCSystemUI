@@ -38,9 +38,9 @@ Add auto complete In Nationality screen - DONE
 
 12/5/2022
 
-Add vehicle default weight field inside vehicle screen
+Add vehicle default weight field inside vehicle screen - DONE
 
-Remove Product Group
+Remove Product Group - DONE
 
 Add Supplier Product & Customer Product (Supplier Product Code, Supplier Product Name,Supplier Product Price)
 
