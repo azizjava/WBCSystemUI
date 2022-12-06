@@ -42,7 +42,7 @@ Add vehicle default weight field inside vehicle screen - DONE
 
 Remove Product Group - DONE
 
-Add Supplier Product & Customer Product (Supplier Product Code, Supplier Product Name,Supplier Product Price)
+Add Supplier Product & Customer Product (Supplier Product Code, Supplier Product Name,Supplier Product Price) - DONE
 
 Daily transaction screen Supplier code can searched by code or Name ( Same applicable for Customer as well)
 

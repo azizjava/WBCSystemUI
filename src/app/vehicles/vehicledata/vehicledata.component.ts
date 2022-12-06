@@ -52,7 +52,7 @@ export class VehicleDataComponent implements OnInit {
       this.vehicleData = this.data?.data;
       this.vehicleForm.controls['plateNo'].setValue(this.vehicleData?.plateNo);
       this.vehicleForm.controls['type'].setValue(this.vehicleData?.vehicleType);
-      this.vehicleForm.controls['defaultWeight'].setValue(this.vehicleData?.defaultWeight ?? 0);
+      this.vehicleForm.controls['defaultWeight'].setValue(this.vehicleData?.vehicleWeight ?? 0);
       this.vehicleForm.controls['transporterCode'].setValue(
         this.vehicleData?.transporters?.transporterCode
       );
@@ -99,7 +99,7 @@ export class VehicleDataComponent implements OnInit {
       plateNo: result.plateNo,
       vehicleType: result.type,
       transporterCode: result.transporterCode,
-      defaultWeight:result.defaultWeight ?? 0,
+      vehicleWeight:result.defaultWeight ?? 0,
     };
 
     if (this.data.actionName === 'add') {
@@ -115,7 +115,7 @@ export class VehicleDataComponent implements OnInit {
     } else if (this.data.actionName === 'edit') {
       if (this._hasChange) {
         newRecord.plateNo = this.vehicleData?.plateNo;
-        this.httpService.updateVehicle(newRecord.plateNo, newRecord).subscribe({
+        this.httpService.updateVehicle(newRecord).subscribe({
           next: (res) => {
             this.dialogRef.close(res);
           },

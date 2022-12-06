@@ -25,7 +25,6 @@ import { CustomerProductsService } from '../customerproducts.service';
 export class ProductDataComponent implements OnInit, AfterViewChecked {
   public form: UntypedFormGroup;
   public productData!: Product;
-  public productGroupsList: any = [];
   public dropdownSettings: any = {};
   public staticText: any = {};
   private _hasChange: boolean = false;
@@ -81,12 +80,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     this.changeDetector.detectChanges();
   }
 
-  public OnSelectionChange(event: any) {
-    const name =
-      this.productGroupsList.filter((s: any) => s.groupCode === event.value)[0]
-        ?.groupName || '';
-    this.form.controls['groupName'].setValue(name);
-  }
+  
 
   public onItemSelect(item: any) {
     console.log(item);

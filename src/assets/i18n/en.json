@@ -121,7 +121,7 @@
 		"tbl_header":{
 			"productcode":"Product Code",
 			"productname":"Product Name",
-			"productprice":"Product Price",
+			"productprice":"Product Price/Ton",
 			"productgroupname":"Product Group",
 			"actions":"Actions",
 			"selectgroup":"Select Product group"

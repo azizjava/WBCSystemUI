@@ -119,7 +119,7 @@
 		"tbl_header":{
 			"productcode":"كود المنتج",
 			"productname":"اسم المنتج",
-			"productprice":"سعر المنتج",
+			"productprice":"سعر المنتج / طن",
 			"productgroupname":"مجموعة المنتجات",
 			"actions":"عمل",
 			"selectgroup":"حدد مجموعة المنتجات"
