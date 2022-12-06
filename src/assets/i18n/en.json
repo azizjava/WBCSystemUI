@@ -138,6 +138,7 @@
 		"tbl_header":{
 			"plateno":"Vehicle Plate No.",
 			"vehicletype":"Vehicle Type",
+			"vehicleweight":"Vehicle Weight",
 			"transportercode":"Vehicle Transporter Code",
 			"transportername":"Vehicle Transporter Name",
 			"actions":"Actions",

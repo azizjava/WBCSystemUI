@@ -45,12 +45,14 @@ export class VehicleDataComponent implements OnInit {
       type: ['', [Validators.required,Validators.maxLength(30)]],
       transporterCode: ['', [Validators.required]],
       transporterName: [{value:'', disabled:true}, [Validators.required]],
+      defaultWeight: [0, [Validators.required]],
     });
 
     if (this.data.actionName !== 'add') {
       this.vehicleData = this.data?.data;
       this.vehicleForm.controls['plateNo'].setValue(this.vehicleData?.plateNo);
       this.vehicleForm.controls['type'].setValue(this.vehicleData?.vehicleType);
+      this.vehicleForm.controls['defaultWeight'].setValue(this.vehicleData?.defaultWeight ?? 0);
       this.vehicleForm.controls['transporterCode'].setValue(
         this.vehicleData?.transporters?.transporterCode
       );
@@ -97,6 +99,7 @@ export class VehicleDataComponent implements OnInit {
       plateNo: result.plateNo,
       vehicleType: result.type,
       transporterCode: result.transporterCode,
+      defaultWeight:result.defaultWeight ?? 0,
     };
 
     if (this.data.actionName === 'add') {
@@ -165,7 +168,8 @@ export class VehicleDataComponent implements OnInit {
         plateno: this.translate.instant('vehicles.tbl_header.plateno'),
         vehicletype: this.translate.instant('vehicles.tbl_header.vehicletype'),
         transportercode: this.translate.instant('vehicles.tbl_header.transportercode'),
-        transportername: this.translate.instant('vehicles.tbl_header.transportername'),       
+        transportername: this.translate.instant('vehicles.tbl_header.transportername'),   
+        vehicleweight: this.translate.instant('vehicles.tbl_header.vehicleweight'),   
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),
         cancel: this.translate.instant('actions.cancel'),
