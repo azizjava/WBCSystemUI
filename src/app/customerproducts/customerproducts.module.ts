@@ -7,9 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ProductDataComponent } from './productsdata/productdata.component';
-import { ProductsComponent } from './products.component';
-import { ProductsRoutingModule } from './products-routing.module';
+import { CustomerProductsComponent } from './customerproducts.component';
+import { ProductsRoutingModule } from './customerproducts-routing.module';
+import { ProductDataComponent } from './customerproductdata/productdata.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -18,7 +18,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
    ProductDataComponent,
-   ProductsComponent
+   CustomerProductsComponent
   ],
   imports: [
     CommonModule,

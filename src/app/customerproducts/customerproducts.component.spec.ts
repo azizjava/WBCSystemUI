@@ -3,18 +3,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductsComponent } from './products.component';
+import { CustomerProductsComponent } from './customerproducts.component';
 
 
-describe('ProductsComponent', () => {
-  let component: ProductsComponent;
-  let fixture: ComponentFixture<ProductsComponent>;
+describe('CustomerProductsComponent', () => {
+  let component: CustomerProductsComponent;
+  let fixture: ComponentFixture<CustomerProductsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[HttpClientModule,       
         TranslateModule.forRoot()],
-      declarations: [ ProductsComponent ],
+      declarations: [ CustomerProductsComponent ],
       providers:[
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialog, useValue: {} },
@@ -24,7 +24,7 @@ describe('ProductsComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductsComponent);
+    fixture = TestBed.createComponent(CustomerProductsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

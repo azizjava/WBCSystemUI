@@ -27,7 +27,7 @@
 
   <div class="row mb-2">
 
-    <div class="col">
+    <div class="col-md-6">
       <mat-form-field class="full-width">
         <mat-label>{{staticText.productprice}}</mat-label>
         <input matInput placeholder="{{staticText.productprice}}" formControlName="productPrice" name="productPrice" />
@@ -44,15 +44,7 @@
       </mat-error>
       
       </mat-form-field>
-    </div>
-
-    <div class="col">
-
-      <angular2-multiselect [data]="productGroupsList"  appendTo="body" [settings]="dropdownSettings"
-         formControlName="groupCode"  [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
-        (onSelectAll)="onSelectAll($event)">
-      </angular2-multiselect>
-    </div>
+    </div>  
 
     
   </div>

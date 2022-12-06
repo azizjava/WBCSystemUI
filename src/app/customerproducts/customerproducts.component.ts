@@ -2,22 +2,21 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
-import { modelDialog, Product, ProductGroup, tableOperation, Vehicle } from '../models';
+import { modelDialog, Product,  tableOperation, Vehicle } from '../models';
 import { AlertService } from '../services';
-import { ProductsService } from './products.service';
-import { ProductDataComponent } from './productsdata/productdata.component';
+import { CustomerProductsService } from './customerproducts.service';
+import { ProductDataComponent } from './customerproductdata/productdata.component';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  templateUrl: './customerproducts.component.html',
+  styleUrls: ['./customerproducts.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class CustomerProductsComponent implements OnInit {
   tblColumns: string[] = [
     'productCode',
     'productName',
     'productPrice',
-    'productGroupName',
     'Actions',
   ];
   tableData: any = [];
@@ -29,7 +28,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
-    private httpService: ProductsService,
+    private httpService: CustomerProductsService,
     private alertService: AlertService
   ) {}
 
@@ -116,11 +115,7 @@ export class ProductsComponent implements OnInit {
   private getAllProducts(): void {
     this.httpService.getAllProducts().subscribe({
       next: (data: Product[]) => {
-        this.tableData = data;
-        this.tableData.forEach((productData: any) => {         
-          productData.productGroupName = productData.productGroup
-          .map((pg: ProductGroup) => { return pg.groupName; }).join(',');
-        });
+        this.tableData = data;       
       },
       error: (error) => {
         console.log(error);

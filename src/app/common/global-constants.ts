@@ -83,12 +83,8 @@ export class GlobalConstants {
           menuIcon: '',
           routePath: 'transporters',
         },
-        { menuName: 'Product', menuIcon: '', routePath: 'products' },
-        {
-          menuName: 'Product Group',
-          menuIcon: '',
-          routePath: 'productgroup',
-        },
+        { menuName: 'CustomerProduct', menuIcon: '', routePath: 'customerproducts' },
+        { menuName: 'SupplierProduct', menuIcon: '', routePath: 'supplierproducts' },
         {
           menuName: 'Vehicles',
           menuIcon: 'local_shipping',

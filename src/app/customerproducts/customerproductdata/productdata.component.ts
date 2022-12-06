@@ -13,10 +13,9 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
-import { modelDialog, Product, ProductGroup } from 'src/app/models';
-import { ProductGroupsService } from 'src/app/productsgroup/productgroups.service';
+import { modelDialog, Product} from 'src/app/models';
 import { AlertService } from 'src/app/services';
-import { ProductsService } from '../products.service';
+import { CustomerProductsService } from '../customerproducts.service';
 
 @Component({
   selector: 'app-productdata',
@@ -28,21 +27,18 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
   public productData!: Product;
   public productGroupsList: any = [];
   public dropdownSettings: any = {};
-  public selectedItems: ProductGroup[] = [];
   public staticText: any = {};
   private _hasChange: boolean = false;
 
   constructor(
     private _formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<ProductDataComponent>,
-    private pgService: ProductGroupsService,
     private alertService: AlertService,
-    private httpService: ProductsService,
+    private httpService: CustomerProductsService,
     private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog,
     private changeDetector: ChangeDetectorRef
   ) {
-    this._getTransPortersList();
   }
 
   ngOnInit(): void {
@@ -71,8 +67,6 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       this.form.controls['productCode'].setValue(this.productData?.productCode);
       this.form.controls['productName'].setValue(this.productData?.productName);
       this.form.controls['productPrice'].setValue(this.productData?.productPrice.toString());
-
-      this.selectedItems = this.productData?.productGroup;
 
       if (this.data.actionName === 'view') {
         this.form.disable();
@@ -121,7 +115,6 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       productCode: result.productCode,
       productName: result.productName,
       productPrice: result.productPrice,
-      productGroup: this.selectedItems,
     };
 
     if (this.data.actionName === 'add') {
@@ -179,15 +172,5 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  private _getTransPortersList(): any {
-    this.pgService.getAllProductGroups().subscribe({
-      next: (data: any) => {
-        this.productGroupsList = data;
-      },
-      error: (error: string) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });
-  }
+ 
 }
