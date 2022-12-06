@@ -5,5 +5,6 @@ export class Vehicle {
     public plateNo:string;
     public vehicleType: string;
     transporters: Transporter;
+    defaultWeight: number;
   }
   
