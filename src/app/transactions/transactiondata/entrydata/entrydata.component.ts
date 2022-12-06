@@ -7,10 +7,10 @@ import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
 import { CustomerdataComponent } from 'src/app/customer/customerdata/customerdata.component';
 import { CustomersService } from 'src/app/customer/Customers.service';
+import { CustomerProductsService } from 'src/app/customerproducts/customerproducts.service';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { Customer, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { NationalityService } from 'src/app/nationality/nationality.service';
-import { ProductsService } from 'src/app/products/products.service';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { SupplierdataComponent } from 'src/app/suppliers/supplierdata/supplierdata.component';
 import { SuppliersService } from 'src/app/suppliers/suppliers.service';
@@ -53,7 +53,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     private _formBuilder: UntypedFormBuilder,
     private transporterService: TransportersService,
     private vehiclesService: VehiclesService,
-    private productService: ProductsService,
+    private productService: CustomerProductsService,
     private nationalityService: NationalityService,
     private alertService: AlertService,
     private supplierService: SuppliersService,

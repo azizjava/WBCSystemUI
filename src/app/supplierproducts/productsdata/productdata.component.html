@@ -1,0 +1,65 @@
+<form class="product-form" [formGroup]="form">
+  <div class="row mb-2">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.productcode}}</mat-label>
+        <input matInput placeholder="{{staticText.productcode}}" formControlName="productCode" name="productCode" />
+        <mat-error *ngIf="form.controls['productCode'].errors && 
+          form.controls['productCode'].errors['required'] &&
+          form.controls['productCode'].touched
+                ">{{staticText.productcode}} {{staticText.required}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.productname}}</mat-label>
+        <input matInput placeholder="{{staticText.productname}}" formControlName="productName" name="productName" />
+        <mat-error *ngIf="form.controls['productName'].errors && 
+          form.controls['productName'].errors['required'] &&
+          form.controls['productName'].touched
+                ">{{staticText.productname}} {{staticText.required}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+
+    <div class="col-md-6">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.productprice}}</mat-label>
+        <input matInput placeholder="{{staticText.productprice}}" formControlName="productPrice" name="productPrice" />
+        <mat-error *ngIf="form.controls['productPrice'].errors &&
+          form.controls['productPrice'].errors['required'] &&
+          form.controls['productPrice'].touched
+                ">{{staticText.productprice}} {{staticText.required}}
+        </mat-error>
+
+        <mat-error *ngIf="form.controls['productPrice'].errors &&
+        form.controls['productPrice'].errors['invalidNumberFormat'] &&
+        form.controls['productPrice'].touched
+              "> {{staticText.productprice}} {{'common.invalid' | translate }}
+      </mat-error>
+      
+      </mat-form-field>
+    </div>  
+
+    
+  </div>
+
+
+  <div class="d-flex justify-content-between w-100">
+
+    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
+      mat-button (click)="save()">
+      {{staticText.save}}
+    </button>
+
+    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      {{staticText.cancel}}
+    </button>
+
+  </div>
+</form>
