@@ -609,7 +609,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredSupplierList = this.entryForm.get('supplier')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.suppliersList,item,"supplierCode") : this.suppliersList.slice())),
+      map((item :any)=> (item ? this._filterData(this.suppliersList,item,"supplierCode", "supplierName") : this.suppliersList.slice())),
     );   
   }
 
@@ -617,7 +617,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredCustomerList = this.entryForm.get('customer')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.customersList,item,"customerCode") : this.customersList.slice())),
+      map((item :any)=> (item ? this._filterData(this.customersList,item,"customerCode","customerName") : this.customersList.slice())),
     );   
   }
 
@@ -631,13 +631,13 @@ export class entryDataComponent implements OnInit, OnChanges {
 
   
 
-  private _filterData(list:any, value: string,key :string): any[] {
+  private _filterData(list:any, value: string,key :string, nameSearch:string =''): any[] {
     if (value === '') {
       return list.slice();
     }
     
     const filterValue = value?.toLowerCase();
-    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue));
+    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue) || nameSearch && item[nameSearch].toLowerCase().includes(filterValue) );
   }
 
   private _getSelectedValue(list:any, value: string, key :string, returnKey:string): string {
