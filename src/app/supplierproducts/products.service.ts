@@ -12,12 +12,12 @@ export class SupplierProductsService {
   public baseURL : string;
 
   constructor(private http: HttpClient, backend: HttpBackend) {
-    this.baseURL = environment.baseURL +'/product';
+    this.baseURL = environment.baseURL +'/supplierProduct';
   }
    
   getAllProducts(): Observable<Product[]> {
     return this.http
-      .get<Product[]>(`${this.baseURL}/findAllProducts`);      
+      .get<Product[]>(`${this.baseURL}/listAllProduct`);      
   }
 
   getProductById(id: any): Observable<Product> {
@@ -30,8 +30,8 @@ export class SupplierProductsService {
   }
  
 
-  updateProduct(id: any, data: Product): Observable<any> {
-    return this.http.put(`${this.baseURL}/update/${id}`, data);
+  updateProduct(data: Product): Observable<any> {
+    return this.http.put(`${this.baseURL}/update/`, data);
   }
 
   deleteProduct(id: any): Observable<any> {

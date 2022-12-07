@@ -125,7 +125,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       if (this._hasChange) {
         newRecord.productCode = this.productData?.productCode;
         this.httpService
-          .updateProduct(newRecord.productCode, newRecord)
+          .updateProduct(newRecord)
           .subscribe({
             next: (res) => {
               this.dialogRef.close(res);
