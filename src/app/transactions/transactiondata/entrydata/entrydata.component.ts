@@ -12,6 +12,7 @@ import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { Customer, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { NationalityService } from 'src/app/nationality/nationality.service';
 import { AlertService, AuthenticationService } from 'src/app/services';
+import { SupplierProductsService } from 'src/app/supplierproducts/products.service';
 import { SupplierdataComponent } from 'src/app/suppliers/supplierdata/supplierdata.component';
 import { SuppliersService } from 'src/app/suppliers/suppliers.service';
 import { TransportersService } from 'src/app/transporters/transporters.service';
@@ -46,14 +47,17 @@ export class entryDataComponent implements OnInit, OnChanges {
   filteredSupplierList: Observable<any[]>;
   filteredCustomerList: Observable<any[]>;
   filteredNationalityList: Observable<any[]>;
-  selectedGood: string = '';  
+  selectedGood: string = '';
+  suppProductsList: any = [];
+  custProductsList: any = [];
 
   constructor(
     private httpService: TransactionsService,
     private _formBuilder: UntypedFormBuilder,
     private transporterService: TransportersService,
     private vehiclesService: VehiclesService,
-    private productService: CustomerProductsService,
+    private custProductService: CustomerProductsService,
+    private suppProductService: SupplierProductsService,
     private nationalityService: NationalityService,
     private alertService: AlertService,
     private supplierService: SuppliersService,
@@ -254,16 +258,22 @@ export class entryDataComponent implements OnInit, OnChanges {
   public onChange(event: any) {
     const supplierControl = this.entryForm.get('supplier');
     const customerControl = this.entryForm.get('customer');
+    const productsControl = this.entryForm.get('products');
 
     if (this.selectedGood === 'incoming') {
+      this.productsList = this.suppProductsList;
       supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.suppliersList, 'supplierCode')]);
       customerControl?.clearValidators();
       
-    } else {   
+    } else {
+      this.productsList = this.custProductsList;
       customerControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.customersList, 'customerCode')]);
       supplierControl?.clearValidators();
     }
 
+    productsControl?.clearValidators();
+    productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
+    productsControl?.updateValueAndValidity();
     supplierControl?.updateValueAndValidity();
     customerControl?.updateValueAndValidity();   
   }
@@ -433,21 +443,42 @@ export class entryDataComponent implements OnInit, OnChanges {
     });
   }
 
-  private getAllProducts(): void {
+  private getAllProducts() {
     const productsControl = this.entryForm.get('products');
-    this.productService.getAllProducts().subscribe({
+
+   this.suppProductService.getAllProducts().subscribe({
       next: (data: Product[]) => {
-        this.productsList = data;
-        productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
-        productsControl?.clearValidators();
-        productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
-        productsControl?.updateValueAndValidity();
+        this.suppProductsList = data;        
+        if (this.selectedGood === 'incoming') {
+          this.productsList = this.suppProductsList;
+          productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
+          productsControl?.clearValidators();
+          productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
+          productsControl?.updateValueAndValidity();
+      }       
       },
       error: (error) => {
         console.log(error);
         this.alertService.error(error);
       },
     });
+
+    this.custProductService.getAllProducts().subscribe({
+      next: (data: Product[]) => {
+        this.custProductsList = data;
+        if (this.selectedGood !== 'incoming') {
+          this.productsList = this.custProductsList;
+          productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
+          productsControl?.clearValidators();
+          productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
+          productsControl?.updateValueAndValidity();
+        } 
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });    
   }
 
   private getAllCustomers(newRecord?: Customer): void {
