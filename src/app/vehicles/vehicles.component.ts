@@ -16,6 +16,7 @@ export class VehiclesComponent implements OnInit {
   tblColumns: string[] = [
     'plateNo',
     'vehicleType',
+    'vehicleWeight',
     'transporterCode',
     'transporterName',
     'Actions',
@@ -120,6 +121,7 @@ export class VehiclesComponent implements OnInit {
         this.tableData = data.map((data: Vehicle) => ({
           plateNo: data.plateNo,
           vehicleType: data.vehicleType,
+          vehicleWeight: data.vehicleWeight,
           transporterCode: data?.transporters?.transporterCode,
           transporterName: data?.transporters?.nameOfTransporter,
         }));
