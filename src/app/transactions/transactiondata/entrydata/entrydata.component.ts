@@ -1,6 +1,6 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
@@ -136,13 +136,11 @@ export class entryDataComponent implements OnInit, OnChanges {
       });
 
       this.entryForm.controls['supplier']?.valueChanges.subscribe(value => {
-        console.log(value);
         if(this.entryForm.controls['supplier']?.hasError('invalidData')){
           this.entryForm.controls['supplierName'].setValue("");
         }
       });
       this.entryForm.controls['customer']?.valueChanges.subscribe(value => {
-        console.log(value);
         if(this.entryForm.controls['customer']?.hasError('invalidData')){
           this.entryForm.controls['customerName'].setValue("");
         }
@@ -203,7 +201,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         next: (res) => {
           console.log(res);
           this.alertService.success(
-            `${result.sequenceNo} updated successfully`
+            `${res.sequenceNo} updated successfully`
           );
         },
         error: (error) => {
@@ -433,7 +431,9 @@ export class entryDataComponent implements OnInit, OnChanges {
           supplierName?.setValue(this._getSelectedValue(this.suppliersList,this.transactionData?.dailyTransactionEntry?.supplierCode,"supplierCode", "supplierName"));  
         }                
         supplierControl?.clearValidators();
+        if (this.selectedGood === 'incoming') {
         supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.suppliersList, 'supplierCode')]);
+        }
         supplierControl?.updateValueAndValidity();
       },
       error: (error) => {
@@ -577,7 +577,6 @@ export class entryDataComponent implements OnInit, OnChanges {
       const controls = this.entryForm.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          console.log(controls[name]);
           this.entryForm.controls[name].markAllAsTouched();
           this.entryForm.controls[name].markAsDirty();
         }
@@ -650,7 +649,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     }
 
     return "";
-  }
+  }  
 }
 
 
