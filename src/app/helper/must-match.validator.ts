@@ -25,7 +25,16 @@ export function patternNumberValidator(): ValidatorFn {
       if (!control.value) {
         return null;
       }
-      const valid = control.value.match(/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?$/);
+      let valid ;
+      if (typeof control.value === 'number') {
+        valid = control.value
+          .toString()
+          .match(/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?$/);
+      } else {
+        valid = control.value.match(
+          /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?$/
+        );
+      }
       return valid ? null : { invalidNumberFormat: true };
     };
   }
