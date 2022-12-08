@@ -76,7 +76,8 @@
 		"Operator": "المشغل أو العامل",
 		"Nationality": "جنسية",
 		"Product prices": "أسعار المنتجات",
-		"Reports": "التقارير"
+		"Reports": "التقارير",
+		"WeighBridgeSetting":"وزن إعدادات الجسر"
 	},
 	
 	"customers":{

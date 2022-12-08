@@ -95,6 +95,7 @@ export class GlobalConstants {
           menuIcon: '',
           routePath: 'nationality',
         },
+        { menuName: 'WeighBridgeSetting', menuIcon: 'settings' , routePath: 'weighbridgesetting'},
         { menuName: 'Reports', menuIcon: 'analytics' , routePath: 'reports'},
       ];
     },

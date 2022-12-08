@@ -338,6 +338,7 @@
   padding-bottom: 0.75rem;
   position: relative;
   cursor: pointer;
+  padding-inline: .75rem;
 }
 .sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
   font-size: 0.9rem;
@@ -417,4 +418,8 @@
   i{
     color:#000000 !important;
   }
+}
+
+.maticon-size{
+   font-size: 20px;
 }

@@ -79,7 +79,8 @@
 		"Operator": "Operator",
 		"Nationality": "Nationality",
 		"Product prices": "Product prices",
-		"Reports": "Reports"
+		"Reports": "Reports",
+		"WeighBridgeSetting":"Weigh Bridge Settings"
 	},
 	"customers":{
 		"tbl_header":{

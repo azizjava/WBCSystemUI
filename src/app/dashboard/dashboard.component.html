@@ -49,10 +49,10 @@
 
                             <a class="nav-link" (click)="navigateToRoute(item)"
                                 [class.is-active-route]="isActive(item.routePath)">
-                                <div class="sb-nav-link-icon">
+                                <div class="sb-nav-link-icon me-2">
                                     <i *ngIf="!item.menuIcon" class="fas fa-table"></i>
                                     <i *ngIf="item.menuIcon"
-                                        class="material-icons me-1 valign-sub">{{item.menuIcon}}</i>
+                                        class="material-icons maticon-size valign-sub">{{item.menuIcon}}</i>
                                 </div>
                                 {{ item.menuName }}
                             </a>

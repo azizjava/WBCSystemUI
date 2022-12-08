@@ -16,9 +16,9 @@ const routes: Routes = [
       { path: 'reports', loadChildren: () => import('../reports/reports.module').then(m => m.ReportsModule) },
       { path: 'customers', loadChildren: () => import('../customer/customers.module').then(m => m.CustomersModule) },
       { path: 'suppliers', loadChildren: () => import('../suppliers/suppliers.module').then(m => m.SuppliersModule) },
-
+      { path: 'weighbridgesetting', loadChildren: () => import('../weighbridgesetting/weighbridgesetting.module').then(m => m.WeighbridgesettingModule) },
     ]
-  },
+  },  
 
 
 ];

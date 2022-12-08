@@ -48,3 +48,7 @@ Daily transaction screen Supplier code can searched by code or Name ( Same appli
 
 Daily transaction screen if suplier is selected , product should fecth from supplier product - DONE
 
+
+12/8/2022
+
+Create Weigh Bridge settings screen
