@@ -44,7 +44,7 @@ Remove Product Group - DONE
 
 Add Supplier Product & Customer Product (Supplier Product Code, Supplier Product Name,Supplier Product Price) - DONE
 
-Daily transaction screen Supplier code can searched by code or Name ( Same applicable for Customer as well)
+Daily transaction screen Supplier code can searched by code or Name ( Same applicable for Customer as well) - DONE
 
-Daily transaction screen if suplier is selected , product should fecth from supplier product
+Daily transaction screen if suplier is selected , product should fecth from supplier product - DONE
 
