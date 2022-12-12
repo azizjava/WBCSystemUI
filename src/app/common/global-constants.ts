@@ -230,6 +230,28 @@ export class GlobalConstants {
       ];
       return menu;
     },
+
+    getPortList(): any[] {
+      let menu = [
+        { key: '1', value: '1' },
+        { key: '2', value: '2' },
+        { key: '3', value: '3' },
+        { key: '4', value: '4' },
+      ];
+      return menu;
+    },
+
+    getBaudRateList(): any[] {
+      let menu = [
+        { key: '2400', value: '2400' },
+        { key: '4800', value: '4800' },
+        { key: '9600', value: '9600' },
+        { key: '14400', value: '14400' },
+        { key: '19200', value: '19200' },
+        { key: '38400', value: '38400' },
+      ];
+      return menu;
+    },
   };
 }
 
