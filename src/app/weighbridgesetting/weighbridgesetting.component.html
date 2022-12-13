@@ -14,7 +14,15 @@
                             </div>
                         </div>
                       
-                    </section>                
+                    </section>
+                    
+                    <div class="full-width mt-3">
+                        <mat-label class="me-3">{{'wbSetting.selectweight' | translate }}</mat-label>  
+                        <mat-radio-group fxLayout  aria-label="Select an option" formControlName="options" name="options">
+                            <mat-radio-button checked value="kg">{{'wbSetting.kg' | translate }}</mat-radio-button>
+                            <mat-radio-button  value="lb">{{'wbSetting.lb' | translate }}</mat-radio-button>
+                          </mat-radio-group>
+                    </div>
 
                     <mat-form-field class="full-width">
                         <input type="text" placeholder="{{'wbSetting.name' | translate }}" matInput formControlName="name" name="name"

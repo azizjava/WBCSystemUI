@@ -246,6 +246,9 @@
 	"wbSetting":{
 		"firstWt":"First Weight Settings",
 		"name":"Weight Bridge Name",
+		"selectweight":"Select Weight",
+		"kg":"Weight in Kilogram",
+		"lb":"Weight in Pound",
 		"url":"End point URL",
 		"wb01":"Weigh Bridge-01",
 		"wb02":"Weigh Bridge-02",
