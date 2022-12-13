@@ -13,6 +13,8 @@ export class WeighbridgesettingComponent implements OnInit {
   firstWeightForm: UntypedFormGroup;
   secondWeightForm: UntypedFormGroup;
 
+  weighBridgeList:any = [];
+
   portList: any = [];
   filteredPortList: Observable<any[]>;
   baudRateList: any = [];
@@ -53,7 +55,12 @@ export class WeighbridgesettingComponent implements OnInit {
   updateAllComplete() {
   }
 
+  public trackByFn(index: number, item: any) {
+    return item;
+  }
+
   private _setListData(): void {
+    this.weighBridgeList = GlobalConstants.commonFunction.getWeighBridgesList();
     const portNoControl = this.firstWeightForm.get('portNo');
     const baudRateControl = this.firstWeightForm.get('baudRate');
 

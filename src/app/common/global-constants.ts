@@ -252,6 +252,15 @@ export class GlobalConstants {
       ];
       return menu;
     },
+    getWeighBridgesList(): any[] {
+      let menu = [
+        { key: 'wb01', value: 'wb01', lable:'wbSetting.wb01' },
+        { key: 'wb01', value: 'wb02', lable:'wbSetting.wb02' },
+        { key: 'wb03', value: 'wb03',lable:'wbSetting.wb03' },
+        { key: 'wb04', value: 'wb04' ,lable:'wbSetting.wb04'}       
+      ];
+      return menu;
+    },
   };
 }
 

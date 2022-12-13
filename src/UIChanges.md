@@ -52,3 +52,13 @@ Daily transaction screen if suplier is selected , product should fecth from supp
 12/8/2022
 
 Create Weigh Bridge settings screen
+
+12/2/2022
+
+end point URL
+Name
+Weight in LB or KG
+
+
+Entry Screen
+

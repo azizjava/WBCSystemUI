@@ -247,6 +247,8 @@
 		"firstWt":"First Weight Settings",
 		"wb01":"Weigh Bridge-01",
 		"wb02":"Weigh Bridge-02",
+		"wb03":"Weigh Bridge-03",
+		"wb04":"Weigh Bridge-04",
 		"portNo":"Port No",
 		"baudRate":"Baud Rate",
 		"databits":"Data Bits",
