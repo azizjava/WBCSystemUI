@@ -44,6 +44,7 @@ export class WeighbridgesettingComponent implements OnInit {
     this.firstWeightForm = this._formBuilder.group({
       name:['', [Validators.required, Validators.maxLength(50)]],
       url:['', [Validators.required, Validators.maxLength(50)]],
+      options:['kg'],
       wb01: [true, []],
       wb02: [false, []],
       wb03: [false, []],

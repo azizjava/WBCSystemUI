@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container classscroll">
     <div class="column-1 box">
         <mat-card>
             <mat-card-header class="title_center">
@@ -9,18 +9,18 @@
                 <form [formGroup]="firstWeightForm">
                     <section class="example-section">                        
                         <div class="row" >
-                            <div class="col-6" *ngFor="let option of weighBridgeList; trackBy:trackByFn">
-                                <mat-checkbox formControlName="{{option.key}}">{{ option.lable | translate }}</mat-checkbox>                             
+                            <div class="col-6 mt-2" *ngFor="let option of weighBridgeList; trackBy:trackByFn">
+                                <mat-checkbox formControlName="{{option.key}}">{{ option.lable | translate }}</mat-checkbox>                          
                             </div>
                         </div>
                       
                     </section>
                     
-                    <div class="full-width mt-3">
-                        <mat-label class="me-3">{{'wbSetting.selectweight' | translate }}</mat-label>  
+                    <div class="full-width mt-2">
+                        <mat-label class="me-3 d-none d-lg-inline d-xl-inline">{{'wbSetting.selectweight' | translate }}</mat-label>  
                         <mat-radio-group fxLayout  aria-label="Select an option" formControlName="options" name="options">
-                            <mat-radio-button checked value="kg">{{'wbSetting.kg' | translate }}</mat-radio-button>
-                            <mat-radio-button  value="lb">{{'wbSetting.lb' | translate }}</mat-radio-button>
+                            <mat-radio-button class="mt-2 me-3" checked value="kg">{{'wbSetting.kg' | translate }}</mat-radio-button>
+                            <mat-radio-button class="mt-2" value="lb">{{'wbSetting.lb' | translate }}</mat-radio-button>
                           </mat-radio-group>
                     </div>
 
@@ -177,8 +177,9 @@
             </mat-card-content>
 
             <mat-card-actions>
-             
-            </mat-card-actions>
+                <button mat-button>Save Settings</button>
+                <button mat-button>Apply Settings</button>
+              </mat-card-actions>
           </mat-card>
     </div>
     <div class="column-2 box">
