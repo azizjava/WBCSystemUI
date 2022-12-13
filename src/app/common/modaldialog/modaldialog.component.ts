@@ -86,6 +86,15 @@ export class ModaldialogComponent implements OnInit {
       return;
     }
 
+    if(this.currentUser?.language !== this.f['language'].value){
+      this.translate.use(this.f['language'].value);
+
+      let userInfo: User = this.currentUser;
+      userInfo.language = this.f['language'].value;
+      localStorage.setItem('currentUser', JSON.stringify(userInfo));
+    }
+    
+
     this.dialogRef.close(this.dialogForm.value);
   }
 
