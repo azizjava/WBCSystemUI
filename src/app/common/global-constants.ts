@@ -241,6 +241,26 @@ export class GlobalConstants {
       return menu;
     },
 
+    getDataBitsList(): any[] {
+      let menu = [
+        { key: '7', value: '7' },
+        { key: '14', value: '14' },
+        { key: '21', value: '21' },
+        { key: '28', value: '28' },
+      ];
+      return menu;
+    },
+
+    getParityList(): any[] {
+      let menu = [
+        { key: 'a', value: 'a' },
+        { key: 'b', value: 'b' },
+        { key: 'c', value: 'c' },
+        { key: 'd', value: 'd' },
+      ];
+      return menu;
+    },
+
     getBaudRateList(): any[] {
       let menu = [
         { key: '2400', value: '2400' },

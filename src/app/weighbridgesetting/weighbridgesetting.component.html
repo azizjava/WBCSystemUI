@@ -7,9 +7,13 @@
             </mat-card-header>
             <mat-card-content>
                 <form [formGroup]="firstWeightForm">
-                    <section class="example-section">
-                        <p><mat-checkbox formControlName="weighBridge1">{{'wbSetting.wb01' | translate }}</mat-checkbox></p>
-                        <p><mat-checkbox formControlName="weighBridge2">{{'wbSetting.wb02' | translate }}</mat-checkbox></p>
+                    <section class="example-section">                        
+                        <div class="row" >
+                            <div class="col-6" *ngFor="let option of weighBridgeList; trackBy:trackByFn">
+                                <mat-checkbox formControlName="{{option.key}}">{{ option.lable | translate }}</mat-checkbox>                             
+                            </div>
+                        </div>
+                      
                     </section>
                 
                     <mat-form-field class="full-width">
@@ -59,6 +63,58 @@
                                                 firstWeightForm.controls['baudRate'].errors['invalidData'] &&
                                                 firstWeightForm.controls['baudRate'].touched
                                                                             ">{{'wbSetting.baudRate' | translate }} {{'common.invalid' |
+                            translate }}
+                        </mat-error>
+                    
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                    
+                        <input type="text" placeholder="{{'wbSetting.databits' | translate }}" matInput
+                            formControlName="dataBits" name="dataBits" [matAutocomplete]="autoDataBits">
+                        <mat-autocomplete #autoDataBits="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredDataBitsRateList | async" [value]="option.key">
+                                {{option.value}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-error *ngIf="firstWeightForm.controls['dataBits'].errors && 
+                                                firstWeightForm.controls['dataBits'].errors['required'] &&
+                                                firstWeightForm.controls['dataBits'].touched
+                                                                          ">{{'wbSetting.databits' | translate }} {{'common.required' | translate
+                            }}
+                        </mat-error>
+                        
+                        <mat-error *ngIf="firstWeightForm.controls['dataBits'].errors && 
+                                                firstWeightForm.controls['dataBits'].errors['invalidData'] &&
+                                                firstWeightForm.controls['dataBits'].touched
+                                                                            ">{{'wbSetting.databits' | translate }} {{'common.invalid' |
+                            translate }}
+                        </mat-error>
+                    
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                    
+                        <input type="text" placeholder="{{'wbSetting.parity' | translate }}" matInput
+                            formControlName="parity" name="parity" [matAutocomplete]="autoParity">
+                        <mat-autocomplete #autoParity="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredParityList | async" [value]="option.key">
+                                {{option.value}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-error *ngIf="firstWeightForm.controls['parity'].errors && 
+                                                firstWeightForm.controls['parity'].errors['required'] &&
+                                                firstWeightForm.controls['parity'].touched
+                                                                          ">{{'wbSetting.parity' | translate }} {{'common.required' | translate
+                            }}
+                        </mat-error>
+                        
+                        <mat-error *ngIf="firstWeightForm.controls['parity'].errors && 
+                                                firstWeightForm.controls['parity'].errors['invalidData'] &&
+                                                firstWeightForm.controls['parity'].touched
+                                                                            ">{{'wbSetting.parity' | translate }} {{'common.invalid' |
                             translate }}
                         </mat-error>
                     

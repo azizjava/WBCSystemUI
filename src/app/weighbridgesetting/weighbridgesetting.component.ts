@@ -19,18 +19,29 @@ export class WeighbridgesettingComponent implements OnInit {
   filteredPortList: Observable<any[]>;
   baudRateList: any = [];
   filteredBaudRateList: Observable<any[]>;
+  dataBitsList: any = [];
+  filteredDataBitsRateList: Observable<any[]>;
+  parityList: any = [];
+  filteredParityList: Observable<any[]>;
+
 
   secportList: any = [];
   secfilteredPortList: Observable<any[]>;
   secbaudRateList: any = [];
   secfilteredBaudRateList: Observable<any[]>;
+  secdataBitsList: any = [];
+  secfilteredDataBitsRateList: Observable<any[]>;
+  secparityList: any = [];
+  secfilteredParityList: Observable<any[]>;
 
   constructor(private _formBuilder: FormBuilder) { }
 
   public ngOnInit(): void {
     this.firstWeightForm = this._formBuilder.group({
-      weighBridge1: [true, []],
-      weighBridge2: [false, []],
+      wb01: [true, []],
+      wb02: [false, []],
+      wb03: [true, []],
+      wb04: [false, []],
       portNo: ['', [Validators.required, Validators.maxLength(50)]],
       baudRate: ['', [Validators.required, Validators.maxLength(50)]],
       dataBits: ['', [Validators.required, Validators.maxLength(50)]],
@@ -63,13 +74,16 @@ export class WeighbridgesettingComponent implements OnInit {
     this.weighBridgeList = GlobalConstants.commonFunction.getWeighBridgesList();
     const portNoControl = this.firstWeightForm.get('portNo');
     const baudRateControl = this.firstWeightForm.get('baudRate');
+    const dataBitsControl = this.firstWeightForm.get('dataBits');
+    const parityControl = this.firstWeightForm.get('parity');
 
     const portNoControl2 = this.secondWeightForm.get('portNo');
     const baudRateControl2 = this.secondWeightForm.get('baudRate');
 
     this.portList = this.secportList = GlobalConstants.commonFunction.getPortList();
     this.baudRateList = this.secbaudRateList = GlobalConstants.commonFunction.getBaudRateList();
-
+    this.dataBitsList = this.secbaudRateList = GlobalConstants.commonFunction.getDataBitsList();
+    this.parityList = this.secparityList = GlobalConstants.commonFunction.getParityList();
 
     portNoControl?.clearValidators();
     portNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.portList, 'key')]);
@@ -78,6 +92,14 @@ export class WeighbridgesettingComponent implements OnInit {
     baudRateControl?.clearValidators();
     baudRateControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.baudRateList, 'key')]);
     baudRateControl?.updateValueAndValidity();
+
+    dataBitsControl?.clearValidators();
+    dataBitsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.dataBitsList, 'key')]);
+    dataBitsControl?.updateValueAndValidity();
+
+    parityControl?.clearValidators();
+    parityControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.parityList, 'key')]);
+    parityControl?.updateValueAndValidity();
 
 
     portNoControl2?.clearValidators();
@@ -100,6 +122,18 @@ export class WeighbridgesettingComponent implements OnInit {
       startWith(''),
       map((value) => (value ? value : undefined)),
       map((item :any)=> (item ? this._filterData(this.baudRateList,item,"key") : this.baudRateList.slice())),
+    );
+
+    this.filteredDataBitsRateList = this.firstWeightForm.get('dataBits')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.dataBitsList,item,"key") : this.dataBitsList.slice())),
+    );
+
+    this.filteredParityList = this.firstWeightForm.get('parity')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.parityList,item,"key") : this.parityList.slice())),
     );
   }
 
