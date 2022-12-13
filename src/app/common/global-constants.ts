@@ -261,6 +261,14 @@ export class GlobalConstants {
       return menu;
     },
 
+    getStopBitsList(): any[] {
+      let menu = [
+        { key: '1', value: '1' },
+        { key: '2', value: '2' },        
+      ];
+      return menu;
+    },
+
     getBaudRateList(): any[] {
       let menu = [
         { key: '2400', value: '2400' },
@@ -275,7 +283,7 @@ export class GlobalConstants {
     getWeighBridgesList(): any[] {
       let menu = [
         { key: 'wb01', value: 'wb01', lable:'wbSetting.wb01' },
-        { key: 'wb01', value: 'wb02', lable:'wbSetting.wb02' },
+        { key: 'wb02', value: 'wb02', lable:'wbSetting.wb02' },
         { key: 'wb03', value: 'wb03',lable:'wbSetting.wb03' },
         { key: 'wb04', value: 'wb04' ,lable:'wbSetting.wb04'}       
       ];

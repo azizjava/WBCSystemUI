@@ -14,8 +14,28 @@
                             </div>
                         </div>
                       
-                    </section>
-                
+                    </section>                
+
+                    <mat-form-field class="full-width">
+                        <input type="text" placeholder="{{'wbSetting.name' | translate }}" matInput formControlName="name" name="name"
+                            readonly>
+                        <mat-error *ngIf="firstWeightForm.controls['name'].errors &&
+                        firstWeightForm.controls['name'].errors['required'] &&
+                        firstWeightForm.controls['name'].touched
+                                  ">{{'wbSetting.name' | translate }} {{'common.required' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <input type="text" placeholder="{{'wbSetting.url' | translate }}" matInput formControlName="url" name="url"
+                            readonly>
+                        <mat-error *ngIf="firstWeightForm.controls['url'].errors &&
+                        firstWeightForm.controls['url'].errors['required'] &&
+                        firstWeightForm.controls['url'].touched
+                                  ">{{'wbSetting.url' | translate }} {{'common.required' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                   
                     <mat-form-field class="full-width">
                     
                         <input type="text" placeholder="{{'wbSetting.portNo' | translate }}" matInput
@@ -115,6 +135,32 @@
                                                 firstWeightForm.controls['parity'].errors['invalidData'] &&
                                                 firstWeightForm.controls['parity'].touched
                                                                             ">{{'wbSetting.parity' | translate }} {{'common.invalid' |
+                            translate }}
+                        </mat-error>
+                    
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                    
+                        <input type="text" placeholder="{{'wbSetting.stopbits' | translate }}" matInput
+                            formControlName="stopBits" name="stopBits" [matAutocomplete]="autoStopBits">
+                        <mat-autocomplete #autoStopBits="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredStopBitsList | async" [value]="option.key">
+                                {{option.value}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-error *ngIf="firstWeightForm.controls['stopBits'].errors && 
+                                                firstWeightForm.controls['stopBits'].errors['required'] &&
+                                                firstWeightForm.controls['stopBits'].touched
+                                                                          ">{{'wbSetting.stopbits' | translate }} {{'common.required' | translate
+                            }}
+                        </mat-error>
+                        
+                        <mat-error *ngIf="firstWeightForm.controls['stopBits'].errors && 
+                                                firstWeightForm.controls['stopBits'].errors['invalidData'] &&
+                                                firstWeightForm.controls['stopBits'].touched
+                                                                            ">{{'wbSetting.stopbits' | translate }} {{'common.invalid' |
                             translate }}
                         </mat-error>
                     

@@ -245,6 +245,8 @@
 	},
 	"wbSetting":{
 		"firstWt":"First Weight Settings",
+		"name":"Weight Bridge Name",
+		"url":"End point URL",
 		"wb01":"Weigh Bridge-01",
 		"wb02":"Weigh Bridge-02",
 		"wb03":"Weigh Bridge-03",
