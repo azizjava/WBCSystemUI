@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from '../common';
 
@@ -25,6 +26,8 @@ export class WeighbridgesettingComponent implements OnInit {
   filteredParityList: Observable<any[]>;
   stopBitsList: any = [];
   filteredStopBitsList: Observable<any[]>;
+  btnSaveSettings:boolean =false;
+  btnApplySettings:boolean =false;
 
 
   secportList: any = [];
@@ -41,9 +44,10 @@ export class WeighbridgesettingComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) { }
 
   public ngOnInit(): void {
+    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.firstWeightForm = this._formBuilder.group({
       name:['', [Validators.required, Validators.maxLength(50)]],
-      url:['', [Validators.required, Validators.maxLength(50)]],
+      url:['', [Validators.required, Validators.maxLength(50), Validators.pattern(reg)]],
       options:['kg'],
       wb01: [true, []],
       wb02: [false, []],
@@ -67,7 +71,7 @@ export class WeighbridgesettingComponent implements OnInit {
 
     this._setListData();
     this._setAutoCompleteControlData();
-    this._setAutoCompleteSecControlData();
+    this._setAutoCompleteSecControlData();   
   }
 
   updateAllComplete() {
@@ -76,6 +80,23 @@ export class WeighbridgesettingComponent implements OnInit {
   public trackByFn(index: number, item: any) {
     return item;
   }
+
+  onFirstWeightChkboxChange(event:MatCheckboxChange): void {
+    const wb1 =this.firstWeightForm.get('wb01')?.value;
+    const wb2 =this.firstWeightForm.get('wb02')?.value;
+    const wb3 =this.firstWeightForm.get('wb03')?.value;
+    const wb4 =this.firstWeightForm.get('wb04')?.value;
+    
+    if(wb1 || wb2 || wb3 || wb4){
+      const checkedCount =[wb1, wb2, wb3, wb4].filter(s =>s).length;
+      this.btnSaveSettings = checkedCount > 1 ? true: false;
+      this.btnApplySettings = checkedCount > 0 ? false: true;
+    }
+    else {
+      this.btnSaveSettings =true;
+      this.btnApplySettings =true;
+    }
+}
 
   private _setListData(): void {
     this.weighBridgeList = GlobalConstants.commonFunction.getWeighBridgesList();

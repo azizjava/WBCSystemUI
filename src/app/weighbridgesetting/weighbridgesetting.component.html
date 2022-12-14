@@ -10,7 +10,7 @@
                     <section class="example-section">                        
                         <div class="row" >
                             <div class="col-6 mt-2" *ngFor="let option of weighBridgeList; trackBy:trackByFn">
-                                <mat-checkbox formControlName="{{option.key}}">{{ option.lable | translate }}</mat-checkbox>                          
+                                <mat-checkbox formControlName="{{option.key}}" (change)="onFirstWeightChkboxChange($event)">{{ option.lable | translate }}</mat-checkbox>                          
                             </div>
                         </div>
                       
@@ -25,8 +25,7 @@
                     </div>
 
                     <mat-form-field class="full-width">
-                        <input type="text" placeholder="{{'wbSetting.name' | translate }}" matInput formControlName="name" name="name"
-                            readonly>
+                        <input type="text" placeholder="{{'wbSetting.name' | translate }}" matInput formControlName="name" name="name" >
                         <mat-error *ngIf="firstWeightForm.controls['name'].errors &&
                         firstWeightForm.controls['name'].errors['required'] &&
                         firstWeightForm.controls['name'].touched
@@ -35,12 +34,16 @@
                     </mat-form-field>
 
                     <mat-form-field class="full-width">
-                        <input type="text" placeholder="{{'wbSetting.url' | translate }}" matInput formControlName="url" name="url"
-                            readonly>
+                        <input type="text" placeholder="{{'wbSetting.url' | translate }}" matInput formControlName="url" name="url">
                         <mat-error *ngIf="firstWeightForm.controls['url'].errors &&
                         firstWeightForm.controls['url'].errors['required'] &&
                         firstWeightForm.controls['url'].touched
                                   ">{{'wbSetting.url' | translate }} {{'common.required' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="firstWeightForm.controls['url'].errors &&
+                        firstWeightForm.controls['url'].errors['pattern'] &&
+                        firstWeightForm.controls['url'].touched
+                                  "> {{'wbSetting.invalidurl' | translate }}
                         </mat-error>
                     </mat-form-field>
                    
@@ -177,9 +180,16 @@
             </mat-card-content>
 
             <mat-card-actions>
-                <button mat-button>Save Settings</button>
-                <button mat-button>Apply Settings</button>
-              </mat-card-actions>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-sm" mat-flat-button color="primary" mat-button type="submit" [disabled]="!firstWeightForm.valid || btnSaveSettings">
+                        {{'wbSetting.savesetting' | translate }}
+                    </button>
+                    <button class="btn btn-sm" mat-flat-button color="primary" mat-button type="submit" [disabled]="!firstWeightForm.valid || btnApplySettings">
+                        {{'wbSetting.applysetting' | translate }}
+                    </button>
+                </div>     
+              
+            </mat-card-actions>
           </mat-card>
     </div>
     <div class="column-2 box">

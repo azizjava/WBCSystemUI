@@ -259,6 +259,8 @@
 		"databits":"Data Bits",
 		"parity":"Parity",
 		"stopbits":"Stop Bits",
-		"applysetting":"Apply Above Setting"
+		"applysetting":"Apply Above Setting",
+		"savesetting":"Save Setting",
+		"invalidurl":"Please provide valid url"
 	}
 }
