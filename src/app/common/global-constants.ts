@@ -241,6 +241,15 @@ export class GlobalConstants {
       return menu;
     },
 
+    getWeightList(): any[] {
+      let menu = [
+        { key: 'KG', value: 'KG' },
+        { key: 'LB', value: 'LB' },        
+      ];
+      return menu;
+    },
+
+
     getDataBitsList(): any[] {
       let menu = [
         { key: '7', value: '7' },
@@ -282,10 +291,10 @@ export class GlobalConstants {
     },
     getWeighBridgesList(): any[] {
       let menu = [
-        { key: 'wb01', value: 'wb01', lable:'wbSetting.wb01' },
-        { key: 'wb02', value: 'wb02', lable:'wbSetting.wb02' },
-        { key: 'wb03', value: 'wb03',lable:'wbSetting.wb03' },
-        { key: 'wb04', value: 'wb04' ,lable:'wbSetting.wb04'}       
+        { key: 'wb01', value: 'wb01', lable:'wbSetting.wb01',checked:true },
+        { key: 'wb02', value: 'wb02', lable:'wbSetting.wb02', checked:false },
+        { key: 'wb03', value: 'wb03',lable:'wbSetting.wb03', checked:false },
+        { key: 'wb04', value: 'wb04' ,lable:'wbSetting.wb04', checked:false}       
       ];
       return menu;
     },

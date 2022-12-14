@@ -40,6 +40,8 @@ export class WeighbridgesettingComponent implements OnInit {
   secfilteredParityList: Observable<any[]>;
   secstopBitsList: any = [];
   secfilteredStopBitsList: Observable<any[]>;
+  secbtnSaveSettings:boolean =false;
+  secbtnApplySettings:boolean =false;
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -60,8 +62,13 @@ export class WeighbridgesettingComponent implements OnInit {
       stopBits: ['', [Validators.required, Validators.maxLength(50)]],
     });
     this.secondWeightForm = this._formBuilder.group({
-      weighBridge1: [true, []],
-      weighBridge2: [false, []],
+      name:['', [Validators.required, Validators.maxLength(50)]],
+      url:['', [Validators.required, Validators.maxLength(50), Validators.pattern(reg)]],
+      options:['kg'],
+      wb01: [true, []],
+      wb02: [false, []],
+      wb03: [false, []],
+      wb04: [false, []],
       portNo: ['', [Validators.required, Validators.maxLength(50)]],
       baudRate: ['', [Validators.required, Validators.maxLength(50)]],
       dataBits: ['', [Validators.required, Validators.maxLength(50)]],
@@ -98,6 +105,23 @@ export class WeighbridgesettingComponent implements OnInit {
     }
 }
 
+onSecondWeightChkboxChange(event:MatCheckboxChange): void {
+  const wb1 =this.secondWeightForm.get('wb01')?.value;
+  const wb2 =this.secondWeightForm.get('wb02')?.value;
+  const wb3 =this.secondWeightForm.get('wb03')?.value;
+  const wb4 =this.secondWeightForm.get('wb04')?.value;
+  
+  if(wb1 || wb2 || wb3 || wb4){
+    const checkedCount =[wb1, wb2, wb3, wb4].filter(s =>s).length;
+    this.secbtnSaveSettings = checkedCount > 1 ? true: false;
+    this.secbtnApplySettings = checkedCount > 0 ? false: true;
+  }
+  else {
+    this.secbtnSaveSettings =true;
+    this.secbtnApplySettings =true;
+  }
+}
+
   private _setListData(): void {
     this.weighBridgeList = GlobalConstants.commonFunction.getWeighBridgesList();
     const portNoControl = this.firstWeightForm.get('portNo');
@@ -108,12 +132,15 @@ export class WeighbridgesettingComponent implements OnInit {
 
     const portNoControl2 = this.secondWeightForm.get('portNo');
     const baudRateControl2 = this.secondWeightForm.get('baudRate');
+    const dataBitsControl2 = this.secondWeightForm.get('dataBits');
+    const parityControl2 = this.secondWeightForm.get('parity');
+    const stopBitsControl2 = this.secondWeightForm.get('stopBits');
 
     this.portList = this.secportList = GlobalConstants.commonFunction.getPortList();
     this.baudRateList = this.secbaudRateList = GlobalConstants.commonFunction.getBaudRateList();
-    this.dataBitsList = this.secbaudRateList = GlobalConstants.commonFunction.getDataBitsList();
+    this.dataBitsList = this.secdataBitsList = GlobalConstants.commonFunction.getDataBitsList();
     this.parityList = this.secparityList = GlobalConstants.commonFunction.getParityList();
-    this.stopBitsList = this.secstopBitsList = GlobalConstants.commonFunction.getStopBitsList();
+    this.stopBitsList = this.secstopBitsList = GlobalConstants.commonFunction.getStopBitsList();  
 
     portNoControl?.clearValidators();
     portNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.portList, 'key')]);
@@ -143,6 +170,19 @@ export class WeighbridgesettingComponent implements OnInit {
     baudRateControl2?.clearValidators();
     baudRateControl2?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.secbaudRateList, 'key')]);
     baudRateControl2?.updateValueAndValidity();
+
+
+    dataBitsControl2?.clearValidators();
+    dataBitsControl2?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.secdataBitsList, 'key')]);
+    dataBitsControl2?.updateValueAndValidity();
+
+    parityControl2?.clearValidators();
+    parityControl2?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.secparityList, 'key')]);
+    parityControl2?.updateValueAndValidity();
+
+    stopBitsControl2?.clearValidators();
+    stopBitsControl2?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.secstopBitsList, 'key')]);
+    stopBitsControl2?.updateValueAndValidity();
   }
 
   private _setAutoCompleteControlData() :void {
@@ -189,6 +229,24 @@ export class WeighbridgesettingComponent implements OnInit {
       startWith(''),
       map((value) => (value ? value : undefined)),
       map((item :any)=> (item ? this._filterData(this.secbaudRateList,item,"key") : this.secbaudRateList.slice())),
+    );
+
+    this.secfilteredDataBitsRateList = this.secondWeightForm.get('dataBits')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.secdataBitsList,item,"key") : this.secdataBitsList.slice())),
+    );
+
+    this.secfilteredParityList = this.secondWeightForm.get('parity')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.secparityList,item,"key") : this.secparityList.slice())),
+    );
+
+    this.secfilteredStopBitsList = this.secondWeightForm.get('stopBits')!.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value ? value : undefined)),
+      map((item :any)=> (item ? this._filterData(this.secstopBitsList,item,"key") : this.secstopBitsList.slice())),
     );
   }
 

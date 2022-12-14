@@ -16,14 +16,12 @@
 		"add":"Add",
 		"updateprofile":"Update Profile"
 	},
-
 	"actiontooltip":{
 		"add":"Click to Add",
 		"edit":"Click to Edit",
 		"view":"Click to View",
 		"delete":"Click to Delete"
 	},
-
 	"placeholder":{
 		"searchtransporters":"Search Transporter",
 		"searchcustomers":"Search Customer",
@@ -36,7 +34,6 @@
 		"searchtransactions":"Search Transaction",
 		"searchbytransactionid":"Search Transaction By Id"
 	},
-
 	"login": {
 		"title": "Login Form",
 		"username.label": "Username",
@@ -180,7 +177,6 @@
 			"firstweight":"First Weight",
 			"secondweight":"Second Weight"
 		},
-
 		"tbl_header":{
 			"sequenceno":"Sequence No.",
 			"transactionstatus":"Transaction Status",
@@ -261,6 +257,7 @@
 		"stopbits":"Stop Bits",
 		"applysetting":"Apply Above Setting",
 		"savesetting":"Save Setting",
-		"invalidurl":"Please provide valid url"
+		"invalidurl":"Please provide valid url",
+		"secondWt":"Second Weight Settings"
 	}
 }

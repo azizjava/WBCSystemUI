@@ -78,8 +78,7 @@
 		"Product prices": "أسعار المنتجات",
 		"Reports": "التقارير",
 		"WeighBridgeSetting":"وزن إعدادات الجسر"
-	},
-	
+	},	
 	"customers":{
 		"tbl_header":{
 			"customercode":"كود العميل",
@@ -256,7 +255,10 @@
 		"databits":"بتات البيانات",
 		"parity":"التكافؤ",
 		"stopbits":"نقطة التوقف",
-		"applysetting":"تطبيق فوق الإعداد"
+		"applysetting":"تطبيق فوق الإعداد",
+		"savesetting":"حفظ الإعداد",
+		"invalidurl":"يرجى تقديم عنوان url صالح",
+		"secondWt":"إعدادات الوزن الثاني"
 		
 	}
 }
