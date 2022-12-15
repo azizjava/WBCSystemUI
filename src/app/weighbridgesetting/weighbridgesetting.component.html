@@ -1,4 +1,15 @@
 
+<div style="margin-inline: 1%; width: 98%;" class="card shadow p-2 mb-2 bg-body rounded">
+    <div class="card-body">
+        <div class="full-width mt-2">
+            <mat-label class="me-3 d-none d-lg-inline d-xl-inline">{{'wbSetting.selectweight' | translate }}</mat-label>  
+            <mat-radio-group fxLayout aria-label="Select an option">
+                <mat-radio-button class="me-3" checked value="kg">{{'wbSetting.kg' | translate }}</mat-radio-button>
+                <mat-radio-button class="" value="lb">{{'wbSetting.lb' | translate }}</mat-radio-button>
+              </mat-radio-group>
+        </div>
+    </div>
+  </div>
 <div class="container classscroll" cdkScrollable>
     <div class="column-1 box">
         <mat-card>
@@ -14,16 +25,8 @@
                             </div>
                         </div>
                       
-                    </section>
-                    
-                    <div class="full-width mt-2">
-                        <mat-label class="me-3 d-none d-lg-inline d-xl-inline">{{'wbSetting.selectweight' | translate }}</mat-label>  
-                        <mat-radio-group fxLayout  aria-label="Select an option" formControlName="options" name="options">
-                            <mat-radio-button class="mt-2 me-3" checked value="kg">{{'wbSetting.kg' | translate }}</mat-radio-button>
-                            <mat-radio-button class="mt-2" value="lb">{{'wbSetting.lb' | translate }}</mat-radio-button>
-                          </mat-radio-group>
-                    </div>
-
+                    </section>                   
+                   
                     <mat-form-field class="full-width">
                         <input type="text" placeholder="{{'wbSetting.name' | translate }}" matInput formControlName="name" name="name" >
                         <mat-error *ngIf="firstWeightForm.controls['name'].errors &&
@@ -206,15 +209,8 @@
                             </div>
                         </div>
                       
-                    </section>
+                    </section>                   
                     
-                    <div class="full-width mt-2">
-                        <mat-label class="me-3 d-none d-lg-inline d-xl-inline">{{'wbSetting.selectweight' | translate }}</mat-label>  
-                        <mat-radio-group fxLayout  aria-label="Select an option" formControlName="options" name="options">
-                            <mat-radio-button class="mt-2 me-3" checked value="kg">{{'wbSetting.kg' | translate }}</mat-radio-button>
-                            <mat-radio-button class="mt-2" value="lb">{{'wbSetting.lb' | translate }}</mat-radio-button>
-                          </mat-radio-group>
-                    </div>
 
                     <mat-form-field class="full-width">
                         <input type="text" placeholder="{{'wbSetting.name' | translate }}" matInput formControlName="name" name="name" >

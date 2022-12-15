@@ -256,7 +256,7 @@
 		"parity":"Parity",
 		"stopbits":"Stop Bits",
 		"applysetting":"Apply Above Setting",
-		"savesetting":"Save Setting",
+		"savesetting":"Save Configuration",
 		"invalidurl":"Please provide valid url",
 		"secondWt":"Second Weight Settings"
 	}

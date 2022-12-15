@@ -55,7 +55,6 @@ export class WeighbridgesettingComponent implements OnInit {
           Validators.pattern(reg),
         ],
       ],
-      options: ['kg'],
       wb01: [true, []],
       wb02: [false, []],
       wb03: [false, []],
@@ -76,7 +75,6 @@ export class WeighbridgesettingComponent implements OnInit {
           Validators.pattern(reg),
         ],
       ],
-      options: ['kg'],
       wb01: [true, []],
       wb02: [false, []],
       wb03: [false, []],
@@ -151,7 +149,6 @@ export class WeighbridgesettingComponent implements OnInit {
       weightForm.controls['dataBits'].disable();
       weightForm.controls['parity'].disable();
       weightForm.controls['stopBits'].disable();
-      weightForm.controls['options'].disable();
     } else {
       weightForm.controls['name'].enable();
       weightForm.controls['url'].enable();
@@ -160,7 +157,6 @@ export class WeighbridgesettingComponent implements OnInit {
       weightForm.controls['dataBits'].enable();
       weightForm.controls['parity'].enable();
       weightForm.controls['stopBits'].enable();
-      weightForm.controls['options'].enable();
     }
   }
 
