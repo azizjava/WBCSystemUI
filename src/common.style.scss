@@ -154,3 +154,22 @@ mat-icon.disable {
 .switch.switch-medium > .switch-pane > span {
   font-size: 12px !important;
 }
+
+@mixin scrollbars (){
+
+  &::-webkit-scrollbar {
+      width: 12px;
+  }
+  
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(104, 140, 240, 0.3);
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  }
+}
