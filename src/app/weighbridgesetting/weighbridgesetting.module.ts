@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { WeightbridgeListComponent } from './weightbridgelist.component';
+import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -14,6 +16,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
+    WeightbridgeListComponent,
     WeighbridgesettingComponent
   ],
   imports: [
@@ -22,6 +25,7 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     MaterialModule,
     WeighbridgesettingRoutingModule,
+    SharedcomponentsModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
       isolate: false,

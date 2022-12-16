@@ -240,6 +240,15 @@
 		}		
 	},
 	"wbSetting":{
+		"tbl_header":{
+			"name":"اسم جسر الوزن",
+			"devicestatus":"حالة الجهاز",
+			"portNo":"رقم المنفذ",
+			"baudRate":"معدل الباود",
+			"databits":"بتات البيانات",
+			"actions":"عمل"
+
+		},
 		"firstWt":"إعدادات الوزن الأولى",
 		"name":"اسم جسر الوزن",
 		"selectweight":"حدد الوزن",

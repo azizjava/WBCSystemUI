@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WeighbridgesettingComponent } from './weighbridgesetting.component';
+import { WeightbridgeListComponent } from './weightbridgelist.component';
 
-const routes: Routes = [{ path: '', component: WeighbridgesettingComponent }];
+const routes: Routes = [{ path: '', component: WeightbridgeListComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

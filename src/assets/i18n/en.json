@@ -240,6 +240,14 @@
 		}		
 	},
 	"wbSetting":{
+		"tbl_header":{
+			"name":"Weight Bridge Name",
+			"devicestatus":"Device Status",
+			"portno":"Port No",
+			"baudrate":"Baud Rate",
+			"databits":"Data Bits",
+			"actions":"Actions"
+		},
 		"firstWt":"First Weight Settings",
 		"name":"Weight Bridge Name",
 		"selectweight":"Select Weight",

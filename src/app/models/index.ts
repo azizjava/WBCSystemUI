@@ -7,3 +7,4 @@ export * from './operator.model';
 export * from './nationality.model';
 export * from './customer.model';
 export * from './supplier.model';
+export * from './weighbridge.model';
