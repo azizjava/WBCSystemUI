@@ -53,7 +53,7 @@ export class WeightbridgeListComponent implements OnInit {
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
     } else if (this.actionName === 'edit') {
-      this.getVehicleById(dialogData);
+      this.getDeviceById(dialogData);
     }
     else {
       this.openDialog(dialogData);
@@ -103,8 +103,8 @@ export class WeightbridgeListComponent implements OnInit {
     });
   }
 
-  private _deleteRecord(selRecord: Vehicle) {
-    this.httpService.deleteDevice(selRecord.plateNo).subscribe({
+  private _deleteRecord(selRecord: WeighBridge) {
+    this.httpService.deleteDevice(selRecord.name).subscribe({
       next: (res) => {
         console.log('Deleted Record !!', selRecord);
         this.getAllDevices();
@@ -119,14 +119,7 @@ export class WeightbridgeListComponent implements OnInit {
     this.httpService.getAllDeviceInfo().subscribe({
       next: (data: WeighBridge[]) => {
         this.devicesData = data;
-
-        this.tableData = data.map((data: any) => ({
-          plateNo: data.plateNo,
-          vehicleType: data.vehicleType,
-          vehicleWeight: data.vehicleWeight,
-          transporterCode: data?.transporters?.transporterCode,
-          transporterName: data?.transporters?.nameOfTransporter,
-        }));
+        this.tableData = data;
       },
       error: (error: string) => {
         console.log(error);
@@ -135,8 +128,8 @@ export class WeightbridgeListComponent implements OnInit {
     });
   }
 
-  private getVehicleById(dialogData: any): void {
-    this.httpService.getDeviceById(dialogData.data?.plateNo).subscribe({
+  private getDeviceById(dialogData: any): void {
+    this.httpService.getDeviceById(dialogData.data?.name).subscribe({
       next: (data: WeighBridge) => {        
         dialogData.data = data;
         this.openDialog(dialogData);

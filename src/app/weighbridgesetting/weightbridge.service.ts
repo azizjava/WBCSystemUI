@@ -24,7 +24,7 @@ export class WeightBridgeService {
   }
 
   getDeviceById(name: any): Observable<WeighBridge> {
-    return this.http.get<WeighBridge>(`${this.baseURL}/findByVehiclePlateNo/${name}`);
+    return this.http.get<WeighBridge>(`${this.baseURL}/findByDeviceInfo/${name}`);
   }
 
   createNewDevice(data: WeighBridge) {
