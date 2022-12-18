@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
+import { findInvalidControls } from 'src/app/helper';
+import { modelDialog, WeighBridge } from 'src/app/models';
+import { AlertService, AuthenticationService } from 'src/app/services';
+import { WeightBridgeService } from '../weightbridge.service';
 
 @Component({
   selector: 'app-weighbridgesetting',
@@ -12,6 +16,7 @@ import { GlobalConstants } from 'src/app/common';
 })
 export class AddWeighbridgesettingComponent implements OnInit {
   weightForm: UntypedFormGroup;
+  deviceData!: WeighBridge;
 
   weighBridgeTypeList: any = [];
 
@@ -25,43 +30,24 @@ export class AddWeighbridgesettingComponent implements OnInit {
   filteredParityList: Observable<any[]>;
   stopBitsList: any = [];
   filteredStopBitsList: Observable<any[]>;
-  btnSaveSettings: boolean = false;
-  btnApplySettings: boolean = false;
 
-  secportList: any = [];
-  secfilteredPortList: Observable<any[]>;
-  secbaudRateList: any = [];
-  secfilteredBaudRateList: Observable<any[]>;
-  secdataBitsList: any = [];
-  secfilteredDataBitsRateList: Observable<any[]>;
-  secparityList: any = [];
-  secfilteredParityList: Observable<any[]>;
-  secstopBitsList: any = [];
-  secfilteredStopBitsList: Observable<any[]>;
-  secbtnSaveSettings: boolean = false;
-  secbtnApplySettings: boolean = false;  
+  private _hasChange: boolean = false;
 
   constructor(private _formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddWeighbridgesettingComponent>,) {}
+    private dialogRef: MatDialogRef<AddWeighbridgesettingComponent>,
+    private httpService: WeightBridgeService,
+    private alertService: AlertService,
+    private authenticationService: AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: modelDialog
+    ) {}
 
   public ngOnInit(): void {
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.weightForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      enabled: [false, [Validators.required, Validators.maxLength(50)]],
-      type:['', [Validators.required, Validators.maxLength(50)]],
-      url: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          Validators.pattern(reg),
-        ],
-      ],
-      wb01: [true, []],
-      wb02: [false, []],
-      wb03: [false, []],
-      wb04: [false, []],
+      deviceStatus: [false, [Validators.required, Validators.maxLength(50)]],
+      weightBridgeType:['', [Validators.required, Validators.maxLength(50)]],
+      endPoint: ['', [Validators.required, Validators.maxLength(250)], ],      
       portNo: ['', [Validators.required, Validators.maxLength(50)]],
       baudRate: ['', [Validators.required, Validators.maxLength(50)]],
       dataBits: ['', [Validators.required, Validators.maxLength(50)]],
@@ -71,6 +57,30 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
     this._setListData();
     this._setAutoCompleteControlData();
+    this._onFormValueChange();
+
+
+    if (this.data.actionName !== 'add') {
+      this.deviceData = this.data?.data;
+
+      this.weightForm.controls['name'].setValue(this.deviceData?.name);
+      this.weightForm.controls['deviceStatus'].setValue(this.deviceData?.deviceStatus === "ENABLED" ? true:false);
+      this.weightForm.controls['weightBridgeType'].setValue(this.deviceData?.weightBridgeType);
+      this.weightForm.controls['endPoint'].setValue(this.deviceData?.endPoint);      
+      this.weightForm.controls['portNo'].setValue(this.deviceData?.portNo.toString());
+      this.weightForm.controls['baudRate'].setValue(this.deviceData?.baudRate.toString());
+      this.weightForm.controls['dataBits'].setValue(this.deviceData?.dataBits.toString());
+      this.weightForm.controls['parity'].setValue(this.deviceData?.parity);
+      this.weightForm.controls['stopBits'].setValue(this.deviceData?.stopBits.toString());
+
+      if (this.data.actionName === 'view') {
+        this.weightForm.disable();
+      }
+
+      if (this.data.actionName === 'edit') {
+        this.weightForm.controls['name'].disable();
+      }
+    }
   }
 
   updateAllComplete() {}
@@ -88,6 +98,63 @@ export class AddWeighbridgesettingComponent implements OnInit {
     this.weightForm.markAsUntouched();
     this.weightForm.reset();
   }
+
+  public save() {
+    // stop here if form is invalid
+    if (!findInvalidControls(this.weightForm)) {
+      return;
+    }
+
+    const result = this.weightForm.value;
+
+    const newRecord: any = {
+      name: result.name,
+      deviceStatus: result.deviceStatus ? "ENABLED" :"DISABLED",
+      weightBridgeType: result.weightBridgeType,
+      endPoint: result.endPoint,
+      portNo: result.portNo ? +result.portNo : 0,
+      baudRate: result.baudRate ? +result.baudRate : 0,
+      dataBits: result.dataBits ? +result.dataBits : 0,
+      parity: result.parity,
+      stopBits: result.stopBits ? +result.stopBits : 0,   
+    };
+
+    if (this.data.actionName === 'add') {
+      this.httpService.createNewDevice(newRecord).subscribe({
+        next: (res: any) => {
+          this.dialogRef.close(res);
+        },
+        error: (error: string) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+    } else if (this.data.actionName === 'edit') {
+      if (this._hasChange) {
+        newRecord.name = this.deviceData.name;
+        this.httpService.updateDevice(newRecord).subscribe({
+          next: (res: any) => {
+            this.dialogRef.close(res);
+          },
+          error: (error) => {
+            console.log(error);
+            this.alertService.error(error);
+          },
+        });
+      } else {
+        this.dialogRef.close();
+      }
+    }
+  }
+
+  private _onFormValueChange() {
+    const initialValue = this.weightForm.value;
+    this.weightForm.valueChanges.subscribe((value) => {
+      this._hasChange = Object.keys(initialValue).some(
+        (key) => this.weightForm.value[key] != initialValue[key]
+      );
+    });
+  }
  
 
   private _setListData(): void {
@@ -98,16 +165,11 @@ export class AddWeighbridgesettingComponent implements OnInit {
     const parityControl = this.weightForm.get('parity');
     const stopBitsControl = this.weightForm.get('stopBits');
    
-    this.portList = this.secportList =
-      GlobalConstants.commonFunction.getPortList();
-    this.baudRateList = this.secbaudRateList =
-      GlobalConstants.commonFunction.getBaudRateList();
-    this.dataBitsList = this.secdataBitsList =
-      GlobalConstants.commonFunction.getDataBitsList();
-    this.parityList = this.secparityList =
-      GlobalConstants.commonFunction.getParityList();
-    this.stopBitsList = this.secstopBitsList =
-      GlobalConstants.commonFunction.getStopBitsList();
+    this.portList = GlobalConstants.commonFunction.getPortList();
+    this.baudRateList = GlobalConstants.commonFunction.getBaudRateList();
+    this.dataBitsList = GlobalConstants.commonFunction.getDataBitsList();
+    this.parityList = GlobalConstants.commonFunction.getParityList();
+    this.stopBitsList = GlobalConstants.commonFunction.getStopBitsList();
 
     portNoControl?.clearValidators();
     portNoControl?.addValidators([
@@ -149,7 +211,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
     ]);
     stopBitsControl?.updateValueAndValidity();
 
-    this.weightForm.controls['type'].setValue(this.weighBridgeTypeList[0].value);
+    this.weightForm.controls['weightBridgeType'].setValue(this.weighBridgeTypeList[0].value);
   }
 
   private _setAutoCompleteControlData(): void {

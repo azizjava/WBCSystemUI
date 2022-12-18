@@ -77,11 +77,11 @@ export class WeightbridgeListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (this.actionName === 'edit') {
-        console.log('Updated Record !!', result.plateNo);
-        this.alertService.success(`${result.plateNo} updated successfully`);
+        console.log('Updated Record !!', result.name);
+        this.alertService.success(`${result.name} updated successfully`);
       } else if (this.actionName === 'add') {
-        console.log('New Record !!', result.plateNo);
-        this.alertService.success(`${result.plateNo} inserted successfully`);
+        console.log('New Record !!', result.name);
+        this.alertService.success(`${result.name} inserted successfully`);
       }
 
       this.getAllDevices();

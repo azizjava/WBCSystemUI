@@ -15,7 +15,7 @@
             <div class="col">
                 <mat-form-field appearance="fill">
                     <mat-label>{{'wbSetting.selectweighbridgetype' | translate }}</mat-label>
-                    <mat-select formControlName="type" name="type">
+                    <mat-select formControlName="weightBridgeType" name="weightBridgeType">
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let type of weighBridgeTypeList" [value]="type.value">
                             {{type.key}}
@@ -28,16 +28,16 @@
         <div class="row mb-2">
             <div class="col">
                 <mat-form-field class="full-width">
-                    <input type="text" placeholder="{{'wbSetting.url' | translate }}" matInput formControlName="url"
-                        name="url">
-                    <mat-error *ngIf="weightForm.controls['url'].errors &&
-                                weightForm.controls['url'].errors['required'] &&
-                                weightForm.controls['url'].touched
+                    <input type="text" placeholder="{{'wbSetting.url' | translate }}" matInput formControlName="endPoint"
+                        name="endPoint">
+                    <mat-error *ngIf="weightForm.controls['endPoint'].errors &&
+                                weightForm.controls['endPoint'].errors['required'] &&
+                                weightForm.controls['endPoint'].touched
                                           ">{{'wbSetting.url' | translate }} {{'common.required' | translate }}
                     </mat-error>
-                    <mat-error *ngIf="weightForm.controls['url'].errors &&
-                                weightForm.controls['url'].errors['pattern'] &&
-                                weightForm.controls['url'].touched
+                    <mat-error *ngIf="weightForm.controls['endPoint'].errors &&
+                                weightForm.controls['endPoint'].errors['pattern'] &&
+                                weightForm.controls['endPoint'].touched
                                           "> {{'wbSetting.invalidurl' | translate }}
                     </mat-error>
                 </mat-form-field>
@@ -214,8 +214,7 @@
             </div>
             <div class="col">
                 <section class="example-section mt-4">
-                    <mat-checkbox formControlName="enabled" name="enabled">{{'wbSetting.enabledevice'|
-                        translate}}</mat-checkbox>
+                    <mat-checkbox formControlName="deviceStatus" name="deviceStatus">{{'wbSetting.enabledevice'| translate}}</mat-checkbox>
                 </section>
             </div>
         </div>
@@ -223,7 +222,7 @@
         <div class="d-flex justify-content-between w-100 mt-3">
 
             <button class="btn btn-sm" mat-flat-button color="primary" mat-button type="submit"
-                [disabled]="!weightForm.valid">
+                [disabled]="!weightForm.valid" (click)="save()">
                 {{'wbSetting.savesetting' | translate }}
             </button>
             <button class="btn btn-sm" mat-flat-button  color="primary" mat-button type="button" (click)="reset()">
