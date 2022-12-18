@@ -14,7 +14,8 @@
 		"cancel":"Cancel",
 		"print":"Print",
 		"add":"Add",
-		"updateprofile":"Update Profile"
+		"updateprofile":"Update Profile",
+		"reset":"Reset"
 	},
 	"actiontooltip":{
 		"add":"Click to Add",
@@ -250,7 +251,9 @@
 		},
 		"firstWt":"First Weight Settings",
 		"name":"Weight Bridge Name",
+		"enabledevice":"Enable Device",
 		"selectweight":"Select Weight",
+		"selectweighbridgetype":"Select Weigh Bridge Type",
 		"kg":"Weight in Kilogram",
 		"lb":"Weight in Pound",
 		"url":"End point URL",
@@ -264,7 +267,7 @@
 		"parity":"Parity",
 		"stopbits":"Stop Bits",
 		"applysetting":"Apply Above Setting",
-		"savesetting":"Save Configuration",
+		"savesetting":"Save Settings",
 		"invalidurl":"Please provide valid url",
 		"secondWt":"Second Weight Settings"
 	}

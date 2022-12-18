@@ -289,12 +289,10 @@ export class GlobalConstants {
       ];
       return menu;
     },
-    getWeighBridgesList(): any[] {
+    getWeighBridgeType(): any[] {
       let menu = [
-        { key: 'wb01', value: 'wb01', lable:'wbSetting.wb01',checked:true },
-        { key: 'wb02', value: 'wb02', lable:'wbSetting.wb02', checked:false },
-        { key: 'wb03', value: 'wb03',lable:'wbSetting.wb03', checked:false },
-        { key: 'wb04', value: 'wb04' ,lable:'wbSetting.wb04', checked:false}       
+        { key: 'First Weight', value: 'FirstWeight',  },
+        { key: 'Second Weight', value: 'SecondWeight',  },
       ];
       return menu;
     },

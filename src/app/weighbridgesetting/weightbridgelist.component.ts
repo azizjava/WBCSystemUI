@@ -5,6 +5,7 @@ import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.
 import { GlobalConstants } from '../common/global-constants';
 import { dateRange, modelDialog, tableOperation, Transporter, Vehicle, WeighBridge } from '../models';
 import { AlertService } from '../services';
+import { AddWeighbridgesettingComponent } from './weighbridgedata/addweighbridgesetting.component';
 import { WeighbridgesettingComponent } from './weighbridgesetting.component';
 import { WeightBridgeService } from './weightbridge.service';
 
@@ -72,7 +73,7 @@ export class WeightbridgeListComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'custom-dialog';
 
-    const dialogRef = this.matDialog.open(WeighbridgesettingComponent, dialogConfig);
+    const dialogRef = this.matDialog.open(AddWeighbridgesettingComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (this.actionName === 'edit') {

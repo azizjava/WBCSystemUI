@@ -161,7 +161,7 @@ export class WeighbridgesettingComponent implements OnInit {
   }
 
   private _setListData(): void {
-    this.weighBridgeList = GlobalConstants.commonFunction.getWeighBridgesList();
+    // this.weighBridgeList = GlobalConstants.commonFunction.getWeighBridgesList();
     const portNoControl = this.firstWeightForm.get('portNo');
     const baudRateControl = this.firstWeightForm.get('baudRate');
     const dataBitsControl = this.firstWeightForm.get('dataBits');

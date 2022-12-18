@@ -1,0 +1,240 @@
+<div class="container" cdkScrollable>
+    <form [formGroup]="weightForm">
+        <div class="row mb-2">
+            <div class="col mt-2">
+                <mat-form-field class="full-width mt-1">
+                    <input type="text" placeholder="{{'wbSetting.name' | translate }}" matInput formControlName="name"
+                        name="name">
+                    <mat-error *ngIf="weightForm.controls['name'].errors &&
+                                weightForm.controls['name'].errors['required'] &&
+                                weightForm.controls['name'].touched
+                                          ">{{'wbSetting.name' | translate }} {{'common.required' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{'wbSetting.selectweighbridgetype' | translate }}</mat-label>
+                    <mat-select formControlName="type" name="type">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let type of weighBridgeTypeList" [value]="type.value">
+                            {{type.key}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input type="text" placeholder="{{'wbSetting.url' | translate }}" matInput formControlName="url"
+                        name="url">
+                    <mat-error *ngIf="weightForm.controls['url'].errors &&
+                                weightForm.controls['url'].errors['required'] &&
+                                weightForm.controls['url'].touched
+                                          ">{{'wbSetting.url' | translate }} {{'common.required' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="weightForm.controls['url'].errors &&
+                                weightForm.controls['url'].errors['pattern'] &&
+                                weightForm.controls['url'].touched
+                                          "> {{'wbSetting.invalidurl' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col">
+                <mat-form-field class="full-width">
+
+                    <input type="text" placeholder="{{'wbSetting.portNo' | translate }}" matInput
+                        formControlName="portNo" name="portNo" [matAutocomplete]="autoPortNo">
+                    <mat-autocomplete #autoPortNo="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredPortList | async" [value]="option.key">
+                            {{option.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <mat-error *ngIf="weightForm.controls['portNo'].errors && 
+                                                        weightForm.controls['portNo'].errors['required'] &&
+                                                        weightForm.controls['portNo'].touched
+                                                                                  ">{{'wbSetting.portNo' | translate }}
+                        {{'common.required' | translate
+                        }}
+                    </mat-error>
+
+                    <mat-error *ngIf="weightForm.controls['portNo'].errors && 
+                                                        weightForm.controls['portNo'].errors['invalidData'] &&
+                                                        weightForm.controls['portNo'].touched
+                                                                                    ">{{'wbSetting.portNo' | translate
+                        }}
+                        {{'common.invalid' |
+                        translate }}
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+
+            <div class="col">
+                <mat-form-field class="full-width">
+
+                    <input type="text" placeholder="{{'wbSetting.baudRate' | translate }}" matInput
+                        formControlName="baudRate" name="baudRate" [matAutocomplete]="autoBaudRate">
+                    <mat-autocomplete #autoBaudRate="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredBaudRateList | async" [value]="option.key">
+                            {{option.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <mat-error *ngIf="weightForm.controls['baudRate'].errors && 
+                                                        weightForm.controls['baudRate'].errors['required'] &&
+                                                        weightForm.controls['baudRate'].touched
+                                                                                  ">{{'wbSetting.baudRate' | translate
+                        }}
+                        {{'common.required' | translate
+                        }}
+                    </mat-error>
+
+                    <mat-error *ngIf="weightForm.controls['baudRate'].errors && 
+                                                        weightForm.controls['baudRate'].errors['invalidData'] &&
+                                                        weightForm.controls['baudRate'].touched
+                                                                                    ">{{'wbSetting.baudRate' |
+                        translate }}
+                        {{'common.invalid' |
+                        translate }}
+                    </mat-error>
+
+                </mat-form-field>
+
+            </div>
+
+        </div>
+
+        <div class="row mb-2">
+            <div class="col">
+
+                <mat-form-field class="full-width">
+
+                    <input type="text" placeholder="{{'wbSetting.databits' | translate }}" matInput
+                        formControlName="dataBits" name="dataBits" [matAutocomplete]="autoDataBits">
+                    <mat-autocomplete #autoDataBits="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredDataBitsRateList | async" [value]="option.key">
+                            {{option.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <mat-error *ngIf="weightForm.controls['dataBits'].errors && 
+                                                        weightForm.controls['dataBits'].errors['required'] &&
+                                                        weightForm.controls['dataBits'].touched
+                                                                                  ">{{'wbSetting.databits' | translate
+                        }}
+                        {{'common.required' | translate
+                        }}
+                    </mat-error>
+
+                    <mat-error *ngIf="weightForm.controls['dataBits'].errors && 
+                                                        weightForm.controls['dataBits'].errors['invalidData'] &&
+                                                        weightForm.controls['dataBits'].touched
+                                                                                    ">{{'wbSetting.databits' |
+                        translate }}
+                        {{'common.invalid' |
+                        translate }}
+                    </mat-error>
+
+                </mat-form-field>
+
+            </div>
+
+            <div class="col">
+                <mat-form-field class="full-width">
+
+                    <input type="text" placeholder="{{'wbSetting.parity' | translate }}" matInput
+                        formControlName="parity" name="parity" [matAutocomplete]="autoParity">
+                    <mat-autocomplete #autoParity="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredParityList | async" [value]="option.key">
+                            {{option.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <mat-error *ngIf="weightForm.controls['parity'].errors && 
+                                                        weightForm.controls['parity'].errors['required'] &&
+                                                        weightForm.controls['parity'].touched
+                                                                                  ">{{'wbSetting.parity' | translate }}
+                        {{'common.required' | translate
+                        }}
+                    </mat-error>
+
+                    <mat-error *ngIf="weightForm.controls['parity'].errors && 
+                                                        weightForm.controls['parity'].errors['invalidData'] &&
+                                                        weightForm.controls['parity'].touched
+                                                                                    ">{{'wbSetting.parity' | translate
+                        }}
+                        {{'common.invalid' |
+                        translate }}
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+
+                    <input type="text" placeholder="{{'wbSetting.stopbits' | translate }}" matInput
+                        formControlName="stopBits" name="stopBits" [matAutocomplete]="autoStopBits">
+                    <mat-autocomplete #autoStopBits="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredStopBitsList | async" [value]="option.key">
+                            {{option.value}}
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <mat-error *ngIf="weightForm.controls['stopBits'].errors && 
+                                                        weightForm.controls['stopBits'].errors['required'] &&
+                                                        weightForm.controls['stopBits'].touched
+                                                                                  ">{{'wbSetting.stopbits' | translate
+                        }}
+                        {{'common.required' | translate
+                        }}
+                    </mat-error>
+
+                    <mat-error *ngIf="weightForm.controls['stopBits'].errors && 
+                                                        weightForm.controls['stopBits'].errors['invalidData'] &&
+                                                        weightForm.controls['stopBits'].touched
+                                                                                    ">{{'wbSetting.stopbits' |
+                        translate }}
+                        {{'common.invalid' |
+                        translate }}
+                    </mat-error>
+
+                </mat-form-field>
+
+            </div>
+            <div class="col">
+                <section class="example-section mt-4">
+                    <mat-checkbox formControlName="enabled" name="enabled">{{'wbSetting.enabledevice'|
+                        translate}}</mat-checkbox>
+                </section>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between w-100 mt-3">
+
+            <button class="btn btn-sm" mat-flat-button color="primary" mat-button type="submit"
+                [disabled]="!weightForm.valid">
+                {{'wbSetting.savesetting' | translate }}
+            </button>
+            <button class="btn btn-sm" mat-flat-button  color="primary" mat-button type="button" (click)="reset()">
+                {{'actions.reset' | translate }}
+            </button>
+
+            <button class="btn btn-sm" mat-flat-button  color="secondary" type="submit" mat-button (click)="close()">
+                {{'actions.cancel' | translate }}
+              </button>
+
+        </div>
+    </form>
+
+</div>

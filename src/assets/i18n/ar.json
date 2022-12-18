@@ -14,7 +14,8 @@
 		"cancel":"يلغي",
 		"print":"مطبعة",
 		"add":"Add",
-		"updateprofile":"تحديث الملف الشخصي"
+		"updateprofile":"تحديث الملف الشخصي",
+		"reset":"إعادة ضبط"
 	},
 	"actiontooltip":{
 		"add":"انقر للإضافة",
@@ -251,7 +252,9 @@
 		},
 		"firstWt":"إعدادات الوزن الأولى",
 		"name":"اسم جسر الوزن",
+		"enabledevice":"تمكين الجهاز",
 		"selectweight":"حدد الوزن",
+		"selectweighbridgetype":"حدد نوع جسر الوزن",
 		"kg":"الوزن بالكيلوغرام",
 		"lb":"الوزن بالجنيه",
 		"url":"عنوان URL لنقطة النهاية",
@@ -265,7 +268,7 @@
 		"parity":"التكافؤ",
 		"stopbits":"نقطة التوقف",
 		"applysetting":"تطبيق فوق الإعداد",
-		"savesetting":"حفظ التكوين",
+		"savesetting":"احفظ التغييرات",		
 		"invalidurl":"يرجى تقديم عنوان url صالح",
 		"secondWt":"إعدادات الوزن الثاني"
 		
