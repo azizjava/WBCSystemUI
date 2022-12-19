@@ -88,6 +88,11 @@ export class entryDataComponent implements OnInit, OnChanges {
         { value: '', disabled: true },
         [Validators.required, Validators.maxLength(50)],
       ],
+      transporterName: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.maxLength(50)],
+      ],
+
       supplier: ['', [Validators.required, Validators.maxLength(50)]],
       supplierName: ['', [Validators.maxLength(50)]],
       customer: ['', [Validators.maxLength(50)]],
@@ -132,6 +137,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       {
         if(v ==='INVALID'){
           this.entryForm.controls['transporter'].setValue('');
+          this.entryForm.controls['transporterName'].setValue('');
         }
       });
 
@@ -189,6 +195,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         supplierCode: result.supplier,
         supplierName: result.supplierName,
         transporterCode: this.entryForm.controls['transporter'].value,
+        transporterName: this.entryForm.controls['transporterName'].value,
         vehiclePlateNo: result.vehicleNo,
       },
       dailyTransactionExit: {},
@@ -285,6 +292,9 @@ export class entryDataComponent implements OnInit, OnChanges {
     if (transporterData) {
       this.entryForm.controls['transporter'].setValue(
         transporterData.transporterCode
+      );
+      this.entryForm.controls['transporterName'].setValue(
+        transporterData.nameOfTransporter
       );
     }
   }
