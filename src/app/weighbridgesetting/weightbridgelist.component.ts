@@ -17,6 +17,8 @@ import { WeightBridgeService } from './weightbridge.service';
 export class WeightbridgeListComponent implements OnInit {
   tblColumns: string[] = [
     'name',
+    'weightBridgeType',
+    'endPoint',
     'deviceStatus',
     'portNo',
     'baudRate',

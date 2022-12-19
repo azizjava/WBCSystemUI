@@ -33,7 +33,8 @@
 		"searchproducts":"البحث عن المنتج",
 		"searchproductgroups":"بحث في مجموعة المنتجات",
 		"searchtransactions":"البحث عن معاملة",
-		"searchbytransactionid":"البحث عن المعاملة بالمعرف"
+		"searchbytransactionid":"البحث عن المعاملة بالمعرف",
+		"searchwbSetting":"جهاز البحث"
 	},
 	"login": {
 		"title": "Login Form",
@@ -247,6 +248,8 @@
 			"portNo":"رقم المنفذ",
 			"baudRate":"معدل الباود",
 			"databits":"بتات البيانات",
+			"endpoint":"نقطة النهاية",
+			"weightbridgetype": "وزن الجسر",
 			"actions":"عمل"
 
 		},

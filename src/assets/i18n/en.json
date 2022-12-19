@@ -33,7 +33,8 @@
 		"searchproducts":"Search Product",
 		"searchproductgroups":"Search Product Group",
 		"searchtransactions":"Search Transaction",
-		"searchbytransactionid":"Search Transaction By Id"
+		"searchbytransactionid":"Search Transaction By Id",
+		"searchwbSetting":"Search Device"
 	},
 	"login": {
 		"title": "Login Form",
@@ -247,6 +248,8 @@
 			"portno":"Port No",
 			"baudrate":"Baud Rate",
 			"databits":"Data Bits",
+			"endpoint":"End point",
+			"weightbridgetype": "Weigh Bridge Type",
 			"actions":"Actions"
 		},
 		"firstWt":"First Weight Settings",
