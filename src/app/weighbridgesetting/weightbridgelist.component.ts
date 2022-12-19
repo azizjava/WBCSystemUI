@@ -49,7 +49,7 @@ export class WeightbridgeListComponent implements OnInit {
     const dialogData = {
       actionName: this.actionName,
       headerText: 'Information',
-      data: actionData.data,
+      data: {deviceData: actionData.data , deviceList: this.devicesData},
     };
 
     if (this.actionName === 'delete') {
@@ -133,9 +133,9 @@ export class WeightbridgeListComponent implements OnInit {
   }
 
   private getDeviceById(dialogData: any): void {
-    this.httpService.getDeviceById(dialogData.data?.name).subscribe({
+    this.httpService.getDeviceById(dialogData.data?.deviceData?.name).subscribe({
       next: (data: WeighBridge) => {        
-        dialogData.data = data;
+        dialogData.data = {deviceData: data , deviceList: this.devicesData};
         this.openDialog(dialogData);
       },
       error: (error) => {

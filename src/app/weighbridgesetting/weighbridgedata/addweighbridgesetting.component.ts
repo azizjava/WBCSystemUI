@@ -61,7 +61,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
 
     if (this.data.actionName !== 'add') {
-      this.deviceData = this.data?.data;
+      this.deviceData = this.data?.data.deviceData;
 
       this.weightForm.controls['name'].setValue(this.deviceData?.name);
       this.weightForm.controls['deviceStatus'].setValue(this.deviceData?.deviceStatus === "ENABLED" ? true:false);
@@ -106,6 +106,12 @@ export class AddWeighbridgesettingComponent implements OnInit {
     }
 
     const result = this.weightForm.value;
+
+    const isNameExist = this._checkForDuplicateWeighBridges(result.weightBridgeType);
+
+    if(!isNameExist){
+      return;
+    }
 
     const newRecord: any = {
       name: result.name,
@@ -289,6 +295,19 @@ export class AddWeighbridgesettingComponent implements OnInit {
         item[key].toLowerCase().includes(filterValue) ||
         (nameSearch && item[nameSearch].toLowerCase().includes(filterValue))
     );
+  }
+
+  private _checkForDuplicateWeighBridges(weighBridgeType :string) :boolean{
+
+    const count  = this.data?.data.deviceList.filter((d:WeighBridge) => d.deviceStatus === "ENABLED" &&  d.weightBridgeType ===weighBridgeType).length;
+
+    if(count >=3 ){
+      const errorMsg = `Maximum allowed ${weighBridgeType } type are 4.`;
+      this.alertService.error(errorMsg);
+      return false;
+    }
+
+    return true;
   }
 }
 
