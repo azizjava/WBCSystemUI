@@ -78,15 +78,17 @@ export class WeightbridgeListComponent implements OnInit {
     const dialogRef = this.matDialog.open(AddWeighbridgesettingComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (this.actionName === 'edit') {
-        console.log('Updated Record !!', result.name);
-        this.alertService.success(`${result.name} updated successfully`);
-      } else if (this.actionName === 'add') {
-        console.log('New Record !!', result.name);
-        this.alertService.success(`${result.name} inserted successfully`);
-      }
+      if (result) {
+        if (this.actionName === 'edit') {
+          console.log('Updated Record !!', result.name);
+          this.alertService.success(`${result.name} updated successfully`);
+        } else if (this.actionName === 'add') {
+          console.log('New Record !!', result.name);
+          this.alertService.success(`${result.name} inserted successfully`);
+        }
 
-      this.getAllDevices();
+        this.getAllDevices();
+      }
     });
   }
 

@@ -45,14 +45,14 @@ export class AddWeighbridgesettingComponent implements OnInit {
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.weightForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      deviceStatus: [false, [Validators.required, Validators.maxLength(50)]],
-      weightBridgeType:['', [Validators.required, Validators.maxLength(50)]],
-      endPoint: ['', [Validators.required, Validators.maxLength(250)], ],      
-      portNo: ['', [Validators.required, Validators.maxLength(50)]],
-      baudRate: ['', [Validators.required, Validators.maxLength(50)]],
-      dataBits: ['', [Validators.required, Validators.maxLength(50)]],
-      parity: ['', [Validators.required, Validators.maxLength(50)]],
-      stopBits: ['', [Validators.required, Validators.maxLength(50)]],
+      deviceStatus: [false, [ Validators.maxLength(50)]],
+      weightBridgeType:['', [ Validators.maxLength(50)]],
+      endPoint: ['', [Validators.maxLength(250)], ],      
+      portNo: ['', [ Validators.maxLength(50)]],
+      baudRate: ['', [ Validators.maxLength(50)]],
+      dataBits: ['', [ Validators.maxLength(50)]],
+      parity: ['', [ Validators.maxLength(50)]],
+      stopBits: ['', [ Validators.maxLength(50)]],
     });
 
     this._setListData();
@@ -173,7 +173,6 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
     portNoControl?.clearValidators();
     portNoControl?.addValidators([
-      Validators.required,
       Validators.maxLength(50),
       autocompleteObjectValidator(this.portList, 'key'),
     ]);
@@ -181,7 +180,6 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
     baudRateControl?.clearValidators();
     baudRateControl?.addValidators([
-      Validators.required,
       Validators.maxLength(50),
       autocompleteObjectValidator(this.baudRateList, 'key'),
     ]);
@@ -189,7 +187,6 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
     dataBitsControl?.clearValidators();
     dataBitsControl?.addValidators([
-      Validators.required,
       Validators.maxLength(50),
       autocompleteObjectValidator(this.dataBitsList, 'key'),
     ]);
@@ -197,7 +194,6 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
     parityControl?.clearValidators();
     parityControl?.addValidators([
-      Validators.required,
       Validators.maxLength(50),
       autocompleteObjectValidator(this.parityList, 'key'),
     ]);
@@ -205,7 +201,6 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
     stopBitsControl?.clearValidators();
     stopBitsControl?.addValidators([
-      Validators.required,
       Validators.maxLength(50),
       autocompleteObjectValidator(this.stopBitsList, 'key'),
     ]);
