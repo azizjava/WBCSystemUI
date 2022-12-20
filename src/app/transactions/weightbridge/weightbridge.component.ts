@@ -5,6 +5,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { AlertService } from 'src/app/services';
+import { WeightBridgeService } from 'src/app/weighbridgesetting/weightbridge.service';
 
 @Component({
   selector: 'app-weightbridge',
@@ -18,10 +20,16 @@ export class weightBridgeComponent implements OnInit {
 
   public connectStatus: boolean = false;
   public weight: number = 0;
+  public firstWeightdevicesList: any = [];
+  public secondWeightdevicesList: any = [];
 
-  public constructor() {}
+  public constructor(private httpService: WeightBridgeService,
+    private alertService: AlertService) {
+
+  }
 
   public ngOnInit(): void {
+    this.getAllActiveDevices();
     this._calculateWeight(true);
   }
 
@@ -36,5 +44,18 @@ export class weightBridgeComponent implements OnInit {
 
   private _randomIntFromInterval(min: number = 1, max: number = 100) {
     return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  private getAllActiveDevices(): void {
+    this.httpService.getAllNamesByDeviceInfoEnabled().subscribe({
+      next: (data: any[]) => {
+        this.secondWeightdevicesList = data.filter(d=> d.weightBridgeType ==="SecondWeight");
+        this.firstWeightdevicesList = data.filter(d=> d.weightBridgeType ==="FirstWeight");
+      },
+      error: (error: string) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
   }
 }

@@ -23,6 +23,10 @@ export class WeightBridgeService {
     return this.http.get<WeighBridge[]>(`${this.baseURL}/findAllByDeviceInfoEnabled`);
   }
 
+  getAllNamesByDeviceInfoEnabled(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseURL}/findAllNamesByDeviceInfoEnabled`);
+  }
+
   getDeviceById(name: any): Observable<WeighBridge> {
     return this.http.get<WeighBridge>(`${this.baseURL}/findByDeviceInfo/${name}`);
   }
