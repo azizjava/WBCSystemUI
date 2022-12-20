@@ -138,6 +138,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         if(v ==='INVALID'){
           this.entryForm.controls['transporter'].setValue('');
           this.entryForm.controls['transporterName'].setValue('');
+          this.entryForm.controls['firstWeight'].setValue('');
         }
       });
 
@@ -285,16 +286,19 @@ export class entryDataComponent implements OnInit, OnChanges {
 
   onVehicleChange(event: any) {
     const plateNo = this.entryForm.get('vehicleNo')?.value;
-    const transporterData = this.vehicleList.find(
+    const vehicleData = this.vehicleList.find(
       (v: Vehicle) => v.plateNo === plateNo
-    )?.transporters;
+    );
 
-    if (transporterData) {
+    if (vehicleData) {
       this.entryForm.controls['transporter'].setValue(
-        transporterData.transporterCode
+        vehicleData.transporters.transporterCode
+      );
+      this.entryForm.controls['firstWeight'].setValue(
+        vehicleData.vehicleWeight
       );
       this.entryForm.controls['transporterName'].setValue(
-        transporterData.nameOfTransporter
+        vehicleData.transporters.nameOfTransporter
       );
     }
   }
