@@ -74,15 +74,17 @@ export class VehiclesComponent implements OnInit {
     const dialogRef = this.matDialog.open(VehicleDataComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (this.actionName === 'edit') {
-        console.log('Updated Record !!', result.plateNo);
-        this.alertService.success(`${result.plateNo} updated successfully`);
-      } else if (this.actionName === 'add') {
-        console.log('New Record !!', result.plateNo);
-        this.alertService.success(`${result.plateNo} inserted successfully`);
-      }
+      if (result) {
+        if (this.actionName === 'edit') {
+          console.log('Updated Record !!', result.plateNo);
+          this.alertService.success(`${result.plateNo} updated successfully`);
+        } else if (this.actionName === 'add') {
+          console.log('New Record !!', result.plateNo);
+          this.alertService.success(`${result.plateNo} inserted successfully`);
+        }
 
-      this.getAllVehicles();
+        this.getAllVehicles();
+      }
     });
   }
 

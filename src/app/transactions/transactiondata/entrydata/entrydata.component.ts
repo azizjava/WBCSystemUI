@@ -94,9 +94,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       ],
 
       supplier: ['', [Validators.required, Validators.maxLength(50)]],
-      supplierName: ['', [Validators.maxLength(50)]],
       customer: ['', [Validators.maxLength(50)]],
-      customerName: ['', [Validators.maxLength(50)]],
       products: ['', [Validators.required, Validators.maxLength(50)]],
       operator: [
         {
@@ -140,18 +138,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           this.entryForm.controls['transporterName'].setValue('');
           this.entryForm.controls['firstWeight'].setValue('');
         }
-      });
-
-      this.entryForm.controls['supplier']?.valueChanges.subscribe(value => {
-        if(this.entryForm.controls['supplier']?.hasError('invalidData')){
-          this.entryForm.controls['supplierName'].setValue("");
-        }
-      });
-      this.entryForm.controls['customer']?.valueChanges.subscribe(value => {
-        if(this.entryForm.controls['customer']?.hasError('invalidData')){
-          this.entryForm.controls['customerName'].setValue("");
-        }
-      });
+      });     
       
   }
 
@@ -176,7 +163,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     const newRecord = {
       dailyTransactionEntry: {
         customerCode: result.customer,
-        customerName: result.customerName,
         driverLicenseNo: result.licenceNo,
         driverName: result.driverName,
         entryDate: GlobalConstants.commonFunction.getFormattedDate(),
@@ -194,7 +180,6 @@ export class entryDataComponent implements OnInit, OnChanges {
         noOfPieces: result.pieces,
         productCode: this._getSelectedValue(this.productsList,result.products,"productName", "productCode"),
         supplierCode: result.supplier,
-        supplierName: result.supplierName,
         transporterCode: this.entryForm.controls['transporter'].value,
         transporterName: this.entryForm.controls['transporterName'].value,
         vehiclePlateNo: result.vehicleNo,
@@ -203,6 +188,14 @@ export class entryDataComponent implements OnInit, OnChanges {
       sequenceNo: this.sequenceno || 'new11',
       transactionStatus: 'Entry Completed',
     };
+
+    if (this.selectedGood === 'incoming' && newRecord.dailyTransactionEntry.supplierCode ) {
+      newRecord.dailyTransactionEntry.supplierCode = newRecord?.dailyTransactionEntry.supplierCode.toString().split('/')[0] ?? "";
+    }
+
+    if (this.selectedGood === 'outgoing' && newRecord.dailyTransactionEntry.supplierCode ) {
+      newRecord.dailyTransactionEntry.customerCode = newRecord?.dailyTransactionEntry.customerCode.toString().split('/')[0] ?? "";
+    }
 
     if (this.sequenceno && this.sequenceno !== '') {
       this.httpService.updateTransaction(newRecord).subscribe({
@@ -305,18 +298,11 @@ export class entryDataComponent implements OnInit, OnChanges {
 
   onSupplierChange(event: any) {    
     const supplierData = this.suppliersList.find((s: Supplier) => s.supplierCode === this.entryForm.get('supplier')?.value);
-    this.entryForm.controls['supplierName'].setValue("");
-    if (supplierData) {
-      this.entryForm.controls['supplierName'].setValue(supplierData.supplierName);
-    }
+   
   }
 
   onCustomerChange(event: any) {
-    const custData = this.customersList.find((c: Customer) => c.customerCode === this.entryForm.get('customer')?.value);
-    this.entryForm.controls['customerName'].setValue("");
-    if (custData) {
-      this.entryForm.controls['customerName'].setValue(custData.customerName);
-    }
+    const custData = this.customersList.find((c: Customer) => c.customerCode === this.entryForm.get('customer')?.value);   
   }
   
 
@@ -433,17 +419,12 @@ export class entryDataComponent implements OnInit, OnChanges {
 
   private getAllSuppliers(newRecord?: Supplier): void {
     const supplierControl = this.entryForm.get('supplier');
-    const supplierName = this.entryForm.get('supplierName');
     this.supplierService.getlistAllSupplierCodeAndName().subscribe({
       next: (data: any) => {
         this.suppliersList = data;
         if (newRecord) {
-          supplierControl?.setValue(newRecord?.supplierCode);
-          supplierName?.setValue(this._getSelectedValueFromString(this.suppliersList,newRecord?.supplierCode,"supplierCode", "supplierName"));
-        }
-        else{
-          supplierName?.setValue(this._getSelectedValueFromString(this.suppliersList,this.transactionData?.dailyTransactionEntry?.supplierCode,"supplierCode", "supplierName"));  
-        }                
+          supplierControl?.setValue(`${newRecord?.supplierCode}/${newRecord.supplierName}`);
+        }                       
         supplierControl?.clearValidators();
         if (this.selectedGood === 'incoming') {
         supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList, 'supplierCode')]);
@@ -497,22 +478,13 @@ export class entryDataComponent implements OnInit, OnChanges {
 
   private getAllCustomers(newRecord?: Customer): void {
     const customerControl = this.entryForm.get('customer');
-    const customerName = this.entryForm.get('customerName');
     this.customerService.getAllAllCustomerCodeAndName().subscribe({
       next: (data: any) => {
         this.customersList = data;
         if (newRecord) {
-          customerControl?.setValue(newRecord?.customerCode);          
-        }
-
-        if (newRecord) {
-          customerControl?.setValue(newRecord?.customerCode);   
-          customerName?.setValue(this._getSelectedValueFromString(this.customersList,newRecord?.customerCode,"customerCode", "customerName"));
-        }
-        else{
-          customerName?.setValue(this._getSelectedValueFromString(this.customersList,this.transactionData?.dailyTransactionEntry?.customerCode,"customerCode", "customerName"));  
-        }  
-        
+          customerControl?.setValue(`${newRecord?.customerCode}/${newRecord.customerName}`); 
+        } 
+         
         customerControl?.clearValidators();
         if (this.selectedGood !== 'incoming') {
           customerControl?.addValidators([
