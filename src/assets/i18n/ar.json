@@ -251,6 +251,7 @@
 			"databits":"بتات البيانات",
 			"endpoint":"نقطة النهاية",
 			"weightbridgetype": "وزن الجسر",
+			"parity":"التكافؤ",
 			"actions":"عمل"
 
 		},

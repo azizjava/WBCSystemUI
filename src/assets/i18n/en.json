@@ -251,6 +251,7 @@
 			"databits":"Data Bits",
 			"endpoint":"End point",
 			"weightbridgetype": "Weigh Bridge Type",
+			"parity":"Parity",
 			"actions":"Actions"
 		},
 		"firstWt":"First Weight Settings",

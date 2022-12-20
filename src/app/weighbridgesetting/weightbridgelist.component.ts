@@ -22,6 +22,7 @@ export class WeightbridgeListComponent implements OnInit {
     'portNo',
     'baudRate',
     'dataBits',
+    'parity',
     'Actions',
   ];
   public tableData: any;
