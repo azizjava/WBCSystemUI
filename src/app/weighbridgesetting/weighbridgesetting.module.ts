@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeighbridgesettingRoutingModule } from './weighbridgesetting-routing.module';
-import { WeighbridgesettingComponent } from './weighbridgesetting.component';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -18,7 +17,6 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     WeightbridgeListComponent,
-    WeighbridgesettingComponent,
     AddWeighbridgesettingComponent
   ],
   imports: [

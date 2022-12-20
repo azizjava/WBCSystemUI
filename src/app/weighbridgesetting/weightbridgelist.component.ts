@@ -6,7 +6,6 @@ import { GlobalConstants } from '../common/global-constants';
 import { dateRange, modelDialog, tableOperation, Transporter, Vehicle, WeighBridge } from '../models';
 import { AlertService } from '../services';
 import { AddWeighbridgesettingComponent } from './weighbridgedata/addweighbridgesetting.component';
-import { WeighbridgesettingComponent } from './weighbridgesetting.component';
 import { WeightBridgeService } from './weightbridge.service';
 
 @Component({
