@@ -115,8 +115,8 @@
           formControlName="supplier" name="supplier" [matAutocomplete]="autoSupplier" >
         <mat-autocomplete #autoSupplier="matAutocomplete" (optionSelected)='onSupplierChange($event)'>
         
-          <mat-option *ngFor="let option of filteredSupplierList | async" [value]="option.supplierCode">
-            {{option.supplierCode}}
+          <mat-option *ngFor="let option of filteredSupplierList | async" [value]="option">
+            {{option}}
           </mat-option>
         </mat-autocomplete>
         <mat-error *ngIf="entryForm.controls['supplier'].errors && 
@@ -142,8 +142,8 @@
           name="customer" [matAutocomplete]="autoCustomer">
         <mat-autocomplete #autoCustomer="matAutocomplete" (optionSelected)='onCustomerChange($event)'>
         
-          <mat-option *ngFor="let option of filteredCustomerList | async" [value]="option.customerCode">
-            {{option.customerCode}}
+          <mat-option *ngFor="let option of filteredCustomerList | async" [value]="option">
+            {{option}}
           </mat-option>
         </mat-autocomplete>
         <mat-error *ngIf="entryForm.controls['customer'].errors && 

@@ -268,12 +268,12 @@ export class entryDataComponent implements OnInit, OnChanges {
 
     if (this.selectedGood === 'incoming') {
       this.productsList = this.suppProductsList;
-      supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.suppliersList, 'supplierCode')]);
+      supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList, 'supplierCode')]);
       customerControl?.clearValidators();
       
     } else {
       this.productsList = this.custProductsList;
-      customerControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.customersList, 'customerCode')]);
+      customerControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.customersList, 'customerCode')]);
       supplierControl?.clearValidators();
     }
 
@@ -434,19 +434,19 @@ export class entryDataComponent implements OnInit, OnChanges {
   private getAllSuppliers(newRecord?: Supplier): void {
     const supplierControl = this.entryForm.get('supplier');
     const supplierName = this.entryForm.get('supplierName');
-    this.supplierService.getAllSuppliers().subscribe({
-      next: (data: Supplier[]) => {
+    this.supplierService.getlistAllSupplierCodeAndName().subscribe({
+      next: (data: any) => {
         this.suppliersList = data;
         if (newRecord) {
           supplierControl?.setValue(newRecord?.supplierCode);
-          supplierName?.setValue(this._getSelectedValue(this.suppliersList,newRecord?.supplierCode,"supplierCode", "supplierName"));
+          supplierName?.setValue(this._getSelectedValueFromString(this.suppliersList,newRecord?.supplierCode,"supplierCode", "supplierName"));
         }
         else{
-          supplierName?.setValue(this._getSelectedValue(this.suppliersList,this.transactionData?.dailyTransactionEntry?.supplierCode,"supplierCode", "supplierName"));  
+          supplierName?.setValue(this._getSelectedValueFromString(this.suppliersList,this.transactionData?.dailyTransactionEntry?.supplierCode,"supplierCode", "supplierName"));  
         }                
         supplierControl?.clearValidators();
         if (this.selectedGood === 'incoming') {
-        supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.suppliersList, 'supplierCode')]);
+        supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList, 'supplierCode')]);
         }
         supplierControl?.updateValueAndValidity();
       },
@@ -498,8 +498,8 @@ export class entryDataComponent implements OnInit, OnChanges {
   private getAllCustomers(newRecord?: Customer): void {
     const customerControl = this.entryForm.get('customer');
     const customerName = this.entryForm.get('customerName');
-    this.customerService.getAllCustomers().subscribe({
-      next: (data: Customer[]) => {
+    this.customerService.getAllAllCustomerCodeAndName().subscribe({
+      next: (data: any) => {
         this.customersList = data;
         if (newRecord) {
           customerControl?.setValue(newRecord?.customerCode);          
@@ -507,10 +507,10 @@ export class entryDataComponent implements OnInit, OnChanges {
 
         if (newRecord) {
           customerControl?.setValue(newRecord?.customerCode);   
-          customerName?.setValue(this._getSelectedValue(this.customersList,newRecord?.customerCode,"customerCode", "customerName"));
+          customerName?.setValue(this._getSelectedValueFromString(this.customersList,newRecord?.customerCode,"customerCode", "customerName"));
         }
         else{
-          customerName?.setValue(this._getSelectedValue(this.customersList,this.transactionData?.dailyTransactionEntry?.customerCode,"customerCode", "customerName"));  
+          customerName?.setValue(this._getSelectedValueFromString(this.customersList,this.transactionData?.dailyTransactionEntry?.customerCode,"customerCode", "customerName"));  
         }  
         
         customerControl?.clearValidators();
@@ -518,7 +518,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           customerControl?.addValidators([
             Validators.required,
             Validators.maxLength(50),
-            autocompleteObjectValidator(this.customersList, 'customerCode'),
+            autocompleteObjectValidatorWithString(this.customersList, 'customerCode'),
           ]);
         }
         customerControl?.updateValueAndValidity();
@@ -622,7 +622,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredSupplierList = this.entryForm.get('supplier')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.suppliersList,item,"supplierCode", "supplierName") : this.suppliersList.slice())),
+      map((item :any)=> (item ? this._filterDataFromString(this.suppliersList,item,"supplierCode", "supplierName") : this.suppliersList.slice())),
     );   
   }
 
@@ -630,7 +630,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredCustomerList = this.entryForm.get('customer')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.customersList,item,"customerCode","customerName") : this.customersList.slice())),
+      map((item :any)=> (item ? this._filterDataFromString(this.customersList,item,"customerCode","customerName") : this.customersList.slice())),
     );   
   }
 
@@ -643,6 +643,15 @@ export class entryDataComponent implements OnInit, OnChanges {
   }
 
   
+
+  private _filterDataFromString(list:any, value: string,key :string, nameSearch:string =''): any[] {
+    if (value === '') {
+      return list.slice();
+    }
+    
+    const filterValue = value?.toLowerCase();
+    return list.filter((item :any) => item.toLowerCase().includes(filterValue) || nameSearch && item.toLowerCase().includes(filterValue) );
+  }
 
   private _filterData(list:any, value: string,key :string, nameSearch:string =''): any[] {
     if (value === '') {
@@ -663,7 +672,19 @@ export class entryDataComponent implements OnInit, OnChanges {
     }
 
     return "";
-  }  
+  }
+
+  private _getSelectedValueFromString(list:any, value: string, key :string, returnKey:string): string {
+    if (list) {
+      const filterValue = value?.toLowerCase();
+      const filterList = list.find((item: any) =>
+        item.toString().toLowerCase().includes(filterValue)
+      );
+      return (filterList && filterList[returnKey]) ?? '';
+    }
+
+    return "";
+  } 
 }
 
 
@@ -678,3 +699,16 @@ function autocompleteObjectValidator(listObj: any, keyName: string, ): Validator
     };
   };
 }
+
+function autocompleteObjectValidatorWithString(listObj: any, keyName: string, ): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    if(!control.value) { return null;}
+    let index = listObj?.findIndex((obj: any) => obj  === control.value);
+    if (index !== -1) {  return null; }
+
+    return {     
+      invalidData: { value: control.value } 
+    };
+  };
+}
+

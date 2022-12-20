@@ -106,7 +106,7 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
 
   async translatePaginator() {
     const label = await this.translate.get('common.itemsperpagelabel').toPromise();
-    this.paginator._intl.itemsPerPageLabel = label;
+    //this.paginator._intl.itemsPerPageLabel = label;
     this.dataSource.paginator = this.paginator;
   }
 

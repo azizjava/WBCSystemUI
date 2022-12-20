@@ -21,6 +21,11 @@ export class SuppliersService {
       .get<Supplier[]>(`${this.baseURL}/listAllSupplier`);      
   }
 
+  getlistAllSupplierCodeAndName(): Observable<Supplier[]> {
+    return this.http
+      .get<Supplier[]>(`${this.baseURL}/listAllSupplierCodeAndName`);      
+  }
+
   getSupplierById(id: any): Observable<Supplier> {
     return this.http.get<Supplier>(`${this.baseURL}/findBySupplierCode/${id}`);
   }
