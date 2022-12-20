@@ -213,7 +213,8 @@
             </div>
             <div class="col">
                 <section class="example-section mt-4">
-                    <mat-checkbox formControlName="deviceStatus" name="deviceStatus">{{'wbSetting.enabledevice'| translate}}</mat-checkbox>
+                    <mat-checkbox formControlName="deviceStatus" name="deviceStatus"
+                    (change)="onDeviceStatusChange($event)">{{'wbSetting.enabledevice'| translate}}</mat-checkbox>
                 </section>
             </div>
         </div>
