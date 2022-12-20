@@ -79,7 +79,8 @@
 		"Nationality": "جنسية",
 		"Product prices": "أسعار المنتجات",
 		"Reports": "التقارير",
-		"WeighBridgeSetting":"وزن إعدادات الجسر"
+		"WeighBridgeSetting":"وزن إعدادات الجسر",
+		"WeighBridgeWeight":"وزن الجسر"
 	},	
 	"customers":{
 		"tbl_header":{

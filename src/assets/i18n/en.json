@@ -79,7 +79,8 @@
 		"Nationality": "Nationality",
 		"Product prices": "Product prices",
 		"Reports": "Reports",
-		"WeighBridgeSetting":"Weigh Bridge Settings"
+		"WeighBridgeSetting":"Weigh Bridge Settings",
+		"WeighBridgeWeight":"Weigh Bridge Weight"
 	},
 	"customers":{
 		"tbl_header":{

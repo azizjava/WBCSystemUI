@@ -15,15 +15,9 @@ export class WeightBridgeWeightService {
     this.baseURL = environment.baseURL + '/deviceInfo';
   }
 
-  getAllDeviceInfo(): Observable<WeighBridge[]> {
-    return this.http.get<WeighBridge[]>(`${this.baseURL}/listAllDeviceInfo`);
-  }
 
-  getAllEnabledDeviceInfo(): Observable<WeighBridge[]> {
-    return this.http.get<WeighBridge[]>(`${this.baseURL}/findAllByDeviceInfoEnabled`);
-  }
 
-  getDeviceById(name: any): Observable<WeighBridge> {
+  getSelectedWeightType(name: string): Observable<WeighBridge> {
     return this.http.get<WeighBridge>(`${this.baseURL}/findByDeviceInfo/${name}`);
   }
 
@@ -31,15 +25,9 @@ export class WeightBridgeWeightService {
     return this.http.post(`${this.baseURL}/create`, data);
   }
 
-  updateDevice( data: WeighBridge): Observable<any> {
+  updateSelectedWEightType(data: any): Observable<any> {
     return this.http.put(`${this.baseURL}/update`, data);
   }
 
-  deleteDevice(id: any): Observable<any> {
-    return this.http.delete(`${this.baseURL}/delete/${id}`);
-  }
-
-  deleteAllDevices(): Observable<any> {
-    return this.http.delete(`${this.baseURL}/deleteAll`);
-  }
+ 
 }

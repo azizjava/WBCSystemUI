@@ -1,3 +1,15 @@
 <div class="weightbridgeweight">
+
+  <div style="margin-inline: 1%; width: 98%;" class="card shadow p-2 mb-2 bg-body rounded">
+    <div class="card-body">
+        <div class="full-width mt-2">
+            <mat-label class="me-3 d-none d-lg-inline d-xl-inline">{{'wbSetting.selectweight' | translate }}</mat-label>  
+            <mat-radio-group fxLayout aria-label="'wbSetting.selectweight' | translate " (change)="radioChange($event)">
+                <mat-radio-button class="me-3" checked value="kg">{{'wbSetting.kg' | translate }}</mat-radio-button>
+                <mat-radio-button class="" value="lb">{{'wbSetting.lb' | translate }}</mat-radio-button>
+              </mat-radio-group>
+        </div>
+    </div>
+  </div>
  
 </div>
