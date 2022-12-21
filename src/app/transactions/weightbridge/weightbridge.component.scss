@@ -1,9 +1,12 @@
+@import 'styles.scss';
+
 .weightBridge-form {
 
     margin-bottom: .5rem;
     max-height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+    @include scrollbars();
   
     .rectangle {
         height: 2rem;
