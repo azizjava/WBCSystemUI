@@ -6,9 +6,11 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
+import { CustomerProductsService } from 'src/app/customerproducts/customerproducts.service';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
-import { modelDialog, Transporter } from 'src/app/models';
+import { modelDialog, Product, Transporter } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
+import { SupplierProductsService } from 'src/app/supplierproducts/products.service';
 import { TransactionsService } from '../../transactions.service';
 
 @Component({
@@ -27,7 +29,6 @@ export class exitDataComponent implements OnInit, OnChanges {
   vehicleList: any = [];
   transportersList: any = [];
   suppliersList: any = [];
-  productsList: any = [];
   operatorIDList: any = [];
   nationalityList: any = [];
   keyValueData: any = [];
@@ -40,6 +41,8 @@ export class exitDataComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService,
+    private custProductService: CustomerProductsService,
+    private suppProductService: SupplierProductsService,
   ) {}
 
   ngOnInit(): void {
@@ -61,7 +64,7 @@ export class exitDataComponent implements OnInit, OnChanges {
           disabled: true,
         },
       ],
-      deductWeight: ['', [Validators.required, Validators.maxLength(50)]],
+      deductWeight: [0, [Validators.required, Validators.maxLength(50)]],
       netWeight: ['', [Validators.required, Validators.maxLength(50)]],
       priceTons: ['', [Validators.required, Validators.maxLength(50)]],
       totalPrice: ['', [Validators.required, Validators.maxLength(50), patternNumberValidator()]],
@@ -79,11 +82,16 @@ export class exitDataComponent implements OnInit, OnChanges {
       
     this.getTransactionById();
     this.keyValueData.length ===0 && this.keyValueData.push({ name: '', value: '' });
+
+    this.exitForm.get('deductWeight')?.valueChanges.subscribe(v => {
+      this._calculateNetWeight(v);
+    });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['weight'] && !changes['weight']?.firstChange) {
       this.exitForm.controls['secondWeight'].setValue(changes['weight'].currentValue);
+      this._calculateNetWeight();
     }
 
     if (changes['transactionData'] && !changes['transactionData']?.firstChange) {
@@ -125,7 +133,6 @@ export class exitDataComponent implements OnInit, OnChanges {
     transactionStatus: 'Exit Completed',
   };
 
-  console.log(newRecord);
 
   this.httpService.updateTransaction(newRecord).subscribe({
     next: (res) => {
@@ -162,7 +169,26 @@ export class exitDataComponent implements OnInit, OnChanges {
     return item;
   }
  
- 
+ private _calculateNetWeight(deductWgt :number =0): void {
+
+  const result = this.exitForm.value;
+
+  const goodsType = this.transactionData.dailyTransactionEntry.goodsType;
+  const firstWeight = +this.transactionData.dailyTransactionEntry.firstWeight;
+  const secondWeight = +result.secondWeight || 0;
+  const deductWeight = +deductWgt || +result.deductWeight;
+  let netWeight = 0;
+
+  if(goodsType  === 'incoming'){
+    netWeight = (firstWeight -secondWeight) -deductWeight;
+  }
+  else{
+    netWeight = (secondWeight -firstWeight) -deductWeight;
+  }
+
+  this.exitForm.controls['netWeight'].setValue(netWeight);
+
+ }
 
   private getTransactionById(): void {
     if (this.transactionData &&  this.transactionData.dailyTransactionExit) {
@@ -184,9 +210,43 @@ export class exitDataComponent implements OnInit, OnChanges {
         this.exitForm.controls['priceTons'].setValue(data.pricePerTon);
         this.exitForm.controls['secondWeight'].setValue(data.secondWeight);
         this.exitForm.controls['totalPrice'].setValue(data.totalPrice);
-      }      
+      }
+      
+      this._getAllProducts();
       
     }
     
+  }
+
+  private _getAllProducts() {
+    if (this.transactionData.dailyTransactionEntry.goodsType === 'incoming') {
+
+      this.suppProductService.getAllProducts().subscribe({
+        next: (data: Product[]) => {          
+          this._priceTons(data);   
+        },
+        error: (error) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+  
+    }
+    else{
+      this.custProductService.getAllProducts().subscribe({
+        next: (data: Product[]) => {          
+          this._priceTons(data);         
+        },
+        error: (error) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      }); 
+    }      
+  }
+
+  private _priceTons(productsList :Product[]) {
+    const productPrice = productsList.find((p:Product) => p.productCode === this.transactionData.dailyTransactionEntry.productCode)?.productPrice || 0;
+    this.exitForm.controls['priceTons'].setValue(productPrice);
   }
 }
