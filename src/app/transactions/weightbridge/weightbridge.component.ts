@@ -18,8 +18,6 @@ export class weightBridgeComponent implements OnInit {
 
   @Output() weightChange: EventEmitter<number> = new EventEmitter<number>();
 
-  public connectStatus: boolean = false;
-  public weight: number = 0;
   public firstWeightdevicesList: any = [];
   public secondWeightdevicesList: any = [];
 
@@ -30,17 +28,16 @@ export class weightBridgeComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getAllActiveDevices();
-    this._calculateWeight(true);
   }
 
-  public weightChangeEvent(): void {
-    this._calculateWeight();
-    this.weightChange.emit(this.weight);
+  public trackByFn(index: number, item: any) {
+    return item.value;
   }
 
-  private _calculateWeight(isFirst: boolean = false): void {
-    this.weight = this._randomIntFromInterval();
-  }
+  public weightChangeEvent(item :any): void {
+    item.weight = this._randomIntFromInterval();
+    this.weightChange.emit(item.weight);
+  }  
 
   private _randomIntFromInterval(min: number = 1, max: number = 100) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -51,6 +48,14 @@ export class weightBridgeComponent implements OnInit {
       next: (data: any[]) => {
         this.secondWeightdevicesList = data.filter(d=> d.weightBridgeType ==="SecondWeight");
         this.firstWeightdevicesList = data.filter(d=> d.weightBridgeType ==="FirstWeight");
+        this.firstWeightdevicesList.foreach((e:any) =>  {
+          e.weight = 0; 
+          e.connectStatus =false; 
+        });
+        this.secondWeightdevicesList.foreach((e:any) =>  {
+          e.weight = 0; 
+          e.connectStatus =false; 
+        });
       },
       error: (error: string) => {
         console.log(error);
