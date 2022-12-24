@@ -200,7 +200,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     if (this.sequenceno && this.sequenceno !== '') {
       this.httpService.updateTransaction(newRecord).subscribe({
         next: (res) => {
-          console.log(res);
           this.alertService.success(
             `${res.sequenceNo} updated successfully`
           );
@@ -214,6 +213,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       this.httpService.createNewTransaction(newRecord).subscribe({
         next: (res: any) => {
           console.log(res);
+          this.entryForm.controls['sequenceNo'].setValue(res.sequenceNo);
           this.alertService.success(`${res.sequenceNo} inserted successfully`);
         },
         error: (error) => {
@@ -270,6 +270,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       supplierControl?.clearValidators();
     }
 
+    productsControl?.setValue('');
     productsControl?.clearValidators();
     productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
     productsControl?.updateValueAndValidity();
@@ -373,6 +374,12 @@ export class entryDataComponent implements OnInit, OnChanges {
           this.entryForm.controls['transporter'].setValue(
             newRecord?.transporters.nameOfTransporter
           );
+          this.entryForm.controls['transporterName'].setValue(
+            newRecord?.transporters.nameOfTransporter
+          );
+        }
+        else{
+          this.onVehicleChange(null);
         }
         vehicleNoControl?.clearValidators();
         vehicleNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.vehicleList, 'plateNo')]);
@@ -427,6 +434,14 @@ export class entryDataComponent implements OnInit, OnChanges {
         }                       
         supplierControl?.clearValidators();
         if (this.selectedGood === 'incoming') {
+          if (this.entryForm.controls['sequenceNo'].value !== 0) {
+            const supplierCode = this.entryForm.get('supplier')?.value;
+            const supplierData = this.suppliersList.find((s:string) => s.includes(supplierCode +'/'));
+
+            if (supplierData) {
+              supplierControl?.setValue(`${supplierData}`);              
+            }
+          }
         supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList, 'supplierCode')]);
         }
         supplierControl?.updateValueAndValidity();
@@ -487,6 +502,15 @@ export class entryDataComponent implements OnInit, OnChanges {
          
         customerControl?.clearValidators();
         if (this.selectedGood !== 'incoming') {
+
+          if (this.entryForm.controls['sequenceNo'].value !== 0) {
+            const customerCode = this.entryForm.get('customer')?.value;
+            const customerData = this.customersList.find((s:string) => s.includes(customerCode +'/'));
+
+            if (customerData) {
+              customerControl?.setValue(`${customerData}`);   
+            }
+          }
           customerControl?.addValidators([
             Validators.required,
             Validators.maxLength(50),

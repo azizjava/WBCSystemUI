@@ -48,11 +48,11 @@ export class weightBridgeComponent implements OnInit {
       next: (data: any[]) => {
         this.secondWeightdevicesList = data.filter(d=> d.weightBridgeType ==="SecondWeight");
         this.firstWeightdevicesList = data.filter(d=> d.weightBridgeType ==="FirstWeight");
-        this.firstWeightdevicesList.length >0  && this.firstWeightdevicesList.foreach((e:any) =>  {
+        this.firstWeightdevicesList.length >0  && this.firstWeightdevicesList.forEach((e:any) =>  {
           e.weight = 0; 
           e.connectStatus =false; 
         });
-        this.secondWeightdevicesList.length >0 && this.secondWeightdevicesList.foreach((e:any) =>  {
+        this.secondWeightdevicesList.length >0 && this.secondWeightdevicesList.forEach((e:any) =>  {
           e.weight = 0; 
           e.connectStatus =false; 
         });
