@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService, AlertService } from '../../services';
 import { GlobalConstants } from '../../common/index';
 import { HttpResponse } from '@angular/common/http';
+import { WeightBridgeScaleService } from 'src/app/services/weighbridgescale.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
+    private weightBridgeScaleService: WeightBridgeScaleService,
     private alertService: AlertService
   ) {
 
@@ -77,7 +79,8 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data: boolean) => {      
-          if (data) {                  
+          if (data) { 
+             this.weightBridgeScaleService.getWeightScaleType();                 
              this.router.navigate([this.returnUrl]);
           }
         },

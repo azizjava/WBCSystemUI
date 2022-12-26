@@ -15,13 +15,20 @@ export class WeightBridgeScaleService {
     this.baseURL = environment.baseURL + '/device/scale';
   }
 
-  getWeightScaleType(): Observable<WeighBridge> {
-    return this.http.get<WeighBridge>(`${this.baseURL}/findScaleType`);
+  getWeightScaleType(): void {
+    this.http.get<WeighBridge>(`${this.baseURL}/findScaleType`).subscribe({
+      next: (data: any) => {
+        localStorage.setItem('weightScaleType', data.escale || 'KG');
+      },
+      error: (error: string) => {
+        localStorage.setItem('weightScaleType', 'KG');
+      },
+    });;
   }
 
   updateWeightScaleType(data: any): Observable<any> {
     return this.http.post(`${this.baseURL}/save`, data);
-  }
+  } 
 
  
 }
