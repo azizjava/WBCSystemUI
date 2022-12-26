@@ -209,6 +209,9 @@ export class GlobalConstants {
         { key: 'customers', value: 'List Of Customers' },
         { key: 'customerprice', value: 'Customer Price List' },
         { key: 'supplierprice', value: 'Supplier Price List' },
+        { key: 'loginhistory', value: 'Log In/Out History' },
+        { key: 'productstock', value: 'Product Stock Status' },
+
       ];
       return menu;
     },
@@ -219,13 +222,10 @@ export class GlobalConstants {
         { key: 'supplierreport', value: 'Report By Supplier' },
         { key: 'vehiclereport', value: 'Report By Vehicle' },
         { key: 'transporterreport', value: 'Report By Transporter' },
-        { key: 'productstock', value: 'Product Stock Status' },
         { key: 'incomingprodcut', value: 'Incoming Products' },
         { key: 'outgoingprodcut', value: 'Outgoing Products' },
         { key: 'datereport', value: 'Report By Date' },
-        { key: 'datetimereport', value: 'Report By Date & Time' },
-        { key: 'loginhistory', value: 'Log In/Out History' },
-       
+        { key: 'datetimereport', value: 'Report By Date & Time' },   
       
       ];
       return menu;
