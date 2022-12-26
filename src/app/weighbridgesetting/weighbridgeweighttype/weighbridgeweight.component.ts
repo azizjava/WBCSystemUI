@@ -33,11 +33,12 @@ export class WeightbridgeWeightComponent implements OnInit {
         this.scaleForm.controls['scaleType'].setValue(this.selectedscaleType);
       },
     });
-  }
+  }  
 
-  public radioChange($event: MatRadioChange) {    
+  public saveSettings() {
+
     const data = {
-      escale: $event.value.toString().toUpperCase()
+      escale: this.scaleForm.controls['scaleType'].value
     }
     this.httpService.updateWeightScaleType(data).subscribe({
       next: (data: any) => {
