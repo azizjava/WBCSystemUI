@@ -9,6 +9,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { WeightbridgeListComponent } from './weightbridgelist.component';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { AddWeighbridgesettingComponent } from './weighbridgedata/addweighbridgesetting.component';
+import { WeightbridgeWeightComponent } from './weighbridgeweighttype/weighbridgeweight.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -17,7 +18,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     WeightbridgeListComponent,
-    AddWeighbridgesettingComponent
+    AddWeighbridgesettingComponent,
+    WeightbridgeWeightComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,7 @@
 <div class="weightbridgelist">
+  <div>
+    <app-weightbridgeweight></app-weightbridgeweight>
+  </div>  
     <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
       [componentName] ="'wbSetting'" [visibleColumns]='visibleColumns'
         (actionEvent)="selectedRecord($event)" ></app-list-table>
