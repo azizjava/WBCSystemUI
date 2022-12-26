@@ -11,6 +11,7 @@
               </mat-radio-group>
 
               <button mat-flat-button color="primary" class="btn btn-sm btn-save" mat-button
+              [disabled]="selectedscaleType === scaleForm.controls['scaleType'].value"
               (click)="saveSettings()" matTooltip="{{'actions.save' | translate }}">
               {{'actions.save' | translate }}
           </button>

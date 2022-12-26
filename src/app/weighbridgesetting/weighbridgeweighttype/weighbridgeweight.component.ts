@@ -36,11 +36,12 @@ export class WeightbridgeWeightComponent implements OnInit {
   }  
 
   public saveSettings() {
-
-    const data = {
-      escale: this.scaleForm.controls['scaleType'].value
+    const escale = this.scaleForm.controls['scaleType'].value;
+    if(this.selectedscaleType === escale){
+      return;
     }
-    this.httpService.updateWeightScaleType(data).subscribe({
+
+    this.httpService.updateWeightScaleType({ escale: escale }).subscribe({
       next: (data: any) => {
         this.alertService.success('Data updated successfully.');  
       },
