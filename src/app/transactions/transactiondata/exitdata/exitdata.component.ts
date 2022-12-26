@@ -76,7 +76,7 @@ export class exitDataComponent implements OnInit, OnChanges {
           disabled: true,
         },
       ],
-      instructions: ['', [Validators.required, Validators.maxLength(250)]],
+      instructions: ['', [Validators.maxLength(250)]],
       deliveryNoteNo: ['', [Validators.required, Validators.maxLength(50)]],
       orderNo: ['', [Validators.required, Validators.maxLength(50)]],
     });
@@ -86,6 +86,10 @@ export class exitDataComponent implements OnInit, OnChanges {
 
     this.exitForm.get('deductWeight')?.valueChanges.subscribe(v => {
       this._calculateNetWeight(v);
+    });
+
+    this.exitForm.get('secondWeight')?.valueChanges.subscribe(v => {
+      this._calculateNetWeight();
     });
   }
 
@@ -136,7 +140,7 @@ export class exitDataComponent implements OnInit, OnChanges {
 
 
   this.httpService.updateTransaction(newRecord).subscribe({
-    next: (res) => {
+    next: (result) => {
       this.alertService.success(
         `${result.sequenceNo} updated successfully`
       );
@@ -178,7 +182,9 @@ export class exitDataComponent implements OnInit, OnChanges {
   const firstWeight = +this.transactionData.dailyTransactionEntry.firstWeight;
   const secondWeight = +result.secondWeight || 0;
   const deductWeight = +deductWgt || +result.deductWeight;
-  let netWeight = 0;
+  let netWeight = 0; 
+  const productPrice = this.exitForm.controls['priceTons'].value;
+  
 
   if(goodsType  === 'incoming'){
     netWeight = (firstWeight -secondWeight) -deductWeight;
@@ -187,7 +193,17 @@ export class exitDataComponent implements OnInit, OnChanges {
     netWeight = (secondWeight -firstWeight) -deductWeight;
   }
 
+  let totalPrice: number = netWeight * productPrice;
+  if(this.selectedScaleType ==='KG'){
+    totalPrice =  totalPrice /1000;
+  }
+  if(this.selectedScaleType ==='LB'){
+    totalPrice =  totalPrice /2205;
+  }
+
+  totalPrice = parseFloat(totalPrice.toFixed(3));
   this.exitForm.controls['netWeight'].setValue(netWeight);
+  this.exitForm.controls['totalPrice'].setValue(totalPrice >0 ? totalPrice : 0);
 
  }
 
