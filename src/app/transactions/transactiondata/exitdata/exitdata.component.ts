@@ -23,6 +23,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   @Input() weight : number = 0; 
   @Input() sequenceno : string = '';
   @Input() transactionData: any;
+  @Input() selectedScaleType: string = '';
 
   
   exitForm: UntypedFormGroup;

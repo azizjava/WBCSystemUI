@@ -14,6 +14,7 @@ export class TransactionDataComponent implements OnInit {
   public sequenceno: string;
   public weight:number =0;
   public transactionData:any;
+  public selectedScaleType :string; 
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,8 @@ export class TransactionDataComponent implements OnInit {
       this.sequenceno = params['sequenceno'];
       this.sequenceno && this._getTransactionById();
     });
+
+    this.selectedScaleType = localStorage.getItem('weightScaleType') || 'KG';
   }
 
   public changeCard(isForward: boolean = true) {
