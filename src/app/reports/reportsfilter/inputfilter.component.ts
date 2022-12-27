@@ -31,8 +31,8 @@ export class InputFilterComponent implements OnInit {
   public transactionReportOptions: any = [];
   filteredAdminReportsOptions: Observable<any[]>;
   filteredTransactionReportsOptions: Observable<any[]>;
-  public fromDateControl = new FormControl(new Date(2021,9,4,5,6,7));
-  public toDateControl = new FormControl(new Date(2021,9,4,5,6,7));
+  public fromDateControl = new FormControl(new Date(Date.now() - 86400000 *2));
+  public toDateControl =  new FormControl(moment().toDate());
 
   constructor(private translate: TranslateService) {}
 
@@ -77,5 +77,13 @@ export class InputFilterComponent implements OnInit {
     this.selectedReportType = event.value;
   }
 
-  save() {}
+  public fetchReports() :void {
+
+    const fromDateControl = this.fromDateControl.value;
+    const toDateControl = this.toDateControl.value;
+    const selectedReportType = this.selectedReportType;
+    const reportName = this.selectedReportType ==='1' ? this.adminddlControl.value : this.transactionddlControl.value;
+
+    console.log(`fromDate  : ${fromDateControl} , toDate  : ${toDateControl} , ReportType : ${selectedReportType} , reportName : ${reportName} ,`);
+  }
 }
