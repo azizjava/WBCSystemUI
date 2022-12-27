@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
 
@@ -11,6 +13,14 @@ import { GlobalConstants } from 'src/app/common';
   styleUrls: ['./inputfilter.component.scss'],
 })
 export class InputFilterComponent implements OnInit {
+  public minDate: moment.Moment;
+  public maxDate: moment.Moment;
+  public stepHour = 1;
+  public stepMinute = 1;
+  public stepSecond = 1;
+  public color: ThemePalette = 'primary'; 
+  
+
   public staticText: any = {};
   public reportType: any = [];
   public selectedReportType: string = '1';
@@ -21,6 +31,8 @@ export class InputFilterComponent implements OnInit {
   public transactionReportOptions: any = [];
   filteredAdminReportsOptions: Observable<any[]>;
   filteredTransactionReportsOptions: Observable<any[]>;
+  public fromDateControl = new FormControl(new Date(2021,9,4,5,6,7));
+  public toDateControl = new FormControl(new Date(2021,9,4,5,6,7));
 
   constructor(private translate: TranslateService) {}
 

@@ -1,7 +1,16 @@
 <div class="reportsFilter">
 
-  <div class="row mb-2">
-    <div class="col-3 reportoption">
+  <div class="row">
+    <div class="d-flex justify-content-end mt-1 mb-1">
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button >
+        Print Layout Setup
+      </button>
+    
+     </div>
+  </div>
+
+  <div class="columns">
+    <div class="column mtop-5 mb-3">
 
       <mat-label id="reportType" class="px-2">Report Type</mat-label>
 
@@ -10,13 +19,11 @@
           [checked]="option.checked" (change)="onReportTypeChange($event)"> {{option.name}} </mat-radio-button>
       </mat-radio-group>
     </div>
-
-    <div class="col-2">
+    <div class="column mb-2">
       <ng-container *ngIf="selectedReportType ==='1'">
         <mat-form-field class="example-full-width" appearance="fill">     
           <mat-label>Admin Reports Type</mat-label>
           <input type="text"
-                 placeholder="Pick one"
                  aria-label="Number"
                  matInput
                  [formControl]="adminddlControl"
@@ -29,14 +36,11 @@
         </mat-form-field>
 
       </ng-container>
-    
-
       <ng-container *ngIf="selectedReportType ==='2'">
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Transaction Reports Type</mat-label>
           <input type="text"
-                 placeholder="Pick one"
                  aria-label="Number"
                  matInput
                  [formControl]="transactionddlControl"
@@ -49,18 +53,48 @@
         </mat-form-field>
 
       </ng-container>
+   </div>
+   <div class="column mb-3 mt-1 pt-2"> 
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="fromDateControl"
+      [min]="minDate" [max]="maxDate"  >
+    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="stepHour"
+      [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="false" [color]="color"
+      [enableMeridian]="false" >
+      <!-- <ng-template>
+        <span>OK</span>
+      </ng-template> -->
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
 
-    
+  
+   
+ </div>
 
-    </div>
+ <div class="column mb-2 mt-1 pt-2"> 
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="toDatepicker" placeholder="Choose a date" [formControl]="toDateControl"
+      [min]="minDate" [max]="maxDate"  >
+    <mat-datepicker-toggle matSuffix [for]="$any(toDatepicker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #toDatepicker [showSpinners]="true" [showSeconds]="false" [stepHour]="stepHour"
+      [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="false" [color]="color"
+      [enableMeridian]="false" >
+      <ng-template>
+        <span>OK</span>
+      </ng-template>
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
 
+  
+   
+ </div>
 
-  </div>
+ <div class="column mt-3 mb-3">
+  <button class="btn btn-sm" mat-flat-button color="primary" mat-button >
+    Submit
+  </button>
 
+ </div>
 
-  <div class="d-flex justify-content-between w-100">
-
-
-
-  </div>
 </div>

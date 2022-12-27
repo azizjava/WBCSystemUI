@@ -10,6 +10,11 @@ import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.mod
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
 import { InputFilterComponent } from './reportsfilter/inputfilter.component';
+import {
+  NgxMatDatetimePickerModule, 
+  NgxMatNativeDateModule, 
+  NgxMatTimepickerModule 
+} from '@angular-material-components/datetime-picker';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,7 +35,10 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
       isolate: false
-    })
+    }),
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
   ]
 })
 export class ReportsModule { }

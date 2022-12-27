@@ -1,15 +1,31 @@
 .reportsFilter {
+  .mtop-5 {
+    margin-top: 2.1rem;
+  }
 
-  .reportoption{
+  .columns {
     display: flex;
-    align-items: center;
-    justify-items: start;
-   }
-  
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+  }
 
-   .reportType {
-    padding-inline-start: .5rem;
-   }
-  
+  .column {
+    padding-inline-end: 0.5rem;
+  }
+
+  @media (max-width: 368px) {
+    .columns {
+      flex-wrap: nowrap;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .column {
+      padding-inline-end: 1.5rem;
+    }
+  }
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 1.15em !important;
+  }
 }
-  
