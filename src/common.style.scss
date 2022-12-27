@@ -158,7 +158,7 @@ mat-icon.disable {
 @mixin scrollbars (){
 
   &::-webkit-scrollbar {
-      width: 12px;
+      width: 14px;
   }
   
   &::-webkit-scrollbar-track {
