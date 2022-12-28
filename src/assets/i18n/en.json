@@ -276,5 +276,26 @@
 		"savesetting":"Save Settings",
 		"invalidurl":"Please provide valid url",
 		"secondWt":"Second Weight Settings"
-	}
+	},
+	"reports":{
+		"filter":{
+			"type":"Report Type",
+			"admin": "Admin",
+			"transaction":"Transaction",
+			"admintype": "Admin Reports Type",
+			"transactiontype":"Transaction Reports Type",
+			"startdate": "Choose Start Date",
+			"enddate": "Choose End Date",
+			"search" :"Search",
+			"printlayout" :"Print Layout Setup"
+		},
+		"layout":{
+			"header":"Ticket Print Layout Setup",
+			"filedname" :"Field Name",
+			"include":"Include",
+			"labelname":"Lable Name",
+			"englable":"Lable Name in English",
+			"arabiclable":"Lable Name in Arabic"
+		}
+	}	
 }

@@ -54,7 +54,7 @@
                                     <i *ngIf="item.menuIcon"
                                         class="material-icons maticon-size valign-sub">{{item.menuIcon}}</i>
                                 </div>
-                                {{ item.menuName }}
+                               {{'navleftmenuitemslist.'+ item.menuName | translate }}
                             </a>
                         </div>
                     </div>
@@ -66,14 +66,14 @@
             <main>
                 <div class="container-fluid px-1">
                     <div class="d-flex justify-content-center" *ngIf="selectedMenu">
-                        <h2 class="mb-3">{{selectedMenu}}</h2>
+                        <h2 class="mb-3"> {{'navleftmenuitemslist.'+ selectedMenu | translate }}</h2>
                     </div>
 
                     <router-outlet></router-outlet>
 
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto d-print-none">
+            <footer class="py-4 bg-light mt-auto d-print-none footer">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted text-center">{{ 'dashboard.copyright' | translate }} &copy; {{ currentYear }}</div>
