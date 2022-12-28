@@ -111,7 +111,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       ],
       nationality: ['', [Validators.required, Validators.maxLength(50)]],
       pieces: ['', [Validators.maxLength(50), patternNumberValidator()]],
-      driverName: ['', [Validators.required, Validators.maxLength(50)]],
+      driverName: ['', [Validators.maxLength(50)]],
       licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
       firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
       dateIn: [

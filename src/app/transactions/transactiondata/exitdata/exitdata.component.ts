@@ -77,8 +77,8 @@ export class exitDataComponent implements OnInit, OnChanges {
         },
       ],
       instructions: ['', [Validators.maxLength(250)]],
-      deliveryNoteNo: ['', [Validators.required, Validators.maxLength(50)]],
-      orderNo: ['', [Validators.required, Validators.maxLength(50)]],
+      deliveryNoteNo: ['', [ Validators.maxLength(50)]],
+      orderNo: ['', [Validators.maxLength(50)]],
     });
       
     this.getTransactionById();
