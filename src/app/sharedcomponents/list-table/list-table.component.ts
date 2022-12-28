@@ -18,7 +18,10 @@ import { DateAdapter } from '@angular/material/core';
   styleUrls: ['./list-table.component.scss'], 
 })
 export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(paginator: MatPaginator) {
+  this.dataSource.paginator = paginator;
+  }
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input() tblColumns: string[] = [];

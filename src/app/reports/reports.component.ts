@@ -9,25 +9,16 @@ import { ReportsService } from './reports.service';
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.scss'],
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent implements OnInit { 
 
-  public searchInput: string = '';
-  public actionName: string = '';
-
-  constructor(
+  public constructor(
     private httpService: ReportsService,
     private alertService: AlertService,
     private matDialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    console.log();
   }
-
- 
-
- 
-  
-  
-
   
 }
