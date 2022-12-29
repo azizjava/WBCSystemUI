@@ -28,6 +28,7 @@ import { TransactionsService } from '../../transactions.service';
 export class entryDataComponent implements OnInit, OnChanges {
   @Input() weight: number = 0;
   @Input() sequenceno: string = '';
+  @Input() actionName: string = '';
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
 
@@ -51,6 +52,8 @@ export class entryDataComponent implements OnInit, OnChanges {
   selectedGood: string = '';
   suppProductsList: any = [];
   custProductsList: any = [];
+
+  private _actionName:string ="";
 
   constructor(
     private httpService: TransactionsService,
@@ -79,6 +82,9 @@ export class entryDataComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
+    
+
     this.entryForm = this._formBuilder.group({
       sequenceNo: [{
         value: 0,
@@ -131,6 +137,10 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.populateListData();
     this.selectedGood = this.goodsList[0].key;
     this.keyValueData.push({ name: '', value: '' });
+
+    if (this.actionName === 'view') {
+      this.entryForm.disable();
+    }
 
     this.entryForm.get('vehicleNo')?.statusChanges.subscribe(v => 
       {

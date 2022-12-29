@@ -12,6 +12,7 @@ import { TransactionsService } from '../transactions.service';
 export class TransactionDataComponent implements OnInit {   
   public actionItem: any = { isFirst: true, isLast: false, activeItem: 0 };
   public sequenceno: string;
+  public actionName: string ="";
   public weight:number =0;
   public transactionData:any;
   public selectedScaleType :string; 
@@ -25,6 +26,7 @@ export class TransactionDataComponent implements OnInit {
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.sequenceno = params['sequenceno'];
+      this.actionName = params['actionName'];
       this.sequenceno && this._getTransactionById();
     });
 

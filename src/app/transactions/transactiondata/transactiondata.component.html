@@ -21,9 +21,9 @@
 
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4 border-bottom"></div>         
 
-          <app-transactionentrydata *ngIf="actionItem.isFirst" [weight] ="weight" [sequenceno] ="sequenceno" [transactionData]="transactionData" [selectedScaleType] ="selectedScaleType"></app-transactionentrydata>
+          <app-transactionentrydata *ngIf="actionItem.isFirst" [weight] ="weight" [sequenceno] ="sequenceno" [actionName] ="actionName" [transactionData]="transactionData" [selectedScaleType] ="selectedScaleType"></app-transactionentrydata>
 
-          <app-transactionexitdata *ngIf="actionItem.isLast" [weight] ="weight" [sequenceno] ="sequenceno" [transactionData]="transactionData" [selectedScaleType] ="selectedScaleType"></app-transactionexitdata>
+          <app-transactionexitdata *ngIf="actionItem.isLast" [weight] ="weight" [sequenceno] ="sequenceno" [actionName] ="actionName" [transactionData]="transactionData" [selectedScaleType] ="selectedScaleType"></app-transactionexitdata>
           
         </div>
       </div>

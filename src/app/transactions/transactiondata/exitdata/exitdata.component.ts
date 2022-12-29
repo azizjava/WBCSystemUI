@@ -24,6 +24,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   @Input() sequenceno : string = '';
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
+  @Input() actionName: string = '';
 
   
   exitForm: UntypedFormGroup;
@@ -91,6 +92,10 @@ export class exitDataComponent implements OnInit, OnChanges {
     this.exitForm.get('secondWeight')?.valueChanges.subscribe(v => {
       this._calculateNetWeight();
     });
+
+    if (this.actionName === 'view') {
+      this.exitForm.disable();
+    }
   }
 
   public ngOnChanges(changes: SimpleChanges) {
