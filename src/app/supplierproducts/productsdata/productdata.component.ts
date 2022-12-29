@@ -45,7 +45,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     this.form = this._formBuilder.group({
       productCode: ['', [Validators.required, Validators.maxLength(30)]],
       productName: ['', [Validators.required, Validators.maxLength(30)]],
-      productPrice: ['', [Validators.required, Validators.maxLength(30), patternNumberValidator()]],
+      productPrice: [0, [Validators.required, Validators.maxLength(30), patternNumberValidator()]],
       groupCode: [''],
     });
 
