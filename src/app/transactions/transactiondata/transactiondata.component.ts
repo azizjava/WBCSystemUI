@@ -26,7 +26,7 @@ export class TransactionDataComponent implements OnInit {
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.sequenceno = params['sequenceno'];
-      this.actionName = params['actionName'];
+      this.actionName = params['action'];
       this.sequenceno && this._getTransactionById();
     });
 

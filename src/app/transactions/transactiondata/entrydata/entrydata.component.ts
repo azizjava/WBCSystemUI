@@ -72,18 +72,10 @@ export class entryDataComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private matDialog: MatDialog,
   ) {
-    this.zone.runOutsideAngular(() => {
-      setInterval(() => {
-        this.entryForm.controls['timeIn'].setValue(
-          GlobalConstants.commonFunction.getFormattedTime()
-        );
-      }, 1000);
-    });
+    
   }
 
-  ngOnInit(): void {
-
-    
+  ngOnInit(): void {  
 
     this.entryForm = this._formBuilder.group({
       sequenceNo: [{
@@ -141,6 +133,16 @@ export class entryDataComponent implements OnInit, OnChanges {
     if (this.actionName === 'view') {
       this.entryForm.disable();
     }
+
+    this.zone.runOutsideAngular(() => {
+      if (this.actionName === undefined) {
+        setInterval(() => {
+          this.entryForm.controls['timeIn'].setValue(
+            GlobalConstants.commonFunction.getFormattedTime()
+          );
+        }, 1000);
+      }
+    });
 
     this.entryForm.get('vehicleNo')?.statusChanges.subscribe(v => 
       {

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -45,6 +45,7 @@ export class exitDataComponent implements OnInit, OnChanges {
     private alertService: AlertService,
     private custProductService: CustomerProductsService,
     private suppProductService: SupplierProductsService,
+    private zone: NgZone,
   ) {}
 
   ngOnInit(): void {
@@ -96,6 +97,16 @@ export class exitDataComponent implements OnInit, OnChanges {
     if (this.actionName === 'view') {
       this.exitForm.disable();
     }
+
+    this.zone.runOutsideAngular(() => {
+      if (this.actionName === undefined) {
+        setInterval(() => {
+          this.exitForm.controls['timeOut'].setValue(
+            GlobalConstants.commonFunction.getFormattedTime()
+          );
+        }, 1000);
+      }
+    });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
