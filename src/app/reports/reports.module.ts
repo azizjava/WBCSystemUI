@@ -5,7 +5,7 @@ import { MaterialModule } from '../material.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
@@ -15,6 +15,9 @@ import {
   NgxMatNativeDateModule, 
   NgxMatTimepickerModule 
 } from '@angular-material-components/datetime-picker';
+import { LayoutSetupComponent } from './layoutsetup/layoutsetup.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,11 +27,13 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     ReportsComponent,
-    InputFilterComponent
+    InputFilterComponent,
+    LayoutSetupComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule,
     ReportsRoutingModule,
     SharedcomponentsModule,
@@ -39,6 +44,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
+    DragDropModule,
   ]
 })
 export class ReportsModule { }

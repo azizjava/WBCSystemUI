@@ -1,10 +1,10 @@
 <div class="reportsFilter">
 
-  <div class="row">
+  <div class="row me-1">
     <div class="d-flex justify-content-end mt-1 mb-1">
-      <button class="btn btn-sm" mat-flat-button color="primary" mat-button >
-        <i class="material-icons">settings</i>
-        Print Layout Setup
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="openSettings()">
+        <i class="material-icons maticon-size">settings</i>
+        {{'reports.filter.printlayout' | translate }}
       </button>
     
      </div>
@@ -13,19 +13,19 @@
   <div class="columns">
     <div class="column mtop-5 mb-3">
 
-      <mat-label id="reportType" class="px-2">Report Type</mat-label>
+      <mat-label id="reportType" class="px-2"> {{'reports.filter.type' | translate }}</mat-label>
 
       <mat-radio-group aria-label="reportType" class="reportType">      
         <mat-radio-button *ngFor="let option of reportType; trackBy:trackByFn" [value]="option.value"
-          [checked]="option.checked" (change)="onReportTypeChange($event)"> {{option.name}} </mat-radio-button>
+          [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.filter.'+option.name  | translate }} </mat-radio-button>
       </mat-radio-group>
     </div>
     <div class="column mb-2">
       <ng-container *ngIf="selectedReportType ==='1'">
         <mat-form-field class="example-full-width" appearance="fill">     
-          <mat-label>Admin Reports Type</mat-label>
+          <mat-label> {{'reports.filter.admintype' | translate }}</mat-label>
           <input type="text"
-                 aria-label="Number"
+                 aria-label="'reports.filter.admintype' | translate"
                  matInput
                  [formControl]="adminddlControl"
                  [matAutocomplete]="auto">
@@ -40,9 +40,9 @@
       <ng-container *ngIf="selectedReportType ==='2'">
 
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Transaction Reports Type</mat-label>
+          <mat-label>{{'reports.filter.transactiontype' | translate }}<</mat-label>
           <input type="text"
-                 aria-label="Number"
+                 aria-label="'reports.filter.transactiontype' | translate"
                  matInput
                  [formControl]="transactionddlControl"
                  [matAutocomplete]="auto">
@@ -57,7 +57,7 @@
    </div>
    <div class="column mb-3 mt-1 pt-2"> 
   <mat-form-field>
-    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="fromDateControl"
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="{{'reports.filter.startdate' | translate }}" [formControl]="fromDateControl"
       [min]="minDate" [max]="maxDate"  >
     <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
     <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepHour]="stepHour"
@@ -72,7 +72,7 @@
 
  <div class="column mb-2 mt-1 pt-2"> 
   <mat-form-field>
-    <input matInput [ngxMatDatetimePicker]="toDatepicker" placeholder="Choose a date" [formControl]="toDateControl"
+    <input matInput [ngxMatDatetimePicker]="toDatepicker" placeholder="{{'reports.filter.enddate' | translate }}" [formControl]="toDateControl"
       [min]="minDate" [max]="maxDate"  >
     <mat-datepicker-toggle matSuffix [for]="$any(toDatepicker)"></mat-datepicker-toggle>
     <ngx-mat-datetime-picker #toDatepicker [showSpinners]="true" [showSeconds]="false" [stepHour]="stepHour"
@@ -88,7 +88,8 @@
 
  <div class="column mt-3 mb-3">
   <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="fetchReports()">
-    Submit
+    <i class="material-icons maticon-size">search</i>
+    {{'reports.filter.search' | translate }}
   </button>
 
  </div>
