@@ -319,9 +319,71 @@
 
   </div>
 
-
+  
+  <div class="row form-col">
+    <div class="col">      
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="capture(1)">
+        Snap CAM1
+      </button>
+      <button class="btn btn-sm snapbutton" mat-flat-button color="primary" mat-button (click)="clearsnap(1)">
+        Clear Snap1
+      </button>
+    </div>
+    <div class="col">      
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="capture(2)">
+        Snap CAM2
+      </button>
+      <button class="btn btn-sm snapbutton" mat-flat-button color="primary" mat-button (click)="clearsnap(2)">
+        Clear Snap2
+      </button>
+    </div>
+    <div class="col">      
+      <button class="btn btn-sm snapbutton" mat-flat-button color="primary" mat-button (click)="capture(3)">
+        Snap CAM3
+      </button>
+      <button class="btn btn-sm snapbutton" mat-flat-button color="primary" mat-button (click)="clearsnap(3)">
+        Clear Snap3
+      </button>
+    </div>
+    <div class="col">      
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="capture(4)">
+        Snap CAM4
+      </button>
+      <button class="btn btn-sm snapbutton" mat-flat-button color="primary" mat-button (click)="clearsnap(4)">
+        Clear Snap4
+      </button>
+    </div>
+  </div>
+  <div class="row form-col">
+    <div class="col">      
+      <video controls #video1></video>
+    </div>
+    <div class="col">      
+      <video controls #video2></video>
+    </div>
+    <div class="col">      
+      <video controls #video3></video>
+    </div>
+    <div class="col">      
+      <video controls #video4></video>
+    </div>
+  </div>
+  <div class="row form-col">
+    <div class="col">      
+      <img #snap1 class="snap" alt="snap1" [hidden]="hideSnap1"  />
+    </div>
+    <div class="col">      
+      <img #snap2 class="snap" alt="snap2" [hidden]="hideSnap2" />
+    </div>
+    <div class="col">      
+      <img #snap3 class="snap" alt="snap3"  [hidden]="hideSnap3"/>
+    </div>
+    <div class="col">      
+      <img #snap4 class="snap" alt="snap4"  [hidden]="hideSnap4"/>
+    </div>
+  </div>
 </div>
-
+  
   <div class="mb-1 d-flex justify-content-evenly d-print-none">
 
     <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
@@ -333,7 +395,7 @@
       {{'actions.save' | translate }}
     </button>
 
-    <button class="btn btn-sm btn-link" mat-flat-button  mat-button (click)="cancel()">
+    <button class="btn btn-sm btn-link" ngClass mat-flat-button  mat-button (click)="cancel()">
       {{'actions.cancel' | translate }}
     </button>
   </div>

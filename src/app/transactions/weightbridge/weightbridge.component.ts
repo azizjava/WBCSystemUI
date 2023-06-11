@@ -36,7 +36,16 @@ export class weightBridgeComponent implements OnInit {
 
   public weightChangeEvent(item :any): void {
     item.weight = this._randomIntFromInterval();
-    this.weightChange.emit(item.weight);
+    // this.httpService.getFirstWeight().subscribe({
+    //   next: (res: any) => {
+    //     item.weight = (res.sign.toString() == "+" ? '': res.sign.toString()) + res.data.toString();
+    //     this.weightChange.emit(item.weight);
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //     // this.alertService.error(error);
+    //   },
+    // });    
   }  
 
   private _randomIntFromInterval(min: number = 1, max: number = 100) {
@@ -50,11 +59,11 @@ export class weightBridgeComponent implements OnInit {
         this.firstWeightdevicesList = data.filter(d=> d.weightBridgeType ==="FirstWeight");
         this.firstWeightdevicesList.length >0  && this.firstWeightdevicesList.forEach((e:any) =>  {
           e.weight = 0; 
-          e.connectStatus =false; 
+          e.connectStatus =true; 
         });
         this.secondWeightdevicesList.length >0 && this.secondWeightdevicesList.forEach((e:any) =>  {
           e.weight = 0; 
-          e.connectStatus =false; 
+          e.connectStatus =true; 
         });
       },
       error: (error: string) => {
