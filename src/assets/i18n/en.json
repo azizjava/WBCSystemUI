@@ -72,8 +72,7 @@
 		"Customer": "Customer",
 		"Supplier": "Supplier",
 		"Transporters": "Transporter",
-		"CustomerProduct": "Customer Product",
-		"SupplierProduct": "Supplier Product",
+		"Product": "Product",
 		"Vehicles": "Vehicle",
 		"Operator": "Operator",
 		"Nationality": "Nationality",
@@ -122,10 +121,10 @@
 		"tbl_header":{
 			"productcode":"Product Code",
 			"productname":"Product Name",
-			"productprice":"Product Price/Ton",
-			"productgroupname":"Product Group",
-			"actions":"Actions",
-			"selectgroup":"Select Product group"
+			"supplierprice":"Supplier Price",
+			"customerprice":"Customer Price",
+			"productstock":"Product Stock",
+			"actions":"Actions"
 		}
 	},
 	"productgroups":{

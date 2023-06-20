@@ -8,11 +8,11 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class SupplierProductsService {  
+export class ProductsService {  
   public baseURL : string;
 
   constructor(private http: HttpClient, backend: HttpBackend) {
-    this.baseURL = environment.baseURL +'/supplierProduct';
+    this.baseURL = environment.baseURL +'/product';
   }
    
   getAllProducts(): Observable<Product[]> {

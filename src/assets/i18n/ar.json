@@ -73,7 +73,7 @@
 		"Supplier": "المورد",
 		"Transporters": "الناقل",
 		"CustomerProduct": "منتج العميل",
-		"SupplierProduct": "منتج المورد",
+		"Product": "منتج",
 		"Vehicles": "مركبة",
 		"Operator": "المشغل أو العامل",
 		"Nationality": "جنسية",
@@ -122,10 +122,10 @@
 		"tbl_header":{
 			"productcode":"كود المنتج",
 			"productname":"اسم المنتج",
-			"productprice":"سعر المنتج / طن",
-			"productgroupname":"مجموعة المنتجات",
-			"actions":"عمل",
-			"selectgroup":"حدد مجموعة المنتجات"
+			"supplierprice":"سعر المورد",
+			"customerprice":"سعر العميل",
+			"productstock":"مخزون المنتج",
+			"actions":"عمل"
 		}
 	},
 	"productgroups":{

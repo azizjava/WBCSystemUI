@@ -26,25 +26,66 @@
   </div>
 
   <div class="row mb-2">
-
-    <div class="col-md-6">
+    <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{staticText.productprice}}</mat-label>
-        <input matInput placeholder="{{staticText.productprice}}" formControlName="productPrice" name="productPrice" />
-        <mat-error *ngIf="form.controls['productPrice'].errors &&
-          form.controls['productPrice'].errors['required'] &&
-          form.controls['productPrice'].touched
-                ">{{staticText.productprice}} {{staticText.required}}
+        <mat-label>{{staticText.customerprice}}</mat-label>
+        <input matInput placeholder="{{staticText.customerprice}}" formControlName="customerPrice" name="customerPrice" />
+        <mat-error *ngIf="form.controls['customerPrice'].errors &&
+          form.controls['customerPrice'].errors['required'] &&
+          form.controls['customerPrice'].touched
+                ">{{staticText.customerprice}} {{staticText.required}}
         </mat-error>
 
-        <mat-error *ngIf="form.controls['productPrice'].errors &&
-        form.controls['productPrice'].errors['invalidNumberFormat'] &&
-        form.controls['productPrice'].touched
-              "> {{staticText.productprice}} {{'common.invalid' | translate }}
+        <mat-error *ngIf="form.controls['customerPrice'].errors &&
+        form.controls['customerPrice'].errors['invalidNumberFormat'] &&
+        form.controls['customerPrice'].touched
+              "> {{staticText.customerprice}} {{'common.invalid' | translate }}
       </mat-error>
       
       </mat-form-field>
     </div>  
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.supplierprice}}</mat-label>
+        <input matInput placeholder="{{staticText.supplierprice}}" formControlName="supplierPrice" name="supplierPrice" />
+        <mat-error *ngIf="form.controls['supplierPrice'].errors &&
+          form.controls['supplierPrice'].errors['required'] &&
+          form.controls['supplierPrice'].touched
+                ">{{staticText.supplierprice}} {{staticText.required}}
+        </mat-error>
+
+        <mat-error *ngIf="form.controls['supplierPrice'].errors &&
+        form.controls['supplierPrice'].errors['invalidNumberFormat'] &&
+        form.controls['supplierPrice'].touched
+              "> {{staticText.supplierprice}} {{'common.invalid' | translate }}
+      </mat-error>
+      
+      </mat-form-field>
+    </div> 
+
+   
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.productstock}}</mat-label>
+        <input matInput placeholder="{{staticText.productstock}}" formControlName="productStock" name="productStock" />
+        <mat-error *ngIf="form.controls['productStock'].errors && 
+          form.controls['productStock'].errors['required'] &&
+          form.controls['productStock'].touched
+                ">{{staticText.productstock}} {{staticText.required}}
+        </mat-error>
+
+        <mat-error *ngIf="form.controls['productStock'].errors &&
+        form.controls['productStock'].errors['invalidNumberFormat'] &&
+        form.controls['productStock'].touched
+              "> {{staticText.productstock}} {{'common.invalid' | translate }}
+      </mat-error>
+      </mat-form-field>
+    </div>
+    
 
     
   </div>

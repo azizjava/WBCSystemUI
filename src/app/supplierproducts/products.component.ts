@@ -4,7 +4,7 @@ import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.
 import { GlobalConstants } from '../common/global-constants';
 import { modelDialog, Product,  tableOperation, Vehicle } from '../models';
 import { AlertService } from '../services';
-import { SupplierProductsService } from './products.service';
+import { ProductsService } from './products.service';
 import { ProductDataComponent } from './productsdata/productdata.component';
 
 @Component({
@@ -16,7 +16,9 @@ export class ProductsComponent implements OnInit {
   tblColumns: string[] = [
     'productCode',
     'productName',
-    'productPrice',
+    'customerPrice',
+    'supplierPrice',
+    'productStock',
     'Actions',
   ];
   tableData: any = [];
@@ -28,7 +30,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
-    private httpService: SupplierProductsService,
+    private httpService: ProductsService,
     private alertService: AlertService
   ) {}
 
