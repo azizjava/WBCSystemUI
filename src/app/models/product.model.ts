@@ -5,7 +5,6 @@ export class Product {
     public customerPrice: string;
     public productStock: string;
     public supplierPrice: string;
-    public productPrice?: string;
   }
 
   export class ProductGroup {

@@ -7,12 +7,11 @@ import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
 import { CustomerdataComponent } from 'src/app/customer/customerdata/customerdata.component';
 import { CustomersService } from 'src/app/customer/Customers.service';
-import { CustomerProductsService } from 'src/app/customerproducts/customerproducts.service';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { Customer, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { NationalityService } from 'src/app/nationality/nationality.service';
 import { AlertService, AuthenticationService } from 'src/app/services';
-import { SupplierProductsService } from 'src/app/supplierproducts/products.service';
+import { ProductsService } from 'src/app/supplierproducts/products.service';
 import { SupplierdataComponent } from 'src/app/suppliers/supplierdata/supplierdata.component';
 import { SuppliersService } from 'src/app/suppliers/suppliers.service';
 import { TransportersService } from 'src/app/transporters/transporters.service';
@@ -71,7 +70,6 @@ export class entryDataComponent implements OnInit, OnChanges {
   filteredNationalityList: Observable<any[]>;
   selectedGood: string = '';
   suppProductsList: any = [];
-  custProductsList: any = [];
 
   private _actionName:string ="";
 
@@ -80,8 +78,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     private _formBuilder: UntypedFormBuilder,
     private transporterService: TransportersService,
     private vehiclesService: VehiclesService,
-    private custProductService: CustomerProductsService,
-    private suppProductService: SupplierProductsService,
+    private productService: ProductsService,
     private nationalityService: NationalityService,
     private alertService: AlertService,
     private supplierService: SuppliersService,
@@ -400,12 +397,10 @@ export class entryDataComponent implements OnInit, OnChanges {
     const productsControl = this.entryForm.get('products');
 
     if (this.selectedGood === 'incoming') {
-      this.productsList = this.suppProductsList;
       supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList, 'supplierCode')]);
       customerControl?.clearValidators();
       
     } else {
-      this.productsList = this.custProductsList;
       customerControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.customersList, 'customerCode')]);
       supplierControl?.clearValidators();
     }
@@ -596,16 +591,14 @@ export class entryDataComponent implements OnInit, OnChanges {
   private getAllProducts() {
     const productsControl = this.entryForm.get('products');
 
-   this.suppProductService.getAllProducts().subscribe({
+   this.productService.getAllProducts().subscribe({
       next: (data: Product[]) => {
         this.suppProductsList = data;        
-        if (this.selectedGood === 'incoming') {
-          this.productsList = this.suppProductsList;
-          productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
-          productsControl?.clearValidators();
-          productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
-          productsControl?.updateValueAndValidity();
-      }       
+        this.productsList = this.suppProductsList;
+        productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
+        productsControl?.clearValidators();
+        productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
+        productsControl?.updateValueAndValidity();
       },
       error: (error) => {
         console.log(error);
@@ -613,22 +606,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       },
     });
 
-    this.custProductService.getAllProducts().subscribe({
-      next: (data: Product[]) => {
-        this.custProductsList = data;
-        if (this.selectedGood !== 'incoming') {
-          this.productsList = this.custProductsList;
-          productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
-          productsControl?.clearValidators();
-          productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
-          productsControl?.updateValueAndValidity();
-        } 
-      },
-      error: (error) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });    
+     
   }
 
   private getAllCustomers(newRecord?: Customer): void {

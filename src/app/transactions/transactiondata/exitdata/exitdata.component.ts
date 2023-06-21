@@ -6,11 +6,10 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
-import { CustomerProductsService } from 'src/app/customerproducts/customerproducts.service';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { modelDialog, Product, Transporter } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
-import { SupplierProductsService } from 'src/app/supplierproducts/products.service';
+import { ProductsService } from 'src/app/supplierproducts/products.service';
 import { TransactionsService } from '../../transactions.service';
 
 @Component({
@@ -43,8 +42,7 @@ export class exitDataComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService,
-    private custProductService: CustomerProductsService,
-    private suppProductService: SupplierProductsService,
+    private productService: ProductsService,
     private zone: NgZone,
   ) {}
 
@@ -252,9 +250,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   }
 
   private _getAllProducts() {
-    if (this.transactionData.dailyTransactionEntry.goodsType === 'incoming') {
-
-      this.suppProductService.getAllProducts().subscribe({
+      this.productService.getAllProducts().subscribe({
         next: (data: Product[]) => {          
           this._priceTons(data);   
         },
@@ -262,24 +258,22 @@ export class exitDataComponent implements OnInit, OnChanges {
           console.log(error);
           this.alertService.error(error);
         },
-      });
-  
-    }
-    else{
-      this.custProductService.getAllProducts().subscribe({
-        next: (data: Product[]) => {          
-          this._priceTons(data);         
-        },
-        error: (error) => {
-          console.log(error);
-          this.alertService.error(error);
-        },
-      }); 
-    }      
+      });   
+        
   }
 
   private _priceTons(productsList :Product[]) {
-    const productPrice = productsList.find((p:Product) => p.productCode === this.transactionData.dailyTransactionEntry.productCode)?.productPrice || 0;
-    this.exitForm.controls['priceTons'].setValue(productPrice);
+    const productData = productsList.find(
+      (p:Product) =>
+        p.productCode === this.transactionData.dailyTransactionEntry.productCode
+    );
+    if (productData) {
+      const price =
+        this.transactionData.dailyTransactionEntry.goodsType === 'incoming'
+          ? productData.supplierPrice
+          : productData.customerPrice;
+      this.exitForm.controls['priceTons'].setValue(price);
+    }
+    
   }
 }
