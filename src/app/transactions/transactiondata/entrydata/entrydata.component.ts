@@ -427,7 +427,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         vehicleData.vehicleWeight
       );
       this.entryForm.controls['transporterName'].setValue(
-        vehicleData.transporters.nameOfTransporter
+        vehicleData.transporters.transporterName
       );
     }
   }
@@ -507,10 +507,10 @@ export class entryDataComponent implements OnInit, OnChanges {
         if (newRecord) {
           vehicleNoControl?.setValue(newRecord?.plateNo);
           this.entryForm.controls['transporter'].setValue(
-            newRecord?.transporters.nameOfTransporter
+            newRecord?.transporters.transporterName
           );
           this.entryForm.controls['transporterName'].setValue(
-            newRecord?.transporters.nameOfTransporter
+            newRecord?.transporters.transporterName
           );
         }
         else{

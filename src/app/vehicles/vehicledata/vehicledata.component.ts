@@ -57,7 +57,7 @@ export class VehicleDataComponent implements OnInit {
         this.vehicleData?.transporters?.transporterCode
       );
       this.vehicleForm.controls['transporterName'].setValue(
-        this.vehicleData.transporters?.nameOfTransporter
+        this.vehicleData.transporters?.transporterName
       );
 
       if (this.data.actionName === 'view') {
@@ -133,7 +133,7 @@ export class VehicleDataComponent implements OnInit {
   public OnSelectionChange(event: any) {
     const name =
       this.transPortersList.filter((s) => s.transporterCode === event.value)[0]
-        ?.nameOfTransporter || '';
+        ?.transporterName || '';
     this.vehicleForm.controls['transporterName'].setValue(name);
   }
 
@@ -141,7 +141,7 @@ export class VehicleDataComponent implements OnInit {
     const data = this.transPortersList.find((s: any) => s.transporterCode === this.vehicleForm.get('transporterCode')?.value);
     this.vehicleForm.controls['transporterName'].setValue("");
     if (data) {
-      this.vehicleForm.controls['transporterName'].setValue(data.nameOfTransporter);
+      this.vehicleForm.controls['transporterName'].setValue(data.transporterName);
     }
   }
 

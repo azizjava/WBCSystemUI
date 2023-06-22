@@ -125,7 +125,7 @@ export class VehiclesComponent implements OnInit {
           vehicleType: data.vehicleType,
           vehicleWeight: data.vehicleWeight,
           transporterCode: data?.transporters?.transporterCode,
-          transporterName: data?.transporters?.nameOfTransporter,
+          transporterName: data?.transporters?.transporterName,
         }));
       },
       error: (error: string) => {

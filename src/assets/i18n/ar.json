@@ -109,7 +109,7 @@
 	"transporters":{		
 		"tbl_header":{
 			"transportercode":"شفرة",
-			"nameoftransporter":"اسم",
+			"transportername":"اسم",
 			"contactperson":"الشخص الذي يمكن الاتصال به",
 			"mobileno":"رقم الموبايل",
 			"telephoneno":"الهاتف لا",

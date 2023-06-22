@@ -108,7 +108,7 @@
 	"transporters":{
 		"tbl_header":{
 			"transportercode":"Transporter Code",
-			"nameoftransporter":"Name",
+			"transportername":"Name",
 			"contactperson":"Contact Person",
 			"mobileno":"Mobile No",
 			"telephoneno":"Telephone No",

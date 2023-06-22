@@ -16,7 +16,7 @@ import { TransportersdataComponent } from './transportersdata/transportersdata.c
 export class TransportersComponent implements OnInit {
   tblColumns: string[] = [
     'transporterCode',
-    'nameOfTransporter',
+    'transporterName',
     'contactPerson',
     'mobileNo',
     'telephoneNo',
@@ -29,7 +29,7 @@ export class TransportersComponent implements OnInit {
   public searchInput: string = '';
   public actionName: string = '';
   public sortColumn = { name: 'Name', dir: 'asc' };
-  public visibleColumns = ['transporterCode', 'nameOfTransporter', 'Actions'];
+  public visibleColumns = ['transporterCode', 'transporterName', 'Actions'];
 
   constructor(
     private matDialog: MatDialog,

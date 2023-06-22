@@ -29,9 +29,10 @@
         height: calc(80vh - 1rem);
         overflow: hidden;
         overflow-y: auto;
+        margin-bottom: 0.5rem;
 
         @include media-breakpoint-up(md){
-            height: calc(60vh - 1rem);
+            height: calc(50vh - 1rem);
         }
         
         @include media-breakpoint-down(sm) {
