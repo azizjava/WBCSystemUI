@@ -36,6 +36,7 @@ export class weightBridgeComponent implements OnInit {
 
   public weightChangeEvent(item :any): void {
     item.weight = this._randomIntFromInterval();
+    this.weightChange.emit(item.weight);
     // this.httpService.getFirstWeight().subscribe({
     //   next: (res: any) => {
     //     item.weight = (res.sign.toString() == "+" ? '': res.sign.toString()) + res.data.toString();
