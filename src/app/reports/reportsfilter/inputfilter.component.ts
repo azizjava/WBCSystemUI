@@ -10,6 +10,7 @@ import { GlobalConstants } from 'src/app/common';
 import { modelDialog, PrintLayout } from 'src/app/models';
 import { AlertService } from 'src/app/services';
 import { LayoutSetupComponent } from '../layoutsetup/layoutsetup.component';
+import { ClientTemplateComponent } from '../clienttemplate/clienttemplate.component';
 
 @Component({
   selector: 'app-reportsinputfilter',
@@ -92,6 +93,15 @@ export class InputFilterComponent implements OnInit {
     this.openDialog(dialogData);
   }
 
+  public openClientSettings(): void {
+    const dialogData = {
+      headerText: 'Information',
+      data: this.layooutSettingData,
+      actionName: '',
+    };
+    this.openClientDialog(dialogData);
+  }
+
   public fetchReports(): void {
     const fromDateControl = this.fromDateControl.value;
     const toDateControl = this.toDateControl.value;
@@ -115,6 +125,25 @@ export class InputFilterComponent implements OnInit {
     dialogConfig.panelClass = 'custom-dialog';
 
     const dialogRef = this.matDialog.open(LayoutSetupComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.layooutSettingData = result;
+        this.alertService.success(` updated successfully`);
+      }
+    });
+  }
+
+  private openClientDialog(dialogData: modelDialog): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = dialogData;
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'custom-dialog';
+
+    const dialogRef = this.matDialog.open(ClientTemplateComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

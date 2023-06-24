@@ -286,7 +286,8 @@
 			"startdate": "Choose Start Date",
 			"enddate": "Choose End Date",
 			"search" :"Search",
-			"printlayout" :"Print Layout Setup"
+			"printlayout" :"Print Layout Setup",
+			"createtemplate" :"Reporting Template"
 		},
 		"layout":{
 			"header":"Ticket Print Layout Setup",

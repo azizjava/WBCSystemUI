@@ -1,7 +1,14 @@
 <div class="reportsFilter">
 
   <div class="row me-1">
-    <div class="d-flex justify-content-end mt-1 mb-1">
+
+    <div class="d-flex justify-content-between mt-1 mb-1">
+      
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="openClientSettings()">
+        <i class="material-icons maticon-size">settings</i>
+        {{'reports.filter.createtemplate' | translate }}
+      </button>
+
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="openSettings()">
         <i class="material-icons maticon-size">settings</i>
         {{'reports.filter.printlayout' | translate }}
