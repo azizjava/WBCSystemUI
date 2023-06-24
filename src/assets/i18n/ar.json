@@ -299,6 +299,19 @@
 			"labelname":"اسم الطابع",
 			"englable":"اسم التسمية باللغة الإنجليزية",
 			"arabiclable":"اسم التسمية باللغة العربية"
+		},		
+		"clienttemplate":{
+			"companyname":"اسم الشركة",
+			"email": "بريد إلكتروني",
+			"phoneno":"رقم الهاتف",
+			"zipcode":"الرمز البريدي",
+			"city":"مدينة",
+			"address":"عنوان",
+			"templatetype":"نوع النموذج",
+			"companylogo":"شعار الشركة",
+			"plain":"سهل",
+			"header":"رأس",
+			"logo":"شعار"		
 		}
 	}	
 }

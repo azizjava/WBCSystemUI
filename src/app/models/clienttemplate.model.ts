@@ -1,6 +1,6 @@
 export class ClientTemplate {
     public city: string;
-    public clientID: string;
+    public clientID: number;
     public companyLogo: any;
     public companyName: string;
     public email: string;
