@@ -16,6 +16,7 @@ import {
   NgxMatTimepickerModule 
 } from '@angular-material-components/datetime-picker';
 import { LayoutSetupComponent } from './layoutsetup/layoutsetup.component';
+import { ClientTemplateComponent } from './clienttemplate/clienttemplate.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
@@ -28,7 +29,8 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     ReportsComponent,
     InputFilterComponent,
-    LayoutSetupComponent
+    LayoutSetupComponent,
+    ClientTemplateComponent
   ],
   imports: [
     CommonModule,
