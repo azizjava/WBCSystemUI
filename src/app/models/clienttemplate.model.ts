@@ -1,11 +1,19 @@
 export class ClientTemplate {
-    public address: string;
-    public contactPerson: string;
-    public customerCode: string;
-    public customerName: string;
-    public faxNo: string;
+    public city: string;
+    public clientID: string;
+    public companyLogo: any;
+    public companyName: string;
+    public email: string;
     public localCreatedDateTime!: Date;
-    public lastModifiedByUser!: string; 
-    public mobileNo: string;
-    public telephoneNo: string; 
+    public phoneNo: string; 
+    public streetAddress: string;
+    public zipCode: string;
+    public templateType: string;
+    public lastModifiedByUser!: string;
+  }
+
+  export enum TemplateType {
+    PLAIN = 'PLAIN',
+    HEADER ='HEADER',
+    LOGO ='LOGO',
   }

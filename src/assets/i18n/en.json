@@ -296,6 +296,19 @@
 			"labelname":"Lable Name",
 			"englable":"Lable Name in English",
 			"arabiclable":"Lable Name in Arabic"
+		},
+		"clienttemplate":{
+			"companyname":"Company Name",
+			"email": "Email",
+			"phoneno":"Phone No",
+			"zipcode":"Zip code",
+			"city":"City",
+			"address":"Address",
+			"templatetype":"Template Type",
+			"companylogo":"Company Logo",
+			"plain":"Plain",
+			"header":"Header",
+			"logo":"Logo"		
 		}
 	}	
 }
