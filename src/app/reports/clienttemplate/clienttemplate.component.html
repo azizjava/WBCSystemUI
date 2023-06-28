@@ -1,152 +1,8 @@
 <div class="layout-component">
-  <!-- 
+
   <form class="template-form" [formGroup]="form">
-    <div class="row mb-2">
 
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>{{staticText.companyName}}</mat-label>
-          <input matInput placeholder="{{staticText.companyName}}" formControlName="companyName" name="companyName" />
-          <mat-error *ngIf="form.controls['companyName'].errors && 
-          form.controls['companyName'].errors['required'] &&
-          form.controls['companyName'].touched
-                ">{{staticText.companyName}} {{staticText.required}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>{{staticText.email}} </mat-label>
-          <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" />
-          <mat-error *ngIf="form.controls['email'].errors && 
-          form.controls['email'].errors['required'] &&
-          form.controls['email'].touched
-                ">{{staticText.email}} {{staticText.required}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>{{staticText.zipCode}} </mat-label>
-          <input matInput placeholder="{{staticText.zipCode}}" formControlName="zipCode" name="zipCode" />
-          <mat-error *ngIf="form.controls['zipCode'].errors && 
-          form.controls['zipCode'].errors['required'] &&
-          form.controls['zipCode'].touched
-                ">{{staticText.zipCode}} {{staticText.required}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-    </div>
-
-
-    <div class="row mb-2">
-
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>{{staticText.city}}</mat-label>
-          <input matInput placeholder="{{staticText.city}}" formControlName="city" name="city" />
-          <mat-error *ngIf="form.controls['city'].errors && 
-          form.controls['city'].errors['required'] &&
-          form.controls['city'].touched
-                ">{{staticText.city}} {{staticText.required}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>{{staticText.phoneNo}} </mat-label>
-          <input matInput placeholder="{{staticText.phoneNo}}" formControlName="phoneNo" name="phoneNo" />
-          <mat-error *ngIf="form.controls['phoneNo'].errors && 
-          form.controls['phoneNo'].errors['required'] &&
-          form.controls['phoneNo'].touched
-                ">{{staticText.phoneNo}} {{staticText.required}}
-          </mat-error>
-        </mat-form-field>
-      </div>     
-
-    </div>
-
-
-    <div>
-
-      <div class="row">
-
-        <div class="col-6">
-
-          <div class="row mb-2">
-
-            <div class="col">
-              <mat-form-field class="full-width">
-                <mat-label>{{staticText.streetAddress}}</mat-label>
-                <input matInput placeholder="{{staticText.streetAddress}}" formControlName="streetAddress" name="streetAddress" />
-                <mat-error *ngIf="form.controls['streetAddress'].errors && 
-                form.controls['streetAddress'].errors['required'] &&
-                form.controls['streetAddress'].touched
-                      ">{{staticText.streetAddress}} 
-                </mat-error>
-              </mat-form-field>
-            </div>
-          
-      
-          </div>
-      
-          <div class="row mb-2">
-      
-            <div class="col">
-                <mat-label class="m-r-5">{{staticText.templateType}}</mat-label>
-                <mat-radio-group aria-label="'reports.clienttemplate.templateType' | translate" class="reportType" formControlName="templateType">      
-                  <mat-radio-button *ngFor="let option of templateType; trackBy:trackByFn" [value]="option.value"
-                    [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.clienttemplate.'+option.name  | translate }} </mat-radio-button>
-                </mat-radio-group>         
-            </div>
-      
-          </div>
-
-          <div class="row mb-2">
-      
-            <div class="col" *ngIf ="showFileUpload">
-              <input type="file" (change)="onFileChange($event)" />     
-            </div>
-      
-          </div>
-
-        </div>
-
-        <div class="col-6" *ngIf="companyLogoImg">
-
-            <img class="rounded mx-auto d-block" *ngIf="!fileUploaded" src="data:image/png;base64,{{ClientTemplateData.companyLogo}}" height="200"/>
-            <img class="rounded mx-auto d-block" *ngIf="fileUploaded" src="{{ClientTemplateData.companyLogo}}" height="200"/>
-          
-        </div>
-      </div>
-    </div>
-
-  
-
-    
-
-    <div class="d-flex justify-content-between w-100">
-
-      <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit" mat-button (click)="save()">
-        {{staticText.save}}
-      </button>
-
-      <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-        {{staticText.cancel}}
-      </button>
-
-    </div>
-  </form>
- -->
- <form class="template-form" [formGroup]="form">
-
-  <div class="flex-container">
-
-    
+    <div class="flex-container">
 
       <div class="flex-child">
         <div class="row mb-2">
@@ -167,7 +23,8 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>{{staticText.email}} </mat-label>
-              <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" />
+              <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" 
+              pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
               <mat-error *ngIf="form.controls['email'].errors && 
           form.controls['email'].errors['required'] &&
           form.controls['email'].touched
@@ -203,7 +60,7 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>{{staticText.phoneNo}} </mat-label>
-              <input matInput placeholder="{{staticText.phoneNo}}" formControlName="phoneNo" name="phoneNo" />
+              <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.phoneNo}}" formControlName="phoneNo" name="phoneNo" />
               <mat-error *ngIf="form.controls['phoneNo'].errors && 
           form.controls['phoneNo'].errors['required'] &&
           form.controls['phoneNo'].touched
@@ -245,38 +102,38 @@
       </div>
 
 
-  </div>
+    </div>
 
-  <div class="row mb-2">
+    <div class="row mb-2">
 
-    <div class="col">
-      <mat-form-field class="full-width">
-        <mat-label>{{staticText.streetAddress}}</mat-label>
-        <input matInput placeholder="{{staticText.streetAddress}}" formControlName="streetAddress"
-          name="streetAddress" />
-        <mat-error *ngIf="form.controls['streetAddress'].errors && 
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>{{staticText.streetAddress}}</mat-label>
+          <input matInput placeholder="{{staticText.streetAddress}}" formControlName="streetAddress"
+            name="streetAddress" />
+          <mat-error *ngIf="form.controls['streetAddress'].errors && 
       form.controls['streetAddress'].errors['required'] &&
       form.controls['streetAddress'].touched
             ">{{staticText.streetAddress}}
-        </mat-error>
-      </mat-form-field>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
     </div>
 
+    <div class="d-flex justify-content-between w-100">
 
-  </div>
+      <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
+        mat-button (click)="save()">
+        {{staticText.save}}
+      </button>
 
-  <div class="d-flex justify-content-between w-100">
+      <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+        {{staticText.cancel}}
+      </button>
 
-    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
-      mat-button (click)="save()">
-      {{staticText.save}}
-    </button>
-
-    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-      {{staticText.cancel}}
-    </button>
-
-  </div>
+    </div>
 
   </form>
 </div>
