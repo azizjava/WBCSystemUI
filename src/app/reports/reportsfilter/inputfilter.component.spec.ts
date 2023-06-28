@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputFilterComponent } from './inputfilter.component';
+import { MatAutocomplete } from '@angular/material/autocomplete';
 
 
 describe('InputFilterComponent', () => {
@@ -17,7 +18,7 @@ describe('InputFilterComponent', () => {
         ReactiveFormsModule,
         MatDialogModule,
         TranslateModule.forRoot()],
-      declarations: [ InputFilterComponent ],
+      declarations: [ InputFilterComponent, MatAutocomplete ],
       providers:[
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }]
