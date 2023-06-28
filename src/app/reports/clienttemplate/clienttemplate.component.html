@@ -2,113 +2,130 @@
 
   <form class="template-form" [formGroup]="form">
     <div class="row mb-2">
+
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>{{staticText.customerCode}}</mat-label>
-          <input matInput placeholder="{{staticText.customerCode}}" formControlName="customerCode" name="customerCode" />
-          <mat-error *ngIf="form.controls['customerCode'].errors && 
-          form.controls['customerCode'].errors['required'] &&
-          form.controls['customerCode'].touched
-                ">{{staticText.customerCode}} {{staticText.required}}
+          <mat-label>{{staticText.companyName}}</mat-label>
+          <input matInput placeholder="{{staticText.companyName}}" formControlName="companyName" name="companyName" />
+          <mat-error *ngIf="form.controls['companyName'].errors && 
+          form.controls['companyName'].errors['required'] &&
+          form.controls['companyName'].touched
+                ">{{staticText.companyName}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>{{staticText.customerName}} </mat-label>
-          <input matInput placeholder="Name" formControlName="customerName" name="customerName" />
-          <mat-error *ngIf="form.controls['customerName'].errors && 
-          form.controls['customerName'].errors['required'] &&
-          form.controls['customerName'].touched
-                ">{{staticText.customerName}} {{staticText.required}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="row mb-2">
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>{{staticText.contactPerson}}</mat-label>
-          <input matInput placeholder="Contact Person" formControlName="contactPerson" name="contactPerson" />
-          <mat-error *ngIf="form.controls['contactPerson'].errors &&
-          form.controls['contactPerson'].errors['required'] &&
-          form.controls['contactPerson'].touched
-                ">{{staticText.contactPerson}} {{staticText.required}}
+          <mat-label>{{staticText.email}} </mat-label>
+          <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" />
+          <mat-error *ngIf="form.controls['email'].errors && 
+          form.controls['email'].errors['required'] &&
+          form.controls['email'].touched
+                ">{{staticText.email}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>{{staticText.mobileNo}}</mat-label>
-          <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.mobileNo}}"
-            formControlName="mobileNo" name="mobileNo" />
-          <mat-error *ngIf="form.controls['mobileNo'].errors &&
-          form.controls['mobileNo'].errors['mobileNo'] &&
-          form.controls['mobileNo'].touched
-                ">{{staticText.mobileNo}} {{staticText.required}}
-          </mat-error>
-          <mat-error *ngIf="form.controls['mobileNo'].errors &&
-          form.controls['mobileNo'].errors['pattern'] &&
-          form.controls['mobileNo'].touched
-                ">Please, Enter 10 digit Mobile Number
+          <mat-label>{{staticText.zipCode}} </mat-label>
+          <input matInput placeholder="{{staticText.zipCode}}" formControlName="zipCode" name="zipCode" />
+          <mat-error *ngIf="form.controls['zipCode'].errors && 
+          form.controls['zipCode'].errors['required'] &&
+          form.controls['zipCode'].touched
+                ">{{staticText.zipCode}} {{staticText.required}}
           </mat-error>
         </mat-form-field>
       </div>
-   
+
     </div>
 
 
     <div class="row mb-2">
+
       <div class="col">
         <mat-form-field class="full-width">
-          <mat-label>{{staticText.telephoneNo}}</mat-label>
-          <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.telephoneNo}}"
-            formControlName="telephoneNo" name="telephoneNo" />
-          <mat-error *ngIf="form.controls['telephoneNo'].errors &&
-          form.controls['telephoneNo'].errors['required'] &&
-          form.controls['telephoneNo'].touched
-                ">{{staticText.telephoneNo}} {{staticText.required}}
+          <mat-label>{{staticText.city}}</mat-label>
+          <input matInput placeholder="{{staticText.city}}" formControlName="city" name="city" />
+          <mat-error *ngIf="form.controls['city'].errors && 
+          form.controls['city'].errors['required'] &&
+          form.controls['city'].touched
+                ">{{staticText.city}} {{staticText.required}}
           </mat-error>
-         
         </mat-form-field>
-      </div>
-  
-      <div class="col">
-        <mat-form-field class="full-width">
-          <mat-label>{{staticText.faxNo}}</mat-label>
-          <input matInput placeholder="{{staticText.faxNo}}"
-            formControlName="faxNo" name="faxNo" />
-          <mat-error *ngIf="form.controls['faxNo'].errors &&
-          form.controls['faxNo'].errors['required'] &&
-          form.controls['faxNo'].touched
-                ">{{staticText.faxNo}} {{staticText.required}}
-          </mat-error>
-        
-        </mat-form-field>
-      </div>
-     
       </div>
 
-      <div class="row mb-2">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>{{staticText.address}}</mat-label>
-            <input matInput placeholder="{{staticText.address}}"
-              formControlName="address" name="address" />
-            <mat-error *ngIf="form.controls['address'].errors &&
-            form.controls['address'].errors['required'] &&
-            form.controls['address'].touched
-                  ">{{staticText.address}} {{staticText.required}}
-            </mat-error>
-           
-          </mat-form-field>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>{{staticText.phoneNo}} </mat-label>
+          <input matInput placeholder="{{staticText.phoneNo}}" formControlName="phoneNo" name="phoneNo" />
+          <mat-error *ngIf="form.controls['phoneNo'].errors && 
+          form.controls['phoneNo'].errors['required'] &&
+          form.controls['phoneNo'].touched
+                ">{{staticText.phoneNo}} {{staticText.required}}
+          </mat-error>
+        </mat-form-field>
+      </div>     
+
+    </div>
+
+
+    <div>
+
+      <div class="row">
+
+        <div class="col-6">
+
+          <div class="row mb-2">
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-label>{{staticText.streetAddress}}</mat-label>
+                <input matInput placeholder="{{staticText.streetAddress}}" formControlName="streetAddress" name="streetAddress" />
+                <mat-error *ngIf="form.controls['streetAddress'].errors && 
+                form.controls['streetAddress'].errors['required'] &&
+                form.controls['streetAddress'].touched
+                      ">{{staticText.streetAddress}} 
+                </mat-error>
+              </mat-form-field>
+            </div>
+          
+      
+          </div>
+      
+          <div class="row mb-2">
+      
+            <div class="col">
+                <mat-label class="m-r-5">{{staticText.templateType}}</mat-label>
+                <mat-radio-group aria-label="'reports.clienttemplate.templateType' | translate" class="reportType" formControlName="templateType">      
+                  <mat-radio-button *ngFor="let option of templateType; trackBy:trackByFn" [value]="option.value"
+                    [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.clienttemplate.'+option.name  | translate }} </mat-radio-button>
+                </mat-radio-group>         
+            </div>
+      
+          </div>
+
+          <div class="row mb-2">
+      
+            <div class="col" *ngIf ="showFileUpload">
+              <input type="file" (change)="onFileChange($event)" />     
+            </div>
+      
+          </div>
+
         </div>
-       
-  
+
+        <div class="col-6" *ngIf="companyLogoImg">
+
+            <img class="rounded mx-auto d-block" *ngIf="!fileUploaded" src="data:image/png;base64,{{ClientTemplateData.companyLogo}}" height="200"/>
+            <img class="rounded mx-auto d-block" *ngIf="fileUploaded" src="{{ClientTemplateData.companyLogo}}" height="200"/>
+          
+        </div>
       </div>
+    </div>
+
+  
 
     
 

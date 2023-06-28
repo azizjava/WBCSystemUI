@@ -10,6 +10,8 @@ import { findInvalidControls } from 'src/app/helper';
 import { Customer, modelDialog, Transporter } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { ClientTemplateService } from './Clienttemplate.service';
+import { ClientTemplate, TemplateType } from 'src/app/models/clienttemplate.model';
+import { MatRadioChange } from '@angular/material/radio';
 
 
 @Component({
@@ -19,8 +21,13 @@ import { ClientTemplateService } from './Clienttemplate.service';
 })
 export class ClientTemplateComponent implements OnInit {
   form: UntypedFormGroup;
-  customerData!: Customer;
+  ClientTemplateData!: ClientTemplate;
   public staticText: any = {};
+  public templateType: any = [];
+  public showFileUpload :boolean = false;
+  public fileUploaded :boolean = false;
+  public companyLogoImg :any ;
+  public selectedFile: File|null;
 
   private _hasChange: boolean = false;
 
@@ -35,49 +42,60 @@ export class ClientTemplateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getAllClientDetails();
+
+    this.templateType = [
+      { name: 'plain', value: TemplateType.PLAIN, checked: true },
+      { name: 'header', value: TemplateType.HEADER, checked: false },
+      { name: 'logo', value: TemplateType.LOGO, checked: false },
+    ];
+
     this.form = this._formBuilder.group({
-      customerCode: ['', [Validators.required, Validators.maxLength(30)]],
-      customerName: ['', [Validators.required, Validators.maxLength(30)]],
-      contactPerson: [''],
-      mobileNo: [''],
-      telephoneNo: [''],
-      faxNo: [''],
-      address: [''],
+      city: [''],
+      companyName: ['', [Validators.required, Validators.maxLength(30)]],
+      templateType:[''],
+      phoneNo: [''],
+      zipCode: [''],
+      streetAddress: [''],
+      email: ['', [Validators.required, Validators.maxLength(30)]],
+      companyLogo: [null]   
     });
-
-    if (this.data.actionName !== 'add') {
-      this.customerData = this.data.data;
-      this.form.controls['customerCode'].setValue(
-        this.customerData?.customerCode
-      );
-      this.form.controls['customerName'].setValue(
-        this.customerData?.customerName
-      );
-      this.form.controls['contactPerson'].setValue(
-        this.customerData?.contactPerson
-      );
-      this.form.controls['mobileNo'].setValue(this.customerData?.mobileNo);
-      this.form.controls['telephoneNo'].setValue(
-        this.customerData?.telephoneNo
-      );
-      this.form.controls['faxNo'].setValue(this.customerData?.faxNo);
-      this.form.controls['address'].setValue(this.customerData?.address);
-
-      if (this.data.actionName === 'view') {
-        this.form.disable();
-      }
-
-      if (this.data.actionName === 'edit') {
-        this.form.controls['customerCode'].disable();
-      }
-    }
-
+  
     this._getTranslatedText();
-    this._onFormValueChange();
   }
 
   close() {
     this.dialogRef.close();
+  }
+
+  public trackByFn(index: number, item: any) {
+    return item.value;
+  }
+
+  public onReportTypeChange(event: MatRadioChange) {
+    this.form.controls['templateType'].setValue(event.value);
+    this.showFileUpload = event.value === TemplateType.PLAIN ? false : true;
+    this.fileUploaded = false;
+    this.selectedFile = null;
+    if(this.showFileUpload) {
+      this.ClientTemplateData.companyLogo = this.companyLogoImg;
+    }
+  }
+
+  public onFileChange(event:any) {
+    const reader = new FileReader();
+ 
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      this.selectedFile = file[0];
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        this.form.controls['companyLogo'].setValue(reader.result);
+        this.ClientTemplateData.companyLogo = reader.result;
+        this.fileUploaded = true;
+      };
+    }
   }
 
   save() {
@@ -88,64 +106,51 @@ export class ClientTemplateComponent implements OnInit {
 
     const result = this.form.value;
 
-    const newRecord: Customer = {
-      customerCode: result.customerCode,
-      customerName: result.customerName,
-      contactPerson: result.contactPerson,
-      mobileNo: result.mobileNo.toString(),
-      telephoneNo: result.telephoneNo.toString(),
-      faxNo: result.faxNo.toString(),
-      address: result.address,
+    var formData: any = new FormData();
+
+   // lastModifiedByUser: this.authenticationService.currentUserValue.userName,
+    
+
+    
+
+    // formData.append('file', this.selectedFile);
+    formData.append('clientDetailsRequest', JSON.stringify({
+      city: result.city,
+      companyName: result.companyName,
+      email: result.email,
       localCreatedDateTime: new Date(),
-      lastModifiedByUser: this.authenticationService.currentUserValue.userName,
-    };
+      phoneNo: result.phoneNo.toString(),
+      streetAddress: result.streetAddress,
+      templateType: result.templateType,
+      zipCode: result.zipCode,
+    }));
 
-    if (this.data.actionName === 'add') {
-      this.httpService.createNewCustomer(newRecord).subscribe({
-        next: (res: any) => {
-          this.dialogRef.close(res);
-        },
-        error: (error: string) => {
-          console.log(error);
-          this.alertService.error(error);
-        },
-      });
-    } else if (this.data.actionName === 'edit') {
-      if (this._hasChange) {
-        newRecord.customerCode = this.customerData?.customerCode;
-        this.httpService
-          .updateCustomer(newRecord.customerCode, newRecord)
-          .subscribe({
-            next: (res) => {
-              this.dialogRef.close(res);
-            },
-            error: (error) => {
-              console.log(error);
-              this.alertService.error(error);
-            },
-          });
-      } else {
-        this.dialogRef.close();
-      }
+    console.log(formData);
+
+    this.httpService.createNewClientDetails(formData).subscribe({
+      next: (res: any) => {
+        this.dialogRef.close(res);
+      },
+      error: (error: string) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
     }
-  }
-
+  
   private _getTranslatedText(): void {
     this.translate.get(['']).subscribe((translated: string) => {
       this.staticText = {
-        customerCode: this.translate.instant(
-          'customers.tbl_header.customercode'
-        ),
-        customerName: this.translate.instant(
-          'customers.tbl_header.customername'
-        ),
-        contactPerson: this.translate.instant(
-          'customers.tbl_header.contactperson'
-        ),
-        mobileNo: this.translate.instant('customers.tbl_header.mobileno'),
-        telephoneNo: this.translate.instant('customers.tbl_header.telephoneno'),
-        faxNo: this.translate.instant('customers.tbl_header.faxno'),
-        address: this.translate.instant('customers.tbl_header.address'),
+        companyName: this.translate.instant('reports.clienttemplate.companyname'),
+        email: this.translate.instant('reports.clienttemplate.email'),
+        zipCode: this.translate.instant('reports.clienttemplate.zipcode'),
+        city: this.translate.instant('reports.clienttemplate.city'),
+        phoneNo: this.translate.instant('reports.clienttemplate.phoneno'),
+        templateType: this.translate.instant('reports.clienttemplate.templatetype'),
+
+        faxNo: this.translate.instant('reports.clienttemplate.'),
+        streetAddress: this.translate.instant('reports.clienttemplate.address'),
+
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),
         cancel: this.translate.instant('actions.cancel'),
@@ -160,5 +165,30 @@ export class ClientTemplateComponent implements OnInit {
         (key) => this.form.value[key] != initialValue[key]
       );
     });
+  }
+
+  private getAllClientDetails(): void {
+    this.httpService.getAllClientDetails().subscribe({
+      next: (data: ClientTemplate[]) => {
+        this._bindData( data && data.length >0 ? data[0] : new ClientTemplate());
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private _bindData(data: ClientTemplate){
+      this.ClientTemplateData = data;
+      this.ClientTemplateData.clientID = data.clientID || 0;
+      this.form.controls['companyName'].setValue(this.ClientTemplateData?.companyName);
+      this.form.controls['email'].setValue(this.ClientTemplateData?.email);
+      this.form.controls['city'].setValue(this.ClientTemplateData?.city);
+      this.form.controls['phoneNo'].setValue(this.ClientTemplateData?.phoneNo);
+      this.form.controls['streetAddress'].setValue(this.ClientTemplateData?.streetAddress);
+      this.form.controls['zipCode'].setValue(this.ClientTemplateData?.zipCode);
+      this.form.controls['templateType'].setValue(this.ClientTemplateData?.templateType); 
+      this.companyLogoImg =data.companyLogo;
   }
 }

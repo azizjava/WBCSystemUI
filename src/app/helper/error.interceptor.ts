@@ -22,9 +22,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             else if (err.status === 0) {
                 // auto logout if 401 response returned from api
-                this.authenticationService.logout();               
+                //this.authenticationService.logout();               
                 this.alertService.error("API is not running!!");
-                this.router.navigate([GlobalConstants.ROUTE_URLS.login]);
+                console.log(err.message);
+                //this.router.navigate([GlobalConstants.ROUTE_URLS.login]);
                 return throwError("API is not running!!");
             }
 

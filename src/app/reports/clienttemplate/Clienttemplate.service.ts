@@ -13,21 +13,22 @@ export class ClientTemplateService {
   public baseURL : string;
 
   constructor(private http: HttpClient, backend: HttpBackend) {
-    this.baseURL = environment.baseURL +'/client';
+    this.baseURL = environment.baseURL +'/clientdetails';
   }
    
   getAllClientDetails(): Observable<ClientTemplate[]> {
     return this.http
-      .get<ClientTemplate[]>(`${this.baseURL}/listallclientdetails`);      
+      .get<ClientTemplate[]>(`${this.baseURL}/listall`);      
   } 
 
   getClientDetailsById(id: any): Observable<ClientTemplate> {
     return this.http.get<ClientTemplate>(`${this.baseURL}/findbyclientdetails/${id}`);
   }
 
-  createNewClientDetails(data : ClientTemplate) {
+  createNewClientDetails(data : any) {  
+
     return this.http
-      .post(`${this.baseURL}/create`, data);     
+      .post<any>(`${this.baseURL}/create`, data);     
   }
  
 
