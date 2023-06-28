@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('TransactionDataComponent', () => {
@@ -15,6 +16,7 @@ describe('TransactionDataComponent', () => {
       imports:[HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        RouterTestingModule,
         TranslateModule.forRoot()],
       declarations: [ TransactionDataComponent ],
       providers:[

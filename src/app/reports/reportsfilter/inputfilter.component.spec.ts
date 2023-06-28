@@ -1,12 +1,12 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputFilterComponent } from './inputfilter.component';
 
 
-describe('NationalityDataComponent', () => {
+describe('InputFilterComponent', () => {
   let component: InputFilterComponent;
   let fixture: ComponentFixture<InputFilterComponent>;
 
@@ -15,6 +15,7 @@ describe('NationalityDataComponent', () => {
       imports:[HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        MatDialogModule,
         TranslateModule.forRoot()],
       declarations: [ InputFilterComponent ],
       providers:[

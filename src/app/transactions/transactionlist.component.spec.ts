@@ -3,6 +3,7 @@ import { TransactionsListComponent } from './transactionlist.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('TransactionsListComponent', () => {
@@ -11,7 +12,8 @@ describe('TransactionsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[HttpClientModule,      
+      imports:[HttpClientModule, 
+        RouterTestingModule,     
         TranslateModule.forRoot()],
       declarations: [ TransactionsListComponent ],
       providers:[

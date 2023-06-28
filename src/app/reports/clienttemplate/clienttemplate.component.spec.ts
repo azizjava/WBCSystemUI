@@ -3,12 +3,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { LayoutSetupComponent } from './layoutsetup.component';
+import { ClientTemplateComponent } from './clienttemplate.component';
 
 
-describe('LayoutSetupComponent', () => {
-  let component: LayoutSetupComponent;
-  let fixture: ComponentFixture<LayoutSetupComponent>;
+describe('ClientTemplateSetupComponent', () => {
+  let component: ClientTemplateComponent;
+  let fixture: ComponentFixture<ClientTemplateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe('LayoutSetupComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot()],
-      declarations: [ LayoutSetupComponent ],
+      declarations: [ ClientTemplateComponent ],
       providers:[
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }]
@@ -25,7 +25,7 @@ describe('LayoutSetupComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LayoutSetupComponent);
+    fixture = TestBed.createComponent(ClientTemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
