@@ -61,7 +61,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
 
 
     if (this.data.actionName !== 'add') {
-      this.deviceData = this.data?.data.deviceData;
+      this.deviceData = this.data?.data?.deviceData;
 
       this.weightForm.controls['name'].setValue(this.deviceData?.name);
       this.weightForm.controls['deviceStatus'].setValue(this.deviceData?.deviceStatus === "ENABLED" ? true:false);
