@@ -122,7 +122,7 @@ export class InputFilterComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.panelClass = 'custom-dialog';
+    dialogConfig.panelClass = 'custom-dialog-type';
 
     const dialogRef = this.matDialog.open(LayoutSetupComponent, dialogConfig);
 

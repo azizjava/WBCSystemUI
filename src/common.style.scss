@@ -114,6 +114,11 @@ body {
 
 }
 
+.custom-dialog-type {
+  @extend .custom-dialog;
+  height: 50vh;
+}
+
 .mat-typography {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }

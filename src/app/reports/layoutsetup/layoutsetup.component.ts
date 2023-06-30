@@ -14,6 +14,8 @@ export class LayoutSetupComponent implements OnInit {
   
   LayoutData!: PrintLayout[];
 
+  cardLayout :any;
+
   constructor(
     private dialogRef: MatDialogRef<LayoutSetupComponent>,
     private translate: TranslateService,
@@ -22,6 +24,7 @@ export class LayoutSetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.LayoutData = this.data.data;
+    this._generateCardLayout();
   }
 
   public drop(event: CdkDragDrop<PrintLayout[]>) {
@@ -43,5 +46,430 @@ export class LayoutSetupComponent implements OnInit {
 
   save() {
     this.dialogRef.close(this.LayoutData);
+  }
+
+  _generateCardLayout() {
+
+    this.cardLayout = [
+      {
+        cardName : "Transporters",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+      {
+        cardName : "Suppliers",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+      {
+        cardName : "Products",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+      {
+        cardName : "Customers",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+      {
+        cardName : "Vehicles",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+      {
+        cardName : "Customer Price List",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+      {
+        cardName : "Supplier Price List",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+      {
+        cardName : "Log In/Out History",
+        data: [
+          {
+            lableName: 'TranCode',
+            lableText: 'Transporter Code',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode1',
+            lableText: 'Transporter Code 1',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode2',
+            lableText: 'Transporter Code 2',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode3',
+            lableText: 'Transporter Code 3',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode 4',
+            lableText: 'Transporter Code 4',
+            enabled: false,
+          },
+          {
+            lableName: 'TranCode5',
+            lableText: 'Transporter Code 5',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode6',
+            lableText: 'Transporter Code 6',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode7',
+            lableText: 'Transporter Code 7',
+            enabled: true,
+          },
+          {
+            lableName: 'TranCode8',
+            lableText: 'Transporter Code 8',
+            enabled: false,
+          },
+        ],
+        canEdit: false,
+      },
+
+
+      
+    ];
+
   }
 }
