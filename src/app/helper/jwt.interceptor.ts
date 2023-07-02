@@ -18,8 +18,9 @@ export class JwtInterceptor implements HttpInterceptor {
           let currentUser = this.authenticationService.currentUserValue;
           if (currentUser && currentUser?.token) {
             this.loaderService.show();
-            request = request.clone({
-              headers: request.headers.set('Content-Type', 'application/json'),
+            // By passing setting content-type header for fileupload
+            request = request.clone({                          
+              headers: request.headers.getAll('X-Content-Type') ? request.headers.delete("X-Content-Type","multipart/form-data") : request.headers.set('Content-Type', 'application/json'),
               setHeaders: {
                 Authorization: `Bearer ${currentUser.token}`,
               },

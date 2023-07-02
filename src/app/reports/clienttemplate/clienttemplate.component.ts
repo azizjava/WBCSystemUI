@@ -87,7 +87,7 @@ export class ClientTemplateComponent implements OnInit {
  
     if(event.target.files && event.target.files.length) {
       const [file] = event.target.files;
-      this.selectedFile = file[0];
+      this.selectedFile = file;
       reader.readAsDataURL(file);
   
       reader.onload = () => {
@@ -124,6 +124,11 @@ export class ClientTemplateComponent implements OnInit {
       templateType: result.templateType,
       zipCode: result.zipCode,
     }));
+
+    if(this.selectedFile != undefined){
+      formData.append('companyLogo', this.selectedFile);
+    }
+    
 
     console.log(formData);
 

@@ -28,7 +28,11 @@ export class ClientTemplateService {
   createNewClientDetails(data : any) {  
 
     return this.http
-      .post<any>(`${this.baseURL}/create`, data);     
+      .post<any>(`${this.baseURL}/create`, data,{
+        headers: {
+          "X-Content-Type": "multipart/form-data"
+        }
+      });     
   }
  
 
