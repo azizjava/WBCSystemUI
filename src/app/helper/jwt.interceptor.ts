@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders } from '@angular/common/http';
 import { finalize, Observable } from 'rxjs';
 
 import { AuthenticationService, LoaderService } from '../services';
@@ -12,6 +12,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
         const isLoginUrl = request.url.toString().includes("auth/login");
 
+        const isFileupload = request.url.toString().includes("clientdetails/create");
+
+        let formdataHeaders = request.headers.set("X-Content-Type", "multipart/form-data");
+
         if (!isLoginUrl) {
 
           // add authorization header with jwt token if available
@@ -20,7 +24,7 @@ export class JwtInterceptor implements HttpInterceptor {
             this.loaderService.show();
             // By passing setting content-type header for fileupload
             request = request.clone({                          
-              headers: request.headers.getAll('X-Content-Type') ? request.headers.delete("X-Content-Type","multipart/form-data") : request.headers.set('Content-Type', 'application/json'),
+              headers: isFileupload ? formdataHeaders : request.headers.set('Content-Type', 'application/json'),
               setHeaders: {
                 Authorization: `Bearer ${currentUser.token}`,
               },
