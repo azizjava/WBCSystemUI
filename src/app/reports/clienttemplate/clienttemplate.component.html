@@ -78,8 +78,7 @@
         </div>
 
         <div class="col mb-2">
-          <mat-radio-group aria-label="'reports.clienttemplate.templateType' | translate" class="reportType"
-            formControlName="templateType">
+          <mat-radio-group aria-label="'reports.clienttemplate.templateType' | translate" class="reportType" >
             <mat-radio-button *ngFor="let option of templateType; trackBy:trackByFn" [value]="option.value"
               [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.clienttemplate.'+option.name
               |
@@ -93,10 +92,11 @@
 
         <div class="col mb-2" *ngIf="companyLogoImg">
 
-          <img class="rounded mx-auto d-block" *ngIf="!fileUploaded"
-            src="data:image/png;base64,{{ClientTemplateData.companyLogo}}" height="200" />
-          <img class="rounded mx-auto d-block" *ngIf="fileUploaded" src="{{ClientTemplateData.companyLogo}}"
-            height="200" />
+          <img class="rounded mx-auto d-block img-cls" *ngIf="!fileUploaded"
+            src="data:image/png;base64,{{ClientTemplateData.companyLogo}}"  />
+
+          <img class="rounded mx-auto d-block img-cls" *ngIf="fileUploaded" src="{{ClientTemplateData.companyLogo}}"
+             />
 
         </div>
       </div>

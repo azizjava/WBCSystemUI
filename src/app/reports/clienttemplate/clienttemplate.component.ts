@@ -105,15 +105,9 @@ export class ClientTemplateComponent implements OnInit {
     }
 
     const result = this.form.value;
-
     var formData: any = new FormData();
-
    // lastModifiedByUser: this.authenticationService.currentUserValue.userName,
-    
-
-    
-
-    // formData.append('file', this.selectedFile);
+    formData.append('companyLogo', this.selectedFile);
     formData.append('clientDetailsRequest', JSON.stringify({
       city: result.city,
       companyName: result.companyName,
@@ -128,9 +122,7 @@ export class ClientTemplateComponent implements OnInit {
     if(this.selectedFile != undefined){
       formData.append('companyLogo', this.selectedFile);
     }
-    
 
-    console.log(formData);
 
     this.httpService.createNewClientDetails(formData).subscribe({
       next: (res: any) => {
@@ -195,5 +187,10 @@ export class ClientTemplateComponent implements OnInit {
       this.form.controls['zipCode'].setValue(this.ClientTemplateData?.zipCode);
       this.form.controls['templateType'].setValue(this.ClientTemplateData?.templateType); 
       this.companyLogoImg =data.companyLogo;
+      this.showFileUpload = this.ClientTemplateData?.templateType === TemplateType.PLAIN ? false : true;
+
+      this.templateType.forEach((element :any) => {
+        element.checked = element.value === this.ClientTemplateData?.templateType ;        
+      });
   }
 }
