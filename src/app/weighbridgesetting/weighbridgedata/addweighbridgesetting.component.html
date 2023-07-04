@@ -15,7 +15,7 @@
             <div class="col">
                 <mat-form-field appearance="fill">
                     <mat-label>{{'wbSetting.selectweighbridgetype' | translate }}</mat-label>
-                    <mat-select formControlName="weightBridgeType" name="weightBridgeType">
+                    <mat-select  name="weightBridgeType">
                         <mat-option *ngFor="let type of weighBridgeTypeList" [value]="type.value">
                             {{type.key}}
                         </mat-option>
@@ -213,7 +213,7 @@
             </div>
             <div class="col">
                 <section class="example-section mt-4">
-                    <mat-checkbox formControlName="deviceStatus" name="deviceStatus"
+                    <mat-checkbox name="deviceStatus"
                     (change)="onDeviceStatusChange($event)">{{'wbSetting.enabledevice'| translate}}</mat-checkbox>
                 </section>
             </div>

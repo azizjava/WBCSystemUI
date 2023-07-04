@@ -21,6 +21,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 const modules = [
@@ -45,6 +46,7 @@ const modules = [
   MatPaginatorModule,
   MatAutocompleteModule,
   ScrollingModule,
+  MatSlideToggleModule
 ];
 
 @NgModule({
