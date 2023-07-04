@@ -86,14 +86,14 @@
 
               <mat-form-field class="example-full-width" style="width: 43%;">
                 <mat-label>{{data.lableName}}</mat-label>
-                <input matInput placeholder="{{data.lableText}}" name="{{data.lableName}}" value="{{data.lableText}}"  />
+                <input matInput placeholder="{{data.lableText}}" [(ngModel)]="data.lableText"  />
               </mat-form-field>
 
               <div style="margin-inline: .25rem;"></div>
 
               <mat-form-field class="example-full-width" style="width: 43%;">
                 <mat-label>{{data.lableName}}</mat-label>
-                <input matInput placeholder="{{data.lableText}}" name="{{data.lableName}}" value="{{data.lableText}}"  />
+                <input matInput placeholder="{{data.lableText}}" [(ngModel)]="data.lableText"  />
               </mat-form-field>
           
               <mat-checkbox class="example-margin" style="margin-top : .9rem" 
@@ -109,25 +109,24 @@
         <div class="card-text" *ngFor="let data of layout.data; let i=index">
 
                     
-            <div class="col d-flex justify-content-between" *ngIf="i <= 2">
+          <div class="col d-flex justify-content-between" *ngIf="i <= 2">
           
               <mat-form-field class="example-full-width" style="width: 43%;">
                 <mat-label>{{data.lableName}}</mat-label>
-                <input matInput placeholder="{{data.lableText}}" name="{{data.lableName}}" value="{{data.lableText}}" readonly
+                <input matInput placeholder="{{data.lableText}}" [(ngModel)]="data.lableText" readonly
                   [disabled]="true" />
               </mat-form-field>
 
               <mat-form-field class="example-full-width" style="width: 43%;">
                 <mat-label>{{data.lableName}}</mat-label>
-                <input matInput placeholder="{{data.lableText}}" name="{{data.lableName}}" value="{{data.lableText}}" readonly
+                <input matInput placeholder="{{data.lableText}}" [(ngModel)]="data.lableText"  readonly
                   [disabled]="true" />
               </mat-form-field>
           
-              <mat-checkbox class="example-margin" style=" margin-top : 1rem" [disabled]="true"
-                [(ngModel)]="data.enabled"></mat-checkbox>
+              <mat-checkbox class="example-margin" style="margin-top : 1rem"
+              disabled [ngModel]="data.enabled"></mat-checkbox>
           
-            </div>
-          
+            </div>          
          
         </div>
       </ng-container>
