@@ -1,9 +1,16 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { modelDialog, PrintLayout,  } from 'src/app/models';
+import { modelDialog, PrintLayout } from 'src/app/models';
 import { SuppliersService } from 'src/app/suppliers/suppliers.service';
+import { LayoutSetupService } from './layoutsetup.service';
+import { AlertService } from 'src/app/services';
+import { LayoutSetup } from 'src/app/models/layoutsetup.model';
 
 @Component({
   selector: 'app-layoutsetup',
@@ -11,48 +18,136 @@ import { SuppliersService } from 'src/app/suppliers/suppliers.service';
   styleUrls: ['./layoutsetup.component.scss'],
 })
 export class LayoutSetupComponent implements OnInit {
-  
+
   LayoutData!: PrintLayout[];
 
-  cardLayout :any;
+  cardLayout: any;
+
+  cardHeading:any = [];
+
+  cardLayoutDataOrg: any;
+
+  userLang :string ='';
 
   constructor(
     private dialogRef: MatDialogRef<LayoutSetupComponent>,
     private translate: TranslateService,
+    private httpService: LayoutSetupService,
+    private alertService: AlertService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog
   ) {}
 
-  ngOnInit(): void {
-    this.LayoutData = this.data.data;
-    this._generateCardLayout();
+  ngOnInit(): void {   
+     this._generateCardLayout();
+    //this.getAllClientDetails();
+    this.userLang = this.translate.currentLang ==='en' ? 'us': this.translate.currentLang;
   }
 
   public drop(event: CdkDragDrop<PrintLayout[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
     }
   }
 
-  close() {
+  public trackByFn(index: number, item: LayoutSetup) {
+    return item;
+  }
+
+  public close() {
     this.dialogRef.close();
   }
 
-  save() {
+  public save() {
     this.dialogRef.close(this.LayoutData);
   }
 
-  _generateCardLayout() {
+  public getHeaderName(key: string): string {
+    
+    return this.cardHeading.find((r:any) => r.key === key)?.heading;
+  } 
 
+  private getAllClientDetails(): void {
+    this.httpService.getAllReportLabels().subscribe({
+      next: (data: LayoutSetup[]) => {
+        
+        var result = data.reduce(function (r, a) {
+          r[a.reportName] = r[a.reportName] || [];
+          r[a.reportName].push(a);          
+          return r;
+        }, Object.create([]));
+
+       this.cardLayout =  Object.entries(result);
+
+       this.cardLayoutDataOrg =  [...this.cardLayout];
+
+       console.log(this.cardLayout);
+
+       this.cardLayout.forEach((element: any) => {
+        element[element.length] = false;
+
+        const cardTitle = element[1].find((r:LayoutSetup) => r.locale === this.userLang && r.key.toString().includes('.reportTitle'))?.value || '';
+
+        this.cardHeading.push({key :element[0] , heading: cardTitle});
+
+         const unique = [
+           ...new Set(element[1].map((item: { key: any }) => item.key)),
+         ].filter(
+           (s: any) => !['.enabled', '.reportTitle'].some(sub=>s.includes(sub))
+         );
+
+         const newArr:any = [];
+
+         unique.forEach((key: any) => {
+           let outputData: any = {};
+           const item = element[1]
+             .filter((e: any) => e.key.toString().includes(key))
+             .forEach((a: any) => {
+               if (
+                 a.locale === 'us' &&
+                 !a.key.toString().includes('.enabled')
+               ) {
+                 outputData.enId = a.id;
+                 outputData.enValue = a.value;
+                 outputData.key = a.key;
+               } else if (a.locale === 'ar') {
+                 outputData.arId = a.id;
+                 outputData.arValue = a.value;
+               }
+               if (a.key.toString().includes('.enabled')) {
+                 outputData.isEnabled = a.value;
+               }
+             });
+           newArr.push(outputData);
+         });
+         element[1] = newArr;
+       });
+
+       console.log(this.cardLayout);
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+ 
+
+  _generateCardLayout() {
     this.cardLayout = [
       {
-        cardName : "Transporters",
+        cardName: 'Transporters',
         data: [
           {
             lableName: 'TranCode',
@@ -104,7 +199,7 @@ export class LayoutSetupComponent implements OnInit {
       },
 
       {
-        cardName : "Suppliers",
+        cardName: 'Suppliers',
         data: [
           {
             lableName: 'TranCode',
@@ -156,7 +251,7 @@ export class LayoutSetupComponent implements OnInit {
       },
 
       {
-        cardName : "Products",
+        cardName: 'Products',
         data: [
           {
             lableName: 'TranCode',
@@ -208,7 +303,7 @@ export class LayoutSetupComponent implements OnInit {
       },
 
       {
-        cardName : "Customers",
+        cardName: 'Customers',
         data: [
           {
             lableName: 'TranCode',
@@ -260,7 +355,7 @@ export class LayoutSetupComponent implements OnInit {
       },
 
       {
-        cardName : "Vehicles",
+        cardName: 'Vehicles',
         data: [
           {
             lableName: 'TranCode',
@@ -312,7 +407,7 @@ export class LayoutSetupComponent implements OnInit {
       },
 
       {
-        cardName : "Customer Price List",
+        cardName: 'Customer Price List',
         data: [
           {
             lableName: 'TranCode',
@@ -364,7 +459,7 @@ export class LayoutSetupComponent implements OnInit {
       },
 
       {
-        cardName : "Supplier Price List",
+        cardName: 'Supplier Price List',
         data: [
           {
             lableName: 'TranCode',
@@ -416,7 +511,7 @@ export class LayoutSetupComponent implements OnInit {
       },
 
       {
-        cardName : "Log In/Out History",
+        cardName: 'Log In/Out History',
         data: [
           {
             lableName: 'TranCode',
@@ -466,10 +561,6 @@ export class LayoutSetupComponent implements OnInit {
         ],
         canEdit: false,
       },
-
-
-      
     ];
-
   }
 }

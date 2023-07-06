@@ -68,7 +68,7 @@
 </div> -->
 
 
-<div class="card-group">
+<!-- <div class="card-group">
   <div class ="col-6" *ngFor="let layout of cardLayout" >
 
     <div class="card">
@@ -147,6 +147,96 @@
         </button>
         <button mat-icon-button class="iconbutton" color="primary">
           <mat-icon aria-label="Edit" (click)="layout.canEdit =!layout.canEdit">cancel</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+
+
+</div> -->
+
+
+<div class="card-group">
+  <div class ="col-6" *ngFor="let layout of cardLayout ; trackBy:trackByFn" >
+
+    <div class="card">
+
+    <div class="card-header">
+      {{getHeaderName(layout[0]) }}
+    </div>
+ 
+    <div class="card-body card-body-scorll">
+
+      <ng-container *ngIf="layout[layout.length-1]">
+        <div class="card-text" *ngFor="let data of layout[1] ; let i=index">        
+                    
+            <div class="col d-flex justify-content-between">
+
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.lableName}}</mat-label>
+                <input matInput placeholder="{{data.enValue}}" [(ngModel)]="data.enValue"  />
+              </mat-form-field>
+
+              <div style="margin-inline: .25rem;"></div>
+
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.lableName}}</mat-label>
+                <input matInput placeholder="{{data.arValue}}" [(ngModel)]="data.arValue"  />
+              </mat-form-field>
+          
+              <mat-checkbox class="example-margin" style="margin-top : .9rem" 
+                [(ngModel)]="data.isEnabled"></mat-checkbox>
+          
+            </div>
+         
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="!layout[layout.length-1]">
+        <div class="card-text" *ngFor="let data of layout[1]; let i=index">
+
+          <div class="col d-flex justify-content-between" *ngIf="i <= 2">     
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.lableName}}</mat-label>
+                <input matInput placeholder="{{data.enValue}}" [(ngModel)]="data.enValue" readonly
+                  [disabled]="true" />
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.lableName}}</mat-label>
+                <input matInput placeholder="{{data.arValue}}" [(ngModel)]="data.arValue"  readonly
+                  [disabled]="true" />
+              </mat-form-field>
+          
+              <mat-checkbox class="example-margin" style="margin-top : 1rem"
+              disabled [ngModel]="data.isEnabled"></mat-checkbox>
+          
+            </div>
+         
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="card-footer">
+
+      <div class="d-flex justify-content-end" *ngIf="!layout[layout.length-1]">
+        <button mat-icon-button class="iconbutton" color="primary">
+          <mat-icon aria-label="Edit" (click)="layout[layout.length-1] =!layout[layout.length-1]">edit</mat-icon>
+        </button>
+      </div>
+
+      <div class="d-flex justify-content-between" *ngIf="layout[layout.length-1]">
+        <button mat-icon-button class="iconbutton" color="primary">
+          <mat-icon aria-label="Edit" (click)="layout[layout.length-1] =!layout[layout.length-1]">save</mat-icon>
+        </button>
+        <button mat-icon-button class="iconbutton" color="primary">
+          <mat-icon aria-label="Edit" (click)="layout[layout.length-1] =!layout[layout.length-1]">cancel</mat-icon>
         </button>
       </div>
 
