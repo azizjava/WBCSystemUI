@@ -19,15 +19,12 @@ import { LayoutSetup } from 'src/app/models/layoutsetup.model';
 })
 export class LayoutSetupComponent implements OnInit {
 
-  LayoutData!: PrintLayout[];
-
+  cardLayoutOriginal: any;
   cardLayout: any;
+  cardHeading: any = [];
+  userLang: string = '';
 
-  cardHeading:any = [];
-
-  cardLayoutDataOrg: any;
-
-  userLang :string ='';
+  updatedCardData :any =[];
 
   constructor(
     private dialogRef: MatDialogRef<LayoutSetupComponent>,
@@ -37,10 +34,9 @@ export class LayoutSetupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: modelDialog
   ) {}
 
-  ngOnInit(): void {   
-     this._generateCardLayout();
-    //this.getAllClientDetails();
-    this.userLang = this.translate.currentLang ==='en' ? 'us': this.translate.currentLang;
+  ngOnInit(): void {
+    this.getAllClientDetails();
+    this.userLang = this.translate.currentLang ;
   }
 
   public drop(event: CdkDragDrop<PrintLayout[]>) {
@@ -64,76 +60,82 @@ export class LayoutSetupComponent implements OnInit {
     return item;
   }
 
+  public cancel(layout :any) {
+    layout[layout.length-1] =!layout[layout.length-1];
+    this.cardLayout = JSON.parse(JSON.stringify(this.cardLayoutOriginal)) ;
+    this._formatListData();
+  }
+
   public close() {
     this.dialogRef.close();
   }
 
-  public save() {
-    this.dialogRef.close(this.LayoutData);
+  public save(layout :any) {
+    layout[layout.length-1] =!layout[layout.length-1];
+
+    if(this.updatedCardData.length >0){
+      this.httpService.updateClientDetails(this.updatedCardData).subscribe({
+        next: (res: any) => {
+          this.dialogRef.close(res);
+          this.updatedCardData = [];
+        },
+        error: (error: string) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+    }    
+  }
+
+  public valueChange(value:any, data:any , lang :string, reportName:string): void {
+
+    let val ,key ;
+    if(typeof value !=='string') {
+      val = value.checked;
+      key = data.key +'.enabled';
+      
+    } else {
+      val = value;
+      key = data.key;
+    }
+
+    const newItem = {id: lang ==='en' ? data.enId : data.arId, locale: lang,  key: key, value: val, reportName: reportName };
+
+    if(this.updatedCardData.length === 0){
+      this.updatedCardData.push(newItem);
+    }
+
+    else {
+      const i = this.updatedCardData.findIndex((_element:any) => _element.id === newItem.id && _element.locale === newItem.locale);
+      if (i > -1) this.updatedCardData[i] = newItem; 
+      else{
+        this.updatedCardData.push(newItem);
+      }
+      
+    }
+
+    console.log(this.updatedCardData);
   }
 
   public getHeaderName(key: string): string {
-    
-    return this.cardHeading.find((r:any) => r.key === key)?.heading;
-  } 
+    return this.cardHeading.find((r: any) => r.key === key)?.heading;
+  }
 
   private getAllClientDetails(): void {
     this.httpService.getAllReportLabels().subscribe({
       next: (data: LayoutSetup[]) => {
-        
         var result = data.reduce(function (r, a) {
           r[a.reportName] = r[a.reportName] || [];
-          r[a.reportName].push(a);          
+          r[a.reportName].push(a);
           return r;
         }, Object.create([]));
 
-       this.cardLayout =  Object.entries(result);
+        this.cardLayout = Object.entries(result);
 
-       this.cardLayoutDataOrg =  [...this.cardLayout];
+        this.cardLayoutOriginal = JSON.parse(JSON.stringify(this.cardLayout));
 
-       console.log(this.cardLayout);
-
-       this.cardLayout.forEach((element: any) => {
-        element[element.length] = false;
-
-        const cardTitle = element[1].find((r:LayoutSetup) => r.locale === this.userLang && r.key.toString().includes('.reportTitle'))?.value || '';
-
-        this.cardHeading.push({key :element[0] , heading: cardTitle});
-
-         const unique = [
-           ...new Set(element[1].map((item: { key: any }) => item.key)),
-         ].filter(
-           (s: any) => !['.enabled', '.reportTitle'].some(sub=>s.includes(sub))
-         );
-
-         const newArr:any = [];
-
-         unique.forEach((key: any) => {
-           let outputData: any = {};
-           const item = element[1]
-             .filter((e: any) => e.key.toString().includes(key))
-             .forEach((a: any) => {
-               if (
-                 a.locale === 'us' &&
-                 !a.key.toString().includes('.enabled')
-               ) {
-                 outputData.enId = a.id;
-                 outputData.enValue = a.value;
-                 outputData.key = a.key;
-               } else if (a.locale === 'ar') {
-                 outputData.arId = a.id;
-                 outputData.arValue = a.value;
-               }
-               if (a.key.toString().includes('.enabled')) {
-                 outputData.isEnabled = a.value;
-               }
-             });
-           newArr.push(outputData);
-         });
-         element[1] = newArr;
-       });
-
-       console.log(this.cardLayout);
+       this._formatListData();        
+        
       },
       error: (error) => {
         console.log(error);
@@ -142,425 +144,55 @@ export class LayoutSetupComponent implements OnInit {
     });
   }
 
- 
+  private _formatListData() :void {
 
-  _generateCardLayout() {
-    this.cardLayout = [
-      {
-        cardName: 'Transporters',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
+    this.cardLayout.forEach((element: any) => {
+      element[element.length] = false;
 
-      {
-        cardName: 'Suppliers',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
+      const cardTitle =
+        element[1].find(
+          (r: LayoutSetup) =>
+            r.locale === this.userLang &&
+            r.key.toString().includes('.reportTitle')
+        )?.value || '';
 
-      {
-        cardName: 'Products',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
+      this.cardHeading.push({ key: element[0], heading: cardTitle });
 
-      {
-        cardName: 'Customers',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
+      const unique = [
+        ...new Set(element[1].map((item: { key: any }) => item.key)),
+      ].filter(
+        (s: any) =>
+          !['.enabled', '.reportTitle'].some((sub) => s.includes(sub))
+      );
 
-      {
-        cardName: 'Vehicles',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
+      const newArr: any = [];
 
-      {
-        cardName: 'Customer Price List',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
+      unique.forEach((key: any) => {
+        let outputData: any = {};
+        const item = element[1]
+          .filter((e: any) => e.key.toString().includes(key))
+          .forEach((a: any) => {
+            if (
+              a.locale === 'en' &&
+              !a.key.toString().includes('.enabled')
+            ) {
+              outputData.enId = a.id;
+              outputData.enValue = a.value;
+              outputData.key = a.key;
+            } else if (a.locale === 'ar') {
+              outputData.arId = a.id;
+              outputData.arValue = a.value;
+            }
+            if (a.key.toString().includes('.enabled')) {
+              outputData.isEnabled = a.value;
+            }
 
-      {
-        cardName: 'Supplier Price List',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
+            outputData.displayLabel =a.key.toString().split('.')[1];
+          });
+        newArr.push(outputData);
+      });
+      element[1] = newArr;
+    });
 
-      {
-        cardName: 'Log In/Out History',
-        data: [
-          {
-            lableName: 'TranCode',
-            lableText: 'Transporter Code',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode1',
-            lableText: 'Transporter Code 1',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode2',
-            lableText: 'Transporter Code 2',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode3',
-            lableText: 'Transporter Code 3',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode 4',
-            lableText: 'Transporter Code 4',
-            enabled: false,
-          },
-          {
-            lableName: 'TranCode5',
-            lableText: 'Transporter Code 5',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode6',
-            lableText: 'Transporter Code 6',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode7',
-            lableText: 'Transporter Code 7',
-            enabled: true,
-          },
-          {
-            lableName: 'TranCode8',
-            lableText: 'Transporter Code 8',
-            enabled: false,
-          },
-        ],
-        canEdit: false,
-      },
-    ];
   }
 }

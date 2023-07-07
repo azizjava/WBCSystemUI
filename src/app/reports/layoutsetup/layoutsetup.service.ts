@@ -23,7 +23,7 @@ export class LayoutSetupService {
  
 
   updateClientDetails(data: LayoutSetup): Observable<any> {
-    return this.http.put(`${this.baseURL}/update`, data);
+    return this.http.post(`${this.baseURL}/update`, data);
   }
 
   

@@ -145,12 +145,7 @@ export class InputFilterComponent implements OnInit {
 
     const dialogRef = this.matDialog.open(ClientTemplateComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.layooutSettingData = result;
-        this.alertService.success(` updated successfully`);
-      }
-    });
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   private _fetchLayoutSettings(): any {
