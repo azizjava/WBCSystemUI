@@ -106,7 +106,7 @@ export class LayoutSetupComponent implements OnInit {
     }
 
     else {
-      const i = this.updatedCardData.findIndex((_element:any) => _element.id === newItem.id && _element.locale === newItem.locale);
+      const i = this.updatedCardData.findIndex((_element:any) => _element.id === newItem.id && _element.locale === newItem.locale && _element.key === newItem.key);
       if (i > -1) this.updatedCardData[i] = newItem; 
       else{
         this.updatedCardData.push(newItem);
