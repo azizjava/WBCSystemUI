@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges, ElementRef, ViewChild, Output } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +30,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   @Input() actionName: string = '';
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
+  @Output() sequenceNoChange = new EventEmitter();
 
   @ViewChild('video1') videoElement1: ElementRef<HTMLVideoElement>;
   @ViewChild('video2') videoElement2: ElementRef<HTMLVideoElement>;
@@ -352,6 +353,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           console.log(res);
           this.entryForm.controls['sequenceNo'].setValue(res.sequenceNo);
           this.alertService.success(`${res.sequenceNo} inserted successfully`);
+          this.sequenceNoChange.emit(res.sequenceNo);
         },
         error: (error) => {
           console.log(error);
