@@ -106,7 +106,6 @@ export class ClientTemplateComponent implements OnInit {
 
     const result = this.form.value;
     var formData: any = new FormData();
-   // lastModifiedByUser: this.authenticationService.currentUserValue.userName,
     formData.append('companyLogo', this.selectedFile);
     formData.append('clientDetailsRequest', JSON.stringify({
       city: result.city,
@@ -117,6 +116,7 @@ export class ClientTemplateComponent implements OnInit {
       streetAddress: result.streetAddress,
       templateType: result.templateType,
       zipCode: result.zipCode,
+      lastModifiedByUser: this.authenticationService.currentUserValue.userName,
     }));
 
     if(this.selectedFile != undefined){
