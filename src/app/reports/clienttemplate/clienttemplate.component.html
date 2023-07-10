@@ -23,8 +23,7 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>{{staticText.email}} </mat-label>
-              <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" 
-              pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+              <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" />
               <mat-error *ngIf="form.controls['email'].errors && 
           form.controls['email'].errors['required'] &&
           form.controls['email'].touched
@@ -87,16 +86,18 @@
         </div>
 
         <div class="col mb-2" *ngIf="showFileUpload">
-          <input type="file" (change)="onFileChange($event)" />
+          <input type="file" (change)="onFileChange($event)" #inputFile />
+          <mat-error *ngIf="showFileUpload && isFileUploadRequired
+                ">{{staticText.companyLogo}} {{staticText.required}}
+              </mat-error>
         </div>
 
-        <div class="col mb-2" *ngIf="companyLogoImg">
+        <div class="col mb-2" *ngIf="ClientTemplateData?.companyLogo && showFileUpload">
 
-          <img class="rounded mx-auto d-block img-cls" *ngIf="!fileUploaded"
-            src="data:image/png;base64,{{ClientTemplateData.companyLogo}}"  />
+          <img class="rounded mx-auto d-block img-cls" *ngIf="!fileUploaded && ClientTemplateData.companyLogo"
+            src="data:image/png;base64,{{ClientTemplateData.companyLogo}}" />
 
-          <img class="rounded mx-auto d-block img-cls" *ngIf="fileUploaded" src="{{ClientTemplateData.companyLogo}}"
-             />
+          <img class="rounded mx-auto d-block img-cls" *ngIf="fileUploaded" src="{{ClientTemplateData.companyLogo}}" />
 
         </div>
       </div>

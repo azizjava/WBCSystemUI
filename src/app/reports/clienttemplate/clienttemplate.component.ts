@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -28,8 +28,10 @@ export class ClientTemplateComponent implements OnInit {
   public fileUploaded :boolean = false;
   public companyLogoImg :any ;
   public selectedFile: File|null;
-
+  public isFileUploadRequired : boolean = false;
   private _hasChange: boolean = false;
+
+  @ViewChild('inputFile') myInputVariable: ElementRef;
 
   constructor(
     private _formBuilder: UntypedFormBuilder,
@@ -77,9 +79,11 @@ export class ClientTemplateComponent implements OnInit {
     this.showFileUpload = event.value === TemplateType.PLAIN ? false : true;
     this.fileUploaded = false;
     this.selectedFile = null;
-    if(this.showFileUpload) {
-      this.ClientTemplateData.companyLogo = this.companyLogoImg;
+    if(this.myInputVariable){
+      this.myInputVariable.nativeElement.value = '';
     }
+    this.ClientTemplateData.companyLogo = null;
+    this.isFileUploadRequired = this.showFileUpload ;
   }
 
   public onFileChange(event:any) {
@@ -94,12 +98,19 @@ export class ClientTemplateComponent implements OnInit {
         this.form.controls['companyLogo'].setValue(reader.result);
         this.ClientTemplateData.companyLogo = reader.result;
         this.fileUploaded = true;
+        this.isFileUploadRequired = false;
       };
     }
   }
 
   save() {
     // stop here if form is invalid
+
+    if(this.showFileUpload && !this.selectedFile){
+      this.isFileUploadRequired =true;
+      return;
+    }
+
     if (!findInvalidControls(this.form)) {
       return;
     }
@@ -144,7 +155,7 @@ export class ClientTemplateComponent implements OnInit {
         city: this.translate.instant('reports.clienttemplate.city'),
         phoneNo: this.translate.instant('reports.clienttemplate.phoneno'),
         templateType: this.translate.instant('reports.clienttemplate.templatetype'),
-
+        companyLogo: this.translate.instant('reports.clienttemplate.logo'),
         faxNo: this.translate.instant('reports.clienttemplate.'),
         streetAddress: this.translate.instant('reports.clienttemplate.address'),
 
