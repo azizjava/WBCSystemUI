@@ -297,8 +297,9 @@
 			"filedname" :"اسم الحقل",
 			"include":"يشمل",
 			"labelname":"اسم الطابع",
-			"englable":"اسم التسمية باللغة الإنجليزية",
-			"arabiclable":"اسم التسمية باللغة العربية"
+			"englable":"إنجليزي",
+			"arabiclable":"عربي",
+			"checked":"المحدد"
 		},		
 		"clienttemplate":{
 			"companyname":"اسم الشركة",

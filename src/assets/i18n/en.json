@@ -294,8 +294,9 @@
 			"filedname" :"Field Name",
 			"include":"Include",
 			"labelname":"Lable Name",
-			"englable":"Lable Name in English",
-			"arabiclable":"Lable Name in Arabic"
+			"englable":"English",
+			"arabiclable":"Arabic",
+			"checked":"Selected"
 		},
 		"clienttemplate":{
 			"companyname":"Company Name",
