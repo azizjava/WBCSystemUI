@@ -26,7 +26,6 @@ export class ClientTemplateComponent implements OnInit {
   public templateType: any = [];
   public showFileUpload :boolean = false;
   public fileUploaded :boolean = false;
-  public companyLogoImg :any ;
   public selectedFile: File|null;
   public isFileUploadRequired : boolean = false;
   private _hasChange: boolean = false;
@@ -105,7 +104,7 @@ export class ClientTemplateComponent implements OnInit {
   save() {
     // stop here if form is invalid
 
-    if(this.showFileUpload && !this.selectedFile){
+    if(this.showFileUpload && (!this.ClientTemplateData.companyLogo)){
       this.isFileUploadRequired =true;
       return;
     }
@@ -116,7 +115,7 @@ export class ClientTemplateComponent implements OnInit {
 
     const result = this.form.value;
     var formData: any = new FormData();
-    formData.append('companyLogo', this.selectedFile);
+    formData.append('companyLogo', null);
     formData.append('clientDetailsRequest', JSON.stringify({
       city: result.city,
       companyName: result.companyName,
@@ -196,9 +195,7 @@ export class ClientTemplateComponent implements OnInit {
       this.form.controls['streetAddress'].setValue(this.ClientTemplateData?.streetAddress);
       this.form.controls['zipCode'].setValue(this.ClientTemplateData?.zipCode);
       this.form.controls['templateType'].setValue(this.ClientTemplateData?.templateType); 
-      this.companyLogoImg =data.companyLogo;
       this.showFileUpload = this.ClientTemplateData?.templateType === TemplateType.PLAIN ? false : true;
-
       this.templateType.forEach((element :any) => {
         element.checked = element.value === this.ClientTemplateData?.templateType ;        
       });
