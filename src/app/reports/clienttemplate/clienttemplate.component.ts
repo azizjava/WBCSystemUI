@@ -39,13 +39,11 @@ export class ClientTemplateComponent implements OnInit {
     private translate: TranslateService,
     private httpService: ClientTemplateService,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService,
-    @Inject(MAT_DIALOG_DATA) public data: modelDialog
+    private alertService: AlertService,    
   ) {}
 
   ngOnInit(): void {
-    this.getAllClientDetails();
-
+    
     this.templateType = [
       { name: 'plain', value: TemplateType.PLAIN, checked: true },
       { name: 'header', value: TemplateType.HEADER, checked: false },
@@ -62,7 +60,8 @@ export class ClientTemplateComponent implements OnInit {
       email: ['', [Validators.required, Validators.maxLength(30)]],
       companyLogo: [null]   
     });
-  
+    this.getAllClientDetails();
+
     this._getTranslatedText();
   }
 

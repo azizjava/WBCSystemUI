@@ -2,7 +2,7 @@
 
 .card-body-scorll {
   min-height: 150px;
-  max-height: 220px;
+  max-height: 180px;
   overflow-x: hidden;
   @include scrollbars();
 }
@@ -12,6 +12,10 @@
 }
 
 .card-body {
+  padding: .015rem;
+}
+
+.card-text {
   padding: .5rem;
 }
 
@@ -30,6 +34,19 @@
  height: 1.65rem;
  width: 1.65rem;
  line-height: 1.65rem;
+}
+
+.tblheader {
+  height: 2rem;
+  word-wrap: break-word;  
+  background-color: rgba(0,0,0,.03);
+  background-clip: border-box;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  padding-inline: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
 }
 
 .layout-component { 

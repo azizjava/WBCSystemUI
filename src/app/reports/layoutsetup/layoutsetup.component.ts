@@ -79,9 +79,15 @@ export class LayoutSetupComponent implements OnInit {
           this.dialogRef.close(res);
           this.updatedCardData = [];
         },
-        error: (error: string) => {
-          console.log(error);
-          this.alertService.error(error);
+        error: (error: any) => {
+          if (error.status === 201) {
+            this.alertService.success(error.text);
+            this.updatedCardData = [];
+            this.getAllClientDetails();
+          } else {
+            console.log(error);
+            this.alertService.error(error);
+          }
         },
       });
     }    
@@ -93,6 +99,7 @@ export class LayoutSetupComponent implements OnInit {
     if(typeof value !=='string') {
       val = value.checked;
       key = data.key +'.enabled';
+      data.isEnabled = value.checked;
       
     } else {
       val = value;

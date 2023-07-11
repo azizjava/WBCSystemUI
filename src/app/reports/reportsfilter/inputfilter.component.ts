@@ -37,7 +37,6 @@ export class InputFilterComponent implements OnInit {
   public fromDateControl = new FormControl(new Date(Date.now() - 86400000 * 2));
   public toDateControl = new FormControl(moment().toDate());
 
-  layooutSettingData: PrintLayout[];
 
   constructor(
     private translate: TranslateService,
@@ -65,7 +64,6 @@ export class InputFilterComponent implements OnInit {
         )
       );
 
-    this._fetchLayoutSettings();
   }
 
   private _filter(list: any[], value: string): any[] {
@@ -87,7 +85,7 @@ export class InputFilterComponent implements OnInit {
   public openSettings(): void {
     const dialogData = {
       headerText: 'Information',
-      data: this.layooutSettingData,
+      data: '',
       actionName: '',
     };
     this.openDialog(dialogData);
@@ -96,7 +94,7 @@ export class InputFilterComponent implements OnInit {
   public openClientSettings(): void {
     const dialogData = {
       headerText: 'Information',
-      data: this.layooutSettingData,
+      data: '',
       actionName: '',
     };
     this.openClientDialog(dialogData);
@@ -128,7 +126,6 @@ export class InputFilterComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.layooutSettingData = result;
         this.alertService.success(` updated successfully`);
       }
     });
@@ -147,111 +144,5 @@ export class InputFilterComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => { });
   }
-
-  private _fetchLayoutSettings(): any {
-    const printLayoutData: PrintLayout[] = [
-      {
-        fieldName: 'Transaction No',
-        disabled: false,
-        engLabelName: 'Transaction No Eng',
-        ArabicLabelName: 'Transaction No Ara',
-      },
-      {
-        fieldName: 'Vehicle No',
-        disabled: true,
-        engLabelName: 'Vehicle No Eng',
-        ArabicLabelName: 'Vehicle No Ara',
-      },
-      {
-        fieldName: 'Vehicle Type',
-        disabled: false,
-        engLabelName: 'Vehicle Type Eng',
-        ArabicLabelName: 'Vehicle Type Ara',
-      },
-      {
-        fieldName: 'Transporter Code',
-        disabled: false,
-        engLabelName: 'Transporter Code Eng',
-        ArabicLabelName: 'Transporter Code Ara',
-      },
-      {
-        fieldName: 'Transporter Name',
-        disabled: true,
-        engLabelName: 'Transporter Name Eng',
-        ArabicLabelName: 'Transporter Name Ara',
-      },
-      {
-        fieldName: 'Product Code',
-        disabled: false,
-        engLabelName: 'Product Code Eng',
-        ArabicLabelName: 'Product Code Ara',
-      },
-      {
-        fieldName: 'Product Name',
-        disabled: false,
-        engLabelName: 'Product Name Eng',
-        ArabicLabelName: 'Product Name Ara',
-      },
-
-      {
-        fieldName: 'Transaction No',
-        disabled: false,
-        engLabelName: 'Transaction No Eng',
-        ArabicLabelName: 'Transaction No Ara',
-      },
-      {
-        fieldName: 'Vehicle No',
-        disabled: false,
-        engLabelName: 'Vehicle No Eng',
-        ArabicLabelName: 'Vehicle No Ara',
-      },
-      {
-        fieldName: 'Vehicle Type',
-        disabled: false,
-        engLabelName: 'Vehicle Type Eng',
-        ArabicLabelName: 'Vehicle Type Ara',
-      },
-      {
-        fieldName: 'Transporter Code',
-        disabled: false,
-        engLabelName: 'Transporter Code Eng',
-        ArabicLabelName: 'Transporter Code Ara',
-      },
-      {
-        fieldName: 'Transporter Name',
-        disabled: false,
-        engLabelName: 'Transporter Name Eng',
-        ArabicLabelName: 'Transporter Name Ara',
-      },
-      {
-        fieldName: 'Product Code',
-        disabled: false,
-        engLabelName: 'Product Code Eng',
-        ArabicLabelName: 'Product Code Ara',
-      },
-      {
-        fieldName: 'Product Name',
-        disabled: false,
-        engLabelName: 'Product Name Eng',
-        ArabicLabelName: 'Product Name Ara',
-      },
-
-      {
-        fieldName: 'Transaction No',
-        disabled: false,
-        engLabelName: 'Transaction No Eng',
-        ArabicLabelName: 'Transaction No Ara',
-      },
-      {
-        fieldName: 'Vehicle No',
-        disabled: true,
-        engLabelName: 'Vehicle No Eng',
-        ArabicLabelName: 'Vehicle No Ara',
-      },
-      
-    ];
-
-    this.layooutSettingData = printLayoutData;
-
-  }
+  
 }
