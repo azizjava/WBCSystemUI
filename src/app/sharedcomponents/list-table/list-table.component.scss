@@ -1,7 +1,10 @@
+@import "styles.scss";
+
 .list-table {
   .example-container {
     height: calc(80vh - 8rem);
     overflow: auto;
+    @include scrollbars();
   }
 
   table {

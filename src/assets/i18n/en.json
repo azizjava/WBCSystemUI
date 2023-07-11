@@ -287,7 +287,12 @@
 			"enddate": "Choose End Date",
 			"search" :"Search",
 			"printlayout" :"Print Layout Setup",
-			"createtemplate" :"Reporting Template"
+			"createtemplate" :"Reporting Template",
+			"language" :"Language",
+			"pdf":"PDF",
+			"htm":"HTM",
+			"xlsx" : "XLSX",
+			"csv" :"CSV"
 		},
 		"layout":{
 			"header":"Ticket Print Layout Setup",

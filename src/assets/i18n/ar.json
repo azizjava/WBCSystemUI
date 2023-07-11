@@ -290,7 +290,12 @@
 			"enddate": "اختر تاريخ الانتهاء",
 			"search" :"بحث",
 			"printlayout" :"إعداد تخطيط الطباعة",
-			"createtemplate" :"نموذج التقارير"
+			"createtemplate" :"نموذج التقارير",
+			"language" :"لغة",
+			"pdf":"بي دي إف",
+			"htm":"HTM",
+			"xlsx" : "XLSX",
+			"csv" :"CSV"
 		},
 		"layout":{
 			"header":"إعداد تخطيط طباعة التذاكر",
