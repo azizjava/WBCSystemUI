@@ -295,7 +295,8 @@
 			"pdf":"بي دي إف",
 			"htm":"HTM",
 			"xlsx" : "XLSX",
-			"csv" :"CSV"
+			"csv" :"CSV",
+			"reportformat" :"Report Format"
 		},
 		"layout":{
 			"header":"إعداد تخطيط طباعة التذاكر",

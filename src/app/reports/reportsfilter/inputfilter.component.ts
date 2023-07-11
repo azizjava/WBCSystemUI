@@ -27,9 +27,10 @@ export class InputFilterComponent implements OnInit {
   public staticText: any = {};
   public reportType: any = [];
   public userLanguages: any = [];
-  public selectedReportType: string = '1';
+  public selectedReportType: string = '';
   public selectedLang: string = 'en';
   public menuOption: any = [];
+  public canEnableDownload:boolean = false;
 
   public adminddlControl = new FormControl('');
   public transactionddlControl = new FormControl('');
@@ -49,12 +50,13 @@ export class InputFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportType = [
-      { name: 'admin', value: '1', checked: true },
-      { name: 'transaction', value: '2', checked: false },
+      { name: 'admin', value: 'admin', checked: true },
+      { name: 'transaction', value: 'transaction', checked: false },
     ];
     this.menuOption = [{ name: 'PDF', value: 'pdf' },{ name: 'HTM', value: 'htm' }, { name: 'XLSX', value: 'xlsx' }, { name: 'CSV', value: 'csv' },]
     this.userLanguages = GlobalConstants.commonFunction.getUserLanguages().map(e => Object.assign(e, {checked: e.key === this.translate.currentLang}));
     this.selectedLang = this.translate.currentLang;
+    this.selectedReportType = this.reportType[0].value;
     this.adminReportOptions =  GlobalConstants.commonFunction.getAdminReportsOption();
     this.transactionReportOptions = GlobalConstants.commonFunction.getTransactionReportsOption();
     this.filteredAdminReportsOptions = this.adminddlControl.valueChanges.pipe(
@@ -70,11 +72,16 @@ export class InputFilterComponent implements OnInit {
         )
       );
 
+      this.adminddlControl.valueChanges.subscribe(
+        (value: any) =>  {
+          this.canEnableDownload = value !=='' ? true :false ;
+        }        
+      );
   }
 
   private _filter(list: any[], value: string): any[] {
     const filterValue = value.toLowerCase();
-
+    this.canEnableDownload = value !=='' ? true :false ;
     return list.filter((option: any) =>
       option.value.toLowerCase().includes(filterValue)
     );
@@ -114,7 +121,7 @@ export class InputFilterComponent implements OnInit {
     const fromDateControl = this.fromDateControl.value;
     const toDateControl = this.toDateControl.value;
     const reportName =
-      this.selectedReportType === '1'
+      this.selectedReportType === 'admin'
         ? this.adminddlControl.value
         : this.transactionddlControl.value;
     console.log(

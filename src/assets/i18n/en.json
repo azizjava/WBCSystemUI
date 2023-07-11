@@ -292,7 +292,8 @@
 			"pdf":"PDF",
 			"htm":"HTM",
 			"xlsx" : "XLSX",
-			"csv" :"CSV"
+			"csv" :"CSV",
+			"reportformat" :"Report Format"
 		},
 		"layout":{
 			"header":"Ticket Print Layout Setup",
