@@ -18,14 +18,22 @@
   </div>
 
   <div class="columns">
-    <div class="column mtop-5 mb-3">
+    <div class="column mtop-1 mb-3">
+      <div class ="mb-2">
+        <mat-label id="reportType" class="px-2"> {{'reports.filter.type' | translate }}</mat-label>
 
-      <mat-label id="reportType" class="px-2"> {{'reports.filter.type' | translate }}</mat-label>
-
-      <mat-radio-group aria-label="reportType" class="reportType">      
-        <mat-radio-button *ngFor="let option of reportType; trackBy:trackByFn" [value]="option.value"
-          [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.filter.'+option.name  | translate }} </mat-radio-button>
-      </mat-radio-group>
+        <mat-radio-group aria-label="reportType" class="reportType">
+          <mat-radio-button *ngFor="let option of reportType; trackBy:trackByFn" [value]="option.value"
+            [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.filter.'+option.name | translate }}
+          </mat-radio-button>
+        </mat-radio-group>
+        </div>
+        
+        <mat-label id="langType" class="px-2 mrgt-1"> {{'reports.filter.language' | translate }}</mat-label>
+        <mat-radio-group aria-label="langType" class="reportType">
+          <mat-radio-button *ngFor="let option of userLanguages; trackBy:trackByFn" [value]="option.value"
+            [checked]="option.checked" (change)="onLangChange($event)"> {{option.value }} </mat-radio-button>
+        </mat-radio-group>
     </div>
     <div class="column mb-2">
       <ng-container *ngIf="selectedReportType ==='1'">
@@ -94,10 +102,15 @@
  </div>
 
  <div class="column mt-3 mb-3">
-  <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="fetchReports()">
-    <i class="material-icons maticon-size">search</i>
+  <button class="btn btn-sm" mat-flat-button color="primary" mat-button [matMenuTriggerFor]="menu">
+    <i class="material-icons maticon-size">keyboard_arrow_down</i>
     {{'reports.filter.search' | translate }}
   </button>
+  <mat-menu #menu="matMenu">  
+    <button mat-menu-item *ngFor="let item of menuOption; trackBy:trackByFn" (click)="fetchReports(item.value)">
+    {{'reports.filter.'+ item.value  | translate }}
+  </button>
+  </mat-menu>
 
  </div>
 

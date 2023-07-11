@@ -26,7 +26,10 @@ export class InputFilterComponent implements OnInit {
   public color: ThemePalette = 'primary';
   public staticText: any = {};
   public reportType: any = [];
+  public userLanguages: any = [];
   public selectedReportType: string = '1';
+  public selectedLang: string = 'en';
+  public menuOption: any = [];
 
   public adminddlControl = new FormControl('');
   public transactionddlControl = new FormControl('');
@@ -49,6 +52,9 @@ export class InputFilterComponent implements OnInit {
       { name: 'admin', value: '1', checked: true },
       { name: 'transaction', value: '2', checked: false },
     ];
+    this.menuOption = [{ name: 'PDF', value: 'pdf' },{ name: 'HTM', value: 'htm' }, { name: 'XLSX', value: 'xlsx' }, { name: 'CSV', value: 'csv' },]
+    this.userLanguages = GlobalConstants.commonFunction.getUserLanguages().map(e => Object.assign(e, {checked: e.key === this.translate.currentLang}));
+    this.selectedLang = this.translate.currentLang;
     this.adminReportOptions =  GlobalConstants.commonFunction.getAdminReportsOption();
     this.transactionReportOptions = GlobalConstants.commonFunction.getTransactionReportsOption();
     this.filteredAdminReportsOptions = this.adminddlControl.valueChanges.pipe(
@@ -82,6 +88,10 @@ export class InputFilterComponent implements OnInit {
     this.selectedReportType = event.value;
   }
 
+  public onLangChange(event: MatRadioChange) {
+    this.selectedLang = event.value;
+  }
+
   public openSettings(): void {
     const dialogData = {
       headerText: 'Information',
@@ -100,16 +110,16 @@ export class InputFilterComponent implements OnInit {
     this.openClientDialog(dialogData);
   }
 
-  public fetchReports(): void {
+  public fetchReports(downloadFormat: string): void {
     const fromDateControl = this.fromDateControl.value;
     const toDateControl = this.toDateControl.value;
-    const selectedReportType = this.selectedReportType;
     const reportName =
       this.selectedReportType === '1'
         ? this.adminddlControl.value
         : this.transactionddlControl.value;
     console.log(
-      `fromDate  : ${fromDateControl} , toDate  : ${toDateControl} , ReportType : ${selectedReportType} , reportName : ${reportName} ,`
+      `fromDate  : ${fromDateControl} , toDate  : ${toDateControl} , ReportType : ${this.selectedReportType} , 
+      reportName : ${reportName} , ReportLang : ${this.selectedLang} , DownloadFormat : ${downloadFormat}`
     );
   }
 
