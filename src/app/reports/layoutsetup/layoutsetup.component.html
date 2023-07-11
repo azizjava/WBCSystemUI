@@ -13,7 +13,7 @@
 
       <mat-label>{{'reports.layout.arabiclable'|  translate }}</mat-label>
   
-      <mat-label>{{'reports.layout.checked'|  translate }}</mat-label>
+      <mat-label>{{'reports.layout.enabled'|  translate }}</mat-label>
   
     </div>
  
@@ -48,7 +48,7 @@
       <ng-container *ngIf="!layout[layout.length-1]">
         <div class="card-text" *ngFor="let data of layout[1]; let i=index">
 
-          <div class="col d-flex justify-content-between" *ngIf="i <= 2">     
+          <div class="col d-flex justify-content-between">     
               <mat-form-field class="example-full-width" style="width: 43%;">
                 <mat-label>{{data.displayLabel}}</mat-label>
                 <input matInput placeholder="{{data.enValue}}" [(ngModel)]="data.enValue" readonly

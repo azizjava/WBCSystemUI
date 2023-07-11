@@ -301,7 +301,7 @@
 			"labelname":"Lable Name",
 			"englable":"English",
 			"arabiclable":"Arabic",
-			"checked":"Selected"
+			"enabled":"Enabled"
 		},
 		"clienttemplate":{
 			"companyname":"Company Name",
