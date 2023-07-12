@@ -47,7 +47,7 @@ export class InputFilterComponent implements OnInit {
     private translate: TranslateService,
     private alertService: AlertService,
     private matDialog: MatDialog,
-    private httpService: ReportsService,
+    private httpService: ReportsService
   ) {}
 
   ngOnInit(): void {
@@ -55,12 +55,23 @@ export class InputFilterComponent implements OnInit {
       { name: 'admin', value: 'admin', checked: true },
       { name: 'transaction', value: 'transaction', checked: false },
     ];
-    this.menuOption = [{ name: 'PDF', value: 'pdf' },{ name: 'HTM', value: 'htm' }, { name: 'XLSX', value: 'xlsx' }, { name: 'CSV', value: 'csv' },]
-    this.userLanguages = GlobalConstants.commonFunction.getUserLanguages().map(e => Object.assign(e, {checked: e.key === this.translate.currentLang}));
+    this.menuOption = [
+      { name: 'PDF', value: 'pdf' },
+      { name: 'HTM', value: 'htm' },
+      { name: 'XLSX', value: 'xlsx' },
+      { name: 'CSV', value: 'csv' },
+    ];
+    this.userLanguages = GlobalConstants.commonFunction
+      .getUserLanguages()
+      .map((e) =>
+        Object.assign(e, { checked: e.key === this.translate.currentLang })
+      );
     this.selectedLang = this.translate.currentLang;
     this.selectedReportType = this.reportType[0].value;
-    this.adminReportOptions =  GlobalConstants.commonFunction.getAdminReportsOption();
-    this.transactionReportOptions = GlobalConstants.commonFunction.getTransactionReportsOption();
+    this.adminReportOptions =
+      GlobalConstants.commonFunction.getAdminReportsOption();
+    this.transactionReportOptions =
+      GlobalConstants.commonFunction.getTransactionReportsOption();
     this.filteredAdminReportsOptions = this.adminddlControl.valueChanges.pipe(
       startWith(''),
       map((value: any) => this._filter(this.adminReportOptions, value || ''))
@@ -74,16 +85,14 @@ export class InputFilterComponent implements OnInit {
         )
       );
 
-      this.adminddlControl.valueChanges.subscribe(
-        (value: any) =>  {
-          this.canEnableDownload = value !=='' ? true :false ;
-        }        
-      );
+    this.adminddlControl.valueChanges.subscribe((value: any) => {
+      this.canEnableDownload = value !== '' ? true : false;
+    });
   }
 
   private _filter(list: any[], value: string): any[] {
     const filterValue = value.toLowerCase();
-    this.canEnableDownload = value !=='' ? true :false ;
+    this.canEnableDownload = value !== '' ? true : false;
     return list.filter((option: any) =>
       option.value.toLowerCase().includes(filterValue)
     );
@@ -120,8 +129,8 @@ export class InputFilterComponent implements OnInit {
   }
 
   public fetchReports(downloadFormat: string): void {
-    const startDate = this.fromDateControl.value?.getTime().toString() || "";
-    const endDate = this.toDateControl.value?.getTime().toString() || "";
+    const startDate = this.fromDateControl.value?.getTime().toString() || '';
+    const endDate = this.toDateControl.value?.getTime().toString() || '';
     const reportName =
       this.selectedReportType === 'admin'
         ? this.adminddlControl.value
@@ -130,7 +139,7 @@ export class InputFilterComponent implements OnInit {
       startDate: startDate,
       endDate: endDate,
       locale: this.selectedLang,
-      reportName: reportName?.toLocaleLowerCase().replace(/ +/g, "") || '',
+      reportName: reportName?.toLocaleLowerCase().replace(/ +/g, '') || '',
       fileFormat: downloadFormat,
       reportType: this.selectedReportType,
     };
@@ -164,21 +173,40 @@ export class InputFilterComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'custom-dialog';
 
-    const dialogRef = this.matDialog.open(ClientTemplateComponent, dialogConfig);
+    const dialogRef = this.matDialog.open(
+      ClientTemplateComponent,
+      dialogConfig
+    );
 
-    dialogRef.afterClosed().subscribe((result) => { });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   private _getReportData(data: ReportFormat): void {
     this.httpService.findReport(data).subscribe({
-      next: (data: any) => {
-       console.log(data);
+      next: (response: any) => {
+        if (response) {
+          this._downloadFileData(response, data);
+        }
       },
-      error: (error: string) => {
-        console.log(error);
-        this.alertService.error(error);
+      error: (error: any) => {
+        if (error.status === 200) {
+          this._downloadFileData(error.text, data);
+        } else {
+          this.alertService.error(error);
+        }
       },
     });
   }
-  
+
+  private _downloadFileData(content: any, data: ReportFormat) {
+
+    if (data.fileFormat === 'pdf') {
+      const blob = new Blob([content]);
+      var downloadURL = window.URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = `${data.locale}_${data.reportType}_${data.reportName}.pdf`;
+      link.click();
+    }
+  }
 }

@@ -15,7 +15,7 @@ export class ReportsService {
   }
    
   findReport(data : ReportFormat) {
-    return this.http.get(`${this.baseURL}/findreport`, { params: { ...data} });
+    return this.http.get(`${this.baseURL}/findreport`, { params: { ...data},  responseType: 'blob'  });
   }
   
 }
