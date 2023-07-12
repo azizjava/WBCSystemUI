@@ -130,7 +130,7 @@ export class InputFilterComponent implements OnInit {
       startDate: startDate,
       endDate: endDate,
       locale: this.selectedLang,
-      reportName: reportName || '',
+      reportName: reportName?.toLocaleLowerCase().replace(/ +/g, "") || '',
       fileFormat: downloadFormat,
       reportType: this.selectedReportType,
     };
