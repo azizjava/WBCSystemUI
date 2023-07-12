@@ -315,7 +315,8 @@
 			"companylogo":"Company Logo",
 			"plain":"Plain",
 			"header":"Header",
-			"logo":"Image"		
+			"logo":"Logo",
+			"image":"Image"		
 		}
 	}	
 }

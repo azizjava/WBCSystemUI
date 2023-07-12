@@ -88,7 +88,7 @@
         <div class="col mb-2" *ngIf="showFileUpload">
           <input type="file" (change)="onFileChange($event)" #inputFile />
           <mat-error *ngIf="showFileUpload && isFileUploadRequired
-                ">{{staticText.companyLogo}} {{staticText.required}}
+                ">{{staticText.image}} {{staticText.required}}
               </mat-error>
         </div>
 

@@ -154,6 +154,7 @@ export class ClientTemplateComponent implements OnInit {
         phoneNo: this.translate.instant('reports.clienttemplate.phoneno'),
         templateType: this.translate.instant('reports.clienttemplate.templatetype'),
         companyLogo: this.translate.instant('reports.clienttemplate.logo'),
+        image: this.translate.instant('reports.clienttemplate.image'),
         faxNo: this.translate.instant('reports.clienttemplate.'),
         streetAddress: this.translate.instant('reports.clienttemplate.address'),
 
