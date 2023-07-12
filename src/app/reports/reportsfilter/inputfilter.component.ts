@@ -7,10 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
-import { modelDialog, PrintLayout } from 'src/app/models';
+import { modelDialog, ReportFormat } from 'src/app/models';
 import { AlertService } from 'src/app/services';
 import { LayoutSetupComponent } from '../layoutsetup/layoutsetup.component';
 import { ClientTemplateComponent } from '../clienttemplate/clienttemplate.component';
+import { ReportsService } from '../reports.service';
 
 @Component({
   selector: 'app-reportsinputfilter',
@@ -45,7 +46,8 @@ export class InputFilterComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private alertService: AlertService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private httpService: ReportsService,
   ) {}
 
   ngOnInit(): void {
@@ -118,16 +120,21 @@ export class InputFilterComponent implements OnInit {
   }
 
   public fetchReports(downloadFormat: string): void {
-    const fromDateControl = this.fromDateControl.value;
-    const toDateControl = this.toDateControl.value;
+    const startDate = this.fromDateControl.value?.getTime().toString() || "";
+    const endDate = this.toDateControl.value?.getTime().toString() || "";
     const reportName =
       this.selectedReportType === 'admin'
         ? this.adminddlControl.value
         : this.transactionddlControl.value;
-    console.log(
-      `fromDate  : ${fromDateControl} , toDate  : ${toDateControl} , ReportType : ${this.selectedReportType} , 
-      reportName : ${reportName} , ReportLang : ${this.selectedLang} , DownloadFormat : ${downloadFormat}`
-    );
+    const format: ReportFormat = {
+      startDate: startDate,
+      endDate: endDate,
+      locale: this.selectedLang,
+      reportName: reportName || '',
+      fileFormat: downloadFormat,
+      reportType: this.selectedReportType,
+    };
+    this._getReportData(format);
   }
 
   private openDialog(dialogData: modelDialog): void {
@@ -160,6 +167,18 @@ export class InputFilterComponent implements OnInit {
     const dialogRef = this.matDialog.open(ClientTemplateComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => { });
+  }
+
+  private _getReportData(data: ReportFormat): void {
+    this.httpService.findReport(data).subscribe({
+      next: (data: any) => {
+       console.log(data);
+      },
+      error: (error: string) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
   }
   
 }
