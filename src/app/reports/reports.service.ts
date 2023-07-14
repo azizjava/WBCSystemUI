@@ -15,7 +15,9 @@ export class ReportsService {
   }
    
   findReport(data : ReportFormat) {
-    return this.http.get(`${this.baseURL}/findreport`, { params: { ...data},  responseType: 'blob'  });
+
+    const resType:any = data.fileFormat === 'htm' ? 'text' : 'blob';
+    return this.http.get(`${this.baseURL}/findreport`, { params: { ...data},  responseType: resType  });
   }
   
 }
