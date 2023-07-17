@@ -201,13 +201,11 @@ export class InputFilterComponent implements OnInit {
   private _downloadFileData(content: any, data: ReportFormat) {
     this.htmlResponse = null;
     if (data.fileFormat === 'pdf' || data.fileFormat === 'xlsx' || data.fileFormat === 'csv') {
-
-      const format = data.fileFormat === 'csv' ? '.txt' : data.fileFormat;
       const blob = new Blob([content]);
       var downloadURL = window.URL.createObjectURL(blob);
       var link = document.createElement('a');
       link.href = downloadURL;
-      link.download = `${data.locale}_${data.reportType}_${data.reportName}.${format}`;
+      link.download = `${data.locale}_${data.reportType}_${data.reportName}.${data.fileFormat}`;
       link.click();
     }
     else if (data.fileFormat === 'htm' ) {
