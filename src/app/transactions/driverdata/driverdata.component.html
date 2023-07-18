@@ -1,0 +1,33 @@
+<form class="driver-form" [formGroup]="form">
+
+  <div class="row mb-2">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.nationality}}</mat-label>
+        <input matInput placeholder="{{staticText.nationality}}" formControlName="driverNationality" name="driverNationality" />
+        <mat-error *ngIf="form.controls['driverNationality'].errors &&
+        form.controls['driverNationality'].errors['required'] &&
+        form.controls['driverNationality'].touched
+              ">{{staticText.nationality}} {{staticText.required}}
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+
+
+  </div>
+
+
+  <div class="d-flex justify-content-between w-100">
+
+    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
+      mat-button (click)="save()">
+      Save
+    </button>
+
+    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      Cancel
+    </button>
+
+  </div>
+</form>
