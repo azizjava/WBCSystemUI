@@ -10,13 +10,14 @@
   
     .rectangle {
         height: 2rem;
-        background-color: #000000;
+        background-color: #2a3042;
         display: flex;           /* establish flex container */
         flex-direction: column;  /* make main axis vertical */
         justify-content: center; /* center items vertically, in this case */
         align-items: center;     /* center items horizontally, in this case */
         font-size : 1.5rem;
-        color:red;         
+        color:#FFFFFF; 
+        width: 70%;
     }
 
     .disconnected {
@@ -28,5 +29,23 @@
     .action-btn {
         height: 30px;
         line-height: 30px;
+    }
+
+    .action-container {
+        height: 2rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-top: .5rem;        
+        
+        .icon-size {
+            font-size: 2rem;
+            color: rgb(13, 110, 253);
+        }
+    }
+
+    .weight-name {
+        font-size: .85rem;
+        text-align: center;
     }
 }  
