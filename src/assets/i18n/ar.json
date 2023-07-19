@@ -212,6 +212,8 @@
 				"customercode":"كود العميل",
 				"addcustomer":"إضافة عميل جديد",
 				"product":"منتج",
+				"driverinfo":"معلومات السائق",
+				"driverinfotooltip":"رقم الرخصة / الاسم / الجنسية",
 				"licenseNo":"رقم رخصة القيادة",
 				"drivername":"اسم السائق",
 				"nationality":"جنسية",

@@ -211,6 +211,8 @@
 				"customercode":"Customer Code",
 				"addcustomer":"Add New Customer",
 				"product":"Product",
+				"driverinfo":"Driver Information",
+				"driverinfotooltip":"Licence No./ Name / Nationality",
 				"licenseNo":"Driver Licence No.",
 				"drivername":"Driver Name",
 				"nationality":"Nationality",

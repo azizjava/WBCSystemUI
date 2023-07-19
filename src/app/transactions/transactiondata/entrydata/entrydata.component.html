@@ -237,12 +237,12 @@
         <div class="row form-col">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput placeholder="{{'transactions.data.entry.licenseNo' | translate }}"
-                formControlName="licenceNo" name="licenceNo" />
-              <mat-error *ngIf="entryForm.controls['licenceNo'].errors &&
-          entryForm.controls['licenceNo'].errors['required'] &&
-          entryForm.controls['licenceNo'].touched
-                ">{{'transactions.data.entry.licenseNo' | translate }} {{'common.required' | translate }}
+              <input matInput placeholder="{{'transactions.data.entry.driverinfotooltip' | translate }}"
+                formControlName="driverData" name="driverData" />
+              <mat-error *ngIf="entryForm.controls['driverData'].errors &&
+          entryForm.controls['driverData'].errors['required'] &&
+          entryForm.controls['driverData'].touched
+                ">{{'transactions.data.entry.driverinfo' | translate }} {{'common.required' | translate }}
               </mat-error>
 
               <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button"
@@ -252,47 +252,10 @@
               </a>
             </mat-form-field>
           </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>{{'transactions.data.entry.drivername' | translate }}</mat-label>
-              <input matInput placeholder="{{'transactions.data.entry.drivername' | translate }}"
-                formControlName="driverName" name="driverName" />
-              <mat-error *ngIf="entryForm.controls['driverName'].errors &&
-          entryForm.controls['driverName'].errors['required'] &&
-          entryForm.controls['driverName'].touched
-                ">{{'transactions.data.entry.drivername' | translate }} {{'common.required' | translate }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input type="text" placeholder="{{'transactions.data.entry.nationality' | translate }}" matInput
-                formControlName="nationality" name="nationality" [matAutocomplete]="autoNationality">
-              <mat-autocomplete #autoNationality="matAutocomplete">
-  
-                <mat-option *ngFor="let option of filteredNationalityList | async" [value]="option.driverNationalityName">
-                  {{option.driverNationalityName}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="entryForm.controls['nationality'].errors && 
-          entryForm.controls['nationality'].errors['required'] &&
-          entryForm.controls['nationality'].touched
-                ">{{'transactions.data.entry.nationality' | translate }} {{'common.required' | translate }}
-              </mat-error>
-              <mat-error *ngIf="entryForm.controls['nationality'].errors && 
-          entryForm.controls['nationality'].errors['invalidData'] &&
-          entryForm.controls['nationality'].touched
-                ">{{'transactions.data.entry.nationality' | translate }} {{'common.invalid' | translate }}
-              </mat-error>
-            </mat-form-field>
-          </div>
+          
         </div>
   
-      
-  
-  
-  
-  
+     
         <div class="row mb-1 form-col">
   
           <ng-container *ngFor="let item of keyValueData ;let index = index; last as isLast; trackBy:trackByFn">
