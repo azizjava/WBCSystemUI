@@ -72,6 +72,7 @@ export class DriverDataComponent implements OnInit {
       nationality: result.nationality,
       licenseNo: result.licenseNo,
       driverName:result.driverName,
+      nationalityId : this._getSelectedValue(this.nationalityList,result.nationality,"driverNationalityName", "driverNationalityCode"),
     });
   }
 
@@ -91,7 +92,7 @@ export class DriverDataComponent implements OnInit {
         this.nationalityList = data;        
         nationalityControl?.clearValidators();
         nationalityControl?.setValue(
-          this._getSelectedValue(this.nationalityList,this.form.controls['nationality'].value,"driverNationalityName" ,"driverNationalityName" ), 
+          this._getSelectedValue(this.nationalityList,this.data.data?.nationalityId,"driverNationalityCode" ,"driverNationalityName" ),
         );
         nationalityControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.nationalityList, 'driverNationalityName')]);
         nationalityControl?.updateValueAndValidity();

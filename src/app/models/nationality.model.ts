@@ -7,5 +7,6 @@ export class DriverInfo {
   public nationality: string;
   public licenseNo: string;
   public driverName: string;
+  public nationalityId: string;
 }
   
