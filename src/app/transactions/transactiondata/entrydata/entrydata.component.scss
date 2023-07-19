@@ -54,20 +54,17 @@
         @include scrollbars();
     }
 
-    video{
-        width: 320px;
-        height: 200px;
-        border: 1px solid red;
-    }
-
-    img.snap{
-        width: 320px;
-        height: 200px;        
+   .snap {        
+        height: 150px;        
         border: 1px dashed red;
+        margin-inline: .5rem;
+        width: 50%;
     }
    
-    .snapbutton{
-        margin: 5px;        
+    .snapbutton {
+        margin: 5px;
+        line-height: 30px;
+        padding: 0 12px;    
     }
 
 }

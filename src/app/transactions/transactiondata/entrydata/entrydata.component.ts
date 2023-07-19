@@ -18,6 +18,7 @@ import { TransportersService } from 'src/app/transporters/transporters.service';
 import { VehicleDataComponent } from 'src/app/vehicles/vehicledata/vehicledata.component';
 import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 import { TransactionsService } from '../../transactions.service';
+import { DriverDataComponent } from '../../driverdata/driverdata.component';
 
 @Component({
   selector: 'app-transactionentrydata',
@@ -455,10 +456,17 @@ export class entryDataComponent implements OnInit, OnChanges {
   }
 
   private _openDialog(controlName: string): void {
-    const dialogData = {
+    const dialogData:any = {
       actionName: 'add',
       headerText: 'Information',
     };
+    if(controlName === 'driverInfo'){
+      dialogData.data = {
+        nationality: this.entryForm.controls['nationality'].value,
+        licenseNo: this.entryForm.controls['licenceNo'].value,
+        driverName: this.entryForm.controls['driverName'].value,
+      };
+    }
 
     const dialogConfig = new MatDialogConfig();
     const template: ComponentType<any> =
@@ -466,6 +474,8 @@ export class entryDataComponent implements OnInit, OnChanges {
         ? VehicleDataComponent
         : controlName === 'supplier'
         ? SupplierdataComponent
+        : controlName === 'driverInfo'
+        ? DriverDataComponent
         : CustomerdataComponent;
     dialogConfig.data = dialogData;
     dialogConfig.disableClose = false;
@@ -480,10 +490,16 @@ export class entryDataComponent implements OnInit, OnChanges {
           ? this.getAllVehicles(result)
           : controlName === 'supplier'
           ? this.getAllSuppliers(result)
+          : controlName === 'driverInfo'
+          ? this.bindDriverInfo(result)
           : this.getAllCustomers(result);
       }
     });
   } 
+
+  private bindDriverInfo(result :any) :void {
+    console.log('result', result);
+  }
 
   private populateListData(): void {
     this.goodsList = GlobalConstants.commonFunction.getGoodsOption();
