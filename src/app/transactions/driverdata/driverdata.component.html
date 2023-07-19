@@ -3,18 +3,49 @@
   <div class="row mb-2">
     <div class="col">
       <mat-form-field class="full-width">
-        <mat-label>{{staticText.nationality}}</mat-label>
-        <input matInput placeholder="{{staticText.nationality}}" formControlName="driverNationality" name="driverNationality" />
-        <mat-error *ngIf="form.controls['driverNationality'].errors &&
-        form.controls['driverNationality'].errors['required'] &&
-        form.controls['driverNationality'].touched
-              ">{{staticText.nationality}} {{staticText.required}}
+        <input matInput placeholder="{{'transactions.data.entry.licenseNo' | translate }}" formControlName="licenseNo"
+          name="licenseNo" />
+        <mat-error *ngIf="form.controls['licenseNo'].errors &&
+      form.controls['licenseNo'].errors['required'] &&
+      form.controls['licenseNo'].touched
+            ">{{'transactions.data.entry.licenseNo' | translate }} {{'common.required' | translate }}
         </mat-error>
-
       </mat-form-field>
     </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{'transactions.data.entry.drivername' | translate }}</mat-label>
+        <input matInput placeholder="{{'transactions.data.entry.drivername' | translate }}" formControlName="driverName"
+          name="driverName" />
+        <mat-error *ngIf="form.controls['driverName'].errors &&
+      form.controls['driverName'].errors['required'] &&
+      form.controls['driverName'].touched
+            ">{{'transactions.data.entry.drivername' | translate }} {{'common.required' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input type="text" placeholder="{{'transactions.data.entry.nationality' | translate }}" matInput
+          formControlName="nationality" name="nationality" [matAutocomplete]="autoNationality">
+        <mat-autocomplete #autoNationality="matAutocomplete">
 
-
+          <mat-option *ngFor="let option of filteredNationalityList | async" [value]="option.driverNationalityName">
+            {{option.driverNationalityName}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.controls['nationality'].errors && 
+      form.controls['nationality'].errors['required'] &&
+      form.controls['nationality'].touched
+            ">{{'transactions.data.entry.nationality' | translate }} {{'common.required' | translate }}
+        </mat-error>
+        <mat-error *ngIf="form.controls['nationality'].errors && 
+      form.controls['nationality'].errors['invalidData'] &&
+      form.controls['nationality'].touched
+            ">{{'transactions.data.entry.nationality' | translate }} {{'common.invalid' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
 
 
