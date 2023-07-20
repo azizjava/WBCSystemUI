@@ -70,6 +70,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   selectedGood: string = '';
   suppProductsList: any = [];
   selDriverInfo!: DriverInfo;
+  transporterInfo: any;
 
   constructor(
     private httpService: TransactionsService,
@@ -98,10 +99,6 @@ export class entryDataComponent implements OnInit, OnChanges {
       } ],
       vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
       transporter: [
-        { value: '', disabled: true },
-        [Validators.required, Validators.maxLength(50)],
-      ],
-      transporterName: [
         { value: '', disabled: true },
         [Validators.required, Validators.maxLength(50)],
       ],
@@ -160,7 +157,6 @@ export class entryDataComponent implements OnInit, OnChanges {
       {
         if(v ==='INVALID'){
           this.entryForm.controls['transporter'].setValue('');
-          this.entryForm.controls['transporterName'].setValue('');
           this.entryForm.controls['firstWeight'].setValue('');
         }
       });    
@@ -312,8 +308,8 @@ export class entryDataComponent implements OnInit, OnChanges {
         noOfPieces: result.pieces,
         productCode: this._getSelectedValue(this.productsList,result.products,"productName", "productCode"),
         supplierCode: result.supplier,
-        transporterCode: this.entryForm.controls['transporter'].value,
-        transporterName: this.entryForm.controls['transporterName'].value,
+        transporterCode: this.transporterInfo.code,
+        transporterName: this.transporterInfo.name,
         vehiclePlateNo: result.vehicleNo,
       },
       dailyTransactionExit: {},
@@ -416,15 +412,11 @@ export class entryDataComponent implements OnInit, OnChanges {
     );
 
     if (vehicleData) {
-      this.entryForm.controls['transporter'].setValue(
-        vehicleData.transporters.transporterCode
-      );
       this.entryForm.controls['firstWeight'].setValue(
         vehicleData.vehicleWeight
       );
-      this.entryForm.controls['transporterName'].setValue(
-        vehicleData.transporters.transporterName
-      );
+      this.transporterInfo = { code : vehicleData.transporters.transporterCode, name : vehicleData.transporters.transporterName};
+      this.entryForm.controls['transporter'].setValue( `${this.transporterInfo.code} / ${this.transporterInfo.name}` );
     }
   }
 
@@ -525,12 +517,8 @@ export class entryDataComponent implements OnInit, OnChanges {
         this.vehicleList = data;
         if (newRecord) {
           vehicleNoControl?.setValue(newRecord?.plateNo);
-          this.entryForm.controls['transporter'].setValue(
-            newRecord?.transporters.transporterName
-          );
-          this.entryForm.controls['transporterName'].setValue(
-            newRecord?.transporters.transporterName
-          );
+          this.transporterInfo = { code : newRecord?.transporters.transporterCode, name : newRecord?.transporters.transporterName};
+          this.entryForm.controls['transporter'].setValue(`${this.transporterInfo.code} \ ${this.transporterInfo.name}`);
         }
         else{
           this.onVehicleChange(null);
@@ -654,9 +642,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         this.entryForm.controls['vehicleNo'].setValue(
           data.dailyTransactionEntry.vehiclePlateNo
         );
-        this.entryForm.controls['transporter'].setValue(
-          data.dailyTransactionEntry.transporterCode
-        );
+        
         this.entryForm.controls['supplier'].setValue(
           data.dailyTransactionEntry.supplierCode
         );
@@ -696,10 +682,10 @@ export class entryDataComponent implements OnInit, OnChanges {
           nationality :'',
           nationalityId :data.dailyTransactionEntry?.nationality
         }
+        this.transporterInfo = { code : data.dailyTransactionEntry.transporterCode, name : ''};
 
-        this.entryForm.controls['driverData'].setValue(
-          `${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName }`  
-          );
+        this.entryForm.controls['driverData'].setValue(`${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName }`  );
+        this.entryForm.controls['transporter'].setValue( `${this.transporterInfo.code} / ${this.transporterInfo.name}` );
 
       }
 
