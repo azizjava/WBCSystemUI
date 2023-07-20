@@ -11,7 +11,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, map, startWith } from 'rxjs';
 import { findInvalidControls } from 'src/app/helper';
 import { DriverInfo, modelDialog, Nationality } from 'src/app/models';
-import { NationalityService } from 'src/app/nationality/nationality.service';
 import { AlertService } from 'src/app/services';
 
 @Component({
@@ -32,7 +31,6 @@ export class DriverDataComponent implements OnInit {
     private dialogRef: MatDialogRef<DriverDataComponent>,
     private translate: TranslateService,
     private alertService: AlertService,
-    private nationalityService: NationalityService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog
   ) {}
 
@@ -47,10 +45,14 @@ export class DriverDataComponent implements OnInit {
       this.recordData = this.data.data;
       this.form.controls['nationality'].setValue(this.recordData.nationality);
       this.form.controls['driverName'].setValue(this.recordData.driverName);
-      this.form.controls['licenseNo'].setValue(this.recordData.licenseNo);     
+      this.form.controls['licenseNo'].setValue(this.recordData.licenseNo);
+      this.nationalityList = this.data.data?.nationalityList;
+      this.form.get('nationality')?.setValue(
+        this._getSelectedValue(this.nationalityList,this.data.data?.nationalityId,"driverNationalityCode" ,"driverNationalityName" ),
+      );
+      this.form.get('nationality')?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.nationalityList, 'driverNationalityName')]);
     }
 
-    this.getAllNationalities();
     this._setAutoCompleteNationalityData();
     this._getTranslatedText();
     this._onFormValueChange();
@@ -84,26 +86,6 @@ export class DriverDataComponent implements OnInit {
     );
   }
 
-
-  private getAllNationalities(): void {
-    const nationalityControl = this.form.get('nationality');
-    this.nationalityService.getAllDriverNationalities().subscribe({
-      next: (data: Nationality[]) => {
-        this.nationalityList = data;        
-        nationalityControl?.clearValidators();
-        nationalityControl?.setValue(
-          this._getSelectedValue(this.nationalityList,this.data.data?.nationalityId,"driverNationalityCode" ,"driverNationalityName" ),
-        );
-        nationalityControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.nationalityList, 'driverNationalityName')]);
-        nationalityControl?.updateValueAndValidity();
-      },
-      error: (error) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });
-  }
-  
   private _filterData(list:any, value: string,key :string, nameSearch:string =''): any[] {
     if (value === '') {
       return list.slice();

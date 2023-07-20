@@ -8,7 +8,7 @@ import { GlobalConstants } from 'src/app/common';
 import { CustomerdataComponent } from 'src/app/customer/customerdata/customerdata.component';
 import { CustomersService } from 'src/app/customer/Customers.service';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
-import { Customer, DriverInfo, modelDialog, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
+import { Customer, DriverInfo, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { ProductsService } from 'src/app/supplierproducts/products.service';
 import { SupplierdataComponent } from 'src/app/suppliers/supplierdata/supplierdata.component';
@@ -18,6 +18,7 @@ import { VehicleDataComponent } from 'src/app/vehicles/vehicledata/vehicledata.c
 import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 import { TransactionsService } from '../../transactions.service';
 import { DriverDataComponent } from '../../driverdata/driverdata.component';
+import { NationalityService } from 'src/app/nationality/nationality.service';
 
 @Component({
   selector: 'app-transactionentrydata',
@@ -62,6 +63,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   goodsList: any = [];
   keyValueData: any = [];
   emptyKeyValue: boolean = false;
+  nationalityList: Nationality[] = [];
 
   filteredVehicleList: Observable<any[]>;
   filteredProductsList: Observable<any[]>;
@@ -78,6 +80,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     private transporterService: TransportersService,
     private vehiclesService: VehiclesService,
     private productService: ProductsService,
+    private nationalityService: NationalityService,
     private alertService: AlertService,
     private supplierService: SuppliersService,
     private customerService: CustomersService,
@@ -448,9 +451,10 @@ export class entryDataComponent implements OnInit, OnChanges {
     if(controlName === 'driverInfo'){
       dialogData.data = {
         nationality :'',
-        nationalityId :this.selDriverInfo.nationalityId,
-        licenseNo: this.selDriverInfo.licenseNo,
-        driverName: this.selDriverInfo.driverName,
+        nationalityId :this.selDriverInfo?.nationalityId,
+        licenseNo: this.selDriverInfo?.licenseNo,
+        driverName: this.selDriverInfo?.driverName,
+        nationalityList: this.nationalityList
       };
     }
 
@@ -492,7 +496,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     }
 
     this.entryForm.controls['driverData'].setValue(
-      `${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName } `
+      `${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName } / ${ this.selDriverInfo.nationality }`
     );
   }
 
@@ -500,6 +504,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.goodsList = GlobalConstants.commonFunction.getGoodsOption();
     this.getAllVehicles();
     this.getAllTransporters();
+    this.getAllNationalities();
     this.getAllSuppliers();
     this.getAllProducts();
     this.getAllCustomers();
@@ -508,6 +513,23 @@ export class entryDataComponent implements OnInit, OnChanges {
     this._setAutoCompleteProductData();
     this._setAutoCompleteSupplierData();
     this._setAutoCompleteCustomerData();
+  }
+
+  private getAllNationalities(): void {
+    const nationalityControl = this.entryForm.get('nationality');
+    this.nationalityService.getAllDriverNationalities().subscribe({
+      next: (data: Nationality[]) => {
+        this.nationalityList = data;
+        if(this.selDriverInfo){
+          this.selDriverInfo.nationality = this._getSelectedValue(this.nationalityList,this.selDriverInfo?.nationalityId, "driverNationalityCode" ,"driverNationalityName");
+          this.entryForm.controls['driverData'].setValue(`${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName } / ${ this.selDriverInfo.nationality }`  );
+        }        
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
   }
 
   private getAllVehicles(newRecord?: Vehicle): void {
