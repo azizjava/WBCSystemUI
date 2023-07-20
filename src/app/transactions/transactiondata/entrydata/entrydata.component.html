@@ -77,7 +77,7 @@
           <div class="col" *ngIf="selectedGood ==='incoming'">
             <mat-form-field class="full-width">
   
-              <input type="text" placeholder="{{'transactions.data.entry.suppliercode' | translate }}" matInput
+              <input type="text" placeholder="{{'transactions.data.entry.supplierinfo' | translate }}" matInput
                 formControlName="supplier" name="supplier" [matAutocomplete]="autoSupplier">
               <mat-autocomplete #autoSupplier="matAutocomplete" (optionSelected)='onSupplierChange($event)'>
   
@@ -88,7 +88,7 @@
               <mat-error *ngIf="entryForm.controls['supplier'].errors && 
           entryForm.controls['supplier'].errors['required'] &&
           entryForm.controls['supplier'].touched
-                ">{{'transactions.data.entry.suppliercode' | translate }} {{'common.required' | translate }}
+                ">{{'transactions.data.entry.supplierinfo' | translate }} {{'common.required' | translate }}
               </mat-error>
   
               <mat-error *ngIf="entryForm.controls['supplier'].errors && 
