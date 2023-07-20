@@ -74,22 +74,68 @@
             </mat-form-field>
           </div>
 
-          <div class="col">
+          <div class="col" *ngIf="selectedGood ==='incoming'">
             <mat-form-field class="full-width">
-              <input matInput placeholder="{{'transactions.data.entry.pieces' | translate }}" formControlName="pieces"
-                name="pieces" />
-              <mat-error *ngIf="entryForm.controls['pieces'].errors &&
-          entryForm.controls['pieces'].errors['required'] &&
-          entryForm.controls['pieces'].touched
-                ">{{'transactions.data.entry.pieces' | translate }} {{'common.required' | translate }}
+  
+              <input type="text" placeholder="{{'transactions.data.entry.suppliercode' | translate }}" matInput
+                formControlName="supplier" name="supplier" [matAutocomplete]="autoSupplier">
+              <mat-autocomplete #autoSupplier="matAutocomplete" (optionSelected)='onSupplierChange($event)'>
+  
+                <mat-option *ngFor="let option of filteredSupplierList | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="entryForm.controls['supplier'].errors && 
+          entryForm.controls['supplier'].errors['required'] &&
+          entryForm.controls['supplier'].touched
+                ">{{'transactions.data.entry.suppliercode' | translate }} {{'common.required' | translate }}
               </mat-error>
-              <mat-error *ngIf="entryForm.controls['pieces'].errors &&
-          entryForm.controls['pieces'].errors['invalidNumberFormat'] &&
-          entryForm.controls['pieces'].touched
-                "> {{'transactions.data.entry.pieces' | translate }} {{'common.invalid' | translate }}
+  
+              <mat-error *ngIf="entryForm.controls['supplier'].errors && 
+          entryForm.controls['supplier'].errors['invalidData'] &&
+          entryForm.controls['supplier'].touched
+                ">{{'transactions.data.entry.suppliercode' | translate }} {{'common.invalid' | translate }}
               </mat-error>
+              <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button"
+                aria-pressed="true" (click)="addNew($event,'supplier')">
+                <mat-icon class="icon-line-height"
+                  matTooltip="{{'transactions.data.entry.addsupplier' | translate }}">add</mat-icon>
+              </a>
             </mat-form-field>
           </div>
+
+          <div class="col" *ngIf="selectedGood ==='outgoing'">
+            <mat-form-field class="full-width">
+  
+              <input type="text" placeholder="{{'transactions.data.entry.customercode' | translate }}" matInput
+                formControlName="customer" name="customer" [matAutocomplete]="autoCustomer">
+              <mat-autocomplete #autoCustomer="matAutocomplete" (optionSelected)='onCustomerChange($event)'>
+  
+                <mat-option *ngFor="let option of filteredCustomerList | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="entryForm.controls['customer'].errors && 
+          entryForm.controls['customer'].errors['required'] &&
+          entryForm.controls['customer'].touched
+                ">{{'transactions.data.entry.customercode' | translate }} {{'common.required' | translate }}
+              </mat-error>
+  
+              <mat-error *ngIf="entryForm.controls['customer'].errors && 
+          entryForm.controls['customer'].errors['invalidData'] &&
+          entryForm.controls['customer'].touched
+                ">{{'transactions.data.entry.customercode' | translate }} {{'common.invalid' | translate }}
+              </mat-error>
+  
+              <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button"
+                aria-pressed="true" (click)="addNew($event, 'customer')">
+                <mat-icon class="icon-line-height"
+                  matTooltip="{{'transactions.data.entry.addcustomer' | translate }}">add</mat-icon>
+              </a>
+            </mat-form-field>
+          </div>
+
+         
         </div>
   
   
@@ -137,66 +183,7 @@
         </div>
   
   
-        <div class="row form-col">
-          <div class="col" *ngIf="selectedGood ==='incoming'">
-            <mat-form-field class="full-width">
-  
-              <input type="text" placeholder="{{'transactions.data.entry.suppliercode' | translate }}" matInput
-                formControlName="supplier" name="supplier" [matAutocomplete]="autoSupplier">
-              <mat-autocomplete #autoSupplier="matAutocomplete" (optionSelected)='onSupplierChange($event)'>
-  
-                <mat-option *ngFor="let option of filteredSupplierList | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="entryForm.controls['supplier'].errors && 
-          entryForm.controls['supplier'].errors['required'] &&
-          entryForm.controls['supplier'].touched
-                ">{{'transactions.data.entry.suppliercode' | translate }} {{'common.required' | translate }}
-              </mat-error>
-  
-              <mat-error *ngIf="entryForm.controls['supplier'].errors && 
-          entryForm.controls['supplier'].errors['invalidData'] &&
-          entryForm.controls['supplier'].touched
-                ">{{'transactions.data.entry.suppliercode' | translate }} {{'common.invalid' | translate }}
-              </mat-error>
-              <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button"
-                aria-pressed="true" (click)="addNew($event,'supplier')">
-                <mat-icon class="icon-line-height"
-                  matTooltip="{{'transactions.data.entry.addsupplier' | translate }}">add</mat-icon>
-              </a>
-            </mat-form-field>
-          </div>
-          <div class="col" *ngIf="selectedGood ==='outgoing'">
-            <mat-form-field class="full-width">
-  
-              <input type="text" placeholder="{{'transactions.data.entry.customercode' | translate }}" matInput
-                formControlName="customer" name="customer" [matAutocomplete]="autoCustomer">
-              <mat-autocomplete #autoCustomer="matAutocomplete" (optionSelected)='onCustomerChange($event)'>
-  
-                <mat-option *ngFor="let option of filteredCustomerList | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="entryForm.controls['customer'].errors && 
-          entryForm.controls['customer'].errors['required'] &&
-          entryForm.controls['customer'].touched
-                ">{{'transactions.data.entry.customercode' | translate }} {{'common.required' | translate }}
-              </mat-error>
-  
-              <mat-error *ngIf="entryForm.controls['customer'].errors && 
-          entryForm.controls['customer'].errors['invalidData'] &&
-          entryForm.controls['customer'].touched
-                ">{{'transactions.data.entry.customercode' | translate }} {{'common.invalid' | translate }}
-              </mat-error>
-  
-              <a matSuffix class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button"
-                aria-pressed="true" (click)="addNew($event, 'customer')">
-                <mat-icon class="icon-line-height"
-                  matTooltip="{{'transactions.data.entry.addcustomer' | translate }}">add</mat-icon>
-              </a>
-            </mat-form-field>
-          </div>
+        <div class="row form-col">       
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>{{'transactions.data.entry.product' | translate }}</mat-label>
@@ -219,10 +206,27 @@
                   entryForm.controls['products'].touched
                         ">{{'transactions.data.entry.product' | translate }} {{'common.invalid' | translate }}
               </mat-error>
-            </mat-form-field>
-  
+            </mat-form-field> 
   
           </div>
+
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="{{'transactions.data.entry.pieces' | translate }}" formControlName="pieces"
+                name="pieces" />
+              <mat-error *ngIf="entryForm.controls['pieces'].errors &&
+          entryForm.controls['pieces'].errors['required'] &&
+          entryForm.controls['pieces'].touched
+                ">{{'transactions.data.entry.pieces' | translate }} {{'common.required' | translate }}
+              </mat-error>
+              <mat-error *ngIf="entryForm.controls['pieces'].errors &&
+          entryForm.controls['pieces'].errors['invalidNumberFormat'] &&
+          entryForm.controls['pieces'].touched
+                "> {{'transactions.data.entry.pieces' | translate }} {{'common.invalid' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
         </div>
   
   
@@ -230,7 +234,7 @@
           <div class="col">
             <mat-form-field class="full-width">
               <input matInput placeholder="{{'transactions.data.entry.driverinfotooltip' | translate }}"
-                formControlName="driverData" name="driverData" />
+                formControlName="driverData" name="driverData" [readonly]="true"/>
               <mat-error *ngIf="entryForm.controls['driverData'].errors &&
           entryForm.controls['driverData'].errors['required'] &&
           entryForm.controls['driverData'].touched
