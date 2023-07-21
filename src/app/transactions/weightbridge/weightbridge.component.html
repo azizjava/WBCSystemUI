@@ -8,10 +8,10 @@
     
       <div class="action-container">
 
-        <span class="material-icons icon-size" (click)="weightChangeEvent(item)"
-          [attr.title]="'transactions.Weighbridge.firstweight' | translate">
-          play_circle
-        </span>
+
+        <div class="circle" (click)="weightChangeEvent(item)" [attr.title]="'transactions.Weighbridge.firstweight' | translate">
+          <div class="triangle-right"></div>
+        </div>
     
         <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!item.connectStatus}">
           <div *ngIf="item.connectStatus">
@@ -33,11 +33,10 @@
           <div class="text-muted fs-6 text-center fw-light">{{item.name }}</div>
         
           <div class="action-container">
-        
-            <span class="material-icons icon-size" (click)="weightChangeEvent(item)"
-              [attr.title]="'transactions.Weighbridge.secondweight' | translate">
-              play_circle
-            </span>
+
+            <div class="circle" (click)="weightChangeEvent(item)" [attr.title]="'transactions.Weighbridge.secondweight' | translate">
+              <div class="triangle-right"></div>
+            </div>
         
             <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!item.connectStatus}">
               <div *ngIf="item.connectStatus">
