@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -14,8 +14,8 @@ import { TransactionsService } from '../../transactions.service';
 
 @Component({
   selector: 'app-transactionexitdata',
-  templateUrl: './exitData.component.html',
-  styleUrls: ['./exitData.component.scss'],
+  templateUrl: './exitdata.component.html',
+  styleUrls: ['./exitdata.component.scss'],
 })
 export class exitDataComponent implements OnInit, OnChanges {
 
@@ -34,6 +34,27 @@ export class exitDataComponent implements OnInit, OnChanges {
   nationalityList: any = [];
   keyValueData: any = [];
   emptyKeyValue: boolean = false;
+
+  @ViewChild('video1') videoElement1: ElementRef<HTMLVideoElement>;
+  @ViewChild('video2') videoElement2: ElementRef<HTMLVideoElement>;
+  @ViewChild('video3') videoElement3: ElementRef<HTMLVideoElement>;
+  @ViewChild('video4') videoElement4: ElementRef<HTMLVideoElement>;
+
+  @ViewChild('snap1') snap1: ElementRef<HTMLImageElement>;
+  @ViewChild('snap2') snap2: ElementRef<HTMLImageElement>;
+  @ViewChild('snap3') snap3: ElementRef<HTMLImageElement>;
+  @ViewChild('snap4') snap4: ElementRef<HTMLImageElement>;
+
+  @Output() hideSnap1: boolean = true;
+  @Output() hideSnap2: boolean = true;
+  @Output() hideSnap3: boolean = true;
+  @Output() hideSnap4: boolean = true;
+
+  video1: HTMLVideoElement;
+  video2: HTMLVideoElement;
+  video3: HTMLVideoElement;
+  video4: HTMLVideoElement;
+  canvas: HTMLCanvasElement;
 
   constructor(
     private httpService: TransactionsService,
@@ -120,6 +141,67 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   public printLayout(): void {
     window.print();
+ }
+
+ capture(cameraNumber:number)
+ {
+   let tmpCanvas = document.createElement('canvas');
+   tmpCanvas.width = 1024;
+   tmpCanvas.height = 768;
+   let ctx: CanvasRenderingContext2D | null;
+   if(!( ctx = tmpCanvas.getContext("2d")))
+   {
+     throw new Error(`2d context not supported or canvas already initialized`);
+   }
+   
+   switch (cameraNumber) {      
+     case 1: 
+       ctx.drawImage(this.videoElement1.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);
+       this.snap1.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap1 = false;
+       break;
+     case 2:         
+       ctx.drawImage(this.videoElement2.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap2.nativeElement.src = tmpCanvas.toDataURL();   
+       this.hideSnap2 = false;
+       break;
+     case 3:
+       ctx.drawImage(this.videoElement3.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap3.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap3 = false;
+       break;
+     case 4:
+       ctx.drawImage(this.videoElement4.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap4.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap4 = false;
+       break;
+     default:
+       break;      
+   }  
+ }
+
+ clearsnap(cameraNumber:number)
+ {
+   switch (cameraNumber) {      
+     case 1:          
+       this.snap1.nativeElement.src = "";
+       this.hideSnap1 = true;
+       break;
+     case 2:   
+       this.snap2.nativeElement.src = "";   
+       this.hideSnap2 = true;
+       break;
+     case 3:
+       this.snap3.nativeElement.src = "";
+       this.hideSnap3 = true;
+       break;
+     case 4: 
+       this.snap4.nativeElement.src = "";
+       this.hideSnap4 = true;        
+       break;
+     default:
+       break;      
+   }  
  }
 
  save() {
