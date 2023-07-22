@@ -116,10 +116,7 @@
 
 <div *ngIf="htmlResponse" class="container">
 
-  <div class="row" style="height: calc( 50vh - 1rem);">
-
-    <iframe scrolling="auto" frameborder="0" [srcdoc]="htmlResponse">
-    </iframe>
-
+  <div class="row htmlclass">
+    <div [innerHtml]="htmlResponse | safeHtml"></div>
   </div>
 </div>

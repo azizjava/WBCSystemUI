@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -12,6 +12,16 @@ import { AlertService } from 'src/app/services';
 import { LayoutSetupComponent } from '../layoutsetup/layoutsetup.component';
 import { ClientTemplateComponent } from '../clienttemplate/clienttemplate.component';
 import { ReportsService } from '../reports.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
+@Pipe({ name: "safeHtml" })
+export class SafeHtmlPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  transform(value: any) {
+    return this.sanitizer.bypassSecurityTrustHtml(value);
+  }
+}
 
 @Component({
   selector: 'app-reportsinputfilter',

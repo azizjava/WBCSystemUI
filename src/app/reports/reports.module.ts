@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
-import { InputFilterComponent } from './reportsfilter/inputfilter.component';
+import { InputFilterComponent, SafeHtmlPipe } from './reportsfilter/inputfilter.component';
 import {
   NgxMatDatetimePickerModule, 
   NgxMatNativeDateModule, 
@@ -30,7 +30,8 @@ export function createTranslateLoader(http: HttpClient) {
     ReportsComponent,
     InputFilterComponent,
     LayoutSetupComponent,
-    ClientTemplateComponent
+    ClientTemplateComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,

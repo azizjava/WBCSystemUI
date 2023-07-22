@@ -1,3 +1,5 @@
+@import 'styles.scss';
+
 .reportsFilter {
   .mtop-5 {
     margin-top: 2.1rem;
@@ -39,5 +41,13 @@
 
   .mrgt-1 {
     margin-right: .75rem;
+  }
+
+  .htmlclass {
+    height: calc(55vh - 1rem);
+    border: 1px solid #ddd;
+    width: calc(85vw - 5rem);
+    overflow: auto;
+    @include scrollbars();
   }
 }
