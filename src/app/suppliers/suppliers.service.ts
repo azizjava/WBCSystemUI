@@ -21,9 +21,9 @@ export class SuppliersService {
       .get<Supplier[]>(`${this.baseURL}/listAllSupplier`);      
   }
 
-  getlistAllSupplierCodeAndName(): Observable<Supplier[]> {
+  getlistAllSupplierCodeAndName(): Observable<string[]> {
     return this.http
-      .get<Supplier[]>(`${this.baseURL}/listAllSupplierCodeAndName`);      
+    .get<string[]>(`${this.baseURL}/listall/codeandname`);
   }
 
   getSupplierById(id: any): Observable<Supplier> {

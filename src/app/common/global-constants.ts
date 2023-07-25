@@ -156,8 +156,8 @@ export class GlobalConstants {
 
     getGoodsOption(): any[] {
       let menu = [
-        { key: 'incoming', value: 'Incoming Goods' },
-        { key: 'outgoing', value: 'Outgoing Goods' },
+        { key: 'INCOMING_GOODS', value: 'Incoming Goods' },
+        { key: 'OUTGOING_GOODS', value: 'Outgoing Goods' },
       ];
       return menu;
     },
