@@ -4,6 +4,7 @@ export class ClientTemplate {
     public companyLogo: any;
     public companyName: string;
     public email: string;
+    public url: string;
     public localCreatedDateTime!: Date;
     public phoneNo: string; 
     public streetAddress: string;

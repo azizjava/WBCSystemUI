@@ -56,6 +56,7 @@ export class ClientTemplateComponent implements OnInit {
       phoneNo: [''],
       zipCode: [''],
       streetAddress: [''],
+      url: [''],
       email: ['', [Validators.required, Validators.maxLength(30)]],
       companyLogo: [null]   
     });
@@ -125,6 +126,7 @@ export class ClientTemplateComponent implements OnInit {
       streetAddress: result.streetAddress,
       templateType: result.templateType,
       zipCode: result.zipCode,
+      url: result.url,
       lastModifiedByUser: this.authenticationService.currentUserValue.userName,
     }));
 
@@ -155,7 +157,7 @@ export class ClientTemplateComponent implements OnInit {
         templateType: this.translate.instant('reports.clienttemplate.templatetype'),
         companyLogo: this.translate.instant('reports.clienttemplate.logo'),
         image: this.translate.instant('reports.clienttemplate.image'),
-        faxNo: this.translate.instant('reports.clienttemplate.'),
+        url: this.translate.instant('reports.clienttemplate.url'),
         streetAddress: this.translate.instant('reports.clienttemplate.address'),
 
         required: this.translate.instant('common.required'),
@@ -196,9 +198,10 @@ export class ClientTemplateComponent implements OnInit {
       this.form.controls['streetAddress'].setValue(this.ClientTemplateData?.streetAddress);
       this.form.controls['zipCode'].setValue(this.ClientTemplateData?.zipCode);
       this.form.controls['templateType'].setValue(this.ClientTemplateData?.templateType); 
+      this.form.controls['url'].setValue(this.ClientTemplateData?.url);
       this.showFileUpload = this.ClientTemplateData?.templateType === TemplateType.PLAIN ? false : true;
       this.templateType.forEach((element :any) => {
-        element.checked = element.value === this.ClientTemplateData?.templateType ;        
+        element.checked = element.value === this.ClientTemplateData?.templateType ;
       });
   }
 }

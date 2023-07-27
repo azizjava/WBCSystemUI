@@ -320,7 +320,8 @@
 			"plain":"Plain",
 			"header":"Header",
 			"logo":"Logo",
-			"image":"Image"		
+			"image":"Image",
+			"url":"Url"	
 		}
 	}	
 }
