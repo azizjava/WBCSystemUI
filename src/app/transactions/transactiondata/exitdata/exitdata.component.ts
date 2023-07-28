@@ -231,7 +231,7 @@ export class exitDataComponent implements OnInit, OnChanges {
     },
     dailyTransactionEntry:this.transactionData.dailyTransactionEntry,
     sequenceNo: this.sequenceno,
-    transactionStatus: 'Exit Completed',
+    transactionStatus: 'TX COMPLETED',
   };
 
 
