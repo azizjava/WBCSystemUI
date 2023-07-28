@@ -15,13 +15,14 @@ export class TransactionsService {
     this.baseURL = environment.baseURL +'/dailytransaction';
   }
    
-  getAllTransactions(data : any): Observable<any[]> {
+  getAllTransactions(params : any): Observable<any[]> {
+    const queryString = new URLSearchParams(params).toString();
     return this.http
-      .post<Transporter[]>(`${this.baseURL}/listAllDailyTransactions`,data);      
+    .get<Transporter[]>(`${this.baseURL}/list/dates/paginated?${queryString}`); 
   }
 
   getTransactionById(code: any): Observable<any> {
-    return this.http.get<Transporter>(`${this.baseURL}/findByDailyTransaction/${code}`);
+    return this.http.get<Transporter>(`${this.baseURL}/find/${code}`);
   }
 
   createNewTransaction(data : any) {
@@ -29,7 +30,6 @@ export class TransactionsService {
       .post(`${this.baseURL}/create`, data);     
   }
  
-
   updateTransaction(data: any): Observable<any> {
     return this.http.put(`${this.baseURL}/update`, data);
   }

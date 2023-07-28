@@ -184,8 +184,9 @@
 			"transactionstatus":"Transaction Status",
 			"entrydateandtime":"Entry DateAndTime",
 			"entryloginusername":"Login User Name",
-			"vehicleplateno":"Plate No",
-			"transportercode":"Transporter Code",
+			"vehicleplateno":"Plate No/Transporter Code",
+			"customerinfo":"Customer/Supplier Code",
+			"productcode":"Product Code",
 			"actions":"Action"
 		},
 		"data":{

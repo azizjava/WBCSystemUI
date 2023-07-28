@@ -13,7 +13,7 @@ import { TransactionsService } from './transactions.service';
   styleUrls: ['./transactionlist.component.scss'],
 })
 export class TransactionsListComponent {
-  tblColumns: string[] = [ 'Actions','sequenceNo', 'transactionStatus', 'entryDateAndTime', 'entryLoginUserName',  'vehiclePlateNo', 'transporterCode'];
+  tblColumns: string[] = [ 'Actions','sequenceNo', 'transactionStatus', 'entryDateAndTime', 'entryLoginUserName',  'vehiclePlateNo','customerInfo', 'productCode'];
   tableData: any = [];
 
   public searchInput: string = '';
@@ -96,21 +96,29 @@ export class TransactionsListComponent {
   }  
 
   private getAllTransactions(): void {
-    const searchFilter = {
-     "entryEndDate": this.sequenceNo ? "" : this.dateRange?.endDate,
-     "entryStartDate": this.sequenceNo ? "": this.dateRange?.startDate,
-     "sequenceNo": this.sequenceNo
+    let searchFilter:any = {
+     startDate: this.sequenceNo ? "" : this.dateRange?.startDate,
+     endDate: this.sequenceNo ? "": this.dateRange?.endDate,
+     pageNo: '0',
+     pageSize:20,
+    // sortBy:this.sortColumn.name
     };
+
+    if(this.sequenceNo){
+      searchFilter.sequenceNo = this.sequenceNo;
+    }
     this.httpService.getAllTransactions(searchFilter).subscribe({
-      next: (data: any[]) => {
+      next: (data: any) => {
         this.tableData = [];
-        data.forEach((response: any) => {         
-          this.tableData.push({sequenceNo : response.sequenceNo, 
-            transactionStatus: response.transactionStatus,
-            entryDateAndTime: response.dailyTransactionEntry?.entryDateAndTime,
-            vehiclePlateNo: response.dailyTransactionEntry?.vehiclePlateNo,
-            transporterCode: response.dailyTransactionEntry?.transporterCode,
-            entryLoginUserName: response.dailyTransactionEntry?.entryLoginUserName,
+        data.DailyTransaction.forEach((response: any) => {         
+          this.tableData.push({
+            sequenceNo : response[0], 
+            transactionStatus: response[1],
+            entryDateAndTime: response[2],
+            entryLoginUserName: response[3],
+            vehiclePlateNo: response[4],
+            customerInfo: response[5],
+            productCode: response[6], 
           });
         });
 

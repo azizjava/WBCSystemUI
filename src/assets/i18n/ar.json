@@ -185,8 +185,9 @@
 			"transactionstatus":"حالة عملية",
 			"entrydateandtime":"تاريخ الدخول والوقت",
 			"entryloginusername":"ادخل اسم المستخدم",
-			"vehicleplateno":"لوحة لا",
-			"transportercode":"كود الناقل",
+			"vehicleplateno":"رقم اللوحة / رمز الناقل",
+			"customerinfo":"رمز العميل / المورد",
+			"productcode":"كود المنتج",
 			"actions":"عمل"
 		},
 		"data":{
