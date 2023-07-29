@@ -34,6 +34,8 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @Output() dateSelectionEvent = new EventEmitter<dateRange>();
   @Output() sequenceNoChange = new EventEmitter<string>();
 
+  @Output() pageOptionChange = new EventEmitter<any>();
+
   public searchControl: UntypedFormControl = new UntypedFormControl('');
   public dataSource!: MatTableDataSource<any>;
   public pageSize: number = 10;
@@ -165,5 +167,9 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
 
   private _changeColumns(isDesktop: boolean = true) {
     this.displayedColumns = isDesktop ? this.tblColumns : this.visibleColumns;
+  }
+
+  onPageChange($event: any) {
+    this.pageOptionChange.emit($event);
   }
 }
