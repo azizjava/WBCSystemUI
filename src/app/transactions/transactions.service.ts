@@ -16,9 +16,8 @@ export class TransactionsService {
   }
    
   getAllTransactions(params : any): Observable<any[]> {
-    const queryString = new URLSearchParams(params).toString();
     return this.http
-    .get<Transporter[]>(`${this.baseURL}/list/dates/paginated?${queryString}`); 
+    .post<Transporter[]>(`${this.baseURL}/list/dates/paginated`, params);
   }
 
   getTransactionById(code: any): Observable<any> {
