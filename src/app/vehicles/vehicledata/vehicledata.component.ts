@@ -76,7 +76,6 @@ export class VehicleDataComponent implements OnInit {
 
 
     this.vehicleForm.controls['transporterCode']?.valueChanges.subscribe(value => {
-      console.log(value);
       if(this.vehicleForm.controls['transporterCode']?.hasError('invalidData')){
         this.vehicleForm.controls['transporterName'].setValue("");
       }
@@ -154,6 +153,7 @@ export class VehicleDataComponent implements OnInit {
           Validators.maxLength(50),
           autocompleteObjectValidator(this.transPortersList, 'transporterCode'),
         ]);
+        this.vehicleForm.get('transporterCode')?.updateValueAndValidity();
       },
       error: (error) => {
         console.log(error);
