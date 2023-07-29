@@ -182,12 +182,12 @@
 		},
 		"tbl_header":{
 			"sequenceno":"رقم التسلسل",
-			"transactionstatus":"حالة عملية",
-			"entrydateandtime":"تاريخ الدخول والوقت",
-			"entryloginusername":"ادخل اسم المستخدم",
-			"vehicleplateno":"رقم اللوحة / رمز الناقل",
-			"customerinfo":"رمز العميل / المورد",
-			"productcode":"كود المنتج",
+			"txstatus":"حالة عملية",
+			"entrydatetime":"تاريخ الدخول والوقت",
+			"entrylogin":"ادخل اسم المستخدم",
+			"vehicle":"رقم اللوحة / رمز الناقل",
+			"supplier":"رمز العميل / المورد",
+			"product":"كود المنتج",
 			"actions":"عمل"
 		},
 		"data":{

@@ -44,7 +44,7 @@
 <div class="table-responsive">
     <div class="example-container mat-elevation-z8">
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="onSortData($event)">
 
             <ng-container *ngFor="let column of displayedColumns ; trackBy:trackByFn" [matColumnDef]="column">
                 <ng-container *ngIf="column !=='Actions'">

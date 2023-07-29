@@ -180,13 +180,13 @@
 			"secondweight":"Second Weight"
 		},
 		"tbl_header":{
-			"sequenceno":"Sequence No.",
-			"transactionstatus":"Transaction Status",
-			"entrydateandtime":"Entry DateAndTime",
-			"entryloginusername":"Login User Name",
-			"vehicleplateno":"Plate No/Transporter Code",
-			"customerinfo":"Customer/Supplier Code",
-			"productcode":"Product Code",
+			"sequence":"Sequence No.",
+			"txstatus":"Transaction Status",
+			"entrydatetime":"Entry DateAndTime",
+			"entrylogin":"Login User Name",
+			"vehicle":"Plate No/Transporter Code",
+			"supplier":"Customer/Supplier Code",
+			"product":"Product Code",
 			"actions":"Action"
 		},
 		"data":{

@@ -35,6 +35,7 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @Output() sequenceNoChange = new EventEmitter<string>();
 
   @Output() pageOptionChange = new EventEmitter<any>();
+  @Output() sortOptionChange = new EventEmitter<any>();
 
   public searchControl: UntypedFormControl = new UntypedFormControl('');
   public dataSource!: MatTableDataSource<any>;
@@ -171,5 +172,9 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
 
   onPageChange($event: any) {
     this.pageOptionChange.emit($event);
+  }
+
+  onSortData(sort: Sort) {
+   this.sortOptionChange.emit(sort);
   }
 }
