@@ -86,16 +86,16 @@ export class GlobalConstants {
         { menuName: 'Product', menuIcon: '', routePath: 'products' },
         {
           menuName: 'Vehicles',
-          menuIcon: 'local_shipping',
+          menuIcon: 'fa fa-truck',
           routePath: 'vehicles',
         },
         {
           menuName: 'Nationality',
-          menuIcon: '',
+          menuIcon: 'fa fa-flag',
           routePath: 'nationality',
         },
-        { menuName: 'WeighBridgeSetting', menuIcon: 'settings' , routePath: 'weighbridgesetting'},
-        { menuName: 'Reports', menuIcon: 'analytics' , routePath: 'reports'},
+        { menuName: 'WeighBridgeSetting', menuIcon: 'fa fa-cog' , routePath: 'weighbridgesetting'},
+        { menuName: 'Reports', menuIcon: 'fa fa-signal' , routePath: 'reports'},
       ];
     },
     getCurrentYear(): number {
