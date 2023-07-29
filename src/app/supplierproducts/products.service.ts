@@ -28,7 +28,11 @@ export class ProductsService {
     return this.http
       .post(`${this.baseURL}/create`, data);     
   }
- 
+
+  getAllProductsWithCode(): Observable<string[]> {
+    return this.http
+      .get<string[]>(`${this.baseURL}/listall/codeandname`);      
+  }
 
   updateProduct(data: Product): Observable<any> {
     return this.http.put(`${this.baseURL}/update/`, data);
