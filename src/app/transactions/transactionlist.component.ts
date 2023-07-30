@@ -6,6 +6,7 @@ import { GlobalConstants } from '../common/global-constants';
 import { dateRange, modelDialog, tableOperation, Transporter } from '../models';
 import { AlertService } from '../services';
 import { TransactionsService } from './transactions.service';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-transporters',
@@ -13,15 +14,18 @@ import { TransactionsService } from './transactions.service';
   styleUrls: ['./transactionlist.component.scss'],
 })
 export class TransactionsListComponent {
-  tblColumns: string[] = [ 'Actions','sequenceNo', 'transactionStatus', 'entryDateAndTime', 'entryLoginUserName',  'vehiclePlateNo','customerInfo', 'productCode'];
+  tblColumns: string[] = [ 'Actions','sequence', 'txstatus', 'entrydatetime', 'entrylogin',  'vehicle','supplier', 'product'];
   tableData: any = [];
 
   public searchInput: string = '';
   public actionName: string = '';
-  public sortColumn = { name: 'entryDateAndTime', dir: 'desc' };
-  public visibleColumns = [ 'Actions','sequenceNo', 'transactionStatus'];
+  public sortColumn = { name: 'entrydatetime', dir: 'desc' };
+  public visibleColumns = [ 'Actions','sequence', 'txstatus'];
   public dateRange: dateRange | null;
   public sequenceNo : string ="";
+
+  private _pageSize :number = 10;
+  private _currentPage :number = 0;
 
   constructor(
     private matDialog: MatDialog,
@@ -45,7 +49,7 @@ export class TransactionsListComponent {
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
     } else if (this.actionName === 'edit' || this.actionName === 'view') {
-      this.router.navigate(['/dashboard/transactions/add'], { queryParams: { sequenceno: dialogData.data?.sequenceNo, action: this.actionName } });
+      this.router.navigate(['/dashboard/transactions/add'], { queryParams: { sequenceno: dialogData.data?.sequence, action: this.actionName } });
     } else {
       this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
     }     
@@ -67,6 +71,17 @@ export class TransactionsListComponent {
     this.dateRange = null;
   }
 
+  public onPageOptionChange(pageOption: any) :void {
+    this._pageSize = pageOption.pageSize;
+    this._currentPage = pageOption.pageIndex;
+    this.getAllTransactions();
+  }
+
+  public onSortOptionChange(sortOption: Sort) :void {
+    if(sortOption.active !== this.sortColumn.name && sortOption.direction !== this.sortColumn.dir){
+    this.getAllTransactions();
+    }
+  }
 
   private deleteDialog(dialogData: modelDialog): void {
     const dialogConfig = new MatDialogConfig();
@@ -99,9 +114,10 @@ export class TransactionsListComponent {
     let searchFilter:any = {
      startDate: this.sequenceNo ? "" : this.dateRange?.startDate,
      endDate: this.sequenceNo ? "": this.dateRange?.endDate,
-     pageNo: '0',
-     pageSize:20,
-    // sortBy:this.sortColumn.name
+     pageNo: this._currentPage,
+     pageSize:this._pageSize,
+     sortOrder: this.sortColumn.dir,
+     sortBy:this.sortColumn.name
     };
 
     if(this.sequenceNo){
@@ -112,13 +128,13 @@ export class TransactionsListComponent {
         this.tableData = [];
         data.DailyTransaction.forEach((response: any) => {         
           this.tableData.push({
-            sequenceNo : response[0], 
-            transactionStatus: response[1],
-            entryDateAndTime: response[2],
-            entryLoginUserName: response[3],
-            vehiclePlateNo: response[4],
-            customerInfo: response[5],
-            productCode: response[6], 
+            sequence : response[0], 
+            txstatus: response[1],
+            entrydatetime: response[2],
+            entrylogin: response[3],
+            vehicle: response[4],
+            supplier: response[5],
+            product: response[6], 
           });
         });
 
