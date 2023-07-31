@@ -289,13 +289,13 @@ export class entryDataComponent implements OnInit, OnChanges {
         goodsType: this.selectedGood,
         nationality: this.selDriverInfo.nationalityId,
         noOfPieces: result.pieces,
-        productCode: this._getSelectedValue(this.productsList,result.products,"productName", "productCode"),
+        product: result.products,
         supplierCode: result.supplier,
         vehicle: result.vehicleNo,
       },
       dailyTransactionExit: {},
       sequenceNo: this.sequenceno || 'new11',
-      transactionStatus: 'TX ENTRY',
+      transactionStatus: 'TX_ENTRY',
     };
 
     if (this.sequenceno && this.sequenceno !== '') {
@@ -485,9 +485,11 @@ export class entryDataComponent implements OnInit, OnChanges {
       next: (data: string[]) => {
         this.vehicleList = data;
         if (newRecord) {
-          vehicleNoControl?.setValue(newRecord?.plateNo);
-          this.transporterInfo = { code : newRecord?.transporters.transporterCode, name : newRecord?.transporters.transporterName};
-          this.entryForm.controls['transporter'].setValue(`${this.transporterInfo.code} \ ${this.transporterInfo.name}`);
+          const newData = data.find(s => s.includes(`${newRecord.plateNo}/`));
+          if(newData){
+            vehicleNoControl?.setValue(newData);
+            this._setAutoCompleteVehicleData();
+          }
         }
         vehicleNoControl?.clearValidators();
         vehicleNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.vehicleList)]);
@@ -519,13 +521,16 @@ export class entryDataComponent implements OnInit, OnChanges {
       next: (data: any) => {
         this.suppliersList = data;
         if (newRecord) {
-          supplierControl?.setValue(`${newRecord?.supplierCode}/${newRecord.supplierName}`);
+          const newData = data.find((s: string | string[]) => s.includes(`${newRecord.supplierCode}/`));
+          if(newData){
+            supplierControl?.setValue(newData);
+          }
         }                       
         supplierControl?.clearValidators();
         if (this.selectedGood === 'INCOMING_GOODS') {
           if (this.entryForm.controls['sequenceNo'].value !== 0) {
             const supplierCode = this.entryForm.get('supplier')?.value;
-            const supplierData = this.suppliersList.find((s:string) => s.includes(supplierCode +'/'));
+            const supplierData = this.suppliersList.find((s:string) => s.includes(supplierCode));
 
             if (supplierData) {
               supplierControl?.setValue(`${supplierData}`);              
@@ -545,13 +550,12 @@ export class entryDataComponent implements OnInit, OnChanges {
   private getAllProducts() {
     const productsControl = this.entryForm.get('products');
 
-   this.productService.getAllProducts().subscribe({
-      next: (data: Product[]) => {
+   this.productService.getAllProductsWithCode().subscribe({
+      next: (data: string[]) => {
         this.suppProductsList = data;        
         this.productsList = this.suppProductsList;
-        productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
         productsControl?.clearValidators();
-        productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
+        productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.productsList)]);
         productsControl?.updateValueAndValidity();
       },
       error: (error) => {
@@ -569,7 +573,10 @@ export class entryDataComponent implements OnInit, OnChanges {
       next: (data: any) => {
         this.customersList = data;
         if (newRecord) {
-          customerControl?.setValue(`${newRecord?.customerCode}/${newRecord.customerName}`); 
+          const newData = data.find((s: string | string[]) => s.includes(`${newRecord.customerName}/`));
+          if(newData){
+            customerControl?.setValue(newData);
+          }
         } 
          
         customerControl?.clearValidators();
@@ -577,7 +584,7 @@ export class entryDataComponent implements OnInit, OnChanges {
 
           if (this.entryForm.controls['sequenceNo'].value !== 0) {
             const customerCode = this.entryForm.get('customer')?.value;
-            const customerData = this.customersList.find((s:string) => s.includes(customerCode +'/'));
+            const customerData = this.customersList.find((s:string) => s.includes(customerCode));
 
             if (customerData) {
               customerControl?.setValue(`${customerData}`);   
@@ -610,13 +617,13 @@ export class entryDataComponent implements OnInit, OnChanges {
         );
         
         this.entryForm.controls['supplier'].setValue(
-          data.dailyTransactionEntry.supplierCode
+          data.dailyTransactionEntry.supplier
         );
         this.entryForm.controls['customer'].setValue(
-          data.dailyTransactionEntry.customerCode
+          data.dailyTransactionEntry.customer
         );       
         this.entryForm.controls['products'].setValue(
-          data.dailyTransactionEntry.productCode
+          data.dailyTransactionEntry.product
         );
         this.entryForm.controls['operator'].setValue(
           data.dailyTransactionEntry.entryLoginUserName
@@ -670,7 +677,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredVehicleList = this.entryForm.get('vehicleNo')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.vehicleList,item,"plateNo") : this.vehicleList.slice())),
+      map((item :any)=> (item ? this._filterData(this.vehicleList,item) : this.vehicleList.slice())),
     );   
   }
 
@@ -678,7 +685,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredProductsList = this.entryForm.get('products')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.productsList,item,"productName") : this.productsList.slice())),
+      map((item :any)=> (item ? this._filterData(this.productsList,item) : this.productsList.slice())),
     );   
   }
 
@@ -708,13 +715,13 @@ export class entryDataComponent implements OnInit, OnChanges {
     return list.filter((item :any) => item.toLowerCase().includes(filterValue) || nameSearch && item.toLowerCase().includes(filterValue) );
   }
 
-  private _filterData(list:any, value: string,key :string, nameSearch:string =''): any[] {
+  private _filterData(list:any, value: string, nameSearch:string =''): any[] {
     if (value === '') {
       return list.slice();
     }
     
     const filterValue = value?.toLowerCase();
-    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue) || nameSearch && item[nameSearch].toLowerCase().includes(filterValue) );
+    return list.filter((item :any) => item.toLowerCase().includes(filterValue) || nameSearch && item[nameSearch].toLowerCase().includes(filterValue) );
   }
 
   private _getSelectedValue(list:any, value: string, key :string, returnKey:string): string {

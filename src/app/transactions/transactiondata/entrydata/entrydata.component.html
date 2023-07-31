@@ -179,8 +179,8 @@
                 formControlName="products" name="products" [matAutocomplete]="autoProducts">
               <mat-autocomplete #autoProducts="matAutocomplete">
   
-                <mat-option *ngFor="let option of filteredProductsList | async" [value]="option.productName">
-                  {{option.productName}}
+                <mat-option *ngFor="let option of filteredProductsList | async" [value]="option">
+                  {{option}}
                 </mat-option>
               </mat-autocomplete>
               <mat-error *ngIf="entryForm.controls['products'].errors && 
