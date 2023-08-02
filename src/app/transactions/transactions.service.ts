@@ -26,7 +26,7 @@ export class TransactionsService {
 
   createNewTransaction(data : any) {
     return this.http
-      .post(`${this.baseURL}/create`, data);     
+      .post(`${this.baseURL}/created`, data);     
   }
  
   updateTransaction(data: any): Observable<any> {
