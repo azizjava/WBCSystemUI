@@ -48,8 +48,11 @@ export class TransactionsListComponent {
 
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
-    } else if (this.actionName === 'edit' || this.actionName === 'view') {
+    } else if (this.actionName === 'edit') {
       this.router.navigate(['/dashboard/transactions/add'], { queryParams: { sequenceno: dialogData.data?.sequence, action: this.actionName } });
+    } 
+    else if (this.actionName === 'view') {
+      this.router.navigate(['/dashboard/transactions/view', dialogData.data?.sequence ], {relativeTo: this.route});
     } else {
       this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
     }     
