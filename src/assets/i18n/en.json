@@ -223,7 +223,10 @@
 				"value":"Value",
 				"addkeyvalues":"Add Key Value",
 				"emptykeyvalue":"Please fill all key value pair values",
-				"instructions":"Add Instructions/Comments"
+				"instructions":"Delivery Instructions/Comments",
+				"goodstype":"Goods Type",
+				"datetime":"Date & Time",
+				"vehicleinfo":"Vehicle Information"
 			},
 			"exit":{
 				"header" :"Exit",
@@ -243,7 +246,10 @@
 				"addkeyvalues":"Add Key Value",
 				"emptykeyvalue":"Please fill all key value pair values",
 				"instructions":"Delivery Instructions/Comments",
-				"loginusername":"Login User Name"
+				"loginusername":"Login User Name",
+				"datetime":"Out Date & Time",
+				"scale":"Weight Scale",
+				"nodata":"No Exit data found"
 			}
 		}		
 	},
