@@ -16,6 +16,7 @@ import { weightBridgeComponent } from './weightbridge/weightbridge.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { DriverDataComponent } from './driverdata/driverdata.component';
 import { viewTransactionComponent } from './transactiondata/viewtransaction/viewtransaction.component';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,6 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     TransactionsRoutingModule,
     SharedcomponentsModule,
+    NgbCarouselModule,
     UiSwitchModule.forRoot({
       size: 'medium',
       color: '#0d6efd',
