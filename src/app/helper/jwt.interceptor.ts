@@ -12,7 +12,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
         const isLoginUrl = request.url.toString().includes("auth/login");
 
-        const isFileupload = request.url.toString().includes("clientdetails/create");
+        const isFileupload = ["clientdetails/create","dailytransaction/created","dailytransaction/updated"].some(r => request.url.toString().includes(r));
 
         let formdataHeaders = request.headers.set("X-Content-Type", "multipart/form-data");
 
