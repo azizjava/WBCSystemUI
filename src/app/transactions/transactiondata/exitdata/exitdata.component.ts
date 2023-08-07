@@ -7,7 +7,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
-import { modelDialog, Product, Transporter } from 'src/app/models';
+import { Product } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { ProductsService } from 'src/app/supplierproducts/products.service';
 import { TransactionsService } from '../../transactions.service';
@@ -35,25 +35,25 @@ export class exitDataComponent implements OnInit, OnChanges {
   keyValueData: any = [];
   emptyKeyValue: boolean = false;
 
-  @ViewChild('video1') videoElement1: ElementRef<HTMLVideoElement>;
-  @ViewChild('video2') videoElement2: ElementRef<HTMLVideoElement>;
-  @ViewChild('video3') videoElement3: ElementRef<HTMLVideoElement>;
-  @ViewChild('video4') videoElement4: ElementRef<HTMLVideoElement>;
+  @ViewChild('video5') videoElement5: ElementRef<HTMLVideoElement>;
+  @ViewChild('video6') videoElement6: ElementRef<HTMLVideoElement>;
+  @ViewChild('video7') videoElement7: ElementRef<HTMLVideoElement>;
+  @ViewChild('video8') videoElement8: ElementRef<HTMLVideoElement>;
 
-  @ViewChild('snap1') snap1: ElementRef<HTMLImageElement>;
-  @ViewChild('snap2') snap2: ElementRef<HTMLImageElement>;
-  @ViewChild('snap3') snap3: ElementRef<HTMLImageElement>;
-  @ViewChild('snap4') snap4: ElementRef<HTMLImageElement>;
+  @ViewChild('snap5') snap5: ElementRef<HTMLImageElement>;
+  @ViewChild('snap6') snap6: ElementRef<HTMLImageElement>;
+  @ViewChild('snap7') snap7: ElementRef<HTMLImageElement>;
+  @ViewChild('snap8') snap8: ElementRef<HTMLImageElement>;
 
-  @Output() hideSnap1: boolean = true;
-  @Output() hideSnap2: boolean = true;
-  @Output() hideSnap3: boolean = true;
-  @Output() hideSnap4: boolean = true;
+  @Output() hideSnap5: boolean = true;
+  @Output() hideSnap6: boolean = true;
+  @Output() hideSnap7: boolean = true;
+  @Output() hideSnap8: boolean = true;
 
-  video1: HTMLVideoElement;
-  video2: HTMLVideoElement;
-  video3: HTMLVideoElement;
-  video4: HTMLVideoElement;
+  video5: HTMLVideoElement;
+  video6: HTMLVideoElement;
+  video7: HTMLVideoElement;
+  video8: HTMLVideoElement;
   canvas: HTMLCanvasElement;
 
   constructor(
@@ -126,6 +126,44 @@ export class exitDataComponent implements OnInit, OnChanges {
         }, 1000);
       }
     });
+
+
+    navigator.mediaDevices.enumerateDevices()
+      .then(devices => {        
+          let videoDevices = devices.filter(function(device) {
+            return device.kind === 'videoinput';
+          });
+          videoDevices.forEach((device, index) => {
+            navigator.mediaDevices.getUserMedia({
+              video: { deviceId: device.deviceId }
+            })
+            .then((stream) => {
+              switch (index) {
+                case 0:                  
+                  this.videoElement5.nativeElement.srcObject = stream;
+                  this.videoElement5.nativeElement.play();
+                  break;
+                case 1:                  
+                  this.videoElement6.nativeElement.srcObject = stream;
+                  this.videoElement6.nativeElement.play();
+                  break;
+                case 2:
+                  this.videoElement7.nativeElement.srcObject = stream;
+                  this.videoElement7.nativeElement.play();
+                  break;
+                case 3:
+                  this.videoElement8.nativeElement.srcObject = stream;
+                  this.videoElement8.nativeElement.play();
+                  break;              
+                default:
+                  break;
+              }
+            })
+            .catch(error => { console.error('Error getting video stream:', error); });
+          });
+        }  
+      )
+      .catch(error => { console.error('Error getting video stream:', error); });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -155,25 +193,25 @@ export class exitDataComponent implements OnInit, OnChanges {
    }
    
    switch (cameraNumber) {      
-     case 1: 
-       ctx.drawImage(this.videoElement1.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);
-       this.snap1.nativeElement.src = tmpCanvas.toDataURL();
-       this.hideSnap1 = false;
+     case 5: 
+       ctx.drawImage(this.videoElement5.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);
+       this.snap5.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap5 = false;
        break;
-     case 2:         
-       ctx.drawImage(this.videoElement2.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
-       this.snap2.nativeElement.src = tmpCanvas.toDataURL();   
-       this.hideSnap2 = false;
+     case 6:         
+       ctx.drawImage(this.videoElement6.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap6.nativeElement.src = tmpCanvas.toDataURL();   
+       this.hideSnap6 = false;
        break;
-     case 3:
-       ctx.drawImage(this.videoElement3.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
-       this.snap3.nativeElement.src = tmpCanvas.toDataURL();
-       this.hideSnap3 = false;
+     case 7:
+       ctx.drawImage(this.videoElement7.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap7.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap7 = false;
        break;
-     case 4:
-       ctx.drawImage(this.videoElement4.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
-       this.snap4.nativeElement.src = tmpCanvas.toDataURL();
-       this.hideSnap4 = false;
+     case 8:
+       ctx.drawImage(this.videoElement8.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap8.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap8 = false;
        break;
      default:
        break;      
@@ -183,21 +221,21 @@ export class exitDataComponent implements OnInit, OnChanges {
  clearsnap(cameraNumber:number)
  {
    switch (cameraNumber) {      
-     case 1:          
-       this.snap1.nativeElement.src = "";
-       this.hideSnap1 = true;
+     case 5:          
+       this.snap5.nativeElement.src = "";
+       this.hideSnap5 = true;
        break;
-     case 2:   
-       this.snap2.nativeElement.src = "";   
-       this.hideSnap2 = true;
+     case 6:   
+       this.snap6.nativeElement.src = "";   
+       this.hideSnap6 = true;
        break;
-     case 3:
-       this.snap3.nativeElement.src = "";
-       this.hideSnap3 = true;
+     case 7:
+       this.snap7.nativeElement.src = "";
+       this.hideSnap7 = true;
        break;
-     case 4: 
-       this.snap4.nativeElement.src = "";
-       this.hideSnap4 = true;        
+     case 8: 
+       this.snap8.nativeElement.src = "";
+       this.hideSnap8 = true;        
        break;
      default:
        break;      
@@ -213,6 +251,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   const result = this.exitForm.value;
 
   const newRecord = {
+    dailyTransactionEntry:this.transactionData.dailyTransactionEntry,
     dailyTransactionExit: {
       deductWeight: result.deductWeight,
       deliveryNoteNo: result.deliveryNoteNo,
@@ -229,13 +268,36 @@ export class exitDataComponent implements OnInit, OnChanges {
       pricePerTon: result.priceTons,
       totalPrice: result.totalPrice,     
     },
-    dailyTransactionEntry:this.transactionData.dailyTransactionEntry,
     sequenceNo: this.sequenceno,
-    transactionStatus: 'TX COMPLETED',
+    dailyTransactionStatus: 'TX_COMPLETED',
   };
 
+  var formData: any = new FormData();
+    
+  formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
 
-  this.httpService.updateTransaction(newRecord).subscribe({
+  if(this.snap5.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap5.nativeElement.src);
+    formData.append('file', url);
+  }
+
+  if(this.snap6.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap6.nativeElement.src);
+    formData.append('file', url);
+  }
+
+  if(this.snap7.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap7.nativeElement.src);
+    formData.append('file', url);
+  }
+
+  if(this.snap8.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap8.nativeElement.src);
+     formData.append('file', url);
+  }
+
+
+  this.httpService.updateTransaction(formData).subscribe({
     next: (result) => {
       this.alertService.success(
         `${result.sequenceNo} updated successfully`
@@ -357,5 +419,26 @@ export class exitDataComponent implements OnInit, OnChanges {
       this.exitForm.controls['priceTons'].setValue(price);
     }
     
+  }
+
+  private converterDataURItoBlob(dataURI: any) {
+    let byteString;
+    let mimeString;
+    let ia;
+
+    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = encodeURI(dataURI.split(',')[1]);
+    }
+    // separate out the mime component
+    mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ia], {type:mimeString});
   }
 }

@@ -273,7 +273,7 @@ export class entryDataComponent implements OnInit, OnChanges {
 
     const newRecord = {
       dailyTransactionEntry: {
-        customerCode: result.customer,
+        customer: result.customer,
         driverLicenseNo: this.selDriverInfo.licenseNo,
         driverName: this.selDriverInfo.driverName,
         entryDate: GlobalConstants.commonFunction.getFormattedDate(),
@@ -290,16 +290,40 @@ export class entryDataComponent implements OnInit, OnChanges {
         nationality: this.selDriverInfo.nationalityId,
         noOfPieces: result.pieces,
         product: result.products,
-        supplierCode: result.supplier,
+        supplier: result.supplier,
         vehicle: result.vehicleNo,
       },
       dailyTransactionExit: {},
-      sequenceNo: this.sequenceno || 'new11',
-      transactionStatus: 'TX_ENTRY',
+      sequenceNo: this.sequenceno || 'string',
+      dailyTransactionStatus: this.sequenceno ? this.transactionData.dailyTransactionStatus: 'TX_ENTRY',
     };
 
+    var formData: any = new FormData();
+    
+    formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
+
+    if(this.snap1.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap1.nativeElement.src);
+      formData.append('file', url);
+    }
+
+    if(this.snap2.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap2.nativeElement.src);
+      formData.append('file', url);
+    }
+
+    if(this.snap3.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap3.nativeElement.src);
+      formData.append('file', url);
+    }
+
+    if(this.snap4.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap4.nativeElement.src);
+       formData.append('file', url);
+    }
+
     if (this.sequenceno && this.sequenceno !== '') {
-      this.httpService.updateTransaction(newRecord).subscribe({
+      this.httpService.updateTransaction(formData).subscribe({
         next: (res) => {
           this.alertService.success(
             `${res.sequenceNo} updated successfully`
@@ -311,7 +335,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         },
       });
     } else {
-      this.httpService.createNewTransaction(newRecord).subscribe({
+      this.httpService.createNewTransaction(formData).subscribe({
         next: (res: any) => {
           console.log(res);
           this.entryForm.controls['sequenceNo'].setValue(res.sequenceNo);
@@ -325,6 +349,27 @@ export class entryDataComponent implements OnInit, OnChanges {
       });
     }
   }
+
+  converterDataURItoBlob(dataURI: any) {
+    let byteString;
+    let mimeString;
+    let ia;
+
+    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = encodeURI(dataURI.split(',')[1]);
+    }
+    // separate out the mime component
+    mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ia], {type:mimeString});
+}
 
   addKeyValues(event: Event) {
     event.stopPropagation();
