@@ -3,18 +3,14 @@
 .viewData-form {
 
     .classscroll {
-        height: calc(70vh - 15rem);
-        min-height: 60vh;
+        height: calc(90vh - 25rem);
+        min-height: 50vh;
         overflow: hidden;
         overflow-y: auto;
         margin-bottom: 0.5rem;
 
-        @include media-breakpoint-up(md) {
-            height: calc(70vh - 15rem);
-        }
-
         @include media-breakpoint-down(sm) {
-            height: calc(70vh - 15rem);
+            height: calc(90vh - 25rem);
             padding: 0 5px;
             margin-bottom: 1rem;
         }
@@ -25,6 +21,7 @@
     .card {
         margin-bottom: 24px;
         box-shadow: 0 0.75rem 1.5rem #12263f08;
+        padding:.5rem;
     }
 
     .card-body {
@@ -45,7 +42,7 @@
 
     ngb-carousel {
         width: 90%;
-        height: 200px;
+        height: 180px;
     }
 
     .carousel-inner {
@@ -67,7 +64,23 @@
     }
 
     .picsum-img-wrapper {
-        height: 200px !important;
+        height: 180px !important;
     }
 
+    .card-title {
+        font-size: 15px;
+        margin: 0 0 7px;
+        font-weight: 600;
+        color: var(--bs-emphasis-color);
+    }
+
+    .mat-input-element:disabled {
+        color :#000;
+    }
+
+    .exitNodata {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

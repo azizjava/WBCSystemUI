@@ -14,8 +14,10 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class viewTransactionComponent implements OnInit {
-  public transactionData:any;
   images :any;
+  public transactionData:any;
+  public entryData:any;
+  public exitData:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,8 +45,11 @@ export class viewTransactionComponent implements OnInit {
   private _getTransactionById(sequenceNo: string): void {
     this.httpService.getTransactionById(sequenceNo).subscribe({
       next: (data: any) => {
-       this.transactionData = data;  
-       
+        if (data) {
+          this.transactionData = data;
+          this.entryData = data.dailyTransactionEntry;
+          this.exitData = data.dailyTransactionExit;
+        }
       },
       error: (error) => {
         this.alertService.error(error);
