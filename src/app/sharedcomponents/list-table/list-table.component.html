@@ -10,7 +10,7 @@
         </div>
         
         <div *ngIf ="componentName === 'transactions'" class="col-lg-3 col-md-4 mt-1">
-                <mat-form-field appearance="standard">
+                <mat-form-field>
                     <mat-label>Enter a date range</mat-label>
                     <mat-date-range-input [rangePicker]="picker" [formGroup]="rangeGroup" >
                         <input matStartDate formControlName="fromDate" placeholder="Start date"  #dateRangeStart>
