@@ -1,8 +1,8 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatRadioChange } from '@angular/material/radio';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, Observable, startWith } from 'rxjs';

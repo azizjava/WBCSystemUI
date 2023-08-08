@@ -4,14 +4,14 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls } from 'src/app/helper';
 import { Customer, modelDialog, Transporter } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { ClientTemplateService } from './Clienttemplate.service';
 import { ClientTemplate, TemplateType } from 'src/app/models/clienttemplate.model';
-import { MatRadioChange } from '@angular/material/radio';
+import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio';
 
 
 @Component({

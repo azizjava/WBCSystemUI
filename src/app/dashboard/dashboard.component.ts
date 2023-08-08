@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { modelDialog, User } from '../models';
 import { TranslateService } from '@ngx-translate/core';
 import { ModaldialogComponent } from '../common/modaldialog/modaldialog.component';
