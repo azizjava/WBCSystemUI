@@ -14,7 +14,7 @@ import { entryDataComponent } from './transactiondata/entrydata/entrydata.compon
 import { exitDataComponent } from './transactiondata/exitdata/exitdata.component';
 import { weightBridgeComponent } from './weightbridge/weightbridge.component';
 import { DriverDataComponent } from './driverdata/driverdata.component';
-import { viewTransactionComponent } from './transactiondata/viewtransaction/viewtransaction.component';
+// import { viewTransactionComponent } from './transactiondata/viewtransaction/viewtransaction.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,7 +27,7 @@ export function createTranslateLoader(http: HttpClient) {
     TransactionDataComponent,
     entryDataComponent,
     exitDataComponent,
-    viewTransactionComponent,
+    // viewTransactionComponent,
     weightBridgeComponent,
     DriverDataComponent
   ],

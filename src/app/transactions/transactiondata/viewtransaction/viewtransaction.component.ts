@@ -3,14 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TransactionsService } from '../../transactions.service';
 import { AlertService } from 'src/app/services';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
   selector: 'app-viewtransaction',
   templateUrl: './viewtransaction.component.html',
   styleUrls: ['./viewtransaction.component.scss'],
-  providers: [NgbCarouselConfig]
+  providers: []
 })
 
 export class viewTransactionComponent implements OnInit {
@@ -23,13 +22,8 @@ export class viewTransactionComponent implements OnInit {
     private route: ActivatedRoute,
     private httpService: TransactionsService,
     private alertService: AlertService,
-    config: NgbCarouselConfig
   ) {
-    // customize default values of carousels used by this component tree
-		config.interval = 1000;
-		config.wrap = true;
-		config.keyboard = false;
-		config.pauseOnHover = true;
+   
   }
 
   public ngOnInit(): void {
