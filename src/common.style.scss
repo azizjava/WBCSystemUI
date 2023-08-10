@@ -205,3 +205,10 @@ mat-icon.disable {
 }
 
 .ngx-gallery { display: inline-flex; margin-bottom: 20px;}
+
+.ngx-gallery-layout.thumbnails-bottom ngx-gallery-thumbnails {
+  order: 2;
+  margin-top: 10px;
+  margin-bottom: 0px !important;
+  height: calc(60% - 10px) !important;
+}
