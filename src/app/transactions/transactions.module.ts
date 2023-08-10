@@ -13,9 +13,9 @@ import { TransactionDataComponent } from './transactiondata/transactiondata.comp
 import { entryDataComponent } from './transactiondata/entrydata/entrydata.component';
 import { exitDataComponent } from './transactiondata/exitdata/exitdata.component';
 import { weightBridgeComponent } from './weightbridge/weightbridge.component';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { DriverDataComponent } from './driverdata/driverdata.component';
 import { viewTransactionComponent } from './transactiondata/viewtransaction/viewtransaction.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -37,17 +37,9 @@ export function createTranslateLoader(http: HttpClient) {
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxGalleryModule,
     TransactionsRoutingModule,
-    SharedcomponentsModule,
-    UiSwitchModule.forRoot({
-      size: 'medium',
-      color: '#0d6efd',
-      switchColor: '#FFFFFF',
-      defaultBgColor: '#ca2222',
-      defaultBoColor : '#476EFF',
-      checkedLabel: 'Connected',
-      uncheckedLabel: 'Disconnected'
-    }),
+    SharedcomponentsModule,  
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
       isolate: false,
