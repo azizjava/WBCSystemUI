@@ -1,7 +1,6 @@
 <div class="viewData-form">
 
-  <div class="row" style="height: 320px; margin-top: 1rem;">
-
+  <div class="row d-print-none" style="height: 320px; margin-top: 1rem;">
 
     <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
 
@@ -13,14 +12,21 @@
 
       <div class="col-sm-6">
 
-        <div class="card">
 
-          <h4 class="card-title mt-0 text-center mb-3">{{'transactions.data.entry.header' | translate }}</h4>
+        <div class="card" id ="entry">
+
+          <div class="mb-3 d-flex justify-content-center">
+            <div class="card-title mt-0 text-center flex-1">{{'transactions.data.entry.header' | translate }}</div>
+
+              <button class="btn btn-sm print-btn d-print-none" mat-flat-button color="primary" mat-button (click)="printLayout('entry')">
+                {{'actions.print' | translate }}
+              </button>
+          </div>
 
           <div class="row form-col">
             <div class="col">
               <mat-form-field class="full-width">
-                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.operator' | translate }}"
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.operator' | translate }}" 
                   [value]="entryData?.entryLoginUserName" />
               </mat-form-field>
             </div>
@@ -123,7 +129,7 @@
             </div>
           </div>
 
-          <div class="row form-col" >
+          <div class="row form-col">
 
             <ng-container *ngFor="let item of entryData?.entryKeyPairs">
             
@@ -150,9 +156,15 @@
       
       <div class="col-sm-6" *ngIf="transactionData?.dailyTransactionStatus ==='TX_COMPLETED'">
 
-        <div class="card">
+        <div class="card" id ="exit">
 
-          <h4 class="card-title mt-0 text-center mb-3">{{'transactions.data.exit.header' | translate }}</h4>
+          <div class="mb-3 d-flex justify-content-center">
+            <div class="card-title mt-0 text-center flex-1">{{'transactions.data.exit.header' | translate }}</div>
+
+              <button class="btn btn-sm print-btn d-print-none" mat-flat-button color="primary" mat-button (click)="printLayout('exit')">
+                {{'actions.print' | translate }}
+              </button>
+          </div>
 
           <div class="row form-col">
             <div class="col">
@@ -276,7 +288,7 @@
 
       </div>
 
-      <div class="col-sm-6" *ngIf="transactionData?.dailyTransactionStatus !=='TX_COMPLETED'">
+      <div class="col-sm-6 d-print-none" *ngIf="transactionData?.dailyTransactionStatus !=='TX_COMPLETED'">
 
         <div class="exitNodata">
 

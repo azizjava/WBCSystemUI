@@ -83,4 +83,19 @@
         align-items: center;
         justify-content: center;
     }
+
+    .actionHeader {
+        font-size: 15px;
+        margin: 0 0 7px;
+        font-weight: 600;
+        color: var(--bs-emphasis-color);
+    }
+
+    .flex-1 {
+        flex:1;
+    }
+
+    .print-btn {
+        line-height: 32px;
+    }
 }

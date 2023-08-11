@@ -56,6 +56,16 @@ export class viewTransactionComponent implements OnInit {
     ]
   }
 
+  public printLayout(section:string): void {
+    
+    let filedSet;
+    if(section === 'entry'){
+      filedSet = document.getElementById('entrySet') as HTMLFieldSetElement;    
+    }
+
+    window.print();    
+ }  
+
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const sequenceNo = params.get('id') || '';
