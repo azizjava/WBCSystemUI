@@ -73,24 +73,20 @@ export class viewTransactionComponent implements OnInit {
       sequenceNo && this._getTransactionById(sequenceNo);
     });
 
-    this.images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+    this.images = [1,2,3,4,5,944,1011,984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
-    this.galleryImages = [
-      {
-          small: this.images[0],
-          medium: this.images[0],
-          big: this.images[0],
-          
-      },
-      {
-        small: this.images[1],
-        medium: this.images[1],
-      },
-      {
-        small: this.images[2],
-        medium: this.images[2],
-      }
-  ];
+    let thumbnailImg:NgxGalleryImage[] = [];
+    this.images.forEach((element: any) => {
+      thumbnailImg.push(
+        {
+          small: element,
+          medium: element,
+          big: element,
+        }
+      )
+    });
+
+     this.galleryImages = thumbnailImg;
   }
   
   private _getTransactionById(sequenceNo: string): void {
