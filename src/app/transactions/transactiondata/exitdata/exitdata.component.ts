@@ -73,7 +73,10 @@ export class exitDataComponent implements OnInit, OnChanges {
         value:this.sequenceno ?? 0,
         disabled: true,
       } ],
-      secondWeight: ['', [Validators.required, Validators.maxLength(50)]],
+      secondWeight: [{
+        value: '',
+        disabled: true,
+      }, [Validators.required, Validators.maxLength(50)]],
       dateOut: [
         {
           value: GlobalConstants.commonFunction.getFormattedDate(),

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TransactionsService } from '../../transactions.service';
 import { AlertService } from 'src/app/services';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryLayout, NgxGalleryImageSize } from '@kolkov/ngx-gallery';
 
 
 @Component({
@@ -30,27 +30,48 @@ export class viewTransactionComponent implements OnInit {
     this.galleryOptions = [
       {
           width: '100%',
-          height: '300px',
-          thumbnailsColumns: 4,
+          height: '550px',
+          thumbnailsColumns: 6,
           imageAnimation: NgxGalleryAnimation.Slide,
-          imageAutoPlay: true,
+          imagePercent:85,
+          imageAutoPlay: false,
           fullWidth:false,
           previewFullscreen:false,
-          preview:false
+          preview:false,
+          layout : NgxGalleryLayout.ThumbnailsBottom,
+          thumbnailsPercent: 15,
+          thumbnailSize : NgxGalleryImageSize.Cover,
+          thumbnailsMargin: 5,
+          thumbnailMargin: 1
       },
+      {
+        breakpoint: 1400,
+        width: '100%',
+        height: '450px',
+        imagePercent: 85,
+        thumbnailsPercent: 15,
+        thumbnailsMargin: 5,
+        thumbnailMargin: 1
+    },
       {
           breakpoint: 800,
           width: '100%',
-          height: '300px',
-          imagePercent: 80,
-          thumbnailsPercent: 20,
-          thumbnailsMargin: 20,
-          thumbnailMargin: 20
+          height: '350px',
+          imagePercent: 85,
+          thumbnailsPercent: 12,
+          thumbnailsMargin: 5,
+          thumbnailMargin: 1
       },
       // max-width 400
       {
           breakpoint: 400,
           preview: false,
+          width: '100%',
+          height: '350px',
+          imagePercent: 85,
+          thumbnailsPercent: 15,
+          thumbnailsMargin: 5,
+          thumbnailMargin: 1
       },
       
     ]

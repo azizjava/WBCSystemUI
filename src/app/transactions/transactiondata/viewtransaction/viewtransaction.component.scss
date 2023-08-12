@@ -3,14 +3,14 @@
 .viewData-form {
 
     .classscroll {
-        height: calc(90vh - 25rem);
-        min-height: 50vh;
+        height: calc(80vh - 25rem);
+        min-height: 40%;
         overflow: hidden;
         overflow-y: auto;
         margin-bottom: 0.5rem;
 
         @include media-breakpoint-down(sm) {
-            height: calc(90vh - 25rem);
+            height: calc(80vh - 25rem);
             padding: 0 5px;
             margin-bottom: 1rem;
         }

@@ -204,11 +204,10 @@ mat-icon.disable {
   border-radius: 3px !important;
 }
 
-.ngx-gallery { display: inline-flex; margin-bottom: 20px;}
+.ngx-gallery { display: inline-flex; margin-bottom: .5rem;}
 
 .ngx-gallery-layout.thumbnails-bottom ngx-gallery-thumbnails {
-  order: 2;
-  margin-top: 10px;
-  margin-bottom: 0px !important;
-  height: calc(60% - 10px) !important;
+ 
+  margin-top: -1px !important;
+  // width: calc(70% - 10px) !important;
 }

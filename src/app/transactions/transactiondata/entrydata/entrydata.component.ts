@@ -118,7 +118,10 @@ export class entryDataComponent implements OnInit, OnChanges {
       ],
       pieces: ['', [Validators.maxLength(50)]],
       driverData: ['', [Validators.required, Validators.maxLength(50)]],
-      firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
+      firstWeight: [{
+        value: '',
+        disabled: true,
+      }, [Validators.required, Validators.maxLength(50)]],
       dateIn: [
         {
           value: GlobalConstants.commonFunction.getFormattedDate(),
@@ -136,7 +139,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.populateListData();
     this.selectedGood = this.goodsList[0].key;
     this.keyValueData.push({ name: '', value: '' });
-
     if (this.actionName === 'view') {
       this.entryForm.disable();
     }
