@@ -204,6 +204,31 @@ export class entryDataComponent implements OnInit, OnChanges {
     }
   }
 
+  public reset() {
+    this.entryForm.markAsPristine();
+    this.entryForm.markAsUntouched();
+    this.entryForm.reset();
+    this.entryForm.controls['operator'].setValue(
+      this.authenticationService.currentUserValue.userName
+    );
+    this.entryForm.controls['role'].setValue(
+      this.authenticationService.currentUserValue.role
+    );
+    this.entryForm.controls['dateIn'].setValue(
+      GlobalConstants.commonFunction.getFormattedDate()
+    );
+    this.entryForm.controls['timeIn'].setValue(
+      GlobalConstants.commonFunction.getFormattedTime()
+    );
+
+    if(!this.sequenceno){
+      this.selectedGood = this.goodsList[0].key;
+    }
+    else if(this.sequenceno !=='' && this.transactionData?.dailyTransactionEntry){
+      this.selectedGood = this.transactionData.dailyTransactionEntry.goodsType;
+    }
+  }
+
   capture(cameraNumber:number)
   {
     let tmpCanvas = document.createElement('canvas');

@@ -184,6 +184,24 @@ export class exitDataComponent implements OnInit, OnChanges {
     window.print();
  }
 
+ public reset() {
+  this.exitForm.markAsPristine();
+  this.exitForm.markAsUntouched();
+  this.exitForm.reset();
+  this.exitForm.controls['loginUserName'].setValue(
+    this.authenticationService.currentUserValue.userName
+  );
+  this.exitForm.controls['role'].setValue(
+    this.authenticationService.currentUserValue.role
+  );
+  this.exitForm.controls['dateOut'].setValue(
+    GlobalConstants.commonFunction.getFormattedDate()
+  );
+  this.exitForm.controls['timeOut'].setValue(
+    GlobalConstants.commonFunction.getFormattedTime()
+  );
+}
+
  capture(cameraNumber:number)
  {
    let tmpCanvas = document.createElement('canvas');
