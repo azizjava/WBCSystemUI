@@ -8,14 +8,14 @@
     </div>
 
   </div>
-  <div class="classscroll" cdkScrollable>
+  <div [ngClass]="{'classscroll': printScreen === ''}" cdkScrollable>
 
     <div class="row">
 
-      <div class="col-sm-6">
+      <div class="col-sm-6" [ngClass]="{'d-print-none hidePrinting': printScreen === 'exit'}">
 
 
-        <div class="card" id ="entry">
+        <div class="card">
 
           <div class="mb-3 d-flex justify-content-center">
             <div class="card-title mt-0 text-center flex-1">{{'transactions.data.entry.header' | translate }}</div>
@@ -156,9 +156,9 @@
 
       </div>
       
-      <div class="col-sm-6" *ngIf="transactionData?.dailyTransactionStatus ==='TX_COMPLETED'">
+      <div class="col-sm-6" *ngIf="transactionData?.dailyTransactionStatus ==='TX_COMPLETED'" [ngClass]="{'d-print-none hidePrinting':printScreen === 'entry'}">
 
-        <div class="card" id ="exit">
+        <div class="card">
 
           <div class="mb-3 d-flex justify-content-center">
             <div class="card-title mt-0 text-center flex-1">{{'transactions.data.exit.header' | translate }}</div>

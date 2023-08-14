@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TransactionsService } from '../../transactions.service';
 import { AlertService } from 'src/app/services';
@@ -11,12 +11,12 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryLayo
   templateUrl: './viewtransaction.component.html',
   styleUrls: ['./viewtransaction.component.scss'],
 })
-
 export class viewTransactionComponent implements OnInit {
   images :any;
   public transactionData:any;
   public entryData:any;
   public exitData:any;
+  public printScreen: string = '';
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -25,8 +25,8 @@ export class viewTransactionComponent implements OnInit {
     private route: ActivatedRoute,
     private httpService: TransactionsService,
     private alertService: AlertService,
+    private cdr: ChangeDetectorRef
   ) {
-		
     this.galleryOptions = [
       {
           width: '100%',
@@ -77,10 +77,16 @@ export class viewTransactionComponent implements OnInit {
     ]
   }
 
-  public printLayout(section:string): void {
+  @HostListener("window:beforeprint", ["$event"])
+  onBeforePrint() {
+    this.cdr.detectChanges();
+  }
 
-    window.print();    
- }  
+  public printLayout(section: string): void {
+    this.printScreen = section;
+    window.print();
+    this.printScreen = '';
+  }
 
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
