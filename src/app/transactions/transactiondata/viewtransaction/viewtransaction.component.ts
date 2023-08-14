@@ -30,7 +30,7 @@ export class viewTransactionComponent implements OnInit {
     this.galleryOptions = [
       {
           width: '100%',
-          height: '550px',
+          height: '500px',
           thumbnailsColumns: 6,
           imageAnimation: NgxGalleryAnimation.Slide,
           imagePercent:85,
@@ -47,7 +47,7 @@ export class viewTransactionComponent implements OnInit {
       {
         breakpoint: 1400,
         width: '100%',
-        height: '450px',
+        height: '400px',
         imagePercent: 85,
         thumbnailsPercent: 15,
         thumbnailsMargin: 5,
@@ -78,11 +78,6 @@ export class viewTransactionComponent implements OnInit {
   }
 
   public printLayout(section:string): void {
-    
-    let filedSet;
-    if(section === 'entry'){
-      filedSet = document.getElementById('entrySet') as HTMLFieldSetElement;    
-    }
 
     window.print();    
  }  
@@ -94,20 +89,7 @@ export class viewTransactionComponent implements OnInit {
       sequenceNo && this._getTransactionById(sequenceNo);
     });
 
-    this.images = [1,2,3,4,5,944,1011,984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-
-    let thumbnailImg:NgxGalleryImage[] = [];
-    this.images.forEach((element: any) => {
-      thumbnailImg.push(
-        {
-          small: element,
-          medium: element,
-          big: element,
-        }
-      )
-    });
-
-     this.galleryImages = thumbnailImg;
+   
   }
   
   private _getTransactionById(sequenceNo: string): void {
@@ -117,6 +99,21 @@ export class viewTransactionComponent implements OnInit {
           this.transactionData = data;
           this.entryData = data.dailyTransactionEntry;
           this.exitData = data.dailyTransactionExit;
+
+          this.images = data.fileNames;
+
+          let thumbnailImg:NgxGalleryImage[] = [];
+          this.images.forEach((element: any) => {
+            thumbnailImg.push(
+              {
+                small: element,
+                medium: element,
+                big: element,
+              }
+            )
+          });
+      
+           this.galleryImages = thumbnailImg;
         }
       },
       error: (error) => {

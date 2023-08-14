@@ -102,7 +102,7 @@ export class TransactionsListComponent {
   }
 
   private _deleteRecord(selRecord: any) {
-    this.httpService.deleteTransaction(selRecord.sequenceNo).subscribe({
+    this.httpService.deleteTransaction(selRecord.sequence).subscribe({
       next: (res) => {
         console.log('Deleted Record !!', selRecord);
         this.getAllTransactions();

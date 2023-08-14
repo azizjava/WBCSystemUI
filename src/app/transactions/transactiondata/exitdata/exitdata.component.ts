@@ -299,22 +299,31 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   if(this.snap5.nativeElement.src) {    
     const url = this.converterDataURItoBlob(this.snap5.nativeElement.src);
-    formData.append('file', url);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file5."+ext : "";
+    formData.append('file', url, fileName ?? "");
+  
   }
 
   if(this.snap6.nativeElement.src) {    
     const url = this.converterDataURItoBlob(this.snap6.nativeElement.src);
-    formData.append('file', url);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file6."+ext : "";
+    formData.append('file', url, fileName ?? "");
   }
 
   if(this.snap7.nativeElement.src) {    
     const url = this.converterDataURItoBlob(this.snap7.nativeElement.src);
-    formData.append('file', url);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file7."+ext : "";
+    formData.append('file', url, fileName ?? "");
   }
 
   if(this.snap8.nativeElement.src) {    
     const url = this.converterDataURItoBlob(this.snap8.nativeElement.src);
-     formData.append('file', url);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file8."+ext : "";
+    formData.append('file', url, fileName ?? "");
   }
 
 
@@ -440,6 +449,15 @@ export class exitDataComponent implements OnInit, OnChanges {
       this.exitForm.controls['priceTons'].setValue(price);
     }
     
+  }
+
+  getFileExtension(type: string): string {
+    if(type.includes('/')){
+      const ext = type.split("/");
+      return ext?.length >0 ? ext[1] :"";
+    }
+  
+    return "";
   }
 
   private converterDataURItoBlob(dataURI: any) {

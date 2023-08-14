@@ -331,22 +331,30 @@ export class entryDataComponent implements OnInit, OnChanges {
 
     if(this.snap1.nativeElement.src) {    
       const url = this.converterDataURItoBlob(this.snap1.nativeElement.src);
-      formData.append('file', url);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file1."+ext : "";
+      formData.append('file', url, fileName ?? "");
     }
 
     if(this.snap2.nativeElement.src) {    
       const url = this.converterDataURItoBlob(this.snap2.nativeElement.src);
-      formData.append('file', url);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file2."+ext : "";
+      formData.append('file', url, fileName ?? "");
     }
 
     if(this.snap3.nativeElement.src) {    
       const url = this.converterDataURItoBlob(this.snap3.nativeElement.src);
-      formData.append('file', url);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file3."+ext : "";
+      formData.append('file', url, fileName ?? "");
     }
 
     if(this.snap4.nativeElement.src) {    
       const url = this.converterDataURItoBlob(this.snap4.nativeElement.src);
-       formData.append('file', url);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file4."+ext : "";
+      formData.append('file', url, fileName ?? "");
     }
 
     if (this.sequenceno && this.sequenceno !== '') {
@@ -396,6 +404,15 @@ export class entryDataComponent implements OnInit, OnChanges {
       ia[i] = byteString.charCodeAt(i);
     }
     return new Blob([ia], {type:mimeString});
+}
+
+getFileExtension(type: string): string {
+  if(type.includes('/')){
+    const ext = type.split("/");
+    return ext?.length >0 ? ext[1] :"";
+  }
+
+  return "";
 }
 
   addKeyValues(event: Event) {
