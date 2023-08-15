@@ -13,9 +13,10 @@
 		"save":"يحفظ",
 		"cancel":"يلغي",
 		"print":"مطبعة",
-		"add":"Add",
+		"add":"يضيف",
 		"updateprofile":"تحديث الملف الشخصي",
-		"reset":"إعادة ضبط"
+		"reset":"إعادة ضبط",
+		"printall":"طباعة الكل"
 	},
 	"actiontooltip":{
 		"add":"انقر للإضافة",
@@ -162,14 +163,14 @@
 	},
 	"productprices":{
 		"tbl_header":{
-			"code":"Code 1",
-			"name":"Name",
-			"contactPerson":"Contact Person",
-			"mobileNo":"Mobile No",
-			"telephoneNo":"Telephone No",
-			"fax":"Fax",
-			"address":"Address",
-			"action":"Action"
+			"code":"شفرة",
+			"name":"اسم",
+			"contactPerson":"الشخص الذي يمكن الاتصال به",
+			"mobileNo":"رقم المحمول",
+			"telephoneNo":"الهاتف لا",
+			"fax":"فاكس",
+			"address":"عنوان",
+			"action":"فعل"
 		}
 	},
 	"transactions":{
@@ -307,7 +308,7 @@
 			"htm":"HTM",
 			"xlsx" : "XLSX",
 			"csv" :"CSV",
-			"reportformat" :"Report Format"
+			"reportformat" :"شكل التقرير"
 		},
 		"layout":{
 			"header":"إعداد تخطيط طباعة التذاكر",

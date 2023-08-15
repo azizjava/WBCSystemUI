@@ -20,6 +20,10 @@
           <div class="mb-3 d-flex justify-content-center">
             <div class="card-title mt-0 text-center flex-1">{{'transactions.data.entry.header' | translate }}</div>
 
+            <button class="btn btn-sm print-btn d-print-none me-2" mat-flat-button color="primary" mat-button (click)="printLayout('both')">
+              {{'actions.printall' | translate }}
+            </button>
+
               <button class="btn btn-sm print-btn d-print-none" mat-flat-button color="primary" mat-button (click)="printLayout('entry')">
                 {{'actions.print' | translate }}
               </button>
