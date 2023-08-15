@@ -47,7 +47,7 @@ export class viewTransactionComponent implements OnInit {
       {
         breakpoint: 1400,
         width: '100%',
-        height: '400px',
+        height: '350px',
         imagePercent: 85,
         thumbnailsPercent: 15,
         thumbnailsMargin: 5,
@@ -56,7 +56,7 @@ export class viewTransactionComponent implements OnInit {
       {
           breakpoint: 800,
           width: '100%',
-          height: '350px',
+          height: '320px',
           imagePercent: 85,
           thumbnailsPercent: 12,
           thumbnailsMargin: 5,
@@ -67,7 +67,7 @@ export class viewTransactionComponent implements OnInit {
           breakpoint: 400,
           preview: false,
           width: '100%',
-          height: '350px',
+          height: '300px',
           imagePercent: 85,
           thumbnailsPercent: 15,
           thumbnailsMargin: 5,
