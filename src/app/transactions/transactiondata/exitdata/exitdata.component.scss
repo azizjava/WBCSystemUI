@@ -46,7 +46,7 @@
 
     .snap {        
         height: 150px;        
-        border: 1px dashed red;
+        border: 1px solid #3f51b5;
         margin-inline: .5rem;
         width: 50%;
     }
@@ -55,6 +55,22 @@
         margin: 5px;
         line-height: 30px;
         padding: 0 12px;    
+    }
+
+    .icon-line-height {
+        line-height: 1.2rem;
+    }
+
+    .action-btn {
+        height: 30px;
+    }
+
+    .keyvaluemain {
+        padding-right: .125rem;
+    }
+    .keyvalueadd {
+        width:6%; 
+        display: inline-block;
     }
 }
   

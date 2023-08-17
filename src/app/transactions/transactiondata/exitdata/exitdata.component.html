@@ -4,7 +4,7 @@
 
     <div class="row">
 
-      <div class="col-sm-6">    
+      <div class="col-sm-6 border-right">    
     
         <div class="row form-col">
           <div class="col">
@@ -157,20 +157,21 @@
                   <input [(ngModel)]="item.name" matInput name=key{{index}} [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
               </div>
-    
-              <div class="col">
-                <mat-form-field class="full-width">
+
+              <div class="col keyvaluemain">
+                <mat-form-field class="full-width" style="width:93%">
                   <mat-label>{{'transactions.data.exit.value' | translate }}</mat-label>
                   <input [(ngModel)]="item.value" matInput name=Value{{index}} [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
-              </div>
-    
-              <div class="col d-print-none" *ngIf="isLast">
-                <button class="btn btn-sm" mat-flat-button color="primary" type="button" mat-button
-                  (click)="addKeyValues($event)">
-                  {{'transactions.data.exit.addkeyvalues' | translate }}
-                </button>
-              </div>
+
+                <span class="d-print-none keyvalueadd" *ngIf="isLast">                 
+                  <a class="btn btn-sm btn-outline-primary action-btn d-print-none" role="button"
+                  aria-pressed="true" (click)="addKeyValues($event)">
+                  <mat-icon class="icon-line-height"
+                    matTooltip="{{'transactions.data.exit.addkeyvalues' | translate }}">add</mat-icon>
+                </a>
+                </span>
+              </div>                              
     
             </div>
           </ng-container>
