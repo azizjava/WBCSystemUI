@@ -160,7 +160,7 @@ export class LayoutSetupComponent implements OnInit {
         element[1].find(
           (r: LayoutSetup) =>
             r.locale === this.userLang &&
-            r.key.toString().includes('.reportTitle')
+            r.key.toString().includes('.UIreportTitle')
         )?.value || '';
 
       this.cardHeading.push({ key: element[0], heading: cardTitle });
@@ -169,7 +169,7 @@ export class LayoutSetupComponent implements OnInit {
         ...new Set(element[1].map((item: { key: any }) => item.key)),
       ].filter(
         (s: any) =>
-          !['.enabled', '.reportTitle'].some((sub) => s.includes(sub))
+          !['.enabled', '.UIreportTitle'].some((sub) => s.includes(sub))
       );
 
       const newArr: any = [];
