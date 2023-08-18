@@ -53,4 +53,9 @@ export class TransactionDataComponent implements OnInit {
     });
   }
 
+  onsequenceNoChange(sequenceNo: any) :void {
+    this.sequenceno = sequenceNo;
+    this.sequenceno && this._getTransactionById();    
+  }
+
 }

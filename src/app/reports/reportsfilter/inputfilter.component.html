@@ -1,7 +1,14 @@
 <div class="reportsFilter">
 
   <div class="row me-1">
-    <div class="d-flex justify-content-end mt-1 mb-1">
+
+    <div class="d-flex justify-content-between mt-1 mb-1">
+      
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="openClientSettings()">
+        <i class="material-icons maticon-size">settings</i>
+        {{'reports.filter.createtemplate' | translate }}
+      </button>
+
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="openSettings()">
         <i class="material-icons maticon-size">settings</i>
         {{'reports.filter.printlayout' | translate }}
@@ -11,17 +18,23 @@
   </div>
 
   <div class="columns">
-    <div class="column mtop-5 mb-3">
-
-      <mat-label id="reportType" class="px-2"> {{'reports.filter.type' | translate }}</mat-label>
-
-      <mat-radio-group aria-label="reportType" class="reportType">      
-        <mat-radio-button *ngFor="let option of reportType; trackBy:trackByFn" [value]="option.value"
-          [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.filter.'+option.name  | translate }} </mat-radio-button>
-      </mat-radio-group>
+    <div class="column mtop-1 mb-3">
+      <div class ="mb-2">
+        <mat-label id="langType" class="px-2 mrgt-1"> {{'reports.filter.language' | translate }}</mat-label>
+        <mat-radio-group aria-label="langType" class="reportType">
+          <mat-radio-button *ngFor="let option of userLanguages; trackBy:trackByFn" [value]="option.key"
+            [checked]="option.checked" (change)="onLangChange($event)"> {{option.value }} </mat-radio-button>
+        </mat-radio-group>       
+        </div>
+        <mat-label id="reportType" class="px-2"> {{'reports.filter.type' | translate }}</mat-label>
+        <mat-radio-group aria-label="reportType" class="reportType">
+          <mat-radio-button *ngFor="let option of reportType; trackBy:trackByFn" [value]="option.value"
+            [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.filter.'+option.name | translate }}
+          </mat-radio-button>
+        </mat-radio-group>       
     </div>
     <div class="column mb-2">
-      <ng-container *ngIf="selectedReportType ==='1'">
+      <ng-container *ngIf="selectedReportType ==='admin'">
         <mat-form-field class="example-full-width" appearance="fill">     
           <mat-label> {{'reports.filter.admintype' | translate }}</mat-label>
           <input type="text"
@@ -37,10 +50,10 @@
         </mat-form-field>
 
       </ng-container>
-      <ng-container *ngIf="selectedReportType ==='2'">
+      <ng-container *ngIf="selectedReportType ==='transaction'">
 
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>{{'reports.filter.transactiontype' | translate }}<</mat-label>
+          <mat-label>{{'reports.filter.transactiontype' | translate }}</mat-label>
           <input type="text"
                  aria-label="'reports.filter.transactiontype' | translate"
                  matInput
@@ -87,11 +100,23 @@
  </div>
 
  <div class="column mt-3 mb-3">
-  <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="fetchReports()">
-    <i class="material-icons maticon-size">search</i>
-    {{'reports.filter.search' | translate }}
+  <button class="btn btn-sm" mat-flat-button color="primary" mat-button [matMenuTriggerFor]="menu" [disabled]="!canEnableDownload">
+    <i class="material-icons maticon-size">keyboard_arrow_down</i>
+    {{'reports.filter.reportformat' | translate }}
   </button>
+  <mat-menu #menu="matMenu">  
+    <button mat-menu-item *ngFor="let item of menuOption; trackBy:trackByFn" (click)="fetchReports(item.value)">
+    {{'reports.filter.'+ item.value  | translate }}
+  </button>
+  </mat-menu>
 
  </div>
 
+</div>
+
+<div *ngIf="htmlResponse" class="container">
+
+  <div class="row htmlclass">
+    <div [innerHtml]="htmlResponse | safeHtml"></div>
+  </div>
 </div>

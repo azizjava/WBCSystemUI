@@ -1,11 +1,12 @@
-
+@import 'styles.scss';
+  
   .customers {
-
   
     .full-with-dialog {
       position: relative;
       overflow: auto;
       width: 500px;
+      @include scrollbars();
     
       @media (max-width: 568px) {
         width: 440px;

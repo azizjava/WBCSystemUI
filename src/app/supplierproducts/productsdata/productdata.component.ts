@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { modelDialog, Product} from 'src/app/models';
 import { AlertService } from 'src/app/services';
-import { SupplierProductsService } from '../products.service';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-productdata',
@@ -34,7 +34,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     private _formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<ProductDataComponent>,
     private alertService: AlertService,
-    private httpService: SupplierProductsService,
+    private httpService: ProductsService,
     private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog,
     private changeDetector: ChangeDetectorRef
@@ -45,8 +45,9 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     this.form = this._formBuilder.group({
       productCode: ['', [Validators.required, Validators.maxLength(30)]],
       productName: ['', [Validators.required, Validators.maxLength(30)]],
-      productPrice: [0, [Validators.required, Validators.maxLength(30), patternNumberValidator()]],
-      groupCode: [''],
+      customerPrice: [0, [Validators.required, Validators.maxLength(30), patternNumberValidator()]],
+      productStock: [0, [Validators.required, Validators.maxLength(30), patternNumberValidator()]],
+      supplierPrice: [0, [Validators.required, Validators.maxLength(30), patternNumberValidator()]],
     });
 
     this.dropdownSettings = {
@@ -66,7 +67,9 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       this.productData = this.data.data;
       this.form.controls['productCode'].setValue(this.productData?.productCode);
       this.form.controls['productName'].setValue(this.productData?.productName);
-      this.form.controls['productPrice'].setValue(this.productData?.productPrice.toString());
+      this.form.controls['customerPrice'].setValue(this.productData?.customerPrice.toString());
+      this.form.controls['productStock'].setValue(this.productData?.productStock.toString());
+      this.form.controls['supplierPrice'].setValue(this.productData?.supplierPrice.toString());
 
       if (this.data.actionName === 'view') {
         this.form.disable();
@@ -114,7 +117,9 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     const newRecord: Product = {
       productCode: result.productCode,
       productName: result.productName,
-      productPrice: result.productPrice,
+      customerPrice: result.customerPrice,
+      productStock: result.productStock,
+      supplierPrice: result.supplierPrice,
     };
 
     if (this.data.actionName === 'add') {
@@ -153,8 +158,9 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       this.staticText = {
         productcode: this.translate.instant('products.tbl_header.productcode'),
         productname: this.translate.instant('products.tbl_header.productname'),
-        productprice: this.translate.instant('products.tbl_header.productprice'),
-        groupcode: this.translate.instant('products.tbl_header.groupcode'),
+        customerprice: this.translate.instant('products.tbl_header.customerprice'),
+        supplierprice: this.translate.instant('products.tbl_header.supplierprice'),
+        productstock: this.translate.instant('products.tbl_header.productstock'),
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),
         cancel: this.translate.instant('actions.cancel'),        

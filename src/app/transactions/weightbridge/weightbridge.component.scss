@@ -9,14 +9,16 @@
     @include scrollbars();
   
     .rectangle {
-        height: 2rem;
-        background-color: #000000;
+        height: 2.25rem;
+        background-color: red;
         display: flex;           /* establish flex container */
         flex-direction: column;  /* make main axis vertical */
         justify-content: center; /* center items vertically, in this case */
         align-items: center;     /* center items horizontally, in this case */
         font-size : 1.5rem;
-        color:red;         
+        color:#FFFFFF; 
+        width: 55%;
+        margin-inline-start: 1rem;
     }
 
     .disconnected {
@@ -29,4 +31,43 @@
         height: 30px;
         line-height: 30px;
     }
+
+    .action-container {
+        height: 2.25rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: .5rem;        
+        
+        .icon-size {
+            font-size: 2rem;
+            color: rgb(13, 110, 253);
+        }
+    }
+
+    .weight-name {
+        font-size: .85rem;
+        margin-inline-start: 35%;
+    }
+
+
+    .triangle-right {
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-left: 22px solid red;
+        border-bottom: 10px solid transparent;
+        margin-left: 5px;
+    }
+
+    .circle {
+        width: 35px;
+        height: 35px;
+        background: #000;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+     
 }  

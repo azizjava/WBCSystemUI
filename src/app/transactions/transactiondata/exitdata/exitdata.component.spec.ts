@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('exitDataComponent', () => {
@@ -15,6 +16,7 @@ describe('exitDataComponent', () => {
       imports:[HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        RouterTestingModule,
         TranslateModule.forRoot()],
       declarations: [ exitDataComponent ],
       providers:[

@@ -19,6 +19,10 @@ export class VehiclesService {
     return this.http.get<Vehicle[]>(`${this.baseURL}/listAllVehicles`);
   }
 
+  getAllVehiclesWithTransporter(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseURL}/listall/platetranscodeandname`);
+  }
+
   getVehicleById(id: any): Observable<Vehicle> {
     return this.http.get<Vehicle>(`${this.baseURL}/findByVehiclePlateNo/${id}`);
   }

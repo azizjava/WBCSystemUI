@@ -3,58 +3,50 @@
   <div class="row" *ngIf="isFirstScreen">
 
     <div *ngFor="let item of firstWeightdevicesList; trackBy:trackByFn;" class="col-md-3 col-sm-6">
+    
+      <div class="text-muted weight-name">{{item.name }}</div>
+    
+      <div class="action-container">
 
-        <div class="text-muted fs-6 ms-1 mb-2 mb-1 mb-1">{{item.name }}</div>
+
+        <div class="circle" (click)="weightChangeEvent(item)" [attr.title]="'transactions.Weighbridge.firstweight' | translate">
+          <div class="triangle-right"></div>
+        </div>
+    
         <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!item.connectStatus}">
           <div *ngIf="item.connectStatus">
             {{item.weight}}
           </div>
-        </div>
-
-        <div class="mt-2 mb-2 mb-1">
-          <ui-switch [(ngModel)]="item.connectStatus" checkedLabel="{{'transactions.Weighbridge.connect' | translate }}"
-            uncheckedLabel="{{'transactions.Weighbridge.disconnect' | translate }}">
-          </ui-switch>
-        </div>
-
-        <div class="d-grid gap-1 mt-2">
-          <button class="btn btn-sm btn-primary rounded-pill action-btn" [disabled]="!item.connectStatus" type="reset"
-            mat-flat-button mat-button (click)="weightChangeEvent(item)">
-            {{'transactions.Weighbridge.firstweight' | translate }}
-          </button>
-          
-        </div>
-
+        </div>      
+    
       </div>
-
+    
+    </div>
+    
     </div>
 
 
     <div class="row" *ngIf="!isFirstScreen">
 
-      <div *ngFor="let item of secondWeightdevicesList;; trackBy:trackByFn;" class="col-md-3 col-sm-6">
-  
-          <div class="text-muted fs-6 ms-1 mb-2 mb-1 mb-1">{{item.name }}</div>
-          <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!item.connectStatus}">
-            <div *ngIf="item.connectStatus">
-              {{item.weight}}
+        <div *ngFor="let item of secondWeightdevicesList; trackBy:trackByFn;" class="col-md-3 col-sm-6">
+    
+          <div class="text-muted fs-6 text-center fw-light">{{item.name }}</div>
+        
+          <div class="action-container">
+
+            <div class="circle" (click)="weightChangeEvent(item)" [attr.title]="'transactions.Weighbridge.secondweight' | translate">
+              <div class="triangle-right"></div>
             </div>
+        
+            <div class="rectangle rounded-pill" [ngClass]="{'disconnected':!item.connectStatus}">
+              <div *ngIf="item.connectStatus">
+                {{item.weight}}
+              </div>
+            </div>        
+            
+        
           </div>
-  
-          <div class="mt-2 mb-2 mb-1">
-            <ui-switch [(ngModel)]="item.connectStatus" checkedLabel="{{'transactions.Weighbridge.connect' | translate }}"
-              uncheckedLabel="{{'transactions.Weighbridge.disconnect' | translate }}">
-            </ui-switch>
-          </div>
-  
-          <div class="d-grid gap-1 mt-2">            
-  
-            <button class="btn btn-sm btn-primary rounded-pill action-btn" [disabled]="!item.connectStatus"  mat-flat-button
-              mat-button (click)="weightChangeEvent(item)">
-              {{'transactions.Weighbridge.secondweight' | translate }}
-            </button>
-          </div>
-  
+        
         </div>
   
       </div>

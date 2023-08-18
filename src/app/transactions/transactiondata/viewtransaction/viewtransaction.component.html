@@ -1,0 +1,311 @@
+<div class="viewData-form">
+
+  <div class="row d-print-none mt-4">
+
+    <div class="gallery">
+      <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+
+    </div>
+
+  </div>
+  <div [ngClass]="{'classscroll': printScreen === ''}" cdkScrollable>
+
+    <div class="row">
+
+      <div class="col-sm-6" [ngClass]="{'d-print-none hidePrinting': printScreen === 'exit'}">
+
+
+        <div class="card">
+
+          <div class="mb-3 d-flex justify-content-center">
+            <div class="card-title mt-0 text-center flex-1">{{'transactions.data.entry.header' | translate }}</div>
+
+            <button class="btn btn-sm print-btn d-print-none me-2" mat-flat-button color="primary" mat-button (click)="printLayout('both')">
+              {{'actions.printall' | translate }}
+            </button>
+
+              <button class="btn btn-sm print-btn d-print-none" mat-flat-button color="primary" mat-button (click)="printLayout('entry')">
+                {{'actions.print' | translate }}
+              </button>
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.operator' | translate }}" 
+                  [value]="entryData?.entryLoginUserName" />
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.role' | translate }}"
+                  [value]="entryData?.entryLoginRoleName" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="{{'transactions.data.entry.sequenceno' | translate }}" [disabled]="true"
+                  [value]="transactionData?.sequenceNo" />
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.datetime' | translate }}"
+                  value="{{entryData?.entryDate}} {{ entryData?.entryTime }}">
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="{{'transactions.data.entry.goodstype' | translate }}" [disabled]="true"
+                  [value]="entryData?.goodsType" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.firstweight' | translate }}"
+                  [value]="entryData?.firstWeight" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width" *ngIf="entryData?.goodsType ==='INCOMING_GOODS'">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.supplierinfo' | translate }}"
+                  [value]="entryData?.supplier" />
+              </mat-form-field>
+
+              <mat-form-field class="full-width" *ngIf="entryData?.goodsType !=='INCOMING_GOODS'">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.customercode' | translate }}"
+                  [value]="entryData?.customer" />
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.product' | translate }}"
+                  [value]="entryData?.product" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.vehicleinfo' | translate }}"
+                  [value]="entryData?.vehicle" />
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.pieces' | translate }}"
+                  [value]="entryData?.noOfPieces" />
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput
+                  placeholder="{{'transactions.data.entry.driverinfotooltip' | translate }}"
+                  value="{{entryData?.driverLicenseNo}} / {{ entryData?.driverName }}" />
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.instructions' | translate }}"
+                  [value]="entryData?.entryDeliveryInstructions" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">
+
+            <ng-container *ngFor="let item of entryData?.entryKeyPairs">
+            
+              <div class="col" *ngIf="item?.name">
+                <mat-form-field class="full-width">
+                  <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.key' | translate }}"
+                    [value]="item?.name" />
+                </mat-form-field>
+              </div>
+            
+              <div class="col" *ngIf="item?.value">
+                <mat-form-field class="full-width">
+                  <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.value' | translate }}"
+                    [value]="item?.value" />
+                </mat-form-field>
+              </div>
+            </ng-container>
+
+          </div>
+
+        </div>
+
+      </div>
+      
+      <div class="col-sm-6" *ngIf="transactionData?.dailyTransactionStatus ==='TX_COMPLETED'" [ngClass]="{'d-print-none hidePrinting':printScreen === 'entry'}">
+
+        <div class="card">
+
+          <div class="mb-3 d-flex justify-content-center">
+            <div class="card-title mt-0 text-center flex-1">{{'transactions.data.exit.header' | translate }}</div>
+
+              <button class="btn btn-sm print-btn d-print-none" mat-flat-button color="primary" mat-button (click)="printLayout('exit')">
+                {{'actions.print' | translate }}
+              </button>
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.operator' | translate }}"
+                  [value]="exitData?.exitLoginUserName" />
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.role' | translate }}"
+                  [value]="exitData?.exitLoginRoleName" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">           
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.datetime' | translate }}"
+                  value="{{exitData?.exitDate}} {{ exitData?.exitTime }}">
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.secondweight' | translate }}"
+                  [value]="exitData?.secondWeight" />
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.deductweight' | translate }}"
+                [value]="exitData?.deductWeight" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.netweight' | translate }}" 
+                [value]="exitData?.netWeight" />              
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.price' | translate }}"
+                [value]="exitData?.pricePerTon" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.totalprice' | translate }}" 
+                [value]="exitData?.totalPrice" />              
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.deliverynote' | translate }}"
+                [value]="exitData?.deliveryNoteNo" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.orderno' | translate }}" 
+                [value]="exitData?.orderNo" />              
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col">
+            <div class="col-6">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.scale' | translate }}"
+                  [value]="exitData?.scale" />
+              </mat-form-field>
+            </div>
+          </div>
+        
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.instructions' | translate }}"
+                  [value]="exitData?.exitDeliveryInstructions" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row form-col" >
+
+            <ng-container *ngFor="let item of exitData?.exitKeyPairs">
+            
+              <div class="col" *ngIf="item?.name">
+                <mat-form-field class="full-width">
+                  <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.key' | translate }}"
+                    [value]="item?.name" />
+                </mat-form-field>
+              </div>
+            
+              <div class="col" *ngIf="item?.value">
+                <mat-form-field class="full-width">
+                  <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.value' | translate }}"
+                    [value]="item?.value" />
+                </mat-form-field>
+              </div>
+            </ng-container>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-sm-6 d-print-none" *ngIf="transactionData?.dailyTransactionStatus !=='TX_COMPLETED'">
+
+        <div class="exitNodata">
+
+          <h4 class="card-title mt-0 text-center mb-3"> {{'transactions.data.exit.nodata' | translate }} </h4>
+
+        </div>
+        
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

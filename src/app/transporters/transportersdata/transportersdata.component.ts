@@ -48,7 +48,7 @@ export class TransportersdataComponent implements OnInit {
         this.transporterUser?.transporterCode
       );
       this.transporterForm.controls['name'].setValue(
-        this.transporterUser?.nameOfTransporter
+        this.transporterUser?.transporterName
       );
       this.transporterForm.controls['contactPerson'].setValue(
         this.transporterUser?.contactPerson
@@ -93,7 +93,7 @@ export class TransportersdataComponent implements OnInit {
 
     const newRecord: Transporter = {
       transporterCode: result.code,
-      nameOfTransporter: result.name,
+      transporterName: result.name,
       contactPerson: result.contactPerson,
       mobileNo: result.mobileNo.toString(),
       telephoneNo: result.phoneNo.toString(),
@@ -138,7 +138,7 @@ export class TransportersdataComponent implements OnInit {
       this.staticText = {
         code: this.translate.instant('transporters.tbl_header.transportercode'),
         name: this.translate.instant(
-          'transporters.tbl_header.nameoftransporter'
+          'transporters.tbl_header.transportername'
         ),
         contactPerson: this.translate.instant(
           'transporters.tbl_header.contactperson'

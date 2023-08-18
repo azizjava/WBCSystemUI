@@ -1,0 +1,157 @@
+<div class="layout-component">
+
+  <form class="template-form" [formGroup]="form">
+
+    <div class="flex-container">
+
+      <div class="flex-child">
+        <div class="row mb-2">
+
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>{{staticText.companyName}}</mat-label>
+              <input matInput placeholder="{{staticText.companyName}}" formControlName="companyName"
+                name="companyName" />
+              <mat-error *ngIf="form.controls['companyName'].errors && 
+          form.controls['companyName'].errors['required'] &&
+          form.controls['companyName'].touched
+                ">{{staticText.companyName}} {{staticText.required}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>{{staticText.email}} </mat-label>
+              <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" />
+              <mat-error *ngIf="form.controls['email'].errors && 
+          form.controls['email'].errors['required'] &&
+          form.controls['email'].touched
+                ">{{staticText.email}} {{staticText.required}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>{{staticText.zipCode}} </mat-label>
+              <input matInput placeholder="{{staticText.zipCode}}" formControlName="zipCode" name="zipCode" />
+              <mat-error *ngIf="form.controls['zipCode'].errors && 
+          form.controls['zipCode'].errors['required'] &&
+          form.controls['zipCode'].touched
+                ">{{staticText.zipCode}} {{staticText.required}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>{{staticText.city}}</mat-label>
+              <input matInput placeholder="{{staticText.city}}" formControlName="city" name="city" />
+              <mat-error *ngIf="form.controls['city'].errors && 
+          form.controls['city'].errors['required'] &&
+          form.controls['city'].touched
+                ">{{staticText.city}} {{staticText.required}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>{{staticText.phoneNo}} </mat-label>
+              <input matInput type="number" pattern="^\d*[0-9]\d*$" placeholder="{{staticText.phoneNo}}" formControlName="phoneNo" name="phoneNo" />
+              <mat-error *ngIf="form.controls['phoneNo'].errors && 
+          form.controls['phoneNo'].errors['required'] &&
+          form.controls['phoneNo'].touched
+                ">{{staticText.phoneNo}} {{staticText.required}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="flex-child">
+        <div class="col mb-2">
+          <mat-label>{{staticText.templateType}}</mat-label>
+        </div>
+
+        <div class="col mb-2">
+          <mat-radio-group aria-label="'reports.clienttemplate.templateType' | translate" class="reportType" >
+            <mat-radio-button *ngFor="let option of templateType; trackBy:trackByFn" [value]="option.value"
+              [checked]="option.checked" (change)="onReportTypeChange($event)"> {{'reports.clienttemplate.'+option.name
+              |
+              translate }} </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="col mb-2" *ngIf="showFileUpload">
+          <input type="file" (change)="onFileChange($event)" #inputFile />
+          <mat-error *ngIf="showFileUpload && isFileUploadRequired
+                ">{{staticText.image}} {{staticText.required}}
+              </mat-error>
+        </div>
+
+        <div class="col mb-2" *ngIf="ClientTemplateData?.companyLogo && showFileUpload">
+
+          <img class="rounded mx-auto d-block img-cls" *ngIf="!fileUploaded && ClientTemplateData.companyLogo"
+            src="data:image/png;base64,{{ClientTemplateData.companyLogo}}" />
+
+          <img class="rounded mx-auto d-block img-cls" *ngIf="fileUploaded" src="{{ClientTemplateData.companyLogo}}" />
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-6">
+        <mat-form-field class="full-width">
+          <mat-label>{{staticText.url}}</mat-label>
+          <input matInput placeholder="{{staticText.url}}" formControlName="url"
+            name="url" />
+          <mat-error *ngIf="form.controls['url'].errors && 
+      form.controls['url'].errors['required'] &&
+      form.controls['url'].touched
+            ">{{staticText.url}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+    <div class="row mb-2">
+
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>{{staticText.streetAddress}}</mat-label>
+          <input matInput placeholder="{{staticText.streetAddress}}" formControlName="streetAddress"
+            name="streetAddress" />
+          <mat-error *ngIf="form.controls['streetAddress'].errors && 
+      form.controls['streetAddress'].errors['required'] &&
+      form.controls['streetAddress'].touched
+            ">{{staticText.streetAddress}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+    <div class="d-flex justify-content-between w-100">
+
+      <button class="btn btn-sm" mat-flat-button color="primary" type="submit"
+        mat-button (click)="save()">
+        {{staticText.save}}
+      </button>
+
+      <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+        {{staticText.cancel}}
+      </button>
+
+    </div>
+
+  </form>
+</div>

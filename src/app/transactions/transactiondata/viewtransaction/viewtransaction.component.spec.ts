@@ -1,24 +1,28 @@
-import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductDataComponent } from './productdata.component';
+import { viewTransactionComponent } from './viewtransaction.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
-xdescribe('ProductDataComponent', () => {
-  let component: ProductDataComponent;
-  let fixture: ComponentFixture<ProductDataComponent>;
+
+describe('viewTransactionComponent', () => {
+  let component: viewTransactionComponent;
+  let fixture: ComponentFixture<viewTransactionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[HttpClientModule,
+        BrowserAnimationsModule, 
         FormsModule,
         ReactiveFormsModule,
-        MatSelectModule,
+        RouterTestingModule,
+        MatDialogModule,
         TranslateModule.forRoot()],
-      declarations: [ ProductDataComponent ],
+      declarations: [ viewTransactionComponent  ],
       providers:[
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }]
@@ -27,7 +31,7 @@ xdescribe('ProductDataComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductDataComponent);
+    fixture = TestBed.createComponent(viewTransactionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

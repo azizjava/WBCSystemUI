@@ -230,7 +230,7 @@
   justify-content: space-between;
   min-width: 0;
   flex-grow: 1;
-  min-height: calc(100vh - 3.6rem);
+  min-height: calc(100vh - 3.75rem);
   margin-left: -225px;
 }
 
@@ -285,7 +285,7 @@
   overflow-y: auto;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-  padding-left: 225px;
+  padding-left: 215px;
   top: 56px;
   background-color: #FFFFFF;
 }

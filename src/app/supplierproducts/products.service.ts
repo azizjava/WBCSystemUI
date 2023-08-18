@@ -8,11 +8,11 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class SupplierProductsService {  
+export class ProductsService {  
   public baseURL : string;
 
   constructor(private http: HttpClient, backend: HttpBackend) {
-    this.baseURL = environment.baseURL +'/supplierProduct';
+    this.baseURL = environment.baseURL +'/product';
   }
    
   getAllProducts(): Observable<Product[]> {
@@ -28,7 +28,11 @@ export class SupplierProductsService {
     return this.http
       .post(`${this.baseURL}/create`, data);     
   }
- 
+
+  getAllProductsWithCode(): Observable<string[]> {
+    return this.http
+      .get<string[]>(`${this.baseURL}/listall/codeandname`);      
+  }
 
   updateProduct(data: Product): Observable<any> {
     return this.http.put(`${this.baseURL}/update/`, data);

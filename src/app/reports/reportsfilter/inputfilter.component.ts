@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -7,9 +7,21 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
-import { modelDialog, PrintLayout } from 'src/app/models';
+import { modelDialog, ReportFormat } from 'src/app/models';
 import { AlertService } from 'src/app/services';
 import { LayoutSetupComponent } from '../layoutsetup/layoutsetup.component';
+import { ClientTemplateComponent } from '../clienttemplate/clienttemplate.component';
+import { ReportsService } from '../reports.service';
+import { DomSanitizer } from '@angular/platform-browser';
+
+@Pipe({ name: "safeHtml" })
+export class SafeHtmlPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  transform(value: any) {
+    return this.sanitizer.bypassSecurityTrustHtml(value);
+  }
+}
 
 @Component({
   selector: 'app-reportsinputfilter',
@@ -25,7 +37,11 @@ export class InputFilterComponent implements OnInit {
   public color: ThemePalette = 'primary';
   public staticText: any = {};
   public reportType: any = [];
-  public selectedReportType: string = '1';
+  public userLanguages: any = [];
+  public selectedReportType: string = '';
+  public selectedLang: string = 'en';
+  public menuOption: any = [];
+  public canEnableDownload:boolean = false;
 
   public adminddlControl = new FormControl('');
   public transactionddlControl = new FormControl('');
@@ -35,22 +51,37 @@ export class InputFilterComponent implements OnInit {
   filteredTransactionReportsOptions: Observable<any[]>;
   public fromDateControl = new FormControl(new Date(Date.now() - 86400000 * 2));
   public toDateControl = new FormControl(moment().toDate());
-
-  layooutSettingData: PrintLayout[];
+  public htmlResponse :any ;
 
   constructor(
     private translate: TranslateService,
     private alertService: AlertService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private httpService: ReportsService
   ) {}
 
   ngOnInit(): void {
     this.reportType = [
-      { name: 'admin', value: '1', checked: true },
-      { name: 'transaction', value: '2', checked: false },
+      { name: 'admin', value: 'admin', checked: true },
+      { name: 'transaction', value: 'transaction', checked: false },
     ];
-    this.adminReportOptions =  GlobalConstants.commonFunction.getAdminReportsOption();
-    this.transactionReportOptions = GlobalConstants.commonFunction.getTransactionReportsOption();
+    this.menuOption = [
+      { name: 'PDF', value: 'pdf' },
+      { name: 'HTM', value: 'htm' },
+      { name: 'XLSX', value: 'xlsx' },
+      { name: 'CSV', value: 'csv' },
+    ];
+    this.userLanguages = GlobalConstants.commonFunction
+      .getUserLanguages()
+      .map((e) =>
+        Object.assign(e, { checked: e.key === this.translate.currentLang })
+      );
+    this.selectedLang = this.translate.currentLang;
+    this.selectedReportType = this.reportType[0].value;
+    this.adminReportOptions =
+      GlobalConstants.commonFunction.getAdminReportsOption();
+    this.transactionReportOptions =
+      GlobalConstants.commonFunction.getTransactionReportsOption();
     this.filteredAdminReportsOptions = this.adminddlControl.valueChanges.pipe(
       startWith(''),
       map((value: any) => this._filter(this.adminReportOptions, value || ''))
@@ -64,12 +95,14 @@ export class InputFilterComponent implements OnInit {
         )
       );
 
-    this._fetchLayoutSettings();
+    this.adminddlControl.valueChanges.subscribe((value: any) => {
+      this.canEnableDownload = value !== '' ? true : false;
+    });
   }
 
   private _filter(list: any[], value: string): any[] {
     const filterValue = value.toLowerCase();
-
+    this.canEnableDownload = value !== '' ? true : false;
     return list.filter((option: any) =>
       option.value.toLowerCase().includes(filterValue)
     );
@@ -83,26 +116,44 @@ export class InputFilterComponent implements OnInit {
     this.selectedReportType = event.value;
   }
 
+  public onLangChange(event: MatRadioChange) {
+    this.selectedLang = event.value;
+  }
+
   public openSettings(): void {
     const dialogData = {
       headerText: 'Information',
-      data: this.layooutSettingData,
+      data: '',
       actionName: '',
     };
     this.openDialog(dialogData);
   }
 
-  public fetchReports(): void {
-    const fromDateControl = this.fromDateControl.value;
-    const toDateControl = this.toDateControl.value;
-    const selectedReportType = this.selectedReportType;
+  public openClientSettings(): void {
+    const dialogData = {
+      headerText: 'Information',
+      data: '',
+      actionName: '',
+    };
+    this.openClientDialog(dialogData);
+  }
+
+  public fetchReports(downloadFormat: string): void {
+    const startDate = this.fromDateControl.value?.getTime().toString() || '';
+    const endDate = this.toDateControl.value?.getTime().toString() || '';
     const reportName =
-      this.selectedReportType === '1'
+      this.selectedReportType === 'admin'
         ? this.adminddlControl.value
         : this.transactionddlControl.value;
-    console.log(
-      `fromDate  : ${fromDateControl} , toDate  : ${toDateControl} , ReportType : ${selectedReportType} , reportName : ${reportName} ,`
-    );
+    const format: ReportFormat = {
+      startDate: startDate,
+      endDate: endDate,
+      locale: this.selectedLang,
+      reportName: reportName?.toLocaleLowerCase().replace(/ +/g, '') || '',
+      fileFormat: downloadFormat,
+      reportType: this.selectedReportType,
+    };
+    this._getReportData(format);
   }
 
   private openDialog(dialogData: modelDialog): void {
@@ -112,122 +163,63 @@ export class InputFilterComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.panelClass = 'custom-dialog';
+    dialogConfig.panelClass = 'custom-dialog-type';
 
     const dialogRef = this.matDialog.open(LayoutSetupComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.layooutSettingData = result;
         this.alertService.success(` updated successfully`);
       }
     });
   }
 
-  private _fetchLayoutSettings(): any {
-    const printLayoutData: PrintLayout[] = [
-      {
-        fieldName: 'Transaction No',
-        disabled: false,
-        engLabelName: 'Transaction No Eng',
-        ArabicLabelName: 'Transaction No Ara',
-      },
-      {
-        fieldName: 'Vehicle No',
-        disabled: true,
-        engLabelName: 'Vehicle No Eng',
-        ArabicLabelName: 'Vehicle No Ara',
-      },
-      {
-        fieldName: 'Vehicle Type',
-        disabled: false,
-        engLabelName: 'Vehicle Type Eng',
-        ArabicLabelName: 'Vehicle Type Ara',
-      },
-      {
-        fieldName: 'Transporter Code',
-        disabled: false,
-        engLabelName: 'Transporter Code Eng',
-        ArabicLabelName: 'Transporter Code Ara',
-      },
-      {
-        fieldName: 'Transporter Name',
-        disabled: true,
-        engLabelName: 'Transporter Name Eng',
-        ArabicLabelName: 'Transporter Name Ara',
-      },
-      {
-        fieldName: 'Product Code',
-        disabled: false,
-        engLabelName: 'Product Code Eng',
-        ArabicLabelName: 'Product Code Ara',
-      },
-      {
-        fieldName: 'Product Name',
-        disabled: false,
-        engLabelName: 'Product Name Eng',
-        ArabicLabelName: 'Product Name Ara',
-      },
+  private openClientDialog(dialogData: modelDialog): void {
+    const dialogConfig = new MatDialogConfig();
 
-      {
-        fieldName: 'Transaction No',
-        disabled: false,
-        engLabelName: 'Transaction No Eng',
-        ArabicLabelName: 'Transaction No Ara',
-      },
-      {
-        fieldName: 'Vehicle No',
-        disabled: false,
-        engLabelName: 'Vehicle No Eng',
-        ArabicLabelName: 'Vehicle No Ara',
-      },
-      {
-        fieldName: 'Vehicle Type',
-        disabled: false,
-        engLabelName: 'Vehicle Type Eng',
-        ArabicLabelName: 'Vehicle Type Ara',
-      },
-      {
-        fieldName: 'Transporter Code',
-        disabled: false,
-        engLabelName: 'Transporter Code Eng',
-        ArabicLabelName: 'Transporter Code Ara',
-      },
-      {
-        fieldName: 'Transporter Name',
-        disabled: false,
-        engLabelName: 'Transporter Name Eng',
-        ArabicLabelName: 'Transporter Name Ara',
-      },
-      {
-        fieldName: 'Product Code',
-        disabled: false,
-        engLabelName: 'Product Code Eng',
-        ArabicLabelName: 'Product Code Ara',
-      },
-      {
-        fieldName: 'Product Name',
-        disabled: false,
-        engLabelName: 'Product Name Eng',
-        ArabicLabelName: 'Product Name Ara',
-      },
+    dialogConfig.data = dialogData;
 
-      {
-        fieldName: 'Transaction No',
-        disabled: false,
-        engLabelName: 'Transaction No Eng',
-        ArabicLabelName: 'Transaction No Ara',
-      },
-      {
-        fieldName: 'Vehicle No',
-        disabled: true,
-        engLabelName: 'Vehicle No Eng',
-        ArabicLabelName: 'Vehicle No Ara',
-      },
-      
-    ];
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'custom-dialog';
 
-    this.layooutSettingData = printLayoutData;
+    const dialogRef = this.matDialog.open(
+      ClientTemplateComponent,
+      dialogConfig
+    );
 
+    dialogRef.afterClosed().subscribe((result) => {});
+  }
+
+  private _getReportData(data: ReportFormat): void {
+    this.httpService.findReport(data).subscribe({
+      next: (response: any) => {
+        if (response) {
+          this._downloadFileData(response, data);
+        }
+      },
+      error: (error: any) => {
+        if (error.status === 200) {
+          this._downloadFileData(error.text, data);
+        } else {
+          this.alertService.error(error);
+        }
+      },
+    });
+  }
+
+  private _downloadFileData(content: any, data: ReportFormat) {
+    this.htmlResponse = null;
+    if (data.fileFormat === 'pdf' || data.fileFormat === 'xlsx' || data.fileFormat === 'csv') {
+      const blob = new Blob([content]);
+      var downloadURL = window.URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = `${data.locale}_${data.reportType}_${data.reportName}.${data.fileFormat}`;
+      link.click();
+    }
+    else if (data.fileFormat === 'htm' ) {
+      this.htmlResponse =content;
+    }
   }
 }

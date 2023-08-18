@@ -9,13 +9,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
-import { InputFilterComponent } from './reportsfilter/inputfilter.component';
+import { InputFilterComponent, SafeHtmlPipe } from './reportsfilter/inputfilter.component';
 import {
   NgxMatDatetimePickerModule, 
   NgxMatNativeDateModule, 
   NgxMatTimepickerModule 
 } from '@angular-material-components/datetime-picker';
 import { LayoutSetupComponent } from './layoutsetup/layoutsetup.component';
+import { ClientTemplateComponent } from './clienttemplate/clienttemplate.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
@@ -28,7 +29,9 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     ReportsComponent,
     InputFilterComponent,
-    LayoutSetupComponent
+    LayoutSetupComponent,
+    ClientTemplateComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,

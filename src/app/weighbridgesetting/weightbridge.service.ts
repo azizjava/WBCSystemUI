@@ -46,4 +46,8 @@ export class WeightBridgeService {
   deleteAllDevices(): Observable<any> {
     return this.http.delete(`${this.baseURL}/deleteAll`);
   }
+
+  // getFirstWeight(): Observable<any>  {
+  //   return this.http.get("/device");
+  // }
 }

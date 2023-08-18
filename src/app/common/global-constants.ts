@@ -83,20 +83,19 @@ export class GlobalConstants {
           menuIcon: '',
           routePath: 'transporters',
         },
-        { menuName: 'CustomerProduct', menuIcon: '', routePath: 'customerproducts' },
-        { menuName: 'SupplierProduct', menuIcon: '', routePath: 'supplierproducts' },
+        { menuName: 'Product', menuIcon: '', routePath: 'products' },
         {
           menuName: 'Vehicles',
-          menuIcon: 'local_shipping',
+          menuIcon: 'fa fa-truck',
           routePath: 'vehicles',
         },
         {
           menuName: 'Nationality',
-          menuIcon: '',
+          menuIcon: 'fa fa-flag',
           routePath: 'nationality',
         },
-        { menuName: 'WeighBridgeSetting', menuIcon: 'settings' , routePath: 'weighbridgesetting'},
-        { menuName: 'Reports', menuIcon: 'analytics' , routePath: 'reports'},
+        { menuName: 'WeighBridgeSetting', menuIcon: 'fa fa-cog' , routePath: 'weighbridgesetting'},
+        { menuName: 'Reports', menuIcon: 'fa fa-signal' , routePath: 'reports'},
       ];
     },
     getCurrentYear(): number {
@@ -157,8 +156,8 @@ export class GlobalConstants {
 
     getGoodsOption(): any[] {
       let menu = [
-        { key: 'incoming', value: 'Incoming Goods' },
-        { key: 'outgoing', value: 'Outgoing Goods' },
+        { key: 'INCOMING_GOODS', value: 'Incoming Goods' },
+        { key: 'OUTGOING_GOODS', value: 'Outgoing Goods' },
       ];
       return menu;
     },

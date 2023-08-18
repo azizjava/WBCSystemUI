@@ -1,68 +1,98 @@
-<div class="layout-component">
+<div class="card-group">
+  <div class ="col-6" *ngFor="let layout of cardLayout ; trackBy:trackByFn" >
 
-  <div cdkDropListGroup>
-    <div class="example-container">
-      <div class ="d-flex justify-content-center">
-        <h2>{{'reports.layout.header' | translate }}</h2>
-      </div>
+    <div class="card">
 
-      <div class="box-header">
-        <div class="row">
-          <div class="col">
-            {{'reports.layout.filedname' | translate }}
-          </div>
-          <div class="col d-none d-md-block">
-            {{'reports.layout.include' | translate }}
-          </div>
-          <div class="col d-none d-md-block">
-            {{'reports.layout.labelname' | translate }}
-          </div>         
-          <div class="col d-none d-md-block">
-            {{'reports.layout.arabiclable' | translate }}
-          </div>
-        </div>
-      </div>
-
-      <div cdkDropList [cdkDropListData]="LayoutData" class="example-list" 
-        (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of LayoutData" cdkDrag>
-
-          <div class="row">
-            <div class="col">
-              {{item.fieldName}}
-            </div>
-            <div class="col d-none d-md-block">
-              <mat-checkbox class="example-margin" [(ngModel)]="item.disabled" [disabled]="true">
-              </mat-checkbox>
-            </div>
-            <div class="col d-none d-md-block">
-              {{item.engLabelName}}
-            </div>
-            <div class="col d-none d-md-block">
-              {{item.ArabicLabelName}}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="card-header">
+      {{getHeaderName(layout[0]) }}
     </div>
 
+    <div class="tblheader">
 
-  </div>
+      <mat-label style="width: 25%;">{{'reports.layout.englable'|  translate }}</mat-label>
 
+      <mat-label>{{'reports.layout.arabiclable'|  translate }}</mat-label>
   
+      <mat-label>{{'reports.layout.enabled'|  translate }}</mat-label>
+  
+    </div>
+ 
+    <div class="card-body card-body-scorll">
 
+      <ng-container *ngIf="layout[layout.length-1]">
+        <div class="card-text" *ngFor="let data of layout[1] ; let i=index">        
+                    
+            <div class="col d-flex justify-content-between">
 
-  <div class="d-flex justify-content-between w-100">
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.displayLabel}}</mat-label>
+                <input matInput placeholder="{{data.enValue}}" [(ngModel)]="data.enValue" (change)="valueChange(data.enValue, data, 'en', layout[0])" />
+              </mat-form-field>
 
-    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
-      mat-button (click)="save()">
-      {{'actions.save' | translate }}
-    </button>
+              <div style="margin-inline: .25rem;"></div>
 
-    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
-      {{'actions.cancel' | translate }}
-    </button>
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.displayLabel}}</mat-label>
+                <input matInput placeholder="{{data.arValue}}" [(ngModel)]="data.arValue" (change)="valueChange(data.arValue, data, 'ar', layout[0])" />
+              </mat-form-field>
+          
+              <mat-checkbox class="example-margin" style="margin-top : .9rem" (change)="valueChange($event, data, 'en', layout[0])"
+              [checked]="data.isEnabled"></mat-checkbox>
+          
+            </div>
+         
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="!layout[layout.length-1]">
+        <div class="card-text" *ngFor="let data of layout[1]; let i=index">
+
+          <div class="col d-flex justify-content-between">     
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.displayLabel}}</mat-label>
+                <input matInput placeholder="{{data.enValue}}" [(ngModel)]="data.enValue" readonly
+                  [disabled]="true" />
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" style="width: 43%;">
+                <mat-label>{{data.displayLabel}}</mat-label>
+                <input matInput placeholder="{{data.arValue}}" [(ngModel)]="data.arValue"  readonly
+                  [disabled]="true" />
+              </mat-form-field>
+          
+              <mat-checkbox class="example-margin" style="margin-top : 1rem"
+              disabled [checked]="data.isEnabled"></mat-checkbox>
+          
+            </div>
+         
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="card-footer">
+
+      <div class="d-flex justify-content-end" *ngIf="!layout[layout.length-1]">
+        <button mat-icon-button class="iconbutton" color="primary">
+          <mat-icon aria-label="Edit" (click)="layout[layout.length-1] =!layout[layout.length-1]">edit</mat-icon>
+        </button>
+      </div>
+
+      <div class="d-flex justify-content-between" *ngIf="layout[layout.length-1]">
+        <button mat-icon-button class="iconbutton" color="primary">
+          <mat-icon aria-label="Edit" (click)="save(layout)">save</mat-icon>
+        </button>
+        <button mat-icon-button class="iconbutton" color="primary">
+          <mat-icon aria-label="Edit" (click)="cancel(layout)">cancel</mat-icon>
+        </button>
+      </div>
+
+    </div>
 
   </div>
+
+  </div>
+
 
 </div>

@@ -13,9 +13,10 @@
 		"save":"يحفظ",
 		"cancel":"يلغي",
 		"print":"مطبعة",
-		"add":"Add",
+		"add":"يضيف",
 		"updateprofile":"تحديث الملف الشخصي",
-		"reset":"إعادة ضبط"
+		"reset":"إعادة ضبط",
+		"printall":"طباعة الكل"
 	},
 	"actiontooltip":{
 		"add":"انقر للإضافة",
@@ -73,7 +74,7 @@
 		"Supplier": "المورد",
 		"Transporters": "الناقل",
 		"CustomerProduct": "منتج العميل",
-		"SupplierProduct": "منتج المورد",
+		"Product": "منتج",
 		"Vehicles": "مركبة",
 		"Operator": "المشغل أو العامل",
 		"Nationality": "جنسية",
@@ -109,7 +110,7 @@
 	"transporters":{		
 		"tbl_header":{
 			"transportercode":"شفرة",
-			"nameoftransporter":"اسم",
+			"transportername":"اسم",
 			"contactperson":"الشخص الذي يمكن الاتصال به",
 			"mobileno":"رقم الموبايل",
 			"telephoneno":"الهاتف لا",
@@ -122,10 +123,10 @@
 		"tbl_header":{
 			"productcode":"كود المنتج",
 			"productname":"اسم المنتج",
-			"productprice":"سعر المنتج / طن",
-			"productgroupname":"مجموعة المنتجات",
-			"actions":"عمل",
-			"selectgroup":"حدد مجموعة المنتجات"
+			"supplierprice":"سعر المورد",
+			"customerprice":"سعر العميل",
+			"productstock":"مخزون المنتج",
+			"actions":"عمل"
 		}
 	},
 	"productgroups":{
@@ -162,14 +163,14 @@
 	},
 	"productprices":{
 		"tbl_header":{
-			"code":"Code 1",
-			"name":"Name",
-			"contactPerson":"Contact Person",
-			"mobileNo":"Mobile No",
-			"telephoneNo":"Telephone No",
-			"fax":"Fax",
-			"address":"Address",
-			"action":"Action"
+			"code":"شفرة",
+			"name":"اسم",
+			"contactPerson":"الشخص الذي يمكن الاتصال به",
+			"mobileNo":"رقم المحمول",
+			"telephoneNo":"الهاتف لا",
+			"fax":"فاكس",
+			"address":"عنوان",
+			"action":"فعل"
 		}
 	},
 	"transactions":{
@@ -182,11 +183,12 @@
 		},
 		"tbl_header":{
 			"sequenceno":"رقم التسلسل",
-			"transactionstatus":"حالة عملية",
-			"entrydateandtime":"تاريخ الدخول والوقت",
-			"entryloginusername":"ادخل اسم المستخدم",
-			"vehicleplateno":"لوحة لا",
-			"transportercode":"كود الناقل",
+			"txstatus":"حالة عملية",
+			"entrydatetime":"تاريخ الدخول والوقت",
+			"entrylogin":"ادخل اسم المستخدم",
+			"vehicle":"رقم اللوحة / رمز الناقل",
+			"supplier":"كود العميل / كود المورد",
+			"product":"كود المنتج",
 			"actions":"عمل"
 		},
 		"data":{
@@ -198,10 +200,12 @@
 				"timein":"حان الوقت",
 				"sequenceno":"تسلسل لا",
 				"firstweight":"الوزن الأول",
-				"vehicleno":"رقم لوحة المركبة",
+				"vehicleno":"رقم اللوحة / رمز الناقل / الاسم",
 				"addvehicle":"إضافة مركبة جديدة",
-				"transporter":"كود الناقل",
+				"adddriver":"أضف سائق",
+				"transporter":"رمز الناقل / الاسم",
 				"transportername":"اسم الناقل",
+				"supplierinfo":"رمز المورد / الاسم",
 				"supplier":"المورد",
 				"suppliername":"اسم المورد",
 				"suppliercode":"كود المورد",
@@ -210,8 +214,10 @@
 				"customername":"اسم الزبون",
 				"customercode":"كود العميل",
 				"addcustomer":"إضافة عميل جديد",
-				"product":"منتج",
-				"licenceno":"رقم رخصة القيادة",
+				"product":"رمز المنتج / الاسم",
+				"driverinfo":"معلومات السائق",
+				"driverinfotooltip":"رقم الرخصة / الاسم / الجنسية",
+				"licenseNo":"رقم رخصة القيادة",
 				"drivername":"اسم السائق",
 				"nationality":"جنسية",
 				"pieces":"لا القطع",
@@ -219,7 +225,10 @@
 				"value":"قيمة",
 				"addkeyvalues":"أضف قيمة المفتاح",
 				"emptykeyvalue":"يرجى ملء جميع قيم زوج القيمة الرئيسية",
-				"instructions":"أضف تعليمات / تعليقات"
+				"instructions":"تعليمات التسليم / التعليقات",
+				"goodstype":"نوع البضائع",
+				"datetime":"التاريخ والوقت",
+				"vehicleinfo":"معلومات السيارة"
 			},
 			"exit":{
 				"header" :"مخرج",
@@ -239,7 +248,10 @@
 				"addkeyvalues":"أضف قيمة المفتاح",
 				"emptykeyvalue":"يرجى ملء جميع قيم زوج القيمة الرئيسية",
 				"instructions":"تعليمات التسليم / التعليقات",
-				"loginusername":"ادخل اسم المستخدم"
+				"loginusername":"ادخل اسم المستخدم",
+				"datetime":"خارج التاريخ والوقت",
+				"scale":"مقياس الوزن",
+				"nodata":"لم يتم العثور على بيانات الخروج"
 			}
 		}		
 	},
@@ -289,15 +301,38 @@
 			"startdate": "اختر تاريخ البدء",
 			"enddate": "اختر تاريخ الانتهاء",
 			"search" :"بحث",
-			"printlayout" :"إعداد تخطيط الطباعة"
+			"printlayout" :"إعداد تخطيط الطباعة",
+			"createtemplate" :"نموذج التقارير",
+			"language" :"لغة",
+			"pdf":"بي دي إف",
+			"htm":"HTM",
+			"xlsx" : "XLSX",
+			"csv" :"CSV",
+			"reportformat" :"شكل التقرير"
 		},
 		"layout":{
 			"header":"إعداد تخطيط طباعة التذاكر",
 			"filedname" :"اسم الحقل",
 			"include":"يشمل",
 			"labelname":"اسم الطابع",
-			"englable":"اسم التسمية باللغة الإنجليزية",
-			"arabiclable":"اسم التسمية باللغة العربية"
+			"englable":"إنجليزي",
+			"arabiclable":"عربي",
+			"enabled":"ممكن"
+		},		
+		"clienttemplate":{
+			"companyname":"اسم الشركة",
+			"email": "بريد إلكتروني",
+			"phoneno":"رقم الهاتف",
+			"zipcode":"الرمز البريدي",
+			"city":"مدينة",
+			"address":"عنوان",
+			"templatetype":"نوع النموذج",
+			"companylogo":"شعار الشركة",
+			"plain":"سهل",
+			"header":"رأس",
+			"logo":"صورة",
+			"image":"صورة",
+			"url":"عنوان"	
 		}
 	}	
 }

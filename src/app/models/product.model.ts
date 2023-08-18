@@ -2,7 +2,9 @@ export class Product {
     // public Id: string;
     public productCode:string;
     public productName: string;
-    public productPrice: string;
+    public customerPrice: string;
+    public productStock: string;
+    public supplierPrice: string;
   }
 
   export class ProductGroup {

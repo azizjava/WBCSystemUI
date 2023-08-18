@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -6,17 +6,16 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common';
-import { CustomerProductsService } from 'src/app/customerproducts/customerproducts.service';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
-import { modelDialog, Product, Transporter } from 'src/app/models';
+import { Product } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
-import { SupplierProductsService } from 'src/app/supplierproducts/products.service';
+import { ProductsService } from 'src/app/supplierproducts/products.service';
 import { TransactionsService } from '../../transactions.service';
 
 @Component({
   selector: 'app-transactionexitdata',
-  templateUrl: './exitData.component.html',
-  styleUrls: ['./exitData.component.scss'],
+  templateUrl: './exitdata.component.html',
+  styleUrls: ['./exitdata.component.scss'],
 })
 export class exitDataComponent implements OnInit, OnChanges {
 
@@ -35,6 +34,28 @@ export class exitDataComponent implements OnInit, OnChanges {
   nationalityList: any = [];
   keyValueData: any = [];
   emptyKeyValue: boolean = false;
+  isPrintActive:boolean =false
+
+  @ViewChild('video5') videoElement5: ElementRef<HTMLVideoElement>;
+  @ViewChild('video6') videoElement6: ElementRef<HTMLVideoElement>;
+  @ViewChild('video7') videoElement7: ElementRef<HTMLVideoElement>;
+  @ViewChild('video8') videoElement8: ElementRef<HTMLVideoElement>;
+
+  @ViewChild('snap5') snap5: ElementRef<HTMLImageElement>;
+  @ViewChild('snap6') snap6: ElementRef<HTMLImageElement>;
+  @ViewChild('snap7') snap7: ElementRef<HTMLImageElement>;
+  @ViewChild('snap8') snap8: ElementRef<HTMLImageElement>;
+
+  @Output() hideSnap5: boolean = true;
+  @Output() hideSnap6: boolean = true;
+  @Output() hideSnap7: boolean = true;
+  @Output() hideSnap8: boolean = true;
+
+  video5: HTMLVideoElement;
+  video6: HTMLVideoElement;
+  video7: HTMLVideoElement;
+  video8: HTMLVideoElement;
+  canvas: HTMLCanvasElement;
 
   constructor(
     private httpService: TransactionsService,
@@ -43,9 +64,9 @@ export class exitDataComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService,
-    private custProductService: CustomerProductsService,
-    private suppProductService: SupplierProductsService,
+    private productService: ProductsService,
     private zone: NgZone,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +75,10 @@ export class exitDataComponent implements OnInit, OnChanges {
         value:this.sequenceno ?? 0,
         disabled: true,
       } ],
-      secondWeight: ['', [Validators.required, Validators.maxLength(50)]],
+      secondWeight: [{
+        value: '',
+        disabled: true,
+      }, [Validators.required, Validators.maxLength(50)]],
       dateOut: [
         {
           value: GlobalConstants.commonFunction.getFormattedDate(),
@@ -107,6 +131,44 @@ export class exitDataComponent implements OnInit, OnChanges {
         }, 1000);
       }
     });
+
+
+    navigator.mediaDevices.enumerateDevices()
+      .then(devices => {        
+          let videoDevices = devices.filter(function(device) {
+            return device.kind === 'videoinput';
+          });
+          videoDevices.forEach((device, index) => {
+            navigator.mediaDevices.getUserMedia({
+              video: { deviceId: device.deviceId }
+            })
+            .then((stream) => {
+              switch (index) {
+                case 0:                  
+                  this.videoElement5.nativeElement.srcObject = stream;
+                  this.videoElement5.nativeElement.play();
+                  break;
+                case 1:                  
+                  this.videoElement6.nativeElement.srcObject = stream;
+                  this.videoElement6.nativeElement.play();
+                  break;
+                case 2:
+                  this.videoElement7.nativeElement.srcObject = stream;
+                  this.videoElement7.nativeElement.play();
+                  break;
+                case 3:
+                  this.videoElement8.nativeElement.srcObject = stream;
+                  this.videoElement8.nativeElement.play();
+                  break;              
+                default:
+                  break;
+              }
+            })
+            .catch(error => { console.error('Error getting video stream:', error); });
+          });
+        }  
+      )
+      .catch(error => { console.error('Error getting video stream:', error); });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -120,8 +182,94 @@ export class exitDataComponent implements OnInit, OnChanges {
     }
   }
 
+  @HostListener("window:beforeprint", ["$event"])
+  onBeforePrint() {
+    this.cdr.detectChanges();
+  }
+
   public printLayout(): void {
+    this.isPrintActive = true;
     window.print();
+    this.isPrintActive = false;
+  }
+
+ public reset() {
+  this.exitForm.markAsPristine();
+  this.exitForm.markAsUntouched();
+  this.exitForm.reset();
+  this.exitForm.controls['loginUserName'].setValue(
+    this.authenticationService.currentUserValue.userName
+  );
+  this.exitForm.controls['role'].setValue(
+    this.authenticationService.currentUserValue.role
+  );
+  this.exitForm.controls['dateOut'].setValue(
+    GlobalConstants.commonFunction.getFormattedDate()
+  );
+  this.exitForm.controls['timeOut'].setValue(
+    GlobalConstants.commonFunction.getFormattedTime()
+  );
+}
+
+ capture(cameraNumber:number)
+ {
+   let tmpCanvas = document.createElement('canvas');
+   tmpCanvas.width = 1024;
+   tmpCanvas.height = 768;
+   let ctx: CanvasRenderingContext2D | null;
+   if(!( ctx = tmpCanvas.getContext("2d")))
+   {
+     throw new Error(`2d context not supported or canvas already initialized`);
+   }
+   
+   switch (cameraNumber) {      
+     case 5: 
+       ctx.drawImage(this.videoElement5.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);
+       this.snap5.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap5 = false;
+       break;
+     case 6:         
+       ctx.drawImage(this.videoElement6.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap6.nativeElement.src = tmpCanvas.toDataURL();   
+       this.hideSnap6 = false;
+       break;
+     case 7:
+       ctx.drawImage(this.videoElement7.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap7.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap7 = false;
+       break;
+     case 8:
+       ctx.drawImage(this.videoElement8.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+       this.snap8.nativeElement.src = tmpCanvas.toDataURL();
+       this.hideSnap8 = false;
+       break;
+     default:
+       break;      
+   }  
+ }
+
+ clearsnap(cameraNumber:number)
+ {
+   switch (cameraNumber) {      
+     case 5:          
+       this.snap5.nativeElement.src = "";
+       this.hideSnap5 = true;
+       break;
+     case 6:   
+       this.snap6.nativeElement.src = "";   
+       this.hideSnap6 = true;
+       break;
+     case 7:
+       this.snap7.nativeElement.src = "";
+       this.hideSnap7 = true;
+       break;
+     case 8: 
+       this.snap8.nativeElement.src = "";
+       this.hideSnap8 = true;        
+       break;
+     default:
+       break;      
+   }  
  }
 
  save() {
@@ -133,6 +281,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   const result = this.exitForm.value;
 
   const newRecord = {
+    dailyTransactionEntry:this.transactionData.dailyTransactionEntry,
     dailyTransactionExit: {
       deductWeight: result.deductWeight,
       deliveryNoteNo: result.deliveryNoteNo,
@@ -149,13 +298,45 @@ export class exitDataComponent implements OnInit, OnChanges {
       pricePerTon: result.priceTons,
       totalPrice: result.totalPrice,     
     },
-    dailyTransactionEntry:this.transactionData.dailyTransactionEntry,
     sequenceNo: this.sequenceno,
-    transactionStatus: 'Exit Completed',
+    dailyTransactionStatus: 'TX_COMPLETED',
   };
 
+  var formData: any = new FormData();
+    
+  formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
 
-  this.httpService.updateTransaction(newRecord).subscribe({
+  if(this.snap5.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap5.nativeElement.src);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file5."+ext : "";
+    formData.append('file', url, fileName ?? "");
+  
+  }
+
+  if(this.snap6.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap6.nativeElement.src);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file6."+ext : "";
+    formData.append('file', url, fileName ?? "");
+  }
+
+  if(this.snap7.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap7.nativeElement.src);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file7."+ext : "";
+    formData.append('file', url, fileName ?? "");
+  }
+
+  if(this.snap8.nativeElement.src) {    
+    const url = this.converterDataURItoBlob(this.snap8.nativeElement.src);
+    const ext = this.getFileExtension(url.type);
+    const fileName = ext ? "file8."+ext : "";
+    formData.append('file', url, fileName ?? "");
+  }
+
+
+  this.httpService.updateTransaction(formData).subscribe({
     next: (result) => {
       this.alertService.success(
         `${result.sequenceNo} updated successfully`
@@ -252,9 +433,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   }
 
   private _getAllProducts() {
-    if (this.transactionData.dailyTransactionEntry.goodsType === 'incoming') {
-
-      this.suppProductService.getAllProducts().subscribe({
+      this.productService.getAllProducts().subscribe({
         next: (data: Product[]) => {          
           this._priceTons(data);   
         },
@@ -262,24 +441,52 @@ export class exitDataComponent implements OnInit, OnChanges {
           console.log(error);
           this.alertService.error(error);
         },
-      });
-  
-    }
-    else{
-      this.custProductService.getAllProducts().subscribe({
-        next: (data: Product[]) => {          
-          this._priceTons(data);         
-        },
-        error: (error) => {
-          console.log(error);
-          this.alertService.error(error);
-        },
-      }); 
-    }      
+      });   
+        
   }
 
   private _priceTons(productsList :Product[]) {
-    const productPrice = productsList.find((p:Product) => p.productCode === this.transactionData.dailyTransactionEntry.productCode)?.productPrice || 0;
-    this.exitForm.controls['priceTons'].setValue(productPrice);
+    const productData = productsList.find(
+      (p:Product) =>
+        p.productCode === this.transactionData.dailyTransactionEntry.productCode
+    );
+    if (productData) {
+      const price =
+        this.transactionData.dailyTransactionEntry.goodsType === 'incoming'
+          ? productData.supplierPrice
+          : productData.customerPrice;
+      this.exitForm.controls['priceTons'].setValue(price);
+    }
+    
+  }
+
+  getFileExtension(type: string): string {
+    if(type.includes('/')){
+      const ext = type.split("/");
+      return ext?.length >0 ? ext[1] :"";
+    }
+  
+    return "";
+  }
+
+  private converterDataURItoBlob(dataURI: any) {
+    let byteString;
+    let mimeString;
+    let ia;
+
+    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = encodeURI(dataURI.split(',')[1]);
+    }
+    // separate out the mime component
+    mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ia], {type:mimeString});
   }
 }

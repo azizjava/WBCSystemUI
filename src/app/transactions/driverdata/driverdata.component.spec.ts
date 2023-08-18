@@ -1,30 +1,34 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { CustomerProductsComponent } from './customerproducts.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DriverDataComponent } from './driverdata.component';
 
 
-describe('CustomerProductsComponent', () => {
-  let component: CustomerProductsComponent;
-  let fixture: ComponentFixture<CustomerProductsComponent>;
+describe('DriverDataComponent', () => {
+  let component: DriverDataComponent;
+  let fixture: ComponentFixture<DriverDataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[HttpClientModule,       
+      imports:[HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        MatDialogModule,
         TranslateModule.forRoot()],
-      declarations: [ CustomerProductsComponent ],
+      declarations: [ DriverDataComponent ],
       providers:[
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialog, useValue: {} },
         { provide: MatDialogRef, useValue: {} }]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomerProductsComponent);
+    fixture = TestBed.createComponent(DriverDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

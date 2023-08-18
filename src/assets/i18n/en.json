@@ -15,7 +15,8 @@
 		"print":"Print",
 		"add":"Add",
 		"updateprofile":"Update Profile",
-		"reset":"Reset"
+		"reset":"Reset",
+		"printall":"Print All"
 	},
 	"actiontooltip":{
 		"add":"Click to Add",
@@ -72,8 +73,7 @@
 		"Customer": "Customer",
 		"Supplier": "Supplier",
 		"Transporters": "Transporter",
-		"CustomerProduct": "Customer Product",
-		"SupplierProduct": "Supplier Product",
+		"Product": "Product",
 		"Vehicles": "Vehicle",
 		"Operator": "Operator",
 		"Nationality": "Nationality",
@@ -109,7 +109,7 @@
 	"transporters":{
 		"tbl_header":{
 			"transportercode":"Transporter Code",
-			"nameoftransporter":"Name",
+			"transportername":"Name",
 			"contactperson":"Contact Person",
 			"mobileno":"Mobile No",
 			"telephoneno":"Telephone No",
@@ -122,10 +122,10 @@
 		"tbl_header":{
 			"productcode":"Product Code",
 			"productname":"Product Name",
-			"productprice":"Product Price/Ton",
-			"productgroupname":"Product Group",
-			"actions":"Actions",
-			"selectgroup":"Select Product group"
+			"supplierprice":"Supplier Price",
+			"customerprice":"Customer Price",
+			"productstock":"Product Stock",
+			"actions":"Actions"
 		}
 	},
 	"productgroups":{
@@ -181,12 +181,13 @@
 			"secondweight":"Second Weight"
 		},
 		"tbl_header":{
-			"sequenceno":"Sequence No.",
-			"transactionstatus":"Transaction Status",
-			"entrydateandtime":"Entry DateAndTime",
-			"entryloginusername":"Login User Name",
-			"vehicleplateno":"Plate No",
-			"transportercode":"Transporter Code",
+			"sequence":"Sequence No.",
+			"txstatus":"Transaction Status",
+			"entrydatetime":"Entry DateAndTime",
+			"entrylogin":"Login User Name",
+			"vehicle":"Plate No/Transporter Code",
+			"supplier":"Customer Code/Supplier Code",
+			"product":"Product Code",
 			"actions":"Action"
 		},
 		"data":{
@@ -198,10 +199,12 @@
 				"timein":"Time In",
 				"sequenceno":"Sequence No",
 				"firstweight":"First Weight",
-				"vehicleno":"Vehicle Plate No",
+				"vehicleno":"Plate No / Transporter code / Name",
 				"addvehicle":"Add New Vehicle",
-				"transporter":"Transporter Code",
+				"adddriver":"Add Driver",
+				"transporter":"Transporter Code / Name",
 				"transportername":"Transporter Name",
+				"supplierinfo":"Supplier Code / Name",
 				"supplier":"Supplier",
 				"suppliername":"Supplier Name",
 				"suppliercode":"Supplier Code",
@@ -210,8 +213,10 @@
 				"customername":"Customer Name",
 				"customercode":"Customer Code",
 				"addcustomer":"Add New Customer",
-				"product":"Product",
-				"licenceno":"Driver Licence No.",
+				"product":"Product Code / Name",
+				"driverinfo":"Driver Information",
+				"driverinfotooltip":"Licence No./ Name / Nationality",
+				"licenseNo":"Driver Licence No.",
 				"drivername":"Driver Name",
 				"nationality":"Nationality",
 				"pieces":"No.of Pieces",
@@ -219,7 +224,10 @@
 				"value":"Value",
 				"addkeyvalues":"Add Key Value",
 				"emptykeyvalue":"Please fill all key value pair values",
-				"instructions":"Add Instructions/Comments"
+				"instructions":"Delivery Instructions/Comments",
+				"goodstype":"Goods Type",
+				"datetime":"Date & Time",
+				"vehicleinfo":"Vehicle Information"
 			},
 			"exit":{
 				"header" :"Exit",
@@ -239,7 +247,10 @@
 				"addkeyvalues":"Add Key Value",
 				"emptykeyvalue":"Please fill all key value pair values",
 				"instructions":"Delivery Instructions/Comments",
-				"loginusername":"Login User Name"
+				"loginusername":"Login User Name",
+				"datetime":"Out Date & Time",
+				"scale":"Weight Scale",
+				"nodata":"No Exit data found"
 			}
 		}		
 	},
@@ -287,15 +298,38 @@
 			"startdate": "Choose Start Date",
 			"enddate": "Choose End Date",
 			"search" :"Search",
-			"printlayout" :"Print Layout Setup"
+			"printlayout" :"Print Layout Setup",
+			"createtemplate" :"Reporting Template",
+			"language" :"Language",
+			"pdf":"PDF",
+			"htm":"HTM",
+			"xlsx" : "XLSX",
+			"csv" :"CSV",
+			"reportformat" :"Report Format"
 		},
 		"layout":{
 			"header":"Ticket Print Layout Setup",
 			"filedname" :"Field Name",
 			"include":"Include",
 			"labelname":"Lable Name",
-			"englable":"Lable Name in English",
-			"arabiclable":"Lable Name in Arabic"
+			"englable":"English",
+			"arabiclable":"Arabic",
+			"enabled":"Enabled"
+		},
+		"clienttemplate":{
+			"companyname":"Company Name",
+			"email": "Email",
+			"phoneno":"Phone No",
+			"zipcode":"Zip code",
+			"city":"City",
+			"address":"Address",
+			"templatetype":"Template Type",
+			"companylogo":"Company Logo",
+			"plain":"Plain",
+			"header":"Header",
+			"logo":"Logo",
+			"image":"Image",
+			"url":"Url"	
 		}
 	}	
 }

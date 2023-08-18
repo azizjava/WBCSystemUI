@@ -21,9 +21,9 @@ export class CustomersService {
       .get<Customer[]>(`${this.baseURL}/listAllCustomer`);      
   }
 
-  getAllAllCustomerCodeAndName(): Observable<Customer[]> {
+  getAllAllCustomerCodeAndName(): Observable<string[]> {
     return this.http
-      .get<Customer[]>(`${this.baseURL}/listAllCustomerCodeAndName`);      
+      .get<string[]>(`${this.baseURL}/listall/codeandname`);
   }
 
   getCustomerById(id: any): Observable<Customer> {

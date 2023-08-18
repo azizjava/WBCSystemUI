@@ -1,6 +1,55 @@
 @import 'styles.scss';
 
-.layout-component {
+.card-body-scorll {
+  min-height: 150px;
+  max-height: 180px;
+  overflow-x: hidden;
+  @include scrollbars();
+}
+
+.card {
+  margin: .25rem;
+}
+
+.card-body {
+  padding: .75rem 0;
+}
+
+.card-text {
+  padding: .5rem;
+}
+
+.card-header {
+  padding: .5rem;
+  background-color: #3f51b5;
+  color: #fff;
+  text-align: center;
+}
+
+.card-footer {
+   padding: .35rem;
+}
+
+.mat-icon-button  {
+ height: 1.65rem;
+ width: 1.65rem;
+ line-height: 1.65rem;
+}
+
+.tblheader {
+  height: 2rem;
+  word-wrap: break-word;  
+  background-color: rgba(0,0,0,.03);
+  background-clip: border-box;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  padding-inline: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.layout-component { 
 
     .example-container {
         max-width: 100%;

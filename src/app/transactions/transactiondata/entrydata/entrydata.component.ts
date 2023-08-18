@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges, ElementRef, ViewChild, Output, EventEmitter, HostListener, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,18 +7,18 @@ import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
 import { CustomerdataComponent } from 'src/app/customer/customerdata/customerdata.component';
 import { CustomersService } from 'src/app/customer/Customers.service';
-import { CustomerProductsService } from 'src/app/customerproducts/customerproducts.service';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
-import { Customer, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
-import { NationalityService } from 'src/app/nationality/nationality.service';
+import { Customer, DriverInfo, modelDialog, Nationality, Product, Supplier, Transporter, Vehicle } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
-import { SupplierProductsService } from 'src/app/supplierproducts/products.service';
+import { ProductsService } from 'src/app/supplierproducts/products.service';
 import { SupplierdataComponent } from 'src/app/suppliers/supplierdata/supplierdata.component';
 import { SuppliersService } from 'src/app/suppliers/suppliers.service';
 import { TransportersService } from 'src/app/transporters/transporters.service';
 import { VehicleDataComponent } from 'src/app/vehicles/vehicledata/vehicledata.component';
 import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 import { TransactionsService } from '../../transactions.service';
+import { DriverDataComponent } from '../../driverdata/driverdata.component';
+import { NationalityService } from 'src/app/nationality/nationality.service';
 
 @Component({
   selector: 'app-transactionentrydata',
@@ -31,7 +31,28 @@ export class entryDataComponent implements OnInit, OnChanges {
   @Input() actionName: string = '';
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
+  @Output() sequenceNoChange = new EventEmitter();
 
+  @ViewChild('video1') videoElement1: ElementRef<HTMLVideoElement>;
+  @ViewChild('video2') videoElement2: ElementRef<HTMLVideoElement>;
+  @ViewChild('video3') videoElement3: ElementRef<HTMLVideoElement>;
+  @ViewChild('video4') videoElement4: ElementRef<HTMLVideoElement>;
+
+  @ViewChild('snap1') snap1: ElementRef<HTMLImageElement>;
+  @ViewChild('snap2') snap2: ElementRef<HTMLImageElement>;
+  @ViewChild('snap3') snap3: ElementRef<HTMLImageElement>;
+  @ViewChild('snap4') snap4: ElementRef<HTMLImageElement>;
+
+  @Output() hideSnap1: boolean = true;
+  @Output() hideSnap2: boolean = true;
+  @Output() hideSnap3: boolean = true;
+  @Output() hideSnap4: boolean = true;
+
+  video1: HTMLVideoElement;
+  video2: HTMLVideoElement;
+  video3: HTMLVideoElement;
+  video4: HTMLVideoElement;
+  canvas: HTMLCanvasElement;
 
   entryForm: UntypedFormGroup;
   vehicleList: any = [];
@@ -39,29 +60,27 @@ export class entryDataComponent implements OnInit, OnChanges {
   suppliersList: any = [];
   customersList: any = [];
   productsList: any = [];
-  nationalityList: any = [];
   goodsList: any = [];
   keyValueData: any = [];
   emptyKeyValue: boolean = false;
+  nationalityList: Nationality[] = [];
 
   filteredVehicleList: Observable<any[]>;
   filteredProductsList: Observable<any[]>;
   filteredSupplierList: Observable<any[]>;
   filteredCustomerList: Observable<any[]>;
-  filteredNationalityList: Observable<any[]>;
   selectedGood: string = '';
   suppProductsList: any = [];
-  custProductsList: any = [];
-
-  private _actionName:string ="";
+  selDriverInfo!: DriverInfo;
+  transporterInfo: any;
+  isPrintActive:boolean =false
 
   constructor(
     private httpService: TransactionsService,
     private _formBuilder: UntypedFormBuilder,
     private transporterService: TransportersService,
     private vehiclesService: VehiclesService,
-    private custProductService: CustomerProductsService,
-    private suppProductService: SupplierProductsService,
+    private productService: ProductsService,
     private nationalityService: NationalityService,
     private alertService: AlertService,
     private supplierService: SuppliersService,
@@ -71,27 +90,19 @@ export class entryDataComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private matDialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {
     
   }
 
-  ngOnInit(): void {  
-
+  ngOnInit(): void { 
+    
     this.entryForm = this._formBuilder.group({
       sequenceNo: [{
         value: 0,
         disabled: true,
       } ],
       vehicleNo: ['', [Validators.required, Validators.maxLength(50)]],
-      transporter: [
-        { value: '', disabled: true },
-        [Validators.required, Validators.maxLength(50)],
-      ],
-      transporterName: [
-        { value: '', disabled: true },
-        [Validators.required, Validators.maxLength(50)],
-      ],
-
       supplier: ['', [Validators.required, Validators.maxLength(50)]],
       customer: ['', [Validators.maxLength(50)]],
       products: ['', [Validators.required, Validators.maxLength(50)]],
@@ -107,11 +118,12 @@ export class entryDataComponent implements OnInit, OnChanges {
           disabled: true,
         },
       ],
-      nationality: ['', [Validators.required, Validators.maxLength(50)]],
-      pieces: ['', [Validators.maxLength(50), patternNumberValidator()]],
-      driverName: ['', [Validators.maxLength(50)]],
-      licenceNo: ['', [Validators.required, Validators.maxLength(50)]],
-      firstWeight: ['', [Validators.required, Validators.maxLength(50)]],
+      pieces: ['', [Validators.maxLength(50)]],
+      driverData: ['', [Validators.required, Validators.maxLength(50)]],
+      firstWeight: [{
+        value: '',
+        disabled: true,
+      }, [Validators.required, Validators.maxLength(50)]],
       dateIn: [
         {
           value: GlobalConstants.commonFunction.getFormattedDate(),
@@ -129,7 +141,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.populateListData();
     this.selectedGood = this.goodsList[0].key;
     this.keyValueData.push({ name: '', value: '' });
-
     if (this.actionName === 'view') {
       this.entryForm.disable();
     }
@@ -142,16 +153,46 @@ export class entryDataComponent implements OnInit, OnChanges {
           );
         }, 1000);
       }
-    });
+    }); 
 
-    this.entryForm.get('vehicleNo')?.statusChanges.subscribe(v => 
-      {
-        if(v ==='INVALID'){
-          this.entryForm.controls['transporter'].setValue('');
-          this.entryForm.controls['transporterName'].setValue('');
-          this.entryForm.controls['firstWeight'].setValue('');
-        }
-      });     
+      
+      navigator.mediaDevices.enumerateDevices()
+      .then(devices => {        
+          let videoDevices = devices.filter(function(device) {
+            return device.kind === 'videoinput';
+          });
+          videoDevices.forEach((device, index) => {
+            navigator.mediaDevices.getUserMedia({
+              video: { deviceId: device.deviceId }
+            })
+            .then((stream) => {
+              switch (index) {
+                case 0:                  
+                  this.videoElement1.nativeElement.srcObject = stream;
+                  this.videoElement1.nativeElement.play();
+                  break;
+                case 1:                  
+                  this.videoElement2.nativeElement.srcObject = stream;
+                  this.videoElement2.nativeElement.play();
+                  break;
+                case 2:
+                  this.videoElement3.nativeElement.srcObject = stream;
+                  this.videoElement3.nativeElement.play();
+                  break;
+                case 3:
+                  this.videoElement4.nativeElement.srcObject = stream;
+                  this.videoElement4.nativeElement.play();
+                  break;              
+                default:
+                  break;
+              }
+            })
+            .catch(error => { console.error('Error getting video stream:', error); });
+          });
+        }  
+      )
+      .catch(error => { console.error('Error getting video stream:', error); });
+     
       
   }
 
@@ -165,6 +206,92 @@ export class entryDataComponent implements OnInit, OnChanges {
     }
   }
 
+  public reset() {
+    this.entryForm.markAsPristine();
+    this.entryForm.markAsUntouched();
+    this.entryForm.reset();
+    this.entryForm.controls['operator'].setValue(
+      this.authenticationService.currentUserValue.userName
+    );
+    this.entryForm.controls['role'].setValue(
+      this.authenticationService.currentUserValue.role
+    );
+    this.entryForm.controls['dateIn'].setValue(
+      GlobalConstants.commonFunction.getFormattedDate()
+    );
+    this.entryForm.controls['timeIn'].setValue(
+      GlobalConstants.commonFunction.getFormattedTime()
+    );
+
+    if(!this.sequenceno){
+      this.selectedGood = this.goodsList[0].key;
+    }
+    else if(this.sequenceno !=='' && this.transactionData?.dailyTransactionEntry){
+      this.selectedGood = this.transactionData.dailyTransactionEntry.goodsType;
+    }
+  }
+
+  capture(cameraNumber:number)
+  {
+    let tmpCanvas = document.createElement('canvas');
+    tmpCanvas.width = 1024;
+    tmpCanvas.height = 768;
+    let ctx: CanvasRenderingContext2D | null;
+    if(!( ctx = tmpCanvas.getContext("2d")))
+    {
+      throw new Error(`2d context not supported or canvas already initialized`);
+    }
+    
+    switch (cameraNumber) {      
+      case 1: 
+        ctx.drawImage(this.videoElement1.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);
+        this.snap1.nativeElement.src = tmpCanvas.toDataURL();
+        this.hideSnap1 = false;
+        break;
+      case 2:         
+        ctx.drawImage(this.videoElement2.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+        this.snap2.nativeElement.src = tmpCanvas.toDataURL();   
+        this.hideSnap2 = false;
+        break;
+      case 3:
+        ctx.drawImage(this.videoElement3.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+        this.snap3.nativeElement.src = tmpCanvas.toDataURL();
+        this.hideSnap3 = false;
+        break;
+      case 4:
+        ctx.drawImage(this.videoElement4.nativeElement, 0, 0, tmpCanvas.width, tmpCanvas.height);   
+        this.snap4.nativeElement.src = tmpCanvas.toDataURL();
+        this.hideSnap4 = false;
+        break;
+      default:
+        break;      
+    }  
+  }
+
+  clearsnap(cameraNumber:number)
+  {
+    switch (cameraNumber) {      
+      case 1:          
+        this.snap1.nativeElement.src = "";
+        this.hideSnap1 = true;
+        break;
+      case 2:   
+        this.snap2.nativeElement.src = "";   
+        this.hideSnap2 = true;
+        break;
+      case 3:
+        this.snap3.nativeElement.src = "";
+        this.hideSnap3 = true;
+        break;
+      case 4: 
+        this.snap4.nativeElement.src = "";
+        this.hideSnap4 = true;        
+        break;
+      default:
+        break;      
+    }  
+  }
+
   save() {
     // stop here if form is invalid
     if (!findInvalidControls(this.entryForm)) {
@@ -175,9 +302,9 @@ export class entryDataComponent implements OnInit, OnChanges {
 
     const newRecord = {
       dailyTransactionEntry: {
-        customerCode: result.customer,
-        driverLicenseNo: result.licenceNo,
-        driverName: result.driverName,
+        customer: result.customer,
+        driverLicenseNo: this.selDriverInfo.licenseNo,
+        driverName: this.selDriverInfo.driverName,
         entryDate: GlobalConstants.commonFunction.getFormattedDate(),
         entryTime: GlobalConstants.commonFunction
           .getFormattedTime()
@@ -189,29 +316,51 @@ export class entryDataComponent implements OnInit, OnChanges {
           this.authenticationService.currentUserValue.userName,
         firstWeight: result.firstWeight,
         goodsType: this.selectedGood,
-        nationality: this._getSelectedValue(this.nationalityList,result.nationality,"driverNationalityName", "driverNationalityCode"),
+        nationality: this.selDriverInfo.nationalityId,
         noOfPieces: result.pieces,
-        productCode: this._getSelectedValue(this.productsList,result.products,"productName", "productCode"),
-        supplierCode: result.supplier,
-        transporterCode: this.entryForm.controls['transporter'].value,
-        transporterName: this.entryForm.controls['transporterName'].value,
-        vehiclePlateNo: result.vehicleNo,
+        product: result.products,
+        supplier: result.supplier,
+        vehicle: result.vehicleNo,
       },
       dailyTransactionExit: {},
-      sequenceNo: this.sequenceno || 'new11',
-      transactionStatus: 'Entry Completed',
+      sequenceNo: this.sequenceno || 'string',
+      dailyTransactionStatus: this.sequenceno ? this.transactionData.dailyTransactionStatus: 'TX_ENTRY',
     };
 
-    if (this.selectedGood === 'incoming' && newRecord.dailyTransactionEntry.supplierCode ) {
-      newRecord.dailyTransactionEntry.supplierCode = newRecord?.dailyTransactionEntry.supplierCode.toString().split('/')[0] ?? "";
+    var formData: any = new FormData();
+    
+    formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
+
+    if(this.snap1.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap1.nativeElement.src);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file1."+ext : "";
+      formData.append('file', url, fileName ?? "");
     }
 
-    if (this.selectedGood === 'outgoing' && newRecord.dailyTransactionEntry.supplierCode ) {
-      newRecord.dailyTransactionEntry.customerCode = newRecord?.dailyTransactionEntry.customerCode.toString().split('/')[0] ?? "";
+    if(this.snap2.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap2.nativeElement.src);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file2."+ext : "";
+      formData.append('file', url, fileName ?? "");
+    }
+
+    if(this.snap3.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap3.nativeElement.src);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file3."+ext : "";
+      formData.append('file', url, fileName ?? "");
+    }
+
+    if(this.snap4.nativeElement.src) {    
+      const url = this.converterDataURItoBlob(this.snap4.nativeElement.src);
+      const ext = this.getFileExtension(url.type);
+      const fileName = ext ? "file4."+ext : "";
+      formData.append('file', url, fileName ?? "");
     }
 
     if (this.sequenceno && this.sequenceno !== '') {
-      this.httpService.updateTransaction(newRecord).subscribe({
+      this.httpService.updateTransaction(formData).subscribe({
         next: (res) => {
           this.alertService.success(
             `${res.sequenceNo} updated successfully`
@@ -223,11 +372,12 @@ export class entryDataComponent implements OnInit, OnChanges {
         },
       });
     } else {
-      this.httpService.createNewTransaction(newRecord).subscribe({
+      this.httpService.createNewTransaction(formData).subscribe({
         next: (res: any) => {
           console.log(res);
           this.entryForm.controls['sequenceNo'].setValue(res.sequenceNo);
           this.alertService.success(`${res.sequenceNo} inserted successfully`);
+          this.sequenceNoChange.emit(res.sequenceNo);
         },
         error: (error) => {
           console.log(error);
@@ -236,6 +386,36 @@ export class entryDataComponent implements OnInit, OnChanges {
       });
     }
   }
+
+  converterDataURItoBlob(dataURI: any) {
+    let byteString;
+    let mimeString;
+    let ia;
+
+    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = encodeURI(dataURI.split(',')[1]);
+    }
+    // separate out the mime component
+    mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ia], {type:mimeString});
+}
+
+getFileExtension(type: string): string {
+  if(type.includes('/')){
+    const ext = type.split("/");
+    return ext?.length >0 ? ext[1] :"";
+  }
+
+  return "";
+}
 
   addKeyValues(event: Event) {
     event.stopPropagation();
@@ -272,57 +452,35 @@ export class entryDataComponent implements OnInit, OnChanges {
     const customerControl = this.entryForm.get('customer');
     const productsControl = this.entryForm.get('products');
 
-    if (this.selectedGood === 'incoming') {
-      this.productsList = this.suppProductsList;
-      supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList, 'supplierCode')]);
+    if (this.selectedGood === 'INCOMING_GOODS') {
+      supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList)]);
       customerControl?.clearValidators();
       
     } else {
-      this.productsList = this.custProductsList;
-      customerControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.customersList, 'customerCode')]);
+      customerControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.customersList)]);
       supplierControl?.clearValidators();
     }
 
+    supplierControl?.setValue('');
+    customerControl?.setValue('');
     productsControl?.setValue('');
     productsControl?.clearValidators();
     productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
     productsControl?.updateValueAndValidity();
     supplierControl?.updateValueAndValidity();
     customerControl?.updateValueAndValidity();   
-  }
-
-  onVehicleChange(event: any) {
-    const plateNo = this.entryForm.get('vehicleNo')?.value;
-    const vehicleData = this.vehicleList.find(
-      (v: Vehicle) => v.plateNo === plateNo
-    );
-
-    if (vehicleData) {
-      this.entryForm.controls['transporter'].setValue(
-        vehicleData.transporters.transporterCode
-      );
-      this.entryForm.controls['firstWeight'].setValue(
-        vehicleData.vehicleWeight
-      );
-      this.entryForm.controls['transporterName'].setValue(
-        vehicleData.transporters.nameOfTransporter
-      );
-    }
-  }
-
-  onSupplierChange(event: any) {    
-    const supplierData = this.suppliersList.find((s: Supplier) => s.supplierCode === this.entryForm.get('supplier')?.value);
-   
-  }
-
-  onCustomerChange(event: any) {
-    const custData = this.customersList.find((c: Customer) => c.customerCode === this.entryForm.get('customer')?.value);   
-  }
+  } 
   
+  @HostListener("window:beforeprint", ["$event"])
+  onBeforePrint() {
+    this.cdr.detectChanges();
+  }
 
   public printLayout(): void {
-     window.print();     
-  }   
+    this.isPrintActive = true;
+    window.print();
+    this.isPrintActive = false;
+  }
 
   public addNew(event: Event, controlName: string): void {
     event.stopPropagation();
@@ -331,10 +489,19 @@ export class entryDataComponent implements OnInit, OnChanges {
   }
 
   private _openDialog(controlName: string): void {
-    const dialogData = {
+    const dialogData:any = {
       actionName: 'add',
       headerText: 'Information',
     };
+    if(controlName === 'driverInfo'){
+      dialogData.data = {
+        nationality :'',
+        nationalityId :this.selDriverInfo?.nationalityId,
+        licenseNo: this.selDriverInfo?.licenseNo,
+        driverName: this.selDriverInfo?.driverName,
+        nationalityList: this.nationalityList
+      };
+    }
 
     const dialogConfig = new MatDialogConfig();
     const template: ComponentType<any> =
@@ -342,6 +509,8 @@ export class entryDataComponent implements OnInit, OnChanges {
         ? VehicleDataComponent
         : controlName === 'supplier'
         ? SupplierdataComponent
+        : controlName === 'driverInfo'
+        ? DriverDataComponent
         : CustomerdataComponent;
     dialogConfig.data = dialogData;
     dialogConfig.disableClose = false;
@@ -356,10 +525,25 @@ export class entryDataComponent implements OnInit, OnChanges {
           ? this.getAllVehicles(result)
           : controlName === 'supplier'
           ? this.getAllSuppliers(result)
+          : controlName === 'driverInfo'
+          ? this.bindDriverInfo(result)
           : this.getAllCustomers(result);
       }
     });
   } 
+
+  private bindDriverInfo(result :DriverInfo) :void {
+    this.selDriverInfo = { 
+      driverName :result.driverName,
+      licenseNo:result.licenseNo,
+      nationality :result.nationality,
+      nationalityId :result.nationalityId,
+    }
+
+    this.entryForm.controls['driverData'].setValue(
+      `${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName } / ${ this.selDriverInfo.nationality }`
+    );
+  }
 
   private populateListData(): void {
     this.goodsList = GlobalConstants.commonFunction.getGoodsOption();
@@ -374,28 +558,39 @@ export class entryDataComponent implements OnInit, OnChanges {
     this._setAutoCompleteProductData();
     this._setAutoCompleteSupplierData();
     this._setAutoCompleteCustomerData();
-    this._setAutoCompleteNationalityData();
+  }
+
+  private getAllNationalities(): void {
+    const nationalityControl = this.entryForm.get('nationality');
+    this.nationalityService.getAllDriverNationalities().subscribe({
+      next: (data: Nationality[]) => {
+        this.nationalityList = data;
+        if(this.selDriverInfo){
+          this.selDriverInfo.nationality = this._getSelectedValue(this.nationalityList,this.selDriverInfo?.nationalityId, "driverNationalityCode" ,"driverNationalityName");
+          this.entryForm.controls['driverData'].setValue(`${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName } / ${ this.selDriverInfo.nationality }`  );
+        }        
+      },
+      error: (error) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
   }
 
   private getAllVehicles(newRecord?: Vehicle): void {
     const vehicleNoControl = this.entryForm.get('vehicleNo');
-    this.vehiclesService.getAllVehicles().subscribe({
-      next: (data: Vehicle[]) => {
+    this.vehiclesService.getAllVehiclesWithTransporter().subscribe({
+      next: (data: string[]) => {
         this.vehicleList = data;
         if (newRecord) {
-          vehicleNoControl?.setValue(newRecord?.plateNo);
-          this.entryForm.controls['transporter'].setValue(
-            newRecord?.transporters.nameOfTransporter
-          );
-          this.entryForm.controls['transporterName'].setValue(
-            newRecord?.transporters.nameOfTransporter
-          );
-        }
-        else{
-          this.onVehicleChange(null);
+          const newData = data.find(s => s.includes(`${newRecord.plateNo}/`));
+          if(newData){
+            vehicleNoControl?.setValue(newData);
+            this._setAutoCompleteVehicleData();
+          }
         }
         vehicleNoControl?.clearValidators();
-        vehicleNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.vehicleList, 'plateNo')]);
+        vehicleNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.vehicleList)]);
         vehicleNoControl?.updateValueAndValidity();
       },
       error: (error: string) => {
@@ -418,44 +613,28 @@ export class entryDataComponent implements OnInit, OnChanges {
     });
   }
 
-  private getAllNationalities(): void {
-    const nationalityControl = this.entryForm.get('nationality');
-    this.nationalityService.getAllDriverNationalities().subscribe({
-      next: (data: Nationality[]) => {
-        this.nationalityList = data;        
-        nationalityControl?.clearValidators();
-        nationalityControl?.setValue(
-          this._getSelectedValue(this.nationalityList,this.transactionData?.dailyTransactionEntry?.nationality,"driverNationalityCode" ,"driverNationalityName" ), 
-        );
-        nationalityControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.nationalityList, 'driverNationalityName')]);
-        nationalityControl?.updateValueAndValidity();
-      },
-      error: (error) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });
-  }
-
   private getAllSuppliers(newRecord?: Supplier): void {
     const supplierControl = this.entryForm.get('supplier');
     this.supplierService.getlistAllSupplierCodeAndName().subscribe({
       next: (data: any) => {
         this.suppliersList = data;
         if (newRecord) {
-          supplierControl?.setValue(`${newRecord?.supplierCode}/${newRecord.supplierName}`);
+          const newData = data.find((s: string | string[]) => s.includes(`${newRecord.supplierCode}/`));
+          if(newData){
+            supplierControl?.setValue(newData);
+          }
         }                       
         supplierControl?.clearValidators();
-        if (this.selectedGood === 'incoming') {
+        if (this.selectedGood === 'INCOMING_GOODS') {
           if (this.entryForm.controls['sequenceNo'].value !== 0) {
             const supplierCode = this.entryForm.get('supplier')?.value;
-            const supplierData = this.suppliersList.find((s:string) => s.includes(supplierCode +'/'));
+            const supplierData = this.suppliersList.find((s:string) => s.includes(supplierCode));
 
             if (supplierData) {
               supplierControl?.setValue(`${supplierData}`);              
             }
           }
-        supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList, 'supplierCode')]);
+        supplierControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.suppliersList)]);
         }
         supplierControl?.updateValueAndValidity();
       },
@@ -469,16 +648,13 @@ export class entryDataComponent implements OnInit, OnChanges {
   private getAllProducts() {
     const productsControl = this.entryForm.get('products');
 
-   this.suppProductService.getAllProducts().subscribe({
-      next: (data: Product[]) => {
+   this.productService.getAllProductsWithCode().subscribe({
+      next: (data: string[]) => {
         this.suppProductsList = data;        
-        if (this.selectedGood === 'incoming') {
-          this.productsList = this.suppProductsList;
-          productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
-          productsControl?.clearValidators();
-          productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
-          productsControl?.updateValueAndValidity();
-      }       
+        this.productsList = this.suppProductsList;
+        productsControl?.clearValidators();
+        productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.productsList)]);
+        productsControl?.updateValueAndValidity();
       },
       error: (error) => {
         console.log(error);
@@ -486,22 +662,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       },
     });
 
-    this.custProductService.getAllProducts().subscribe({
-      next: (data: Product[]) => {
-        this.custProductsList = data;
-        if (this.selectedGood !== 'incoming') {
-          this.productsList = this.custProductsList;
-          productsControl?.setValue(this._getSelectedValue(this.productsList,this.transactionData?.dailyTransactionEntry.productCode,"productCode","productName"));
-          productsControl?.clearValidators();
-          productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
-          productsControl?.updateValueAndValidity();
-        } 
-      },
-      error: (error) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });    
+     
   }
 
   private getAllCustomers(newRecord?: Customer): void {
@@ -510,15 +671,18 @@ export class entryDataComponent implements OnInit, OnChanges {
       next: (data: any) => {
         this.customersList = data;
         if (newRecord) {
-          customerControl?.setValue(`${newRecord?.customerCode}/${newRecord.customerName}`); 
+          const newData = data.find((s: string | string[]) => s.includes(`${newRecord.customerName}/`));
+          if(newData){
+            customerControl?.setValue(newData);
+          }
         } 
          
         customerControl?.clearValidators();
-        if (this.selectedGood !== 'incoming') {
+        if (this.selectedGood !== 'INCOMING_GOODS') {
 
           if (this.entryForm.controls['sequenceNo'].value !== 0) {
             const customerCode = this.entryForm.get('customer')?.value;
-            const customerData = this.customersList.find((s:string) => s.includes(customerCode +'/'));
+            const customerData = this.customersList.find((s:string) => s.includes(customerCode));
 
             if (customerData) {
               customerControl?.setValue(`${customerData}`);   
@@ -527,7 +691,7 @@ export class entryDataComponent implements OnInit, OnChanges {
           customerControl?.addValidators([
             Validators.required,
             Validators.maxLength(50),
-            autocompleteObjectValidatorWithString(this.customersList, 'customerCode'),
+            autocompleteObjectValidatorWithString(this.customersList),
           ]);
         }
         customerControl?.updateValueAndValidity();
@@ -547,19 +711,17 @@ export class entryDataComponent implements OnInit, OnChanges {
       if (data && data.dailyTransactionEntry) {
         this.entryForm.controls['sequenceNo'].setValue(data.sequenceNo);
         this.entryForm.controls['vehicleNo'].setValue(
-          data.dailyTransactionEntry.vehiclePlateNo
+          data.dailyTransactionEntry.vehicle
         );
-        this.entryForm.controls['transporter'].setValue(
-          data.dailyTransactionEntry.transporterCode
-        );
+        
         this.entryForm.controls['supplier'].setValue(
-          data.dailyTransactionEntry.supplierCode
+          data.dailyTransactionEntry.supplier
         );
         this.entryForm.controls['customer'].setValue(
-          data.dailyTransactionEntry.customerCode
+          data.dailyTransactionEntry.customer
         );       
         this.entryForm.controls['products'].setValue(
-          data.dailyTransactionEntry.productCode
+          data.dailyTransactionEntry.product
         );
         this.entryForm.controls['operator'].setValue(
           data.dailyTransactionEntry.entryLoginUserName
@@ -568,18 +730,9 @@ export class entryDataComponent implements OnInit, OnChanges {
           data.dailyTransactionEntry.entryLoginRoleName
         );
         this.selectedGood = data.dailyTransactionEntry.goodsType;
-        this.keyValueData = data.dailyTransactionEntry.entryKeyPairs;
-        this.entryForm.controls['nationality'].setValue(
-          data.dailyTransactionEntry?.nationality
-        );
+        this.keyValueData = data.dailyTransactionEntry.entryKeyPairs;        
         this.entryForm.controls['pieces'].setValue(
           data.dailyTransactionEntry.noOfPieces
-        );
-        this.entryForm.controls['driverName'].setValue(
-          data.dailyTransactionEntry.driverName
-        );
-        this.entryForm.controls['licenceNo'].setValue(
-          data.dailyTransactionEntry.driverLicenseNo
         );
         this.entryForm.controls['firstWeight'].setValue(
           data.dailyTransactionEntry.firstWeight
@@ -593,6 +746,17 @@ export class entryDataComponent implements OnInit, OnChanges {
         this.entryForm.controls['instructions'].setValue(
           data.dailyTransactionEntry.entryDeliveryInstructions
         );
+     
+        this.selDriverInfo = { 
+          driverName :data.dailyTransactionEntry.driverName,
+          licenseNo:data.dailyTransactionEntry.driverLicenseNo,
+          nationality :'',
+          nationalityId :data.dailyTransactionEntry?.nationality
+        }
+        this.transporterInfo = { code : data.dailyTransactionEntry.transporterCode, name : ''};
+
+        this.entryForm.controls['driverData'].setValue(`${this.selDriverInfo.licenseNo} / ${ this.selDriverInfo.driverName }`  );
+
       }
 
       this.entryForm.updateValueAndValidity();
@@ -605,17 +769,13 @@ export class entryDataComponent implements OnInit, OnChanges {
         }
       }
     }
-
-    
-
-    
   }
 
   private _setAutoCompleteVehicleData() :void {
     this.filteredVehicleList = this.entryForm.get('vehicleNo')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.vehicleList,item,"plateNo") : this.vehicleList.slice())),
+      map((item :any)=> (item ? this._filterData(this.vehicleList,item) : this.vehicleList.slice())),
     );   
   }
 
@@ -623,7 +783,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     this.filteredProductsList = this.entryForm.get('products')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.productsList,item,"productName") : this.productsList.slice())),
+      map((item :any)=> (item ? this._filterData(this.productsList,item) : this.productsList.slice())),
     );   
   }
 
@@ -643,15 +803,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     );   
   }
 
-  private _setAutoCompleteNationalityData() :void {
-    this.filteredNationalityList = this.entryForm.get('nationality')!.valueChanges.pipe(
-      startWith(''),
-      map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.nationalityList,item,"driverNationalityName") : this.nationalityList.slice())),
-    );   
-  }
-
-  
 
   private _filterDataFromString(list:any, value: string,key :string, nameSearch:string =''): any[] {
     if (value === '') {
@@ -662,13 +813,13 @@ export class entryDataComponent implements OnInit, OnChanges {
     return list.filter((item :any) => item.toLowerCase().includes(filterValue) || nameSearch && item.toLowerCase().includes(filterValue) );
   }
 
-  private _filterData(list:any, value: string,key :string, nameSearch:string =''): any[] {
+  private _filterData(list:any, value: string, nameSearch:string =''): any[] {
     if (value === '') {
       return list.slice();
     }
     
     const filterValue = value?.toLowerCase();
-    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue) || nameSearch && item[nameSearch].toLowerCase().includes(filterValue) );
+    return list.filter((item :any) => item.toLowerCase().includes(filterValue) || nameSearch && item[nameSearch].toLowerCase().includes(filterValue) );
   }
 
   private _getSelectedValue(list:any, value: string, key :string, returnKey:string): string {
@@ -709,7 +860,7 @@ function autocompleteObjectValidator(listObj: any, keyName: string, ): Validator
   };
 }
 
-function autocompleteObjectValidatorWithString(listObj: any, keyName: string, ): ValidatorFn {
+function autocompleteObjectValidatorWithString(listObj: any): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     if(!control.value) { return null;}
     let index = listObj?.findIndex((obj: any) => obj  === control.value);

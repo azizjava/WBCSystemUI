@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { entryDataComponent } from './entrydata.component';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatAutocomplete } from '@angular/material/autocomplete';
 
 
 describe('entryDataComponent', () => {
@@ -23,8 +25,10 @@ describe('entryDataComponent', () => {
         FormsModule,
         MatSelectModule,
         ReactiveFormsModule,
+        RouterTestingModule,
+        MatDialogModule,
         TranslateModule.forRoot()],
-      declarations: [ entryDataComponent ],
+      declarations: [ entryDataComponent, MatAutocomplete  ],
       providers:[
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }]
