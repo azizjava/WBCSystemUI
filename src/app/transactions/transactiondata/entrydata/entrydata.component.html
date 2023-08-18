@@ -404,18 +404,18 @@
   
   </div>
   
-  <div class="mb-1 d-flex justify-content-between w-50 d-print-none">    
-
+  <div class="mb-1 d-flex justify-content-between w-50 d-print-none">
+  
+    <button class="btn btn-sm btn-link" mat-flat-button mat-button type="button" (click)="reset()">
+      {{'actions.reset' | translate }}
+    </button>
+  
     <button class="btn btn-sm" [disabled]="!entryForm.valid" mat-flat-button color="primary" type="submit" mat-button
       (click)="save()">
       {{'actions.save' | translate }}
     </button>
-
-    <button class="btn btn-sm btn-link" mat-flat-button  mat-button type="button" (click)="reset()">
-      {{'actions.reset' | translate }}
-    </button>
-
-    <button class="btn btn-sm btn-link"  mat-flat-button  mat-button (click)="cancel()">
+  
+    <button class="btn btn-sm btn-link" mat-flat-button mat-button (click)="cancel()">
       {{'actions.cancel' | translate }}
     </button>
   </div>
