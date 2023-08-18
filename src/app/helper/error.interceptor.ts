@@ -29,8 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 return throwError("API is not running!!");
             }
 
-            let error = err.error || err.message || err.statusText;
-            error.status =err.status;
+            const error = err.error || err.message || err.statusText;           
             return throwError(error);
         }))
     }

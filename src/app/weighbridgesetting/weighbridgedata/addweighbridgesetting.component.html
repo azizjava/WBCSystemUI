@@ -15,7 +15,7 @@
             <div class="col">
                 <mat-form-field appearance="fill">
                     <mat-label>{{'wbSetting.selectweighbridgetype' | translate }}</mat-label>
-                    <mat-select  name="weightBridgeType">
+                    <mat-select name="weightBridgeType" [(value)]="selectedType">
                         <mat-option *ngFor="let type of weighBridgeTypeList" [value]="type.value">
                             {{type.key}}
                         </mat-option>

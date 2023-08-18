@@ -30,6 +30,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
   filteredParityList: Observable<any[]>;
   stopBitsList: any = [];
   filteredStopBitsList: Observable<any[]>;
+  selectedType: string = '';
 
   private _hasChange: boolean = false;
 
@@ -66,6 +67,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
       this.weightForm.controls['name'].setValue(this.deviceData?.name);
       this.weightForm.controls['deviceStatus'].setValue(this.deviceData?.deviceStatus === "ENABLED" ? true:false);
       this.weightForm.controls['weightBridgeType'].setValue(this.deviceData?.weightBridgeType);
+      this.selectedType = this.deviceData?.weightBridgeType;
       this.weightForm.controls['endPoint'].setValue(this.deviceData?.endPoint);      
       this.weightForm.controls['portNo'].setValue(this.deviceData?.portNo.toString());
       this.weightForm.controls['baudRate'].setValue(this.deviceData?.baudRate.toString());
@@ -122,7 +124,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
     const newRecord: any = {
       name: result.name,
       deviceStatus: result.deviceStatus ? "ENABLED" :"DISABLED",
-      weightBridgeType: result.weightBridgeType,
+      weightBridgeType: this.selectedType,
       endPoint: result.endPoint,
       portNo: result.portNo ? +result.portNo : 0,
       baudRate: result.baudRate ? +result.baudRate : 0,
@@ -218,7 +220,10 @@ export class AddWeighbridgesettingComponent implements OnInit {
     ]);
     stopBitsControl?.updateValueAndValidity();
 
-    this.weightForm.controls['weightBridgeType'].setValue(this.weighBridgeTypeList[0].value);
+    if (this.data.actionName === 'add') {
+      this.selectedType =this.weighBridgeTypeList[0].value;
+    }
+
   }
 
   private _setAutoCompleteControlData(): void {
