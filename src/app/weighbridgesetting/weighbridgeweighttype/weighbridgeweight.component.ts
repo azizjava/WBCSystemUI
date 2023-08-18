@@ -34,7 +34,7 @@ export class WeightbridgeWeightComponent implements OnInit {
     this.httpService.updateWeightScaleType({ scale: escale }).subscribe({
       next: (data: any) => {
         this.alertService.success('Data updated successfully.');
-        localStorage.setItem('weightScaleType', data.escale);
+        localStorage.setItem('weightScaleType', data.scale);
       },
       error: (error: string) => {
         this.alertService.error(error);
