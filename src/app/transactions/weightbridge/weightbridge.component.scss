@@ -10,15 +10,16 @@
   
     .rectangle {
         height: 2.25rem;
-        background-color: red;
+        background-color: #3f51b5;
         display: flex;           /* establish flex container */
         flex-direction: column;  /* make main axis vertical */
         justify-content: center; /* center items vertically, in this case */
         align-items: center;     /* center items horizontally, in this case */
         font-size : 1.5rem;
         color:#FFFFFF; 
-        width: 55%;
-        margin-inline-start: 1rem;
+        width: 45%;
+       
+        border-radius: 10px;
     }
 
     .disconnected {
@@ -47,7 +48,7 @@
 
     .weight-name {
         font-size: .85rem;
-        margin-inline-start: 35%;
+        margin-inline-start: 30%;
     }
 
 
@@ -55,16 +56,16 @@
         width: 0;
         height: 0;
         border-top: 10px solid transparent;
-        border-left: 22px solid red;
+        border-left: 17px solid #fff;
         border-bottom: 10px solid transparent;
         margin-left: 5px;
     }
 
     .circle {
-        width: 35px;
+        width: 45px;
         height: 35px;
-        background: #000;
-        border-radius: 50%;
+        background: #3f51b5;
+        border-radius: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
