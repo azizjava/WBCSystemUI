@@ -19,6 +19,9 @@
                 name="role" />
             </mat-form-field>
           </div>
+        </div>
+
+        <div class="row form-col">          
           <div class="col">
             <mat-form-field class="full-width">
               <input [readonly]="true" matInput placeholder="{{'transactions.data.exit.dateout' | translate }}"
@@ -296,7 +299,7 @@
   </div>
 
 
-  <div class="d-flex justify-content-between w-100 d-print-none">  
+  <div class="mb-1 d-flex justify-content-between w-50 d-print-none">  
 
     <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
       {{'actions.print' | translate }}

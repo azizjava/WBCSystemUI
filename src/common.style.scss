@@ -209,5 +209,8 @@ mat-icon.disable {
 .ngx-gallery-layout.thumbnails-bottom ngx-gallery-thumbnails {
  
   margin-top: -1px !important;
-  // width: calc(70% - 10px) !important;
+}
+
+.border-right {
+  border-right: 1px solid #dee2e6;
 }
