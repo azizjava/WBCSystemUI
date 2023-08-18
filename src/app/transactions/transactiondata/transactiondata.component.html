@@ -14,11 +14,6 @@
 
           <app-weightbridge [isFirstScreen] ="actionItem.isFirst" (weightChange)="onWeightChange($event)"></app-weightbridge>
 
-          <div class="d-flex justify-content-center">
-            <h2 class="mb-2" *ngIf="actionItem.isFirst">{{'transactions.data.entry.header' | translate }}</h2>
-            <h2 class="mb-2" *ngIf="actionItem.isLast">{{'transactions.data.exit.header' | translate }}</h2>
-          </div>
-
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom"></div>         
 
           <app-transactionentrydata *ngIf="actionItem.isFirst" [weight] ="weight" [sequenceno] ="sequenceno" [actionName] ="actionName" [transactionData]="transactionData" [selectedScaleType] ="selectedScaleType"

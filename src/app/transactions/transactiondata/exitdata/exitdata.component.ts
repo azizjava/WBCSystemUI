@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -34,6 +34,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   nationalityList: any = [];
   keyValueData: any = [];
   emptyKeyValue: boolean = false;
+  isPrintActive:boolean =false
 
   @ViewChild('video5') videoElement5: ElementRef<HTMLVideoElement>;
   @ViewChild('video6') videoElement6: ElementRef<HTMLVideoElement>;
@@ -65,6 +66,7 @@ export class exitDataComponent implements OnInit, OnChanges {
     private alertService: AlertService,
     private productService: ProductsService,
     private zone: NgZone,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -180,9 +182,16 @@ export class exitDataComponent implements OnInit, OnChanges {
     }
   }
 
+  @HostListener("window:beforeprint", ["$event"])
+  onBeforePrint() {
+    this.cdr.detectChanges();
+  }
+
   public printLayout(): void {
+    this.isPrintActive = true;
     window.print();
- }
+    this.isPrintActive = false;
+  }
 
  public reset() {
   this.exitForm.markAsPristine();

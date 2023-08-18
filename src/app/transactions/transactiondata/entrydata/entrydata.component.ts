@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Input, NgZone, OnChanges, OnInit, SimpleChanges, ElementRef, ViewChild, Output, EventEmitter, HostListener, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -73,6 +73,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   suppProductsList: any = [];
   selDriverInfo!: DriverInfo;
   transporterInfo: any;
+  isPrintActive:boolean =false
 
   constructor(
     private httpService: TransactionsService,
@@ -89,6 +90,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private matDialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {
     
   }
@@ -469,9 +471,16 @@ getFileExtension(type: string): string {
     customerControl?.updateValueAndValidity();   
   } 
   
+  @HostListener("window:beforeprint", ["$event"])
+  onBeforePrint() {
+    this.cdr.detectChanges();
+  }
+
   public printLayout(): void {
-     window.print();     
-  }   
+    this.isPrintActive = true;
+    window.print();
+    this.isPrintActive = false;
+  }
 
   public addNew(event: Event, controlName: string): void {
     event.stopPropagation();

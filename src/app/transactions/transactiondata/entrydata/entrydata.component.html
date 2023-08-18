@@ -1,7 +1,14 @@
 
 <form class="entryData-form" [formGroup]="entryForm">
 
-  <div class="classscroll" cdkScrollable>
+  <div class="d-flex justify-content-between mb-3">
+    <h2>{{'transactions.data.entry.header' | translate }}</h2>
+    <button class="btn btn-sm d-print-none" mat-flat-button color="primary" mat-button (click)="printLayout()" type="button">
+      {{'actions.print' | translate }}
+    </button>
+  </div>
+
+  <div [ngClass]="{'classscroll': !isPrintActive}" cdkScrollable>
   
     <div class="row">
 
@@ -299,7 +306,7 @@
       </div>
   
   
-      <div class="col-sm-6">
+      <div class="col-sm-6 d-print-none">
 
         <div class="row">
           <div class="col">
@@ -392,11 +399,7 @@
   
   </div>
   
-  <div class="mb-1 d-flex justify-content-between w-50 d-print-none">
-
-    <button class="btn btn-sm" mat-flat-button color="primary" mat-button (click)="printLayout()">
-      {{'actions.print' | translate }}
-    </button>
+  <div class="mb-1 d-flex justify-content-between w-50 d-print-none">    
 
     <button class="btn btn-sm" [disabled]="!entryForm.valid" mat-flat-button color="primary" type="submit" mat-button
       (click)="save()">
@@ -407,7 +410,7 @@
       {{'actions.reset' | translate }}
     </button>
 
-    <button class="btn btn-sm btn-link" ngClass mat-flat-button  mat-button (click)="cancel()">
+    <button class="btn btn-sm btn-link"  mat-flat-button  mat-button (click)="cancel()">
       {{'actions.cancel' | translate }}
     </button>
   </div>
