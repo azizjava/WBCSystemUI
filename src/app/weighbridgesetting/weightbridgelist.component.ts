@@ -107,8 +107,8 @@ export class WeightbridgeListComponent implements OnInit {
     });
   }
 
-  private _deleteRecord(selRecord: WeighBridge) {
-    this.httpService.deleteDevice(selRecord.name).subscribe({
+  private _deleteRecord(selRecord: any) {
+    this.httpService.deleteDevice(selRecord?.deviceData?.name).subscribe({
       next: (res) => {
         console.log('Deleted Record !!', selRecord);
         this.getAllDevices();
