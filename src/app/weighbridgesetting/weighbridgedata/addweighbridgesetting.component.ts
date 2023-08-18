@@ -100,7 +100,10 @@ export class AddWeighbridgesettingComponent implements OnInit {
         return;
       }
       this.weightForm.controls['deviceStatus'].setValue(true);
-    }    
+    }
+    else{
+      this.weightForm.controls['deviceStatus'].setValue(false);
+    }   
 }
 
   public close() {
