@@ -1,12 +1,16 @@
 <form class="exitData-form" [formGroup]="exitForm">
 
-  <div class="d-flex justify-content-between mb-3">
-    <h2>{{'transactions.data.exit.header' | translate }}</h2>
+  <div class="row">
 
-    <button class="btn btn-sm d-print-none" mat-flat-button color="primary" mat-button (click)="printLayout()" type="button">
+  <div class="col-sm-6 d-flex justify-content-between mb-3">
+    <h2  style="margin-left:45%">{{'transactions.data.exit.header' | translate }}</h2>
+
+    <button class="btn btn-sm d-print-none snapbutton print-btn-size" mat-flat-button color="primary" (click)="printLayout()" type="button">
       {{'actions.print' | translate }}
     </button>
   </div>
+
+</div>
 
   <div [ngClass]="{'classscroll': !isPrintActive }" cdkScrollable>
 
