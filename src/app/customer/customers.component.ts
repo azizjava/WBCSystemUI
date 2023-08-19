@@ -21,7 +21,7 @@ export class CustomersComponent implements OnInit {
     'mobileNo',
     'telephoneNo',
     'faxNo',
-    'Address',
+    'address',
     'Actions',
   ];
   tableData: Customer[] = [];
