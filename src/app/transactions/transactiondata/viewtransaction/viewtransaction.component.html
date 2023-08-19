@@ -2,13 +2,12 @@
 
   <div class="row d-print-none mt-4">
 
-    <div class="gallery">
+    <div class="gallery" *ngIf="galleryImages && galleryImages.length >0" >
       <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
-
     </div>
 
   </div>
-  <div [ngClass]="{'classscroll': printScreen === ''}" cdkScrollable>
+  <div [ngClass]="{'classscroll': printScreen === ''}" cdkScrollable [style.min-height]="galleryImages.length > 0 ? '40vh' : '70vh'">
 
     <div class="row">
 
@@ -120,21 +119,11 @@
               <mat-form-field class="full-width">
                 <input [disabled]="true" matInput
                   placeholder="{{'transactions.data.entry.driverinfotooltip' | translate }}"
-                  value="{{entryData?.driverLicenseNo}} / {{ entryData?.driverName }}" />
+                  value="{{entryData?.driverInfo}}" />
               </mat-form-field>
             </div>
           </div>
-
-
-          <div class="row form-col">
-            <div class="col">
-              <mat-form-field class="full-width">
-                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.instructions' | translate }}"
-                  [value]="entryData?.entryDeliveryInstructions" />
-              </mat-form-field>
-            </div>
-          </div>
-
+       
           <div class="row form-col">
 
             <ng-container *ngFor="let item of entryData?.entryKeyPairs">
@@ -154,6 +143,15 @@
               </div>
             </ng-container>
 
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.entry.instructions' | translate }}"
+                  [value]="entryData?.entryDeliveryInstructions" />
+              </mat-form-field>
+            </div>
           </div>
 
         </div>
@@ -260,14 +258,7 @@
             </div>
           </div>
         
-          <div class="row form-col">
-            <div class="col">
-              <mat-form-field class="full-width">
-                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.instructions' | translate }}"
-                  [value]="exitData?.exitDeliveryInstructions" />
-              </mat-form-field>
-            </div>
-          </div>
+        
 
           <div class="row form-col" >
 
@@ -288,6 +279,15 @@
               </div>
             </ng-container>
 
+          </div>
+
+          <div class="row form-col">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input [disabled]="true" matInput placeholder="{{'transactions.data.exit.instructions' | translate }}"
+                  [value]="exitData?.exitDeliveryInstructions" />
+              </mat-form-field>
+            </div>
           </div>
 
         </div>

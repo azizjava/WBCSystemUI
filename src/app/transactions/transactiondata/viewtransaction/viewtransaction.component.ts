@@ -27,6 +27,7 @@ export class viewTransactionComponent implements OnInit {
     private alertService: AlertService,
     private cdr: ChangeDetectorRef
   ) {
+    this.galleryImages=[];
     this.galleryOptions = [
       {
           width: '100%',
@@ -74,7 +75,7 @@ export class viewTransactionComponent implements OnInit {
           thumbnailMargin: 1
       },
       
-    ]
+    ];
   }
 
   @HostListener("window:beforeprint", ["$event"])
@@ -104,6 +105,8 @@ export class viewTransactionComponent implements OnInit {
         if (data) {
           this.transactionData = data;
           this.entryData = data.dailyTransactionEntry;
+          this.entryData.driverInfo  = this.entryData?.driverLicenseNo +( this.entryData?.driverName ? ' / '+ this.entryData?.driverName :'') +
+          ( this.entryData?.nationality ? ' / '+ this.entryData?.nationality :'');
           this.exitData = data.dailyTransactionExit;
 
           this.images = data.fileNames;
