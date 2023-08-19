@@ -463,10 +463,6 @@ getFileExtension(type: string): string {
 
     supplierControl?.setValue('');
     customerControl?.setValue('');
-    productsControl?.setValue('');
-    productsControl?.clearValidators();
-    productsControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.productsList, 'productName')]);
-    productsControl?.updateValueAndValidity();
     supplierControl?.updateValueAndValidity();
     customerControl?.updateValueAndValidity();   
   } 
@@ -810,7 +806,7 @@ getFileExtension(type: string): string {
     }
     
     const filterValue = value?.toLowerCase();
-    return list.filter((item :any) => item.toLowerCase().includes(filterValue) || nameSearch && item.toLowerCase().includes(filterValue) );
+    return list.filter((item :any) => item?.toLowerCase().includes(filterValue) || nameSearch && item.toLowerCase().includes(filterValue) );
   }
 
   private _filterData(list:any, value: string, nameSearch:string =''): any[] {
@@ -819,7 +815,7 @@ getFileExtension(type: string): string {
     }
     
     const filterValue = value?.toLowerCase();
-    return list.filter((item :any) => item.toLowerCase().includes(filterValue) || nameSearch && item[nameSearch].toLowerCase().includes(filterValue) );
+    return list.filter((item :any) => item?.toLowerCase().includes(filterValue) || nameSearch && item[nameSearch]?.toLowerCase().includes(filterValue) );
   }
 
   private _getSelectedValue(list:any, value: string, key :string, returnKey:string): string {
