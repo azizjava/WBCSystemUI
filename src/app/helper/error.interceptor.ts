@@ -13,24 +13,28 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService, private router: Router, private alertService: AlertService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(catchError(err => {
+        return next.handle(request).pipe(catchError((err: any) => {
+            if (err.status === 201) {
+                err.text = err?.error?.text;
+                return throwError(err);
+            }
             if (err.status === 401) {
-                // auto logout if 401 response returned from api
-                this.authenticationService.logout();
-                location.reload();
+              // auto logout if 401 response returned from api
+              this.authenticationService.logout();
+              location.reload();
             }
 
             else if (err.status === 0) {
-                // auto logout if 401 response returned from api
-                //this.authenticationService.logout();               
-                this.alertService.error("API is not running!!");
-                console.log(err.message);
-                //this.router.navigate([GlobalConstants.ROUTE_URLS.login]);
-                return throwError("API is not running!!");
+              // auto logout if 401 response returned from api
+              //this.authenticationService.logout();               
+              this.alertService.error("API is not running!!");
+              console.log(err.message);
+              //this.router.navigate([GlobalConstants.ROUTE_URLS.login]);
+              return throwError("API is not running!!");
             }
 
-            const error = err.error || err.message || err.statusText;           
+            const error = err.error || err.message || err.statusText;
             return throwError(error);
-        }))
-    }
+          }))
+      }
 }
