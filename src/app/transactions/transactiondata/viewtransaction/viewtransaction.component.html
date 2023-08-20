@@ -1,4 +1,7 @@
+
 <div class="viewData-form">
+
+<div [ngClass]="{'classscroll': printScreen === ''}" cdkScrollable>
 
   <div class="row d-print-none mt-4">
 
@@ -7,7 +10,7 @@
     </div>
 
   </div>
-  <div [ngClass]="{'classscroll': printScreen === ''}" cdkScrollable [style.min-height]="galleryImages.length > 0 ? '40vh' : '70vh'">
+  <div>
 
     <div class="row">
 
@@ -307,5 +310,7 @@
     </div>
 
   </div>
+
+</div>
 
 </div>
