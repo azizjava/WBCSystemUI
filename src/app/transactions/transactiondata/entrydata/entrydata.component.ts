@@ -314,7 +314,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         entryLoginRoleName: this.authenticationService.currentUserValue.role,
         entryLoginUserName:
           this.authenticationService.currentUserValue.userName,
-        firstWeight: result.firstWeight,
+        firstWeight: this.entryForm.getRawValue()?.firstWeight || 0,
         goodsType: this.selectedGood,
         nationality: this.selDriverInfo.nationalityId,
         noOfPieces: result.pieces,
