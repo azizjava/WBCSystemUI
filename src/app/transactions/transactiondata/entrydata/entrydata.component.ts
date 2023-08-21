@@ -484,6 +484,18 @@ getFileExtension(type: string): string {
     this._openDialog(controlName);
   }
 
+  onVehicleChange(event: any) { 
+      const vehicleInfo = this.entryForm.get('vehicleNo')?.value;
+      const vehicleData = this.vehicleList.find(
+        (v: any) => v.vehicleInfo === vehicleInfo
+      );
+      if (vehicleData) {
+        this.entryForm.controls['firstWeight'].setValue(
+          vehicleData.vehicleWeight
+        );
+      }
+  }
+
   private _openDialog(controlName: string): void {
     const dialogData:any = {
       actionName: 'add',
@@ -576,7 +588,7 @@ getFileExtension(type: string): string {
   private getAllVehicles(newRecord?: Vehicle): void {
     const vehicleNoControl = this.entryForm.get('vehicleNo');
     this.vehiclesService.getAllVehiclesWithTransporter().subscribe({
-      next: (data: string[]) => {
+      next: (data: any[]) => {
         this.vehicleList = data;
         if (newRecord) {
           const newData = data.find(s => s.includes(`${newRecord.plateNo}/`));
@@ -586,7 +598,7 @@ getFileExtension(type: string): string {
           }
         }
         vehicleNoControl?.clearValidators();
-        vehicleNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidatorWithString(this.vehicleList)]);
+        vehicleNoControl?.addValidators([Validators.required, Validators.maxLength(50), autocompleteObjectValidator(this.vehicleList, "vehicleInfo")]);
         vehicleNoControl?.updateValueAndValidity();
       },
       error: (error: string) => {
@@ -771,7 +783,7 @@ getFileExtension(type: string): string {
     this.filteredVehicleList = this.entryForm.get('vehicleNo')!.valueChanges.pipe(
       startWith(''),
       map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.vehicleList,item) : this.vehicleList.slice())),
+      map((item :any)=> (item ? this._filterData1(this.vehicleList,item,"vehicleInfo", "vehicleInfo") : this.vehicleList.slice())),
     );   
   }
 
@@ -816,6 +828,15 @@ getFileExtension(type: string): string {
     
     const filterValue = value?.toLowerCase();
     return list.filter((item :any) => item?.toLowerCase().includes(filterValue) || nameSearch && item[nameSearch]?.toLowerCase().includes(filterValue) );
+  }
+
+  private _filterData1(list:any, value: string,key :string, nameSearch:string =''): any[] {
+    if (value === '') {
+      return list.slice();
+    }
+    
+    const filterValue = value?.toLowerCase();
+    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue) || nameSearch && item[nameSearch].toLowerCase().includes(filterValue) );
   }
 
   private _getSelectedValue(list:any, value: string, key :string, returnKey:string): string {

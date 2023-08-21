@@ -157,10 +157,10 @@
               <mat-label>{{'transactions.data.entry.vehicleno' | translate }}</mat-label>
               <input type="text" placeholder="{{'transactions.data.entry.vehicleno' | translate }}" matInput
                 formControlName="vehicleNo" name="vehicleNo" [matAutocomplete]="autoVehicle">
-              <mat-autocomplete #autoVehicle="matAutocomplete">
+              <mat-autocomplete #autoVehicle="matAutocomplete" (optionSelected)='onVehicleChange($event)'>
   
-                <mat-option *ngFor="let option of filteredVehicleList | async" [value]="option">
-                  {{option}}
+                <mat-option *ngFor="let option of filteredVehicleList | async" [value]="option.vehicleInfo">
+                  {{option.vehicleInfo}}
                 </mat-option>
               </mat-autocomplete>
   

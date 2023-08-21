@@ -20,7 +20,7 @@ export class VehiclesService {
   }
 
   getAllVehiclesWithTransporter(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseURL}/listall/platetranscodeandname`);
+    return this.http.get<string[]>(`${this.baseURL}/listall/vehicleInfo`);
   }
 
   getVehicleById(id: any): Observable<Vehicle> {
