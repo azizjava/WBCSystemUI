@@ -93,7 +93,7 @@ export class exitDataComponent implements OnInit, OnChanges {
       ],
       deductWeight: [0, [Validators.required, Validators.maxLength(50)]],
       netWeight: ['', [Validators.required, Validators.maxLength(50)]],
-      priceTons: ['', [Validators.required, Validators.maxLength(50)]],
+      priceTons: ['', [Validators.maxLength(50)]],
       totalPrice: ['', [Validators.required, Validators.maxLength(50), patternNumberValidator()]],
       role: [{value :this.authenticationService.currentUserValue.role , disabled: true}],
       loginUserName: [
@@ -115,6 +115,10 @@ export class exitDataComponent implements OnInit, OnChanges {
     });
 
     this.exitForm.get('secondWeight')?.valueChanges.subscribe(v => {
+      this._calculateNetWeight();
+    });
+
+    this.exitForm.get('priceTons')?.valueChanges.subscribe(v => {
       this._calculateNetWeight();
     });
 
@@ -380,10 +384,10 @@ export class exitDataComponent implements OnInit, OnChanges {
   const secondWeight = +result.secondWeight || 0;
   const deductWeight = +deductWgt || +result.deductWeight;
   let netWeight = 0; 
-  const productPrice = this.exitForm.controls['priceTons'].value;
+  const productPrice = this.exitForm.controls['priceTons'].value || 1;
   
 
-  if(goodsType  === 'incoming'){
+  if(goodsType  === 'INCOMING_GOODS'){
     netWeight = (firstWeight -secondWeight) -deductWeight;
   }
   else{
@@ -400,7 +404,7 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   totalPrice = parseFloat(totalPrice.toFixed(3));
   this.exitForm.controls['netWeight'].setValue(netWeight);
-  this.exitForm.controls['totalPrice'].setValue(totalPrice >0 ? totalPrice : 0);
+  this.exitForm.controls['totalPrice'].setValue(totalPrice);
 
  }
 
@@ -452,7 +456,7 @@ export class exitDataComponent implements OnInit, OnChanges {
     );
     if (productData) {
       const price =
-        this.transactionData.dailyTransactionEntry.goodsType === 'incoming'
+        this.transactionData.dailyTransactionEntry.goodsType === 'INCOMING_GOODS'
           ? productData.supplierPrice
           : productData.customerPrice;
       this.exitForm.controls['priceTons'].setValue(price);
