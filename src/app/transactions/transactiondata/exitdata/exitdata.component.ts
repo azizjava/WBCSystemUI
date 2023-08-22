@@ -379,32 +379,32 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   const result = this.exitForm.value;
 
-  const goodsType = this.transactionData.dailyTransactionEntry.goodsType;
-  const firstWeight = +this.transactionData.dailyTransactionEntry.firstWeight;
-  const secondWeight = +result.secondWeight || 0;
-  const deductWeight = +deductWgt || +result.deductWeight;
-  let netWeight = 0; 
-  const productPrice = this.exitForm.controls['priceTons'].value || 1;
-  
+  if (this.transactionData) {
+    const goodsType = this.transactionData.dailyTransactionEntry.goodsType;
+    const firstWeight = +this.transactionData.dailyTransactionEntry.firstWeight;
+    const secondWeight = +result.secondWeight || 0;
+    const deductWeight = +deductWgt || +result.deductWeight;
+    let netWeight = 0;
+    const productPrice = this.exitForm.controls['priceTons'].value || 1;
 
-  if(goodsType  === 'INCOMING_GOODS'){
-    netWeight = (firstWeight -secondWeight) -deductWeight;
-  }
-  else{
-    netWeight = (secondWeight -firstWeight) -deductWeight;
-  }
+    if (goodsType === 'INCOMING_GOODS') {
+      netWeight = firstWeight - secondWeight - deductWeight;
+    } else {
+      netWeight = secondWeight - firstWeight - deductWeight;
+    }
 
-  let totalPrice: number = netWeight * productPrice;
-  if(this.selectedScaleType ==='KG'){
-    totalPrice =  totalPrice /1000;
-  }
-  if(this.selectedScaleType ==='LB'){
-    totalPrice =  totalPrice /2205;
-  }
+    let totalPrice: number = netWeight * productPrice;
+    if (this.selectedScaleType === 'KG') {
+      totalPrice = totalPrice / 1000;
+    }
+    if (this.selectedScaleType === 'LB') {
+      totalPrice = totalPrice / 2205;
+    }
 
-  totalPrice = parseFloat(totalPrice.toFixed(3));
-  this.exitForm.controls['netWeight'].setValue(netWeight);
-  this.exitForm.controls['totalPrice'].setValue(totalPrice);
+    totalPrice = parseFloat(totalPrice.toFixed(3));
+    this.exitForm.controls['netWeight'].setValue(netWeight);
+    this.exitForm.controls['totalPrice'].setValue(totalPrice);
+  }
 
  }
 
