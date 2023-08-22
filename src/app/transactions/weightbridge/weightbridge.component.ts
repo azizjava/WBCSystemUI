@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from 'src/app/services';
 import { WeightBridgeService } from 'src/app/weighbridgesetting/weightbridge.service';
 
@@ -21,13 +22,20 @@ export class weightBridgeComponent implements OnInit {
   public firstWeightdevicesList: any = [];
   public secondWeightdevicesList: any = [];
 
-  public constructor(private httpService: WeightBridgeService,
-    private alertService: AlertService) {
+  private _invalidWeightTypeMsg: string ='';
+  private _selectedScaleType: string ='';
+  private _isVirtualDevice:boolean = false;
 
+  public constructor(private httpService: WeightBridgeService,
+    private translate: TranslateService,
+    private alertService: AlertService) {
   }
 
   public ngOnInit(): void {
+    this._selectedScaleType = localStorage.getItem('weightScaleType') || 'KG';
+    this.getDeviceVirtualType();
     this.getAllActiveDevices();
+    this._getTranslatedText();
   }
 
   public trackByFn(index: number, item: any) {
@@ -35,18 +43,36 @@ export class weightBridgeComponent implements OnInit {
   }
 
   public weightChangeEvent(item :any): void {
-    item.weight = this._randomIntFromInterval();
-    this.weightChange.emit(item.weight);
-    // this.httpService.getFirstWeight().subscribe({
-    //   next: (res: any) => {
-    //     item.weight = (res.sign.toString() == "+" ? '': res.sign.toString()) + res.data.toString();
-    //     this.weightChange.emit(item.weight);
-    //   },
-    //   error: (error) => {
-    //     console.log(error);
-    //     // this.alertService.error(error);
-    //   },
-    // });    
+    if (this._isVirtualDevice) {
+      item.weight = this._randomIntFromInterval();
+      this.weightChange.emit(item.weight);
+    } else {
+      if (item.endPointURL) {
+        this.httpService.getDynamicWeight(item.endPointURL).subscribe({
+          next: (res: any) => {
+            if (res) {
+              if (
+                this._selectedScaleType.toLocaleLowerCase() ===
+                res.unit?.toLocaleLowerCase()
+              ) {
+                item.weight =
+                  (res.sign.toString() == '+' ? '': res.sign.toString()) +
+                  res.data.toString();
+                this.weightChange.emit(item.weight);
+              } else {
+                this.alertService.error(
+                  this._invalidWeightTypeMsg + this._selectedScaleType
+                );
+              }
+            }
+          },
+          error: (error) => {
+            console.log(error);
+            this.alertService.error(error);
+          },
+        });
+      }
+    }
   }  
 
   private _randomIntFromInterval(min: number = 1, max: number = 100) {
@@ -71,6 +97,24 @@ export class weightBridgeComponent implements OnInit {
         console.log(error);
         this.alertService.error(error);
       },
+    });
+  }
+
+  private getDeviceVirtualType(): void {
+    this.httpService.getDeviceVirtualType().subscribe({
+      next: (data: boolean) => {
+        this._isVirtualDevice = data || false;
+      },
+      error: (error: string) => {
+        this._isVirtualDevice = false;
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private _getTranslatedText(): void {
+    this.translate.stream(['']).subscribe((translated: string) => {
+      this._invalidWeightTypeMsg = this.translate.instant('weighbridge.invalidtype');
     });
   }
 }

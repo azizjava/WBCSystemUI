@@ -48,7 +48,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       deviceStatus: [false, [ Validators.maxLength(50)]],
       weightBridgeType:['', [ Validators.maxLength(50)]],
-      endPoint: ['', [Validators.maxLength(250)], ],      
+      endPoint: ['', [Validators.required, Validators.maxLength(250), Validators.pattern(reg)], ],
       portNo: ['', [ Validators.maxLength(50)]],
       baudRate: ['', [ Validators.maxLength(50)]],
       dataBits: ['', [ Validators.maxLength(50)]],
