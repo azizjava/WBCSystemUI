@@ -47,7 +47,11 @@ export class WeightBridgeService {
     return this.http.delete(`${this.baseURL}/deleteAll`);
   }
 
-  // getFirstWeight(): Observable<any>  {
-  //   return this.http.get("/device");
-  // }
+  getDynamicWeight(url:string): Observable<any>  {
+    return this.http.get(url);
+  }
+
+  getDeviceVirtualType(): Observable<boolean>  {
+    return this.http.get<boolean>(`${this.baseURL}/deviceInfo`);
+  }
 }

@@ -331,5 +331,8 @@
 			"image":"Image",
 			"url":"Url"	
 		}
+	},
+	"weighbridge":{
+		"invalidtype" :"Please reset your device weight to "
 	}	
 }

@@ -378,7 +378,6 @@ export class exitDataComponent implements OnInit, OnChanges {
  private _calculateNetWeight(deductWgt :number =0): void {
 
   const result = this.exitForm.value;
-
   if (this.transactionData) {
     const goodsType = this.transactionData.dailyTransactionEntry.goodsType;
     const firstWeight = +this.transactionData.dailyTransactionEntry.firstWeight;

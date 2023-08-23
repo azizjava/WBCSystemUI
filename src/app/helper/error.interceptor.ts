@@ -24,6 +24,11 @@ export class ErrorInterceptor implements HttpInterceptor {
               location.reload();
             }
 
+            else if (err.status === 404) {                        
+              this.alertService.error("API is not found!!");             
+              return throwError("API is not found!!");
+            }
+
             else if (err.status === 0) {
               // auto logout if 401 response returned from api
               //this.authenticationService.logout();               
