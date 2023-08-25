@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -19,7 +19,7 @@ import { MatRadioChange } from '@angular/material/radio';
   templateUrl: './clienttemplate.component.html',
   styleUrls: ['./clienttemplate.component.scss'],
 })
-export class ClientTemplateComponent implements OnInit {
+export class ClientTemplateComponent implements OnInit , AfterViewInit {
   form: UntypedFormGroup;
   ClientTemplateData!: ClientTemplate;
   public staticText: any = {};
@@ -60,9 +60,15 @@ export class ClientTemplateComponent implements OnInit {
       email: ['', [Validators.required, Validators.maxLength(30)]],
       companyLogo: [null]   
     });
-    this.getAllClientDetails();
+
 
     this._getTranslatedText();
+  }
+
+  ngAfterViewInit() :void {    
+    setTimeout(() => {
+      this.getAllClientDetails();
+    }, 0);
   }
 
   close() {

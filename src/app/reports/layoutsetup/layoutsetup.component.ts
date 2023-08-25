@@ -3,7 +3,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { modelDialog, PrintLayout } from 'src/app/models';
@@ -17,7 +17,7 @@ import { LayoutSetup } from 'src/app/models/layoutsetup.model';
   templateUrl: './layoutsetup.component.html',
   styleUrls: ['./layoutsetup.component.scss'],
 })
-export class LayoutSetupComponent implements OnInit {
+export class LayoutSetupComponent implements OnInit, AfterViewInit {
 
   cardLayoutOriginal: any;
   cardLayout: any;
@@ -35,8 +35,14 @@ export class LayoutSetupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllClientDetails();
+    
     this.userLang = this.translate.currentLang ;
+  }
+
+  ngAfterViewInit() :void {    
+    setTimeout(() => {
+      this.getAllClientDetails();
+    }, 0);
   }
 
   public drop(event: CdkDragDrop<PrintLayout[]>) {
