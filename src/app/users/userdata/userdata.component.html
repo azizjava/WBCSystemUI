@@ -1,0 +1,90 @@
+<form class="user-form" [formGroup]="vehicleForm">
+  <div class="row mb-2">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.plateno}}</mat-label>
+        <input matInput placeholder="{{staticText.plateno}}" formControlName="plateNo" name="plateNo" />
+        <mat-error *ngIf="vehicleForm.controls['plateNo'].errors && 
+          vehicleForm.controls['plateNo'].errors['required'] &&
+          vehicleForm.controls['plateNo'].touched
+                ">{{staticText.plateno}} {{staticText.required}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.vehicletype}}</mat-label>
+        <input matInput placeholder="{{staticText.vehicletype}}" formControlName="type" name="type" />
+        <mat-error *ngIf="vehicleForm.controls['type'].errors && 
+          vehicleForm.controls['type'].errors['required'] &&
+          vehicleForm.controls['type'].touched
+                ">{{staticText.vehicletype}} {{staticText.required}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col">
+   
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.transportercode}}</mat-label>
+        <input type="text" placeholder="{{staticText.transportercode}}" matInput formControlName="transporterCode"
+          name="transporterCode" [matAutocomplete]="autoTransporter">
+        <mat-autocomplete #autoTransporter="matAutocomplete"  (optionSelected)='onTransporterChange($event)'>
+        
+          <mat-option *ngFor="let option of filteredTransporterList | async" [value]="option.transporterCode">
+            {{option.transporterCode}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="vehicleForm.controls['transporterCode'].errors &&
+          vehicleForm.controls['transporterCode'].errors['required'] &&
+          vehicleForm.controls['transporterCode'].touched
+                ">{{staticText.transportercode}} {{staticText.required}}
+        </mat-error>
+        <mat-error *ngIf="vehicleForm.controls['transporterCode'].errors && 
+        vehicleForm.controls['transporterCode'].errors['invalidData'] &&
+        vehicleForm.controls['transporterCode'].touched
+              ">{{staticText.transportercode}} {{'common.invalid' | translate }}
+        </mat-error> 
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.transportername}}</mat-label>
+        <input matInput placeholder="{{staticText.transportername}}" formControlName="transporterName" name="transporterName"  readonly/>
+        <mat-error *ngIf="vehicleForm.controls['transporterName'].errors &&
+          vehicleForm.controls['transporterName'].errors['required'] &&
+          vehicleForm.controls['transporterName'].touched
+                ">{{staticText.transportername}} {{staticText.required}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="row mb-2"> 
+    <div class="col-md-6">
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.vehicleweight}}</mat-label>
+        <input matInput placeholder="{{staticText.vehicleweight}}" formControlName="defaultWeight" name="defaultWeight" />        
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-between w-100">
+
+    <button *ngIf="data.actionName !== 'view'" class="btn btn-sm" mat-flat-button color="primary" type="submit"
+      mat-button (click)="save()">
+      {{staticText.save}}
+    </button>
+
+    <button class="btn btn-sm btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      {{staticText.cancel}}
+    </button>
+
+  </div>
+</form>

@@ -15,10 +15,11 @@ export interface tableOperation {
   }
 
   export class signup {
+    id!:number;
     email!: string;
     password!: string;  
     username!:string;
-    role!:string[];
+    role!:string;
 }
 
 export interface dateRange {

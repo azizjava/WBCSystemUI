@@ -11,6 +11,7 @@ const routes: Routes = [
       { path: 'transporters', loadChildren: () => import('../transporters/transporters.module').then(m => m.TransportersModule) },
       { path: 'transactions', loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule) },
       { path: 'vehicles', loadChildren: () => import('../vehicles/vehicles.module').then(m => m.VehiclesModule) },
+      { path: 'users', loadChildren: () => import('../users/users.module').then(m => m.UsersModule) },
       { path: 'products', loadChildren: () => import('../supplierproducts/products.module').then(m => m.ProductsModule) },
       { path: 'reports', loadChildren: () => import('../reports/reports.module').then(m => m.ReportsModule) },
       { path: 'customers', loadChildren: () => import('../customer/customers.module').then(m => m.CustomersModule) },

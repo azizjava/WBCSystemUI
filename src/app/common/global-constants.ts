@@ -90,6 +90,11 @@ export class GlobalConstants {
           routePath: 'vehicles',
         },
         {
+          menuName: 'Users',
+          menuIcon: 'fa fa-user',
+          routePath: 'users',
+        },
+        {
           menuName: 'Nationality',
           menuIcon: 'fa fa-flag',
           routePath: 'nationality',
@@ -302,4 +307,12 @@ export interface LeftMenuItem {
   menuName: string;
   menuIcon: string;
   routePath?: string;
+}
+
+export enum UserRoles {
+  SUPERADMIN = 5,
+  TECHNICIAN = 4,
+  ADMIN = 3,
+  SUPERVISOR = 2,
+  USER = 1,
 }
