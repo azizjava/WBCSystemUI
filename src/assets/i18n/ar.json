@@ -81,7 +81,8 @@
 		"Product prices": "أسعار المنتجات",
 		"Reports": "التقارير",
 		"WeighBridgeSetting":"وزن إعدادات الجسر",
-		"WeighBridgeWeight":"وزن الجسر"
+		"WeighBridgeWeight":"وزن الجسر",
+		"Users": "المستخدمين"
 	},	
 	"customers":{
 		"tbl_header":{
@@ -145,6 +146,14 @@
 			"transportername":"اسم ناقل المركبة",
 			"actions":"عمل",
 			"ddlcode" :"يمكنك الحصول على رمز الناقل الخاص بك من هنا"
+		}
+	},
+	"users":{
+		"tbl_header":{
+			"username":"اسم المستخدم",
+			"email":"بريد إلكتروني",
+			"role":"دور",			
+			"actions":"أجراءات"			
 		}
 	},
 	"operators":{

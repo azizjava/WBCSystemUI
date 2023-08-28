@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
-import { modelDialog, tableOperation, Vehicle } from '../models';
+import { modelDialog, signup, tableOperation, Vehicle } from '../models';
 import { AlertService } from '../services';
 
 import { UsersService } from './users.service';
@@ -14,20 +14,18 @@ import { UserDataComponent } from './userdata/userdata.component';
 })
 export class UsersComponent implements OnInit {
   tblColumns: string[] = [
-    'plateNo',
-    'vehicleType',
-    'vehicleWeight',
-    'transporterCode',
-    'transporterName',
+    'username',
+    'email',
+    'role',  
     'Actions',
   ];
   public tableData: any;
-  public vehiclesData: Vehicle[] = [];
+  public usersData: signup[] = [];
 
   public searchInput: string = '';
   public actionName: string = '';
-  public sortColumn = { name: 'plateNo', dir: 'asc' };
-  public visibleColumns = ['plateNo', 'vehicleType', 'Actions'];
+  public sortColumn = { name: 'username', dir: 'asc' };
+  public visibleColumns = ['username', 'email', 'Actions'];
 
   constructor(
     private matDialog: MatDialog,
@@ -36,7 +34,7 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllVehicles();
+    this.getAllUsers();
   }
 
   selectedRecord(actionData: tableOperation): void {
@@ -83,7 +81,7 @@ export class UsersComponent implements OnInit {
           this.alertService.success(`${result.plateNo} inserted successfully`);
         }
 
-        this.getAllVehicles();
+        this.getAllUsers();
       }
     });
   }
@@ -103,11 +101,11 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  private _deleteRecord(selRecord: Vehicle) {
-    this.httpService.deleteVehicle(selRecord.plateNo).subscribe({
+  private _deleteRecord(selRecord: signup) {
+    this.httpService.deleteUser(selRecord?.id || 0).subscribe({
       next: (res) => {
         console.log('Deleted Record !!', selRecord);
-        this.getAllVehicles();
+        this.getAllUsers();
       },
       error: (e) => {
         console.error(e)
@@ -115,17 +113,16 @@ export class UsersComponent implements OnInit {
     });
   }  
 
-  private getAllVehicles(): void {
-    this.httpService.getAllVehicles().subscribe({
-      next: (data: Vehicle[]) => {
-        this.vehiclesData = data;
+  private getAllUsers(): void {
+    this.httpService.getAllUsers().subscribe({
+      next: (data: signup[]) => {
+        this.usersData = data;
 
-        this.tableData = data.map((data: Vehicle) => ({
-          plateNo: data.plateNo,
-          vehicleType: data.vehicleType,
-          vehicleWeight: data.vehicleWeight,
-          transporterCode: data?.transporters?.transporterCode,
-          transporterName: data?.transporters?.transporterName,
+        this.tableData = data.map((data: signup) => ({
+          id: data.id,
+          username: data.username,
+          email: data.email,
+         
         }));
       },
       error: (error: string) => {
@@ -136,8 +133,8 @@ export class UsersComponent implements OnInit {
   }
 
   private getVehicleById(dialogData: any): void {
-    this.httpService.getVehicleById(dialogData.data?.plateNo).subscribe({
-      next: (data: Vehicle) => {        
+    this.httpService.getUserById(dialogData.data?.id).subscribe({
+      next: (data: signup) => {        
         dialogData.data = data;
         this.openDialog(dialogData);
       },

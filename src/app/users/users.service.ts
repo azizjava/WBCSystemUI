@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Vehicle, signup } from '../models';
+import { signup } from '../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,12 +15,12 @@ export class UsersService {
     this.baseURL = environment.baseURL + '/user';
   }
 
-  getAllUsers(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(`${this.baseURL}/listall`);
+  getAllUsers(): Observable<signup[]> {
+    return this.http.get<signup[]>(`${this.baseURL}/listAll`);
   } 
 
-  getUserByUserId(id: any): Observable<Vehicle> {
-    return this.http.get<Vehicle>(`${this.baseURL}/findBy/${id}`);
+  getUserById(id: any): Observable<signup> {
+    return this.http.get<signup>(`${this.baseURL}/findBy/${id}`);
   }
 
   createNewUser(data: signup) {

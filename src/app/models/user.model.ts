@@ -15,7 +15,7 @@ export interface tableOperation {
   }
 
   export class signup {
-    id!:number;
+    id?:number;
     email!: string;
     password!: string;  
     username!:string;

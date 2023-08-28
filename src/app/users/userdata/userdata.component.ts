@@ -102,7 +102,7 @@ export class UserDataComponent implements OnInit {
     };
 
     if (this.data.actionName === 'add') {
-      this.httpService.createNewVehicle(newRecord).subscribe({
+      this.httpService.createNewUser(newRecord).subscribe({
         next: (res: any) => {
           this.dialogRef.close(res);
         },
@@ -114,7 +114,7 @@ export class UserDataComponent implements OnInit {
     } else if (this.data.actionName === 'edit') {
       if (this._hasChange) {
         newRecord.plateNo = this.vehicleData?.plateNo;
-        this.httpService.updateVehicle(newRecord).subscribe({
+        this.httpService.updateUser(newRecord).subscribe({
           next: (res) => {
             this.dialogRef.close(res);
           },
