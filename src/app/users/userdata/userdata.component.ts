@@ -3,16 +3,18 @@ import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Val
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { map, Observable, startWith } from 'rxjs';
-import { findInvalidControls } from 'src/app/helper';
+import { MustMatch, findInvalidControls } from 'src/app/helper';
 import {
   modelDialog,
   Vehicle,
   TransporterList,
   Transporter,
+  signup,
 } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { TransportersService } from 'src/app/transporters/transporters.service';
 import { UsersService } from '../users.service';
+import { GlobalConstants } from 'src/app/common';
 
 @Component({
   selector: 'app-userdata',
@@ -20,11 +22,12 @@ import { UsersService } from '../users.service';
   styleUrls: ['./userdata.component.scss'],
 })
 export class UserDataComponent implements OnInit {
-  vehicleForm: UntypedFormGroup;
-  vehicleData!: Vehicle;
+  signupForm: UntypedFormGroup;
+  userData!: any;
   public staticText: any = {};
-  transPortersList!: TransporterList[];
-  filteredTransporterList: Observable<any[]>;
+  userLanguages: any = [];
+  userRoles: any = [];
+  currentUserRole : number = -1;
 
   private _hasChange: boolean = false;
 
@@ -40,65 +43,59 @@ export class UserDataComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.vehicleForm = this._formBuilder.group({
-      plateNo: ['', [Validators.required, Validators.maxLength(30)]],
-      type: ['', [Validators.required,Validators.maxLength(30)]],
-      transporterCode: ['', [Validators.required]],
-      transporterName: [{value:'', disabled:true}, [Validators.required]],
-      defaultWeight: [0, [Validators.required]],
+    this.userLanguages = GlobalConstants.commonFunction.getUserLanguages();
+    this._getCurrentUserRoleId(this.authenticationService.currentUserValue.role);
+  
+    this.signupForm = this._formBuilder.group({
+      username: ['', [Validators.required, Validators.maxLength(30)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      confirmPassword: ['', [Validators.required]],
+      language: ['', [Validators.required, Validators.maxLength(30)]],
+      role: ['', [Validators.required, Validators.maxLength(30)]],
+    },{ validator: MustMatch('password', 'confirmPassword') });
+
+    this.signupForm.patchValue({
+      language: this.userLanguages[0].key,
+      role: this.userRoles[0].value,
     });
 
     if (this.data.actionName !== 'add') {
-      this.vehicleData = this.data?.data;
-      this.vehicleForm.controls['plateNo'].setValue(this.vehicleData?.plateNo);
-      this.vehicleForm.controls['type'].setValue(this.vehicleData?.vehicleType);
-      this.vehicleForm.controls['defaultWeight'].setValue(this.vehicleData?.vehicleWeight ?? 0);
-      this.vehicleForm.controls['transporterCode'].setValue(
-        this.vehicleData?.transporters?.transporterCode
-      );
-      this.vehicleForm.controls['transporterName'].setValue(
-        this.vehicleData.transporters?.transporterName
-      );
+      this.userData = this.data?.data;
+      this.signupForm.controls['username'].setValue(this.userData?.username);
+      this.signupForm.controls['email'].setValue(this.userData?.email);
+      this.signupForm.controls['role'].setValue(this.userData?.role?.id.toString());      
 
       if (this.data.actionName === 'view') {
-        this.vehicleForm.disable();
-      }
-
-      if (this.data.actionName === 'edit') {
-        this.vehicleForm.controls['plateNo'].disable();
-      }
+        this.signupForm.disable();
+      }     
     }
 
-    this._getTransPortersList();
     this._getTranslatedText();
-    this._onFormValueChange();
-    this._setAutoCompleteTransportersData();
-
-
-    this.vehicleForm.controls['transporterCode']?.valueChanges.subscribe(value => {
-      if(this.vehicleForm.controls['transporterCode']?.hasError('invalidData')){
-        this.vehicleForm.controls['transporterName'].setValue("");
-      }
-    });
+    this._onFormValueChange();   
   }
 
   public close() {
     this.dialogRef.close();
   }
 
+  public trackByFn(index: number, item: any) {
+    return item;
+  }
+
   public save() {
     // stop here if form is invalid
-    if (!findInvalidControls(this.vehicleForm)) {
+    if (!findInvalidControls(this.signupForm)) {
       return;
     }
 
-    const result = this.vehicleForm.value;
+    const result = this.signupForm.value;
 
     const newRecord: any = {
-      plateNo: result.plateNo,
-      vehicleType: result.type,
-      transporterCode: result.transporterCode,
-      vehicleWeight:result.defaultWeight ?? 0,
+      email: result.email,
+      password: result.password,
+      username: result.userName,
+      role: result.role
     };
 
     if (this.data.actionName === 'add') {
@@ -113,7 +110,7 @@ export class UserDataComponent implements OnInit {
       });
     } else if (this.data.actionName === 'edit') {
       if (this._hasChange) {
-        newRecord.plateNo = this.vehicleData?.plateNo;
+        newRecord.plateNo = this.userData?.id;
         this.httpService.updateUser(newRecord).subscribe({
           next: (res) => {
             this.dialogRef.close(res);
@@ -128,91 +125,47 @@ export class UserDataComponent implements OnInit {
       }
     }
   }
-
-  public OnSelectionChange(event: any) {
-    const name =
-      this.transPortersList.filter((s) => s.transporterCode === event.value)[0]
-        ?.transporterName || '';
-    this.vehicleForm.controls['transporterName'].setValue(name);
-  }
-
-  public onTransporterChange(event: any) {    
-    const data = this.transPortersList.find((s: any) => s.transporterCode === this.vehicleForm.get('transporterCode')?.value);
-    this.vehicleForm.controls['transporterName'].setValue("");
-    if (data) {
-      this.vehicleForm.controls['transporterName'].setValue(data.transporterName);
-    }
-  }
-
-  private _getTransPortersList(): any {
-    this.transportersService.getAllTransporters().subscribe({
-      next: (data: Transporter[]) => {
-        this.transPortersList = data;
-        this.vehicleForm.get('transporterCode')?.addValidators([
-          Validators.required,
-          Validators.maxLength(50),
-          autocompleteObjectValidator(this.transPortersList, 'transporterCode'),
-        ]);
-        this.vehicleForm.get('transporterCode')?.updateValueAndValidity();
-      },
-      error: (error) => {
-        console.log(error);
-        this.alertService.error(error);
-      },
-    });
-  }
-
+  
   private _getTranslatedText(): void {
     this.translate.get(['']).subscribe((translated: string) => {
       this.staticText = {
-        plateno: this.translate.instant('vehicles.tbl_header.plateno'),
-        vehicletype: this.translate.instant('vehicles.tbl_header.vehicletype'),
-        transportercode: this.translate.instant('vehicles.tbl_header.transportercode'),
-        transportername: this.translate.instant('vehicles.tbl_header.transportername'),   
-        vehicleweight: this.translate.instant('vehicles.tbl_header.vehicleweight'),   
+        username: this.translate.instant('users.data.username'),
+        email: this.translate.instant('users.data.email'),
+        role: this.translate.instant('users.data.role'),
+        password: this.translate.instant('users.data.password'),
+        confirmpassword: this.translate.instant('users.data.confirmpassword'),
+        emailerror: this.translate.instant('users.data.emailerror'),
+        pwdminerror: this.translate.instant('users.data.pwdminerror'),
+        pwdmaxerror: this.translate.instant('users.data.pwdmaxerror'),
+        pwdmatch: this.translate.instant('users.data.pwdmatch'),
+        language: this.translate.instant('users.data.language'),
+
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),
         cancel: this.translate.instant('actions.cancel'),
-        ddlcode:this.translate.instant('vehicles.tbl_header.ddlcode'), 
       };
     });
   }
 
   private _onFormValueChange() {
-    const initialValue = this.vehicleForm.value;
-    this.vehicleForm.valueChanges.subscribe((value) => {
+    const initialValue = this.signupForm.value;
+    this.signupForm.valueChanges.subscribe((value) => {
       this._hasChange = Object.keys(initialValue).some(
-        (key) => this.vehicleForm.value[key] != initialValue[key]
+        (key) => this.signupForm.value[key] != initialValue[key]
       );
     });
   }
 
-  private _setAutoCompleteTransportersData() :void {
-    this.filteredTransporterList = this.vehicleForm.get('transporterCode')!.valueChanges.pipe(
-      startWith(''),
-      map((value) => (value ? value : undefined)),
-      map((item :any)=> (item ? this._filterData(this.transPortersList,item,"transporterCode") : this.transPortersList?.slice())),
-    );   
+  private _getCurrentUserRoleId(roleName:string) :void {
+    const userRoles = GlobalConstants.commonFunction.getNewUserRoles();
+    const roleId = userRoles.find( (u:any) => u.key === roleName)?.value || 0;
+    this.currentUserRole = +roleId;
+    this.userRoles = userRoles.filter((data: any) =>  data.value <= +roleId);
+    this.userRoles.forEach((data: any) => {
+      data.key = this.translate.instant('users.role.'+data.key);
+    });    
   }
-
-  private _filterData(list:any, value: string,key :string): any[] {
-    if (value === '') {
-      return list.slice();
-    }
-    
-    const filterValue = value?.toLowerCase();
-    return list.filter((item :any) => item[key].toLowerCase().includes(filterValue));
-  }
+ 
 }
 
-  function autocompleteObjectValidator(listObj: any, keyName: string, ): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if(!control.value) { return null;}
-      let index = listObj?.findIndex((obj: any) => obj[keyName] === control.value);
-      if (index !== -1) {  return null; }
   
-      return {     
-        invalidData: { value: control.value } 
-      };
-    };
-}

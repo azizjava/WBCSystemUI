@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit {
     if (this.actionName === 'delete') {
       this.deleteDialog(dialogData);
     } else if (this.actionName === 'edit') {
-      this.getVehicleById(dialogData);
+      this.getUserById(dialogData);
     }
     else {
       this.openDialog(dialogData);
@@ -74,11 +74,11 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (this.actionName === 'edit') {
-          console.log('Updated Record !!', result.plateNo);
-          this.alertService.success(`${result.plateNo} updated successfully`);
+          console.log('Updated Record !!', result.username);
+          this.alertService.success(`${result.username} updated successfully`);
         } else if (this.actionName === 'add') {
-          console.log('New Record !!', result.plateNo);
-          this.alertService.success(`${result.plateNo} inserted successfully`);
+          console.log('New Record !!', result.username);
+          this.alertService.success(`${result.username} inserted successfully`);
         }
 
         this.getAllUsers();
@@ -132,7 +132,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  private getVehicleById(dialogData: any): void {
+  private getUserById(dialogData: any): void {
     this.httpService.getUserById(dialogData.data?.id).subscribe({
       next: (data: signup) => {        
         dialogData.data = data;

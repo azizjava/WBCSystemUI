@@ -68,6 +68,19 @@ export class GlobalConstants {
       return menu;
     },
 
+    getNewUserRoles() {
+      let menu = [
+        { key: 'SUPERADMIN', value: '5' },
+        { key: 'TECHNICIAN', value: '4' },
+        { key: 'ADMIN', value: '3' },
+        { key: 'SUPERVISOR', value: '2' },
+        { key: 'OPERATOR', value: '1' },
+        { key: 'USER', value: '0' },
+      ];
+
+      return menu;
+    },
+
     getLeftNavMenuItemsList(): LeftMenuItem[] {
 
       return [
