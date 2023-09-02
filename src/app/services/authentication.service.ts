@@ -103,7 +103,7 @@ export class AuthenticationService {
       language:lang,
       token:data.accessToken,
       password:'',
-      role: data.roles[0]
+      role: data.roles,
     };
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);

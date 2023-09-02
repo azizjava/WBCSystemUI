@@ -35,7 +35,8 @@
 		"searchproductgroups":"Search Product Group",
 		"searchtransactions":"Search Transaction",
 		"searchbytransactionid":"Search Transaction By Id",
-		"searchwbSetting":"Search Device"
+		"searchwbSetting":"Search Device",
+		"searchusers":"Search Users"
 	},
 	"login": {
 		"title": "Login Form",
@@ -153,6 +154,27 @@
 			"email":"Email",
 			"role":"Role",			
 			"actions":"Actions"			
+		},
+	    "data":{
+			"username": "User Name",
+			"email": "Email",
+			"role": "User Role",
+			"password": "Password",
+			"confirmpassword": "Confirm Password",
+			"emailerror" :"Email must be a valid email address",
+			"pwdminerror" :"Password must be at least 6 characters",
+			"pwdmaxerror" :"Password must be max 12 characters",
+			"pwdmatch" :"Passwords must match",
+			"language":"Select Language",
+			"updatepassword" :"Do you want to update the password ?"
+		},
+		"role" : {
+			"SUPERADMIN" :"Super Admin",
+			"TECHNICIAN" :"Technician",
+			"ADMIN" :"Admin",
+			"SUPERVISOR" :"Supervisor",
+			"OPERATOR" :"Operator",
+			"USER" :"User"
 		}
 	},
 	"operators":{

@@ -122,6 +122,7 @@ export class UsersComponent implements OnInit {
           id: data.id,
           username: data.username,
           email: data.email,
+          role: data.role,
          
         }));
       },

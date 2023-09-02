@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { map, Observable, startWith } from 'rxjs';
@@ -15,6 +15,7 @@ import { AlertService, AuthenticationService } from 'src/app/services';
 import { TransportersService } from 'src/app/transporters/transporters.service';
 import { UsersService } from '../users.service';
 import { GlobalConstants } from 'src/app/common';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-userdata',
@@ -25,9 +26,9 @@ export class UserDataComponent implements OnInit {
   signupForm: UntypedFormGroup;
   userData!: any;
   public staticText: any = {};
-  userLanguages: any = [];
   userRoles: any = [];
   currentUserRole : number = -1;
+  selectedRole: string = '';
 
   private _hasChange: boolean = false;
 
@@ -43,7 +44,6 @@ export class UserDataComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userLanguages = GlobalConstants.commonFunction.getUserLanguages();
     this._getCurrentUserRoleId(this.authenticationService.currentUserValue.role);
   
     this.signupForm = this._formBuilder.group({
@@ -51,12 +51,10 @@ export class UserDataComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required]],
-      language: ['', [Validators.required, Validators.maxLength(30)]],
       role: ['', [Validators.required, Validators.maxLength(30)]],
     },{ validator: MustMatch('password', 'confirmPassword') });
 
     this.signupForm.patchValue({
-      language: this.userLanguages[0].key,
       role: this.userRoles[0].value,
     });
 
@@ -64,11 +62,26 @@ export class UserDataComponent implements OnInit {
       this.userData = this.data?.data;
       this.signupForm.controls['username'].setValue(this.userData?.username);
       this.signupForm.controls['email'].setValue(this.userData?.email);
-      this.signupForm.controls['role'].setValue(this.userData?.role?.id.toString());      
+      let userRole = this.userData?.role.toString().toLowerCase();
+      userRole = userRole[0].toUpperCase() + userRole.slice(1);
+
+      this.signupForm.controls['role'].setValue(userRole);
+      this.selectedRole = userRole;
 
       if (this.data.actionName === 'view') {
+        this.signupForm.controls['password']?.clearValidators();
+        this.signupForm.controls['confirmPassword']?.clearValidators();
         this.signupForm.disable();
-      }     
+      }
+
+      if (this.data.actionName === 'edit') {
+        this.signupForm.controls['password']?.clearValidators();
+        this.signupForm.controls['confirmPassword']?.clearValidators();
+        this.signupForm.controls['password']?.disable();
+        this.signupForm.controls['confirmPassword']?.disable();
+        this.signupForm.controls['username'].disable();
+        this.signupForm.addControl('needPassword', new FormControl(false));
+      }
     }
 
     this._getTranslatedText();
@@ -77,6 +90,31 @@ export class UserDataComponent implements OnInit {
 
   public close() {
     this.dialogRef.close();
+  }
+
+  public onChange(event:MatCheckboxChange): void {
+    const password = this.signupForm.get('password'); 
+    const confirmPassword = this.signupForm.get('confirmPassword'); 
+  
+    if(event.checked){
+      password?.clearValidators();
+      password?.addValidators([Validators.required, Validators.minLength(4), Validators.maxLength(15)]);
+      confirmPassword?.clearValidators();
+      password?.addValidators([Validators.required]);
+      password?.enable();
+      confirmPassword?.enable();
+    }
+    else {
+      password?.clearValidators();
+      confirmPassword?.clearValidators();
+      password?.disable();
+      confirmPassword?.disable();
+    }
+
+    password?.setValue('');
+    confirmPassword?.setValue('');
+    password?.updateValueAndValidity();
+    confirmPassword?.updateValueAndValidity();
   }
 
   public trackByFn(index: number, item: any) {
@@ -89,16 +127,17 @@ export class UserDataComponent implements OnInit {
       return;
     }
 
-    const result = this.signupForm.value;
+    const result = this.signupForm.value;    
 
     const newRecord: any = {
       email: result.email,
-      password: result.password,
-      username: result.userName,
-      role: result.role
+      username: this.userData?.username,
+      role: this.selectedRole.toUpperCase()
     };
 
     if (this.data.actionName === 'add') {
+      newRecord.password = result.password;
+      newRecord.username =  result.username;
       this.httpService.createNewUser(newRecord).subscribe({
         next: (res: any) => {
           this.dialogRef.close(res);
@@ -109,8 +148,11 @@ export class UserDataComponent implements OnInit {
         },
       });
     } else if (this.data.actionName === 'edit') {
+      if(result.needPassword) {
+        newRecord.password = result.password;
+      }
       if (this._hasChange) {
-        newRecord.plateNo = this.userData?.id;
+        newRecord.id = this.userData?.id;
         this.httpService.updateUser(newRecord).subscribe({
           next: (res) => {
             this.dialogRef.close(res);
@@ -138,7 +180,7 @@ export class UserDataComponent implements OnInit {
         pwdminerror: this.translate.instant('users.data.pwdminerror'),
         pwdmaxerror: this.translate.instant('users.data.pwdmaxerror'),
         pwdmatch: this.translate.instant('users.data.pwdmatch'),
-        language: this.translate.instant('users.data.language'),
+        updatepassword: this.translate.instant('users.data.updatepassword'),
 
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),
@@ -158,9 +200,9 @@ export class UserDataComponent implements OnInit {
 
   private _getCurrentUserRoleId(roleName:string) :void {
     const userRoles = GlobalConstants.commonFunction.getNewUserRoles();
-    const roleId = userRoles.find( (u:any) => u.key === roleName)?.value || 0;
+    const roleId = userRoles.find( (u:any) => u.key.toLowerCase() === roleName.toLowerCase())?.value || 0;
     this.currentUserRole = +roleId;
-    this.userRoles = userRoles.filter((data: any) =>  data.value <= +roleId);
+    this.userRoles = userRoles.filter((data: any) =>  data.value && +data.value <= +roleId);
     this.userRoles.forEach((data: any) => {
       data.key = this.translate.instant('users.role.'+data.key);
     });    

@@ -35,7 +35,8 @@
 		"searchproductgroups":"بحث في مجموعة المنتجات",
 		"searchtransactions":"البحث عن معاملة",
 		"searchbytransactionid":"البحث عن المعاملة بالمعرف",
-		"searchwbSetting":"جهاز البحث"
+		"searchwbSetting":"جهاز البحث",
+		"searchusers":"بحث المستخدمين"
 	},
 	"login": {
 		"title": "Login Form",
@@ -154,6 +155,27 @@
 			"email":"بريد إلكتروني",
 			"role":"دور",			
 			"actions":"أجراءات"			
+		},
+		"data":{
+			"username": "اسم المستخدم",
+			"email": "بريد إلكتروني",
+			"role": "دور المستخدم",
+			"password": "كلمة المرور",
+			"confirmpassword": "تأكيد كلمة المرور",
+			"emailerror" :"يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالحًا",
+			"pwdminerror" :"يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+			"pwdmaxerror" :"يجب أن تتكون كلمة المرور من 12 حرفًا كحد أقصى",
+			"pwdmatch" :"يجب أن تتطابق كلمات المرور",
+			"language":"اختار اللغة",
+			"updatepassword" :"هل تريد تحديث كلمة المرور؟"
+		},
+		"role" : {
+			"SUPERADMIN" :"المشرف الفائق",
+			"TECHNICIAN" :"فني",
+			"ADMIN" :"مسؤل",
+			"SUPERVISOR" :"مشرف",
+			"OPERATOR" :"المشغل أو العامل",
+			"USER" :"مستخدم"
 		}
 	},
 	"operators":{
