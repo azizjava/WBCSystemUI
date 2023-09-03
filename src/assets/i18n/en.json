@@ -152,7 +152,8 @@
 		"tbl_header":{
 			"username":"Username",
 			"email":"Email",
-			"role":"Role",			
+			"role":"Role",
+			"enabled" : "Enabled",
 			"actions":"Actions"			
 		},
 	    "data":{
@@ -166,7 +167,8 @@
 			"pwdmaxerror" :"Password must be max 12 characters",
 			"pwdmatch" :"Passwords must match",
 			"language":"Select Language",
-			"updatepassword" :"Do you want to update the password ?"
+			"updatepassword" :"Do you want to update the password ?",
+			"enableuser": "Enable/ Disable the user"
 		},
 		"role" : {
 			"SUPERADMIN" :"Super Admin",

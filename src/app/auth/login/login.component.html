@@ -11,14 +11,9 @@
                         <!-- Email input -->
                         <div class="form-outline mb-3">
                             <mat-form-field>
-                                <input type="text" matInput placeholder="User Name" formControlName="username"
-                                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+                                <input type="text" matInput placeholder="User Name" formControlName="username" />
                                 <mat-error *ngIf="loginForm.controls['username'].errors && loginForm.controls['username'].errors['required'] &&
-                        loginForm.controls['username'].touched">Email is required</mat-error>
-                                <mat-error *ngIf="loginForm.controls['username'].errors && loginForm.controls['username'].errors['pattern'] &&
-                      loginForm.controls['username'].touched">UserName must be a valid email address
-                                </mat-error>
-
+                        loginForm.controls['username'].touched">User Name is required</mat-error>
                             </mat-form-field>
                         </div>
 

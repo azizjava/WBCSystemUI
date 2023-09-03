@@ -17,6 +17,7 @@ export class UsersComponent implements OnInit {
     'username',
     'email',
     'role',  
+    'enabled',
     'Actions',
   ];
   public tableData: any;
@@ -123,7 +124,7 @@ export class UsersComponent implements OnInit {
           username: data.username,
           email: data.email,
           role: data.role,
-         
+          enabled: data.enabled
         }));
       },
       error: (error: string) => {

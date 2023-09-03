@@ -52,11 +52,13 @@ export class UserDataComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required]],
       role: ['', [Validators.required, Validators.maxLength(30)]],
+      enabled: [false, [Validators.required, Validators.maxLength(30)]],
     },{ validator: MustMatch('password', 'confirmPassword') });
 
     this.signupForm.patchValue({
-      role: this.userRoles[0].value,
+      role: this.userRoles[0].key,
     });
+    this.selectedRole =this.userRoles[0].key;
 
     if (this.data.actionName !== 'add') {
       this.userData = this.data?.data;
@@ -64,7 +66,7 @@ export class UserDataComponent implements OnInit {
       this.signupForm.controls['email'].setValue(this.userData?.email);
       let userRole = this.userData?.role.toString().toLowerCase();
       userRole = userRole[0].toUpperCase() + userRole.slice(1);
-
+      this.signupForm.controls['enabled'].setValue(this.userData?.enabled);
       this.signupForm.controls['role'].setValue(userRole);
       this.selectedRole = userRole;
 
@@ -132,7 +134,8 @@ export class UserDataComponent implements OnInit {
     const newRecord: any = {
       email: result.email,
       username: this.userData?.username,
-      role: this.selectedRole.toUpperCase()
+      role: this.selectedRole.toUpperCase(),
+      enabled:result.enabled
     };
 
     if (this.data.actionName === 'add') {
@@ -181,6 +184,7 @@ export class UserDataComponent implements OnInit {
         pwdmaxerror: this.translate.instant('users.data.pwdmaxerror'),
         pwdmatch: this.translate.instant('users.data.pwdmatch'),
         updatepassword: this.translate.instant('users.data.updatepassword'),
+        enableuser: this.translate.instant('users.data.enableuser'),
 
         required: this.translate.instant('common.required'),
         save: this.translate.instant('actions.save'),

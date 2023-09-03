@@ -20,6 +20,7 @@ export interface tableOperation {
     password!: string;  
     username!:string;
     role!:string;
+    enabled?:boolean
 }
 
 export interface dateRange {

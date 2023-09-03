@@ -28,10 +28,16 @@
  
   </div>
 
-  <div class="row mb-2" *ngIf="data.actionName === 'edit'">
-    <div class="col">
+  <div class="row mb-2">
+    <div class="col" *ngIf="data.actionName === 'edit'">
       <section class="example-section">
         <mat-checkbox formControlName="needPassword" name="needPassword" (change)="onChange($event)">{{staticText.updatepassword}}</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="example-section">
+        <mat-checkbox formControlName="enabled" name="enabled" >{{staticText.enableuser}}</mat-checkbox>
       </section>
     </div>
   </div>
