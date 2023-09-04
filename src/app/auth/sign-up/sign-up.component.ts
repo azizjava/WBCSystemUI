@@ -23,7 +23,6 @@ export class SignUpComponent implements OnInit {
   loading = false;  
   userLanguages: any = [];
   userRoles: any = [];
-  passwordResetQuestion: any = [];
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -41,7 +40,6 @@ export class SignUpComponent implements OnInit {
 
     this.userLanguages = GlobalConstants.commonFunction.getUserLanguages();
     this.userRoles = GlobalConstants.commonFunction.getUserRoles();
-    this.passwordResetQuestion = GlobalConstants.commonFunction.getPasswordResetQuestion();
 
     this.signupForm = this.fb.group({
       userName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -50,12 +48,9 @@ export class SignUpComponent implements OnInit {
       confirmPassword: ['', [Validators.required]],
       language: ['', [Validators.required, Validators.maxLength(30)]],
       role: ['', [Validators.required, Validators.maxLength(30)]],
-      passwordResetQuestion: ['', [Validators.required, Validators.maxLength(250)]],
-      passwordResetAnswer: ['',  [Validators.required, Validators.maxLength(250), ]],
     },
       { validator: MustMatch('password', 'confirmPassword') }
     );
-    this.signupForm.controls['passwordResetAnswer'].disable();
     this.setDefaultValue();
   }
 
