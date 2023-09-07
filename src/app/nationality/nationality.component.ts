@@ -110,7 +110,10 @@ export class NationalityComponent implements OnInit {
 
         this.getAllNationalities();
       },
-      error: (e) => console.error(e),
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
+      }
     });
   } 
 

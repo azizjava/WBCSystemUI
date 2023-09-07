@@ -114,7 +114,10 @@ export class CustomersComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllCustomers();
       },
-      error: (e) => console.error(e),
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
+      }
     });
   }  
 

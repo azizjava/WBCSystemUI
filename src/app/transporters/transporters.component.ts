@@ -116,7 +116,10 @@ export class TransportersComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllTransporters();
       },
-      error: (e) => console.error(e),
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
+      },
     });
   }
 

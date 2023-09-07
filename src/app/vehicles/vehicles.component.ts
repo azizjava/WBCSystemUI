@@ -109,8 +109,9 @@ export class VehiclesComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllVehicles();
       },
-      error: (e) => {
-        console.error(e)
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
       },
     });
   }  

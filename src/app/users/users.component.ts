@@ -108,8 +108,9 @@ export class UsersComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllUsers();
       },
-      error: (e) => {
-        console.error(e)
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
       },
     });
   }  

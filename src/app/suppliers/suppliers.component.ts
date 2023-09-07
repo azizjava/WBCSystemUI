@@ -113,7 +113,10 @@ export class SuppliersComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllSuppliers();
       },
-      error: (e) => console.error(e),
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
+      }
     });
   }  
 

@@ -110,7 +110,10 @@ export class ProductsComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllProducts();
       },
-      error: (e) => console.error(e),
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
+      }
     });
   }  
 

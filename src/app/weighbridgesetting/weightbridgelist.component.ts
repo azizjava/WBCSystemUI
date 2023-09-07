@@ -113,8 +113,9 @@ export class WeightbridgeListComponent implements OnInit {
         console.log('Deleted Record !!', selRecord);
         this.getAllDevices();
       },
-      error: (e) => {
-        console.error(e)
+      error: (error) => { 
+        console.error(error);
+        this.alertService.error(error); 
       },
     });
   }  
