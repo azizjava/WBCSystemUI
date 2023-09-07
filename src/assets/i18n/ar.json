@@ -215,13 +215,13 @@
 			"secondweight":"الوزن الثاني"
 		},
 		"tbl_header":{
-			"sequenceno":"رقم التسلسل",
+			"sequence":"رقم التسلسل",
 			"txstatus":"حالة عملية",
 			"entrydatetime":"تاريخ الدخول والوقت",
 			"entrylogin":"ادخل اسم المستخدم",
 			"vehicle":"رقم اللوحة / رمز الناقل",
 			"supplier":"كود العميل / كود المورد",
-			"product":"كود المنتج",
+			"product":"رمز/اسم المنتج",
 			"actions":"عمل"
 		},
 		"data":{

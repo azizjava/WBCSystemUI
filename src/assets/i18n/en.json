@@ -220,7 +220,7 @@
 			"entrylogin":"Login User Name",
 			"vehicle":"Plate No/Transporter Code",
 			"supplier":"Customer Code/Supplier Code",
-			"product":"Product Code",
+			"product":"Product Code/Name",
 			"actions":"Action"
 		},
 		"data":{

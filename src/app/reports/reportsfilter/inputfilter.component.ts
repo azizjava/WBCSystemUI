@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { map, Observable, startWith } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
 import { modelDialog, ReportFormat } from 'src/app/models';
-import { AlertService } from 'src/app/services';
+import { AlertService, AuthenticationService } from 'src/app/services';
 import { LayoutSetupComponent } from '../layoutsetup/layoutsetup.component';
 import { ClientTemplateComponent } from '../clienttemplate/clienttemplate.component';
 import { ReportsService } from '../reports.service';
@@ -52,15 +52,22 @@ export class InputFilterComponent implements OnInit {
   public fromDateControl = new FormControl(new Date(Date.now() - 86400000 * 2));
   public toDateControl = new FormControl(moment().toDate());
   public htmlResponse :any ;
+  public canAccessAdminReports :boolean = false;
 
   constructor(
     private translate: TranslateService,
     private alertService: AlertService,
     private matDialog: MatDialog,
-    private httpService: ReportsService
+    private httpService: ReportsService,
+    private authenticationService: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
+    const role = this.authenticationService.currentUserValue?.role;
+    if(role) {
+      this.canAccessAdminReports = ['SUPERADMIN', 'ADMIN', 'TECHNICIAN'].includes(role.toUpperCase()) 
+    }
+    
     this.reportType = [
       { name: 'admin', value: 'admin', checked: true },
       { name: 'transaction', value: 'transaction', checked: false },
@@ -98,6 +105,10 @@ export class InputFilterComponent implements OnInit {
     this.adminddlControl.valueChanges.subscribe((value: any) => {
       this.canEnableDownload = value !== '' ? true : false;
     });
+
+    if(this.selectedReportType === 'admin' && !this.canAccessAdminReports){
+      this.adminddlControl.disable();
+    }
   }
 
   private _filter(list: any[], value: string): any[] {
@@ -114,6 +125,9 @@ export class InputFilterComponent implements OnInit {
 
   public onReportTypeChange(event: MatRadioChange) {
     this.selectedReportType = event.value;
+    if(this.selectedReportType === 'admin' && !this.canAccessAdminReports){
+      this.adminddlControl.disable();
+    }
   }
 
   public onLangChange(event: MatRadioChange) {
