@@ -6,6 +6,8 @@ import { modelDialog, User } from 'src/app/models';
 import { GlobalConstants} from '../../common/index';
 import { findInvalidControls, MustMatch } from 'src/app/helper';
 import { TranslateService } from '@ngx-translate/core';
+import { UsersService } from 'src/app/users/users.service';
+import { AlertService } from 'src/app/services';
 
 @Component({
   selector: 'app-modaldialog',
@@ -22,6 +24,8 @@ export class ModaldialogComponent implements OnInit {
     private dialogRef: MatDialogRef<ModaldialogComponent>,
     private translate: TranslateService,
     private fb: UntypedFormBuilder,
+    private httpService: UsersService,
+    private alertService: AlertService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog
   ) {}
 
@@ -29,6 +33,12 @@ export class ModaldialogComponent implements OnInit {
     if (this.data.actionName === 'changePwd') {
       this.dialogForm = this.fb.group(
         {
+          oldPassword: ['',
+          [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(15),
+          ],],
           password: [
             '',
             [
@@ -77,7 +87,29 @@ export class ModaldialogComponent implements OnInit {
     if (!findInvalidControls(this.dialogForm)) {
       return;
     }
-    this.dialogRef.close(this.dialogForm.value);
+
+    const data ={
+      newpassword: this.dialogForm.value.password,
+      oldpassword: this.dialogForm.value.oldPassword
+    }
+
+    this.httpService.changeUserPassword(data).subscribe({
+      next: (res: any) => {
+        this.alertService.success(
+         this.staticText.passwordsuccess
+        );
+        this.dialogRef.close();
+      },
+      error: (error: any) => {
+        if (error.text === 'password successfully changed') {
+          this.alertService.success(this.staticText.passwordsuccess);
+          this.dialogRef.close();
+        } else {
+          console.log(error?.text);
+          this.alertService.error(error?.text);
+        }
+      },
+    });
   }
 
   saveProfile() {
@@ -110,7 +142,9 @@ export class ModaldialogComponent implements OnInit {
         cancel: this.translate.instant('actions.cancel'),
         passwordtitle: this.translate.instant('changepassword.title'),
         password: this.translate.instant('changepassword.password'),
+        oldpassword: this.translate.instant('changepassword.oldpassword'),
         confirmpassword: this.translate.instant('changepassword.confirmpassword'),
+        passwordsuccess:this.translate.instant('changepassword.passwordsuccess'),
       };
     });
   }

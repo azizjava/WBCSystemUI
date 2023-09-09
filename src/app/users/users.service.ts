@@ -38,4 +38,8 @@ export class UsersService {
   deleteAllUsers(): Observable<any> {
     return this.http.delete(`${this.baseURL}/deleteAll`);
   }
+
+  changeUserPassword(data: any): Observable<any> {
+    return this.http.post(`${this.baseURL}/changepassword`, data);
+  }
 }

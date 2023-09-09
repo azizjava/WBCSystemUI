@@ -3,6 +3,27 @@
 
   <div mat-dialog-content>
     <form class="my-form" [formGroup]="dialogForm">
+
+      <mat-form-field class="full-width">
+        <mat-label>{{staticText.oldpassword}}</mat-label>
+        <input matInput type="password" formControlName="oldPassword" placeholder="{{staticText.oldpassword}}" name="oldPassword" />
+        <mat-error *ngIf="dialogForm.controls['oldPassword'].errors &&
+            dialogForm.controls['oldPassword'].errors['required']  &&
+            dialogForm.controls['oldPassword'].touched
+          ">{{staticText.oldpassword}} {{staticText.required}}
+        </mat-error>
+        <mat-error *ngIf="dialogForm.controls['oldPassword'].errors &&
+            dialogForm.controls['oldPassword'].errors['minlength'] &&
+            dialogForm.controls['oldPassword'].touched
+          ">Password must be at least 6 characters
+        </mat-error>
+        <mat-error *ngIf="dialogForm.controls['oldPassword'].errors &&
+            dialogForm.controls['oldPassword'].errors['maxlength'] &&
+            dialogForm.controls['oldPassword'].touched
+          ">Password must be max 12 characters
+        </mat-error>
+      </mat-form-field>
+
       <mat-form-field class="full-width">
         <mat-label>{{staticText.password}}</mat-label>
         <input matInput type="password" formControlName="password" placeholder="{{staticText.password}}" name="password" />
