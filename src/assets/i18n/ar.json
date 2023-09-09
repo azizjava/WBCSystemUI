@@ -55,6 +55,7 @@
 	"changepassword":{
 		"title":"تغيير كلمة المرور",
 		"password":"شعار",
+		"oldpassword":"كلمة المرور القديمة",
 		"confirmpassword":"تأكيد كلمة المرور"
 	},
     "pagenotfound":"الصفحة التي تبحث عنها غير موجودة.",

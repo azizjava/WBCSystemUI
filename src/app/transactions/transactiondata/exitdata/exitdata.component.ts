@@ -92,7 +92,7 @@ export class exitDataComponent implements OnInit, OnChanges {
         },
       ],
       deductWeight: [0, [Validators.required, Validators.maxLength(50)]],
-      netWeight: ['', [Validators.required, Validators.maxLength(50)]],
+      netWeight: [{value :'', disabled: true, }, [Validators.required, Validators.maxLength(50)] ],
       priceTons: ['', [Validators.maxLength(50)]],
       totalPrice: ['', [Validators.required, Validators.maxLength(50), patternNumberValidator()]],
       role: [{value :this.authenticationService.currentUserValue.role , disabled: true}],
@@ -296,8 +296,8 @@ export class exitDataComponent implements OnInit, OnChanges {
       exitKeyPairs: this.keyValueData,
       exitLoginRoleName: this.authenticationService.currentUserValue.role,
       exitLoginUserName: this.authenticationService.currentUserValue.userName,
-      secondWeight: result.secondWeight,
-      netWeight: result.netWeight,
+      secondWeight: this.exitForm.getRawValue()?.secondWeight,
+      netWeight: this.exitForm.getRawValue()?.netWeight,
       orderNo: result.orderNo,
       pricePerTon: result.priceTons,
       totalPrice: result.totalPrice,     
@@ -381,7 +381,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   if (this.transactionData) {
     const goodsType = this.transactionData.dailyTransactionEntry.goodsType;
     const firstWeight = +this.transactionData.dailyTransactionEntry.firstWeight;
-    const secondWeight = +result.secondWeight || 0;
+    const secondWeight = +this.exitForm.getRawValue()?.secondWeight || 0;
     const deductWeight = +deductWgt || +result.deductWeight;
     let netWeight = 0;
     const productPrice = this.exitForm.controls['priceTons'].value || 1;

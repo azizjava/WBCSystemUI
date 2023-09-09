@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.matDialog.open(ModaldialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed', result);
+      console.log('The dialog was closed');
     });
   }
 

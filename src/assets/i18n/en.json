@@ -55,7 +55,9 @@
 	"changepassword":{
 		"title":"Change Password",
 		"password":"Password",
-		"confirmpassword":"Confirm Password"
+		"oldpassword":"Old password",
+		"confirmpassword":"Confirm Password",
+		"passwordsuccess" :"password successfully changed"
 	},
 	"pagenotfound": "The page you are looking for was not found.",
 	"dashboard": {

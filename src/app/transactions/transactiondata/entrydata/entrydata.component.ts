@@ -74,6 +74,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   selDriverInfo!: DriverInfo;
   transporterInfo: any;
   isPrintActive:boolean =false
+  private _firstWeight:number =0;
 
   constructor(
     private httpService: TransactionsService,
@@ -154,6 +155,10 @@ export class entryDataComponent implements OnInit, OnChanges {
         }, 1000);
       }
     }); 
+
+    this.entryForm.get('firstWeight')?.valueChanges.subscribe(v => {
+      this._firstWeight = v;
+    });
 
       
       navigator.mediaDevices.enumerateDevices()
@@ -314,7 +319,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         entryLoginRoleName: this.authenticationService.currentUserValue.role,
         entryLoginUserName:
           this.authenticationService.currentUserValue.userName,
-        firstWeight: this.entryForm.getRawValue()?.firstWeight || 0,
+        firstWeight: this._firstWeight,
         goodsType: this.selectedGood,
         nationality: this.selDriverInfo.nationalityId,
         noOfPieces: result.pieces,
