@@ -494,7 +494,7 @@ getFileExtension(type: string): string {
       const vehicleData = this.vehicleList.find(
         (v: any) => v.vehicleInfo === vehicleInfo
       );
-      if (vehicleData) {
+      if (vehicleData && vehicleData.vehicleWeight > 0) {
         this.entryForm.controls['firstWeight'].setValue(
           vehicleData.vehicleWeight
         );

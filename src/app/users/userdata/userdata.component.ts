@@ -154,20 +154,17 @@ export class UserDataComponent implements OnInit {
       if(result.needPassword) {
         newRecord.password = result.password;
       }
-      if (this._hasChange) {
-        newRecord.id = this.userData?.id;
-        this.httpService.updateUser(newRecord).subscribe({
-          next: (res) => {
-            this.dialogRef.close(res);
-          },
-          error: (error) => {
-            console.log(error);
-            this.alertService.error(error);
-          },
-        });
-      } else {
-        this.dialogRef.close();
-      }
+      newRecord.id = this.userData?.id;
+      this.httpService.updateUser(newRecord).subscribe({
+        next: (res) => {
+          this.dialogRef.close(res);
+        },
+        error: (error) => {
+          console.log(error);
+          this.alertService.error(error);
+        },
+      });
+     
     }
   }
   
