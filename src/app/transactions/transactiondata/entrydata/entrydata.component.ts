@@ -156,9 +156,6 @@ export class entryDataComponent implements OnInit, OnChanges {
       }
     }); 
 
-    this.entryForm.get('firstWeight')?.valueChanges.subscribe(v => {
-      this._firstWeight = v;
-    });
 
       
       navigator.mediaDevices.enumerateDevices()
@@ -204,6 +201,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['weight'] && !changes['weight']?.firstChange) {
       this.entryForm.controls['firstWeight'].setValue(changes['weight'].currentValue);
+      this._firstWeight = changes['weight'].currentValue;
     }
 
     if (changes['transactionData'] && !changes['transactionData']?.firstChange) {
@@ -319,7 +317,7 @@ export class entryDataComponent implements OnInit, OnChanges {
         entryLoginRoleName: this.authenticationService.currentUserValue.role,
         entryLoginUserName:
           this.authenticationService.currentUserValue.userName,
-        firstWeight: this._firstWeight,
+        firstWeight: this.entryForm.getRawValue()?.firstWeight,
         goodsType: this.selectedGood,
         nationality: this.selDriverInfo.nationalityId,
         noOfPieces: result.pieces,
@@ -498,6 +496,10 @@ getFileExtension(type: string): string {
         this.entryForm.controls['firstWeight'].setValue(
           vehicleData.vehicleWeight
         );
+      }
+
+      else {
+        this.entryForm.controls['firstWeight'].setValue(this._firstWeight);        
       }
   }
 
