@@ -40,6 +40,15 @@ export class TransactionDataComponent implements OnInit {
   public onWeightChange(event :number):void{
     this.weight = event;
   }
+
+  public onTransactionDataChanged(data:any):void {
+    this.transactionData = {...data};
+  }
+
+  public onsequenceNoChange(sequenceNo: any) :void {
+    this.sequenceno = sequenceNo;
+    this.sequenceno && this._getTransactionById();    
+  }
   
   private _getTransactionById(): void {
     this.httpService.getTransactionById(this.sequenceno).subscribe({
@@ -53,9 +62,5 @@ export class TransactionDataComponent implements OnInit {
     });
   }
 
-  onsequenceNoChange(sequenceNo: any) :void {
-    this.sequenceno = sequenceNo;
-    this.sequenceno && this._getTransactionById();    
-  }
 
 }

@@ -32,6 +32,8 @@ export class entryDataComponent implements OnInit, OnChanges {
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
   @Output() sequenceNoChange = new EventEmitter();
+  @Output() transactionDataChanged = new EventEmitter<any>();
+
 
   @ViewChild('video1') videoElement1: ElementRef<HTMLVideoElement>;
   @ViewChild('video2') videoElement2: ElementRef<HTMLVideoElement>;
@@ -365,6 +367,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     if (this.sequenceno && this.sequenceno !== '') {
       this.httpService.updateTransaction(formData).subscribe({
         next: (res) => {
+          this.transactionDataChanged.emit(res);
           this.alertService.success(
             `${res.sequenceNo} updated successfully`
           );

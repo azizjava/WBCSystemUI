@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -24,6 +24,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
   @Input() actionName: string = '';
+  @Output() transactionDataChanged = new EventEmitter<any>();
 
   
   exitForm: UntypedFormGroup;
@@ -342,6 +343,7 @@ export class exitDataComponent implements OnInit, OnChanges {
 
   this.httpService.updateTransaction(formData).subscribe({
     next: (result) => {
+      this.transactionDataChanged.emit(result);  
       this.alertService.success(
         `${result.sequenceNo} updated successfully`
       );
