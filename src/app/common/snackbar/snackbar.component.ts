@@ -35,6 +35,7 @@ export class SnackbarComponent implements OnInit {
                   case 'success':
                     message.cssClass = 'bg-primary';
                     break;
+                  case 'snackbar':
                   case 'error':
                     message.cssClass = 'bg-danger';
                     break;
@@ -45,19 +46,30 @@ export class SnackbarComponent implements OnInit {
 
                 this.message = message;
                 if (this.message) {
-                  this.openSnackBar();
+                  this.openSnackBar(message?.type ==='snackbar' ? true : false);
                 }
               }
             });
   }
 
-  openSnackBar() {
-    this._snackBar.open(this.message?.text || this.message, '', {
-      duration: 2500,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      panelClass: ['mat-toolbar', this.message.cssClass]
-    });
+  openSnackBar(autoclose : boolean) {
+    if(!autoclose) {
+      this._snackBar.open(this.message?.text || this.message, '', {
+        duration: 2500,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        panelClass: ['mat-toolbar', this.message.cssClass]
+      });
+    }
+    else{
+      this._snackBar.open(this.message?.text || this.message,  'Ok',
+       {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        panelClass: ['mat-toolbar', this.message.cssClass]
+      }
+      );
+    }    
 
   }
 

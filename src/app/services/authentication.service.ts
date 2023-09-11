@@ -55,7 +55,6 @@ export class AuthenticationService {
           }
           const errorMsg = error?.error;
           console.log(errorMsg);
-          this.alertService.error(errorMsg);
           return throwError(errorMsg);
         }),
       );

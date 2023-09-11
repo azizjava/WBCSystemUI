@@ -85,7 +85,11 @@ export class LoginComponent implements OnInit {
           }
         },
         error => {
-          this.alertService.error(error);
+          if (error === 'User is disabled') {
+            this.alertService.showAlert("Your account is currently disabled. Please reach out to the admin for assistance.");
+          } else {
+            this.alertService.error(error);
+          }
           this.loading = false;
         });
   }
