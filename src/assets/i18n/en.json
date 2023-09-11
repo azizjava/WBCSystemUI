@@ -54,10 +54,10 @@
 	},
 	"changepassword":{
 		"title":"Change Password",
-		"password":"Password",
-		"oldpassword":"Old password",
+		"password":"New Password",
+		"oldpassword":"Current Password",
 		"confirmpassword":"Confirm Password",
-		"passwordsuccess" :"password successfully changed"
+		"passwordsuccess" :"Password successfully changed"
 	},
 	"pagenotfound": "The page you are looking for was not found.",
 	"dashboard": {

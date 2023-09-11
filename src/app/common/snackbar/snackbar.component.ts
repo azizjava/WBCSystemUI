@@ -8,6 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 
 import { AlertService } from '../../services';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-snackbar',
@@ -22,7 +23,17 @@ export class SnackbarComponent implements OnInit {
   message: any;
 
   constructor(private _snackBar: MatSnackBar,
+    private router: Router,
     private alertService: AlertService) {
+
+      router.events.forEach((event) => {
+        if(event instanceof NavigationEnd) {
+          if(this.message?.type === 'snackbar'){
+           this._snackBar?.dismiss();
+          }
+        }
+        
+      });
 
   }
 

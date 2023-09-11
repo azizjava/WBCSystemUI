@@ -54,9 +54,10 @@
 	},
 	"changepassword":{
 		"title":"تغيير كلمة المرور",
-		"password":"شعار",
-		"oldpassword":"كلمة المرور القديمة",
-		"confirmpassword":"تأكيد كلمة المرور"
+		"password":"كلمة المرور الجديدة",
+		"oldpassword":"كلمة السر الحالية",
+		"confirmpassword":"تأكيد كلمة المرور",
+		"passwordsuccess" :"الرقم السري تغير بنجاح"
 	},
     "pagenotfound":"الصفحة التي تبحث عنها غير موجودة.",
     "dashboard":{
