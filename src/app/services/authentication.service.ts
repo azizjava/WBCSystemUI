@@ -55,6 +55,7 @@ export class AuthenticationService {
           }
           const errorMsg = error?.error;
           console.log(errorMsg);
+          errorMsg !=='User is disabled' && this.alertService.error(errorMsg);         
           return throwError(errorMsg);
         }),
       );
