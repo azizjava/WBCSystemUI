@@ -6,7 +6,7 @@ import { GlobalConstants } from 'src/app/common';
 import { ModaldialogComponent } from 'src/app/common/modaldialog/modaldialog.component';
 import { modelDialog } from 'src/app/models';
 import { ProjectSetup } from 'src/app/models/projectsetup.model';
-import { AlertService } from 'src/app/services';
+import { AlertService, AuthenticationService } from 'src/app/services';
 import { projectSetupService } from 'src/app/services/project.service';
 import { WeightBridgeScaleService } from 'src/app/services/weighbridgescale.service';
 
@@ -19,11 +19,13 @@ export class WeightbridgeWeightComponent implements OnInit {
 
   scaleForm: UntypedFormGroup;
   selectedscaleType :string;
+  canAddProjectSetup :boolean =false
 
   constructor(private httpService: WeightBridgeScaleService,
     private _formBuilder: UntypedFormBuilder,
     private alertService: AlertService,
     private companyService: projectSetupService,
+    private authenticationService: AuthenticationService,
     private matDialog: MatDialog) {}
 
   public ngOnInit() :void {
@@ -31,6 +33,12 @@ export class WeightbridgeWeightComponent implements OnInit {
     this.scaleForm = this._formBuilder.group({    
       scaleType: [this.selectedscaleType, [Validators.required]],
     });
+
+    const role = this.authenticationService.currentUserValue?.role;
+    if(role) {
+      this.canAddProjectSetup = ['SUPERADMIN', 'TECHNICIAN'].includes(role.toUpperCase()) 
+    }
+
   }  
 
   public saveSettings() {

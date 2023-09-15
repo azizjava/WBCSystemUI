@@ -22,7 +22,7 @@
 
           </div>
 
-          <button mat-flat-button color="primary" class="btn btn-sm btn-save" mat-button (click)="openProjectSetup()"
+          <button mat-flat-button color="primary" *ngIf="canAddProjectSetup" class="btn btn-sm btn-save" mat-button (click)="openProjectSetup()"
             matTooltip="{{'actions.projectsetup' | translate }}">
             {{'actions.projectsetup' | translate }}
           </button>
