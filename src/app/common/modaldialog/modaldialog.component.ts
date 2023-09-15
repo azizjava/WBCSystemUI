@@ -68,6 +68,34 @@ export class ModaldialogComponent implements OnInit {
       this.dialogForm.controls['language'].setValue(this.currentUser?.language);
     }
 
+  else if (this.data.actionName === 'projectSetup') {
+
+    const companyData = this.data.data;
+
+    this.dialogForm = this.fb.group({
+      name: ['', [Validators.maxLength(30)]],
+      contactno: ['', [Validators.maxLength(30)]],
+      date: ['', [Validators.maxLength(30)]],
+      email: ['', [Validators.email]],
+      address: ['', [Validators.maxLength(500)]],
+      count: [0, [Validators.maxLength(30), Validators.pattern("^[0-9]*$")]],
+    });
+
+    if(companyData !== null && companyData !== undefined) {
+      let date = companyData?.endDate.toString().split('/');
+      const endDate = date?.length > 2 ? new Date(date[2], date[1], date[0]) :new Date();
+
+      this.dialogForm.controls['name'].setValue(companyData?.name);
+      this.dialogForm.controls['contactno'].setValue(companyData?.contactNo);
+      this.dialogForm.controls['date'].setValue(endDate);
+      this.dialogForm.controls['email'].setValue(companyData?.emails);
+      this.dialogForm.controls['address'].setValue(companyData?.companyAddress);
+      this.dialogForm.controls['count'].setValue(companyData?.transCount);
+    }
+    
+
+  }
+
     this.getTranslatedText();
 
   }
@@ -130,6 +158,15 @@ export class ModaldialogComponent implements OnInit {
     this.dialogRef.close(this.dialogForm.value);
   }
 
+  saveProject() {
+    // stop here if form is invalid
+    if (!findInvalidControls(this.dialogForm)) {
+      return;
+    }
+        
+    this.dialogRef.close(this.dialogForm.value);
+  }
+
   private getTranslatedText(): void {
     this.translate.get(['']).subscribe((translated: string) => {
       this.staticText = {
@@ -145,6 +182,14 @@ export class ModaldialogComponent implements OnInit {
         oldpassword: this.translate.instant('changepassword.oldpassword'),
         confirmpassword: this.translate.instant('changepassword.confirmpassword'),
         passwordsuccess:this.translate.instant('changepassword.passwordsuccess'),
+        projectsetuptitle: this.translate.instant('projectsetup.title'),
+        emailerror: this.translate.instant('users.data.emailerror'),
+        name: this.translate.instant('projectsetup.name'),
+        contactno: this.translate.instant('projectsetup.contactno'),        
+        date: this.translate.instant('projectsetup.date'),
+        transcount: this.translate.instant('projectsetup.transcount'),
+        address: this.translate.instant('projectsetup.address'),
+        numbererror: this.translate.instant('projectsetup.numbererror'),
       };
     });
   }

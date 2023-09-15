@@ -168,3 +168,84 @@
 
 
 </div>
+
+
+<div class="modaldialog" *ngIf="data.actionName === 'projectSetup'">
+  <h1 mat-dialog-title>{{ staticText.projectsetuptitle }}</h1>
+
+  <div mat-dialog-content>
+    <form class="my-form" [formGroup]="dialogForm">
+
+      <div class="row mb-2">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.name}}</mat-label>
+            <input matInput placeholder="{{staticText.name}}" formControlName="name" name="name" />
+          </mat-form-field>
+        </div>
+        
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.contactno}}</mat-label>
+            <input matInput placeholder="{{staticText.contactno}}" formControlName="contactno" name="contactno" />           
+          </mat-form-field>
+        </div> 
+      </div>
+
+      <div class="row mb-2">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.email}}</mat-label>
+            <input matInput placeholder="{{staticText.email}}" formControlName="email" name="email" />           
+            <mat-error *ngIf="dialogForm.controls['email'].errors &&
+                    dialogForm.controls['email'].errors['pattern'] &&
+                    dialogForm.controls['email'].touched
+                  ">{{staticText.emailerror}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.date}}</mat-label>
+            <input matInput placeholder="{{staticText.date}}" [matDatepicker]="picker" formControlName="date" name="date" />   
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>        
+          </mat-form-field>
+        </div> 
+      </div>
+
+      <div class="row mb-2">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.transcount}}</mat-label>
+            <input matInput placeholder="{{staticText.transcount}}" formControlName="count" name="count" />
+            <mat-error *ngIf="dialogForm.controls['count'].errors &&
+                    dialogForm.controls['count'].errors['pattern'] &&
+                    dialogForm.controls['count'].touched
+                  ">{{staticText.numbererror}}
+            </mat-error>         
+          </mat-form-field>
+        </div>
+        
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.address}}</mat-label>
+            <input matInput placeholder="{{staticText.address}}" formControlName="address" name="address" />           
+          </mat-form-field>
+        </div> 
+      </div>
+      
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="d-flex justify-content-between w-100">
+    <button class="btn btn-md" mat-flat-button color="primary" type="submit" mat-button (click)="saveProject()">
+      {{staticText.save}}
+    </button>
+
+    <button class="btn btn-md btn-link" mat-flat-button type="submit" mat-button (click)="close()">
+      {{staticText.cancel}}
+    </button>
+  </div>
+</div>

@@ -16,7 +16,8 @@
 		"add":"Add",
 		"updateprofile":"Update Profile",
 		"reset":"Reset",
-		"printall":"Print All"
+		"printall":"Print All",
+		"projectsetup" :"Project Setup"
 	},
 	"actiontooltip":{
 		"add":"Click to Add",
@@ -369,5 +370,15 @@
 	},
 	"weighbridge":{
 		"invalidtype" :"Please reset your device weight to "
-	}	
+	},
+	"projectsetup": {
+		"title": "Project Setup",
+		"name": "Name",
+		"contactno": "Contact No",
+		"email": "Email",
+		"date":"Date",
+		"transcount": "Transaction Count",		
+		"address": "Company Address",
+		"numbererror":"only accept integer"
+	}
 }

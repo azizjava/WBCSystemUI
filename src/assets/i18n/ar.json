@@ -16,7 +16,8 @@
 		"add":"يضيف",
 		"updateprofile":"تحديث الملف الشخصي",
 		"reset":"إعادة ضبط",
-		"printall":"طباعة الكل"
+		"printall":"طباعة الكل",
+		"projectsetup" :"إعداد مشروع"
 	},
 	"actiontooltip":{
 		"add":"انقر للإضافة",
@@ -372,5 +373,15 @@
 	},
 	"weighbridge":{
 		"invalidtype" :"يرجى إعادة ضبط وزن جهازك إلى "
+	},
+	"projectsetup": {
+		"title": "إعداد مشروع",
+		"name": "اسم",
+		"contactno": "رقم الاتصال",
+		"email": "بريد إلكتروني",
+		"date":"تاريخ",
+		"transcount": "عدد المعاملات",		
+		"address": "عنوان الشركة",
+		"numbererror":"قبول عدد صحيح فقط"
 	}	
 }

@@ -1,24 +1,37 @@
 <div class="weightbridgeweight">
 
-  <div  class="card shadow p-2 mb-2 bg-body rounded">
+  <div class="card shadow p-2 mb-2 bg-body rounded">
     <div class="card-body">
       <form [formGroup]="scaleForm">
-        <div class="full-width mt-2">
-            <mat-label class="me-3 d-none d-lg-inline d-xl-inline">{{'wbSetting.selectweight' | translate }}</mat-label>  
-            <mat-radio-group formControlName="scaleType" name="scaleType"  fxLayout aria-label="'wbSetting.selectweight' | translate " >
-                <mat-radio-button class="me-3" value="KG">{{'wbSetting.kg' | translate }}</mat-radio-button>
-                <mat-radio-button  value="LB">{{'wbSetting.lb' | translate }}</mat-radio-button>
-              </mat-radio-group>
 
-              <button mat-flat-button color="primary" class="btn btn-sm btn-save" mat-button
-              [disabled]="selectedscaleType === scaleForm.controls['scaleType'].value"
-              (click)="saveSettings()" matTooltip="{{'actions.save' | translate }}">
+        <div class="d-flex align-items-center justify-content-between">
+          
+          <div class="full-width mt-2">
+            <mat-label class="me-3 d-none d-lg-inline d-xl-inline">{{'wbSetting.selectweight' | translate }}</mat-label>
+            <mat-radio-group formControlName="scaleType" name="scaleType" fxLayout
+              aria-label="'wbSetting.selectweight' | translate ">
+              <mat-radio-button class="me-3" value="KG">{{'wbSetting.kg' | translate }}</mat-radio-button>
+              <mat-radio-button value="LB">{{'wbSetting.lb' | translate }}</mat-radio-button>
+            </mat-radio-group>
+
+            <button mat-flat-button color="primary" class="btn btn-sm btn-save" mat-button
+              [disabled]="selectedscaleType === scaleForm.controls['scaleType'].value" (click)="saveSettings()"
+              matTooltip="{{'actions.save' | translate }}">
               {{'actions.save' | translate }}
+            </button>
+
+          </div>
+
+          <button mat-flat-button color="primary" class="btn btn-sm btn-save" mat-button (click)="openProjectSetup()"
+            matTooltip="{{'actions.projectsetup' | translate }}">
+            {{'actions.projectsetup' | translate }}
           </button>
 
-        </div>       
+        </div>
       </form>
+
+
     </div>
   </div>
- 
+
 </div>
