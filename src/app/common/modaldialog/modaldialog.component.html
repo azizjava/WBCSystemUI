@@ -235,6 +235,22 @@
           </mat-form-field>
         </div> 
       </div>
+
+      <div class="row mb-2">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.existingCount}}</mat-label>
+            <input matInput placeholder="{{staticText.existingCount}}" formControlName="existingCount" name="existingCount" />               
+          </mat-form-field>
+        </div>
+        
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>{{staticText.startdate}}</mat-label>
+            <input matInput placeholder="{{staticText.startdate}}" formControlName="startDate" name="startDate" />           
+          </mat-form-field>
+        </div> 
+      </div>
       
     </form>
   </div>

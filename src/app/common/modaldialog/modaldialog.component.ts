@@ -79,6 +79,8 @@ export class ModaldialogComponent implements OnInit {
       email: ['', [Validators.email]],
       address: ['', [Validators.maxLength(500)]],
       count: [0, [Validators.maxLength(30), Validators.pattern("^[0-9]*$")]],
+      existingCount: [{ value: '',  disabled: true } ],
+      startDate: [{ value: '',  disabled: true } ],
     });
 
     if(companyData !== null && companyData !== undefined && companyData?.code) {
@@ -91,6 +93,8 @@ export class ModaldialogComponent implements OnInit {
       this.dialogForm.controls['email'].setValue(companyData?.emails);
       this.dialogForm.controls['address'].setValue(companyData?.companyAddress);
       this.dialogForm.controls['count'].setValue(companyData?.transCount);
+      this.dialogForm.controls['existingCount'].setValue(companyData?.existingCount);
+      this.dialogForm.controls['startDate'].setValue(companyData?.startDate);
     }
     
 
@@ -189,6 +193,8 @@ export class ModaldialogComponent implements OnInit {
         date: this.translate.instant('projectsetup.date'),
         transcount: this.translate.instant('projectsetup.transcount'),
         address: this.translate.instant('projectsetup.address'),
+        existingCount: this.translate.instant('projectsetup.existingcount'),
+        startdate: this.translate.instant('projectsetup.startdate'),
         numbererror: this.translate.instant('projectsetup.numbererror'),
       };
     });

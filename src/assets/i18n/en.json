@@ -379,6 +379,8 @@
 		"date":"Date",
 		"transcount": "Transaction Count",		
 		"address": "Company Address",
+		"existingcount" : "Existing Transaction Count",
+		"startdate" : "Start Date",
 		"numbererror":"only accept integer"
 	}
 }
