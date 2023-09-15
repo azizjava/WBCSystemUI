@@ -81,7 +81,7 @@ export class ModaldialogComponent implements OnInit {
       count: [0, [Validators.maxLength(30), Validators.pattern("^[0-9]*$")]],
     });
 
-    if(companyData !== null && companyData !== undefined) {
+    if(companyData !== null && companyData !== undefined && companyData?.code) {
       let date = companyData?.endDate.toString().split('/');
       const endDate = date?.length > 2 ? new Date(date[2], date[1], date[0]) :new Date();
 

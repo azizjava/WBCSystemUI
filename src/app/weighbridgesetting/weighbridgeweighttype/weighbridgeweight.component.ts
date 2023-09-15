@@ -59,7 +59,7 @@ export class WeightbridgeWeightComponent implements OnInit {
         const dialogData = {
           actionName: 'projectSetup',
           headerText: 'Information',
-          data: result,
+          data: result !== null ? result :{},
         };
         this.openDialog(dialogData);    
       },
