@@ -295,8 +295,8 @@
 		"tbl_header":{
 			"name":"اسم جسر الوزن",
 			"devicestatus":"حالة الجهاز",
-			"portNo":"رقم المنفذ",
-			"baudRate":"معدل الباود",
+			"portno":"رقم المنفذ",
+			"baudrate":"معدل الباود",
 			"databits":"بتات البيانات",
 			"endpoint":"نقطة النهاية",
 			"weightbridgetype": "وزن الجسر",
