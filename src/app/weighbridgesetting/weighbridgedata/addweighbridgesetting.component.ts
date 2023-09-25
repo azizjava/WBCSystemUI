@@ -43,12 +43,11 @@ export class AddWeighbridgesettingComponent implements OnInit {
     ) {}
 
   public ngOnInit(): void {
-    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.weightForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       deviceStatus: [false, [ Validators.maxLength(50)]],
       weightBridgeType:['', [ Validators.maxLength(50)]],
-      endPoint: ['', [Validators.required, Validators.maxLength(250), Validators.pattern(reg)], ],
+      endPoint: ['', [Validators.required, Validators.maxLength(250)], ],
       portNo: ['', [ Validators.maxLength(50)]],
       baudRate: ['', [ Validators.maxLength(50)]],
       dataBits: ['', [ Validators.maxLength(50)]],
