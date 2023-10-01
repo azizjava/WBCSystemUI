@@ -254,6 +254,11 @@ export class GlobalConstants {
         { key: '2', value: '2' },
         { key: '3', value: '3' },
         { key: '4', value: '4' },
+        { key: '5', value: '5' },
+        { key: '6', value: '6' },
+        { key: '7', value: '7' },
+        { key: '8', value: '8' },
+        { key: '9', value: '9' },
       ];
       return menu;
     },
@@ -269,20 +274,22 @@ export class GlobalConstants {
 
     getDataBitsList(): any[] {
       let menu = [
+        { key: '4', value: '4' },
+        { key: '5', value: '5' },
+        { key: '6', value: '6' },
         { key: '7', value: '7' },
-        { key: '14', value: '14' },
-        { key: '21', value: '21' },
-        { key: '28', value: '28' },
+        { key: '8', value: '8' },
       ];
       return menu;
     },
 
     getParityList(): any[] {
       let menu = [
-        { key: 'a', value: 'a' },
-        { key: 'b', value: 'b' },
-        { key: 'c', value: 'c' },
-        { key: 'd', value: 'd' },
+        { key: 'Odd', value: 'Odd' },
+        { key: 'Even', value: 'Even' },
+        { key: 'None', value: 'None' },
+        { key: 'Mark', value: 'Mark' },
+        { key: 'Space', value: 'Space' },
       ];
       return menu;
     },
@@ -290,6 +297,7 @@ export class GlobalConstants {
     getStopBitsList(): any[] {
       let menu = [
         { key: '1', value: '1' },
+        { key: '1.5', value: '1.5' },
         { key: '2', value: '2' },        
       ];
       return menu;
