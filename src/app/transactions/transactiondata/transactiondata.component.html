@@ -27,7 +27,7 @@
     </div>
   
     <div class="item d-print-none">
-      <mat-icon class="material-icons cursor-pointer" [attr.title] ="'transactions.data.exit.header' | translate"  [ngClass]="{'disable':actionItem.isLast}" [attr.disabled]="actionItem.isLast" (click)="changeCard(true)">
+      <mat-icon class="material-icons cursor-pointer" [attr.title] ="'transactions.data.exit.header' | translate"  [ngClass]="{'disable':actionItem.isLast || !sequenceno}" [attr.disabled]="actionItem.isLast || !sequenceno" (click)="changeCard(true)">
         arrow_forward
       </mat-icon>
     </div>
