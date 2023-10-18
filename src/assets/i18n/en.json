@@ -85,7 +85,8 @@
 		"Reports": "Reports",
 		"WeighBridgeSetting":"Weigh Bridge Settings",
 		"WeighBridgeWeight":"Weigh Bridge Weight",
-		"Users": "Users"
+		"Users": "Users",
+		"Template" :"Template"
 	},
 	"customers":{
 		"tbl_header":{

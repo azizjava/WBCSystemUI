@@ -114,6 +114,7 @@ export class GlobalConstants {
         },
         { menuName: 'WeighBridgeSetting', menuIcon: 'fa fa-cog' , routePath: 'weighbridgesetting'},
         { menuName: 'Reports', menuIcon: 'fa fa-signal' , routePath: 'reports'},
+        { menuName: 'Template', menuIcon: 'fa fa-signal' , routePath: 'template'},
       ];
     },
     getCurrentYear(): number {

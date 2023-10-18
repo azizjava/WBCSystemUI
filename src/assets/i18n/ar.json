@@ -86,7 +86,8 @@
 		"Reports": "التقارير",
 		"WeighBridgeSetting":"وزن إعدادات الجسر",
 		"WeighBridgeWeight":"وزن الجسر",
-		"Users": "المستخدمين"
+		"Users": "المستخدمين",
+		"Template" :"Template"
 	},	
 	"customers":{
 		"tbl_header":{
