@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TemplateComponent } from './template.component';
 import { TemplateRoutingModule } from './template-routing.module';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
+import { TemplateDataComponent } from './templatedata/templatedata.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -18,6 +19,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     TemplateComponent,
+    TemplateDataComponent
   ],
   imports: [
     CommonModule,

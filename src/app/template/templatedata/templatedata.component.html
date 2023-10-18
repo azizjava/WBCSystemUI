@@ -1,0 +1,19 @@
+<form class="template-form">
+
+  <button (click)="addTable()">Add Row</button> <br> <br>
+  <table class="style">
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let item of row; let i = index">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td> <button (click)="deleteRow(i)"><i class="fa fa-trash"></i></button></td>
+    </tr>
+  </table>
+
+</form>
