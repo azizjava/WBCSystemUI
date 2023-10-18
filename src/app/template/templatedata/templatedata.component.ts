@@ -49,7 +49,6 @@ export class TemplateDataComponent implements OnInit {
 
   ngOnInit(): void {  
     this._getTranslatedText();
-    this._onFormValueChange();
   }
 
   addTable() {
@@ -83,12 +82,5 @@ export class TemplateDataComponent implements OnInit {
     });
   }
 
-  private _onFormValueChange() {
-    const initialValue = this.form.value;
-    this.form.valueChanges.subscribe((value) => {
-      this._hasChange = Object.keys(initialValue).some(
-        (key) => this.form.value[key] != initialValue[key]
-      );
-    });
-  }
+ 
 }

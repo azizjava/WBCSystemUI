@@ -10,6 +10,7 @@ import { TemplateComponent } from './template.component';
 import { TemplateRoutingModule } from './template-routing.module';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
 import { TemplateDataComponent } from './templatedata/templatedata.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,6 +28,7 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     TemplateRoutingModule,
     SharedcomponentsModule,
+    DragDropModule,
     TranslateModule.forChild({
       loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] },
       isolate: false
