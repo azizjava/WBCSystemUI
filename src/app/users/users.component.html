@@ -1,5 +1,6 @@
 <div class="usersList">
     <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
        [componentName] ="'users'" [visibleColumns]='visibleColumns'
+       [disableAdd] ="disableAdd" [disableEdit] ="disableEdit"
         (actionEvent)="selectedRecord($event)"></app-list-table>
 </div>

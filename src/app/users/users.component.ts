@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { modelDialog, signup, tableOperation, Vehicle } from '../models';
-import { AlertService } from '../services';
+import { AlertService, AuthenticationService } from '../services';
 
 import { UsersService } from './users.service';
 import { UserDataComponent } from './userdata/userdata.component';
+import { UserRole } from '../common';
 
 @Component({
   selector: 'app-users',
@@ -28,13 +29,20 @@ export class UsersComponent implements OnInit {
   public sortColumn = { name: 'username', dir: 'asc' };
   public visibleColumns = ['username', 'email', 'Actions'];
 
+  public disableAdd: boolean = false;
+  public disableEdit: boolean = false;
+
   constructor(
     private matDialog: MatDialog,
     private httpService: UsersService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authenticationService: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
+    const currentRole  = this.authenticationService.currentUserValue.role;
+    this.disableAdd = currentRole === (UserRole.OPERATOR || UserRole.SUPERVISOR) ? true : false ;
+    this.disableEdit = currentRole === (UserRole.OPERATOR || UserRole.SUPERVISOR) ? true : false ;
     this.getAllUsers();
   }
 

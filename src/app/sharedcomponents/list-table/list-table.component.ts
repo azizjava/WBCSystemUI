@@ -30,6 +30,9 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() visibleColumns: string[] = [];
   @Input() componentName: string = '';
 
+  @Input() disableAdd: boolean = false;
+  @Input() disableEdit: boolean = false;
+
   @Output() actionEvent = new EventEmitter<tableOperation>();
   @Output() dateSelectionEvent = new EventEmitter<dateRange>();
   @Output() sequenceNoChange = new EventEmitter<string>();

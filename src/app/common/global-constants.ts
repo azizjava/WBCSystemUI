@@ -338,3 +338,13 @@ export enum UserRoles {
   SUPERVISOR = 2,
   USER = 1,
 }
+
+
+export enum UserRole {
+  SUPERADMIN = "SUPERADMIN",
+  TECHNICIAN = "TECHNICIAN",
+  ADMIN = "ADMIN",
+  SUPERVISOR = "SUPERVISOR",
+  OPERATOR ="OPERATOR",
+  USER = "USER",
+}
