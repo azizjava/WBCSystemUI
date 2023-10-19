@@ -133,7 +133,7 @@ export class ModaldialogComponent implements OnInit {
         this.dialogRef.close();
       },
       error: (error: any) => {
-        if (error.text === 'password successfully changed') {
+        if (error.text?.toLowerCase() === 'password successfully changed') {
           this.alertService.success(this.staticText.passwordsuccess);
           this.dialogRef.close();
         } else {
