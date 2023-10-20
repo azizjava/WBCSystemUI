@@ -13,6 +13,7 @@ import {
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { TransportersService } from 'src/app/transporters/transporters.service';
 import { VehiclesService } from '../vehicles.service';
+import { UserRole } from 'src/app/common';
 
 @Component({
   selector: 'app-vehicledata',
@@ -80,6 +81,9 @@ export class VehicleDataComponent implements OnInit {
         this.vehicleForm.controls['transporterName'].setValue("");
       }
     });
+    if(this.authenticationService.currentUserValue?.role === UserRole.OPERATOR){
+      this.vehicleForm.controls['defaultWeight'].disable();
+    }
   }
 
   public close() {
