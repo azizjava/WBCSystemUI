@@ -14,8 +14,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls, patternNumberValidator } from 'src/app/helper';
 import { modelDialog, Product} from 'src/app/models';
-import { AlertService } from 'src/app/services';
+import { AlertService, AuthenticationService } from 'src/app/services';
 import { ProductsService } from '../products.service';
+import { UserRole } from 'src/app/common';
 
 @Component({
   selector: 'app-productdata',
@@ -37,6 +38,7 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     private httpService: ProductsService,
     private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog,
+    private authenticationService: AuthenticationService,
     private changeDetector: ChangeDetectorRef
   ) {
   }
@@ -74,6 +76,11 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
       if (this.data.actionName === 'view') {
         this.form.disable();
       }
+    }
+
+    if(this.authenticationService.currentUserValue?.role === UserRole.OPERATOR){
+      this.form.controls['customerPrice'].disable();
+      this.form.controls['supplierPrice'].disable();
     }
 
     this._getTranslatedText();
@@ -117,9 +124,9 @@ export class ProductDataComponent implements OnInit, AfterViewChecked {
     const newRecord: Product = {
       productCode: result.productCode,
       productName: result.productName,
-      customerPrice: result.customerPrice,
+      customerPrice: result.customerPrice === undefined ? 0 : result.customerPrice,
       productStock: result.productStock,
-      supplierPrice: result.supplierPrice,
+      supplierPrice: result.supplierPrice === undefined ? 0 : result.supplierPrice,
     };
 
     if (this.data.actionName === 'add') {
