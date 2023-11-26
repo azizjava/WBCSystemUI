@@ -244,7 +244,12 @@ export class GlobalConstants {
         { key: 'outgoingprodcut', value: 'Outgoing Products' },
         { key: 'datereport', value: 'Report By Date' },
         { key: 'datetimereport', value: 'Report By Date & Time' },   
-      
+        { key: 'summaryreportbycustomer', value: 'Summary Report By Customer' }, 
+        { key: 'summaryreportbysupplier', value: 'Summary Report By Supplier' }, 
+        { key: 'summaryreportbyproduct', value: 'Summary Report By Product' }, 
+        { key: 'summaryreportbytransporter', value: 'Summary Report By Transporter' }, 
+        { key: 'summaryreportbyvehicle', value: 'Summary Report By Vehicle' }, 
+        { key: 'loginlogouthistoryreport', value: 'Log In and Log out History Report' }, 
       ];
       return menu;
     },
