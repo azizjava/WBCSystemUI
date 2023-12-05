@@ -1,30 +1,53 @@
-<form class="template-form">
+<div class="template-form" style="margin-inline-start: 2rem;">
 
-  <div class="box" cdkDrag style="width: 200px;">
-    <div class="d-flex" style="align-items: center;"> <span class="drag-icon">::</span> <input type="text" > </div>
-  </div>
+  <div class="mb-2 d-flex justify-content-between d-print-none">
+    <div>
 
-  <div class="d-flex justify-content-end"> 
-    <button style="width: fit-content;margin: .5rem;" class="btn btn-sm" (click)="addTable()" mat-button>Add
-      Row
-    </button>
-     
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="addBtn" (click)="addDraggable()">
+        {{'Add Component' | translate }}
+      </button>
+
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="clearBtn">
+        Clear Panel
+      </button>
+
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="saveBtn" (click)="saveTemplate()" >
+        Save
+      </button>
+
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="deleteBtn">
+        Delete Selected
+      </button>
+
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="setA4">
+        Set to A4 Size
+      </button>
+
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="setA2">
+        Set to A2 Size
+      </button>
     </div>
 
-  <br> <br>
-  <table class="style">
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let item of row; let i = index">
-      <td class="col-"></td>
-      <td class="col-"></td>
-      <td class="col-"></td>
-      <td class="col-sm" style="width: 120px;"> <button (click)="deleteRow(i)"><i class="fa fa-trash"></i></button></td>
-    </tr>
-  </table>
+    <div style="width:250px;">
+      <input type="file" class="form-control" id="loadFile" />
+    </div>
+  </div>
 
-</form>
+
+  <div class="panels-container">
+    <div id="panel-1" class="panel"></div>
+    <div id="panel-2" class="panel"></div>
+    <div id="panel-3" class="panel">
+      <div class="predefined-label">Label 1</div>
+      <div class="predefined-label">Label 2</div>
+    </div>
+
+    <div id="panel-3" class="panel">
+      <div class="predefined-label">Cust Name </div>
+      <div class="predefined-label">Prod Name</div>
+  </div>
+  </div>
+
+
+
+</div>
