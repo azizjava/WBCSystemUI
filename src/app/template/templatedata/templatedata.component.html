@@ -11,7 +11,7 @@
         Clear Panel
       </button>
 
-      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="saveBtn" (click)="saveTemplate()" >
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="saveBtn" (click)="saveTemplate()">
         Save
       </button>
 
@@ -37,17 +37,34 @@
   <div class="panels-container">
     <div id="panel-1" class="panel"></div>
     <div id="panel-2" class="panel"></div>
-    <div id="panel-3" class="panel">
-      <div class="predefined-label">Label 1</div>
-      <div class="predefined-label">Label 2</div>
+    <div id="panel-3" class="panel" style="max-height: 400px;width:280px; overflow-y: auto;">
+      <ng-container *ngFor="let item of labelNames; let i=index;">
+        <span class="predefined-label" style="margin-bottom: 0.25rem; display: inline-block; width:80%;">{{item?.value}}
+        </span>
+        <mat-icon aria-label="Edit" class="editiconbutton" color="primary"
+          (click)="editLabelName(item,i)">edit</mat-icon>
+      </ng-container>
+
     </div>
 
     <div id="panel-3" class="panel">
       <div class="predefined-label">Cust Name </div>
       <div class="predefined-label">Prod Name</div>
-  </div>
+    </div>
   </div>
 
-
+  <ng-template let-data #myLabelDialog>
+    <div mat-dialog-content>
+      <mat-form-field class="full-width">
+        <mat-label>New Label Name</mat-label>
+        <input matInput type="text" [ngModel]="data.data" (ngModelChange)="data.data = $event" />
+      </mat-form-field>
+    </div>
+    <mat-dialog-actions class="text-center">
+      <button mat-raised-button color="primary" [disabled]="!data.data" [mat-dialog-close]="data.data"> {{'actions.save'
+        | translate }}</button>
+      <button mat-raised-button mat-dialog-close>{{'actions.cancel' | translate }}</button>
+    </mat-dialog-actions>
+  </ng-template>
 
 </div>

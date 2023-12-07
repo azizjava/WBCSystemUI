@@ -327,6 +327,40 @@ export class GlobalConstants {
       ];
       return menu;
     },
+
+    getTemplateLabelNamesList(): any[] {
+      return [
+        { key: 'OperatorName', value: 'OperatorName' },
+        { key: 'Role', value: 'Role' },
+        { key: 'DateIn', value: 'DateIn' },
+        { key: 'TimeIn', value: 'TimeIn' },
+        { key: 'DateOut', value: 'DateOut' },
+        { key: 'TimeOut', value: 'TimeOut' },
+        { key: 'Sequence No', value: 'Sequence No' },
+        { key: 'FirstWeight', value: 'FirstWeight' },
+        { key: 'Customer/Supplier Name', value: 'Customer/Supplier Name' },
+        { key: 'PlateNo', value: 'PlateNo' },
+        { key: 'TransporterCode', value: 'TransporterCode' },
+        { key: 'TransporterName', value: 'TransporterName' },
+        { key: 'Supplier Code', value: 'Supplier Code' },
+        { key: 'Supplier Name', value: 'Supplier Name' },
+        { key: 'Customer Code', value: 'Customer Code' },
+        { key: 'Customer Name', value: 'Customer Name' },
+        { key: 'Product Code', value: 'Product Code' },
+        { key: 'Product Name', value: 'Product Name' },
+        { key: 'No of Pieces', value: 'No of Pieces' },
+        { key: 'Driver License No', value: 'Driver License Name' },
+        { key: 'Nationality', value: 'Nationality' },
+        { key: 'Second Weight', value: 'Second Weight' },
+        { key: 'Deduct Weight', value: 'Deduct Weight' },
+        { key: 'Net Weight', value: 'Net Weight' },
+        { key: 'Price per Ton', value: 'Price per Ton' },
+        { key: 'Total Price', value: 'Total Price' },
+        { key: 'Delivery Note', value: 'Delivery Note' },
+        { key: 'Delivery Instructions', value: 'Delivery Instructions' },
+        { key: 'Order No', value: 'Order No' },
+      ];
+    },
   };
 }
 

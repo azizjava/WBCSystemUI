@@ -1,15 +1,16 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { findInvalidControls } from 'src/app/helper';
 import { modelDialog, Nationality } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { TemplateService } from '../template.service';
+import { GlobalConstants } from 'src/app/common';
 
 declare var $: any; // declaring jquery in this way solved the problem
 
@@ -21,11 +22,14 @@ declare var $: any; // declaring jquery in this way solved the problem
 export class TemplateDataComponent implements OnInit, AfterViewInit {
   public staticText: any = {};
   public count = 0;
+  public labelNames:any[] = [];
+  @ViewChild('myLabelDialog') labelChangeDialog = {} as TemplateRef<any>;
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: TranslateService, private matDialog: MatDialog) {}
 
   ngOnInit(): void {
     this._getTranslatedText();
+    this.labelNames = GlobalConstants.commonFunction.getTemplateLabelNamesList();
   }
 
   // Function to make elements draggable
@@ -51,6 +55,14 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
         </div>`);
     $('#panel-1').append(draggableItem);
     this.makeDraggable(draggableItem);
+  }
+
+  editLabelName(label:any, index:number) {
+    const dialogData = {
+      headerText: 'Information',
+      data: label.value,
+    };
+    this.openDialog(dialogData)
   }
 
   ngAfterViewInit() {
@@ -214,6 +226,20 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
           'nationality.tbl_header.drivernationality'
         ),
       };
+    });
+  }
+
+  private openDialog(dialogData: any): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = dialogData;
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.matDialog.open(this.labelChangeDialog, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log(result?.name + ' - ' + result);
     });
   }
 }

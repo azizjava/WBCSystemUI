@@ -5,7 +5,7 @@ import { MaterialModule } from '../material.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TemplateComponent } from './template.component';
 import { TemplateRoutingModule } from './template-routing.module';
 import { SharedcomponentsModule } from '../sharedcomponents/sharedcomponents.module';
@@ -25,6 +25,7 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule,
     TemplateRoutingModule,
     SharedcomponentsModule,
