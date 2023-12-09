@@ -361,6 +361,39 @@ export class GlobalConstants {
         { key: 'Order No', value: 'Order No' },
       ];
     },
+    getTemplateLabelValuesList(): string[] {
+      return [
+        'OperatorName_V',
+        'Role_V',
+        'DateIn_V',
+        'TimeIn_V',
+        'DateOut_V',
+        'TimeOut_V',
+        'Sequence No_V',
+        'FirstWeight_V',
+        'Customer/Supplier Name_V',
+        'PlateNo_V',
+        'TransporterCode_V',
+        'TransporterName_V',
+        'Supplier Code_V',
+        'Supplier Name_V',
+        'Customer Code_V',
+        'Customer Name_V',
+        'Product Code_V',
+        'Product Name_V',
+        'No of Pieces_V',
+        'Driver License No_V',
+        'Nationality_V',
+        'Second Weight_V',
+        'Deduct Weight_V',
+        'Net Weight_V',
+        'Price per Ton_V',
+        'Total Price_V',
+        'Delivery Note_V',
+        'Delivery Instructions_V',
+        'Order No_V',
+      ];
+    },
   };
 }
 

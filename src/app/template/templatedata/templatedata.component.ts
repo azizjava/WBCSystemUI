@@ -23,6 +23,7 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
   public staticText: any = {};
   public count = 0;
   public labelNames:any[] = [];
+  public labelValues:any[] = [];
   @ViewChild('myLabelDialog') labelChangeDialog = {} as TemplateRef<any>;
 
   constructor(private translate: TranslateService, private matDialog: MatDialog) {}
@@ -30,6 +31,7 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this._getTranslatedText();
     this.labelNames = GlobalConstants.commonFunction.getTemplateLabelNamesList();
+    this.labelValues = GlobalConstants.commonFunction.getTemplateLabelValuesList();
   }
 
   // Function to make elements draggable
@@ -61,6 +63,8 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     const dialogData = {
       headerText: 'Information',
       data: label.value,
+      labelInfo:label,
+      index:index
     };
     this.openDialog(dialogData)
   }
@@ -123,10 +127,15 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
               $('#panel-2 .dropped-in-panel2').remove();
               componentsData.forEach((data: any) => {
                 let $newComponent;
+                let text = data.text;
                 if (data.type === 'label') {
+                  const orgLbl = data.text.split("=");
+                  if(orgLbl.length >1 ){
+                    text = orgLbl[1];                    
+                  }
                   $newComponent = $(
                     '<div class="predefined-label dropped-in-panel2"></div>'
-                  ).text(data.text);
+                  ).text(text);
                 } else {
                   $newComponent = $(
                     '<div class="draggable dropped-in-panel2"></div>'
@@ -196,10 +205,18 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     Array.from($('#panel-2 .dropped-in-panel2')).forEach((element: any) => {
       console.log('$(this)', element);
       const $this = $(element);
+      const type = $this.hasClass('predefined-label') ? 'label' : 'component';
+      let text = $this.text();
+      if (type === 'label') {
+        const labelInfo = this.labelNames.find((s) => s.value === text.trim());
+        if (labelInfo) {
+          text = `${labelInfo.key}=${labelInfo.value}`;
+        }
+      }
       componentsData.push({
         id: $this.attr('id'),
-        type: $this.hasClass('predefined-label') ? 'label' : 'component',
-        text: $this.text(),
+        type: type,
+        text: text,
         top: $this.css('top'),
         left: $this.css('left'),
         width: $this.css('width'),
@@ -239,7 +256,9 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     const dialogRef = this.matDialog.open(this.labelChangeDialog, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log(result?.name + ' - ' + result);
+      if(result){
+        this.labelNames[dialogData?.index].value = result;
+      }
     });
   }
 }
