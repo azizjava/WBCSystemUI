@@ -173,8 +173,10 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
           };
           reader.onerror = function (error) {
             console.error('Error reading file:', error);
+            $("#loadFile").val('');
           };
           reader.readAsText(file);
+          $("#loadFile").val('');
         }
       });
 
