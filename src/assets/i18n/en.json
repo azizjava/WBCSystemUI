@@ -307,6 +307,7 @@
 		"name":"Weight Bridge Name",
 		"enabledevice":"Enable Device",
 		"selectweight":"Select Weight",
+		"enablecam":"Show/Hide Camera",
 		"selectweighbridgetype":"Select Weigh Bridge Type",
 		"kg":"Weight in Kilogram",
 		"lb":"Weight in Pound",
