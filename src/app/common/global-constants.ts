@@ -358,7 +358,11 @@ export class GlobalConstants {
         { key: 'Total Price', value: 'Total Price' },
         { key: 'Delivery Note', value: 'Delivery Note' },
         { key: 'Delivery Instructions', value: 'Delivery Instructions' },
-        { key: 'Order No', value: 'Order No' },
+        { key: 'Dummy1', value: 'Dummy1' },
+        { key: 'Dummy2', value: 'Dummy2' },
+        { key: 'Dummy3', value: 'Dummy3' },
+        { key: 'Dummy4', value: 'Dummy4' },
+        { key: 'Dummy5', value: 'Dummy5' },
       ];
     },
     getTemplateLabelValuesList(): string[] {
