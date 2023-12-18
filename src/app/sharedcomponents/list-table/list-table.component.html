@@ -70,6 +70,9 @@
                         <button mat-icon-button matTooltip="{{'actiontooltip.delete' | translate}}" class="iconbutton" color="primary" (click)="selectedRecord(row,'delete')">
                             <mat-icon aria-label="Delete">delete</mat-icon>
                         </button>
+                        <button *ngIf="showPrintIcon" mat-icon-button matTooltip="{{'actions.save' | translate}}" class="iconbutton" color="primary" (click)="selectedRecord(row,'print')">
+                            <mat-icon aria-label="Print">print</mat-icon>
+                        </button>
                     </span>
                 </td>
             </ng-container>

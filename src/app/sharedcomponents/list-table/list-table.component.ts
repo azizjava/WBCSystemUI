@@ -29,6 +29,7 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() sortColumn: any = null;
   @Input() visibleColumns: string[] = [];
   @Input() componentName: string = '';
+  @Input() showPrintIcon: boolean = false;
 
   @Input() disableAdd: boolean = false;
   @Input() disableEdit: boolean = false;
