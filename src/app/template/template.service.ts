@@ -15,4 +15,8 @@ export class TemplateService {
   createNewTemplate(data: any) {
     return this.http.post<any>(`${this.baseURL}/create`, data);
   }
+
+  processJSON(data: any) {
+    return this.http.post<any>(`${this.baseURL}/processJson`, data);
+  }
 }

@@ -296,6 +296,9 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
         if (labelInfo) {
           text = `${labelInfo.key}=${labelInfo.value}`;
         }
+        else{
+          text = text.trim();
+        }
       }
       componentsData.push({
         id: $this.attr('id'),
