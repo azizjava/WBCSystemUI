@@ -387,5 +387,15 @@
 		"existingcount" : "عدد المعاملات الموجودة",
 		"startdate" : "تاريخ البدء",
 		"numbererror":"قبول عدد صحيح فقط"
-	}	
+	},
+	"templatedata":{
+		"addcomponent" :"إضافة مكون",
+		"clearpanel" :"لوحة واضحة",
+		"save" :"يحفظ",
+		"deleteselected" :"احذف المختار",
+		"seta4size" :"اضبط على حجم A4",
+		"seta2size" :"اضبط على الحجم A2",
+		"savetoserver" :"حفظ إلى الخادم",
+		"updatesuccessful":"تم تحديث التفاصيل بنجاح"
+	}
 }

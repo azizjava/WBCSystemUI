@@ -2,6 +2,6 @@
     <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
       [componentName] ="'transactions'" [visibleColumns]='visibleColumns' (sequenceNoChange) ="onsequenceNoChange($event)"
         (actionEvent)="selectedRecord($event)" (dateSelectionEvent)="dateSelectionChangedEvent($event)" 
-        (pageOptionChange) ="onPageOptionChange($event)"
+        (pageOptionChange) ="onPageOptionChange($event)" [showPrintIcon]="true"
         (sortOptionChange) ="onSortOptionChange($event)"></app-list-table>
 </div>
