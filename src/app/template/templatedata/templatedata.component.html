@@ -1,4 +1,4 @@
-<div class="template-form" style="margin-inline-start: 2rem;">
+<div class="template-form" style="margin-inline-start: 2rem; height: calc( 90vh - 4rem); overflow: auto;">
 
   <div class="mb-2 d-flex justify-content-between d-print-none">
     <div>
@@ -37,7 +37,7 @@
   <div class="panels-container">
     <div id="panel-1" class="panel"></div>
     <div id="panel-2" class="panel"></div>
-    <div id="panel-3" class="panel" style="max-height: 400px;width:280px; overflow-y: auto;">
+    <div id="panel-3" class="panel" style="max-height: 60vh;width:280px; overflow-y: auto;height: 55vh;">
       <ng-container *ngFor="let item of labelNames; let i=index;">
         <div class="d-flex justify-content-between">
           <span class="predefined-label" style="margin-bottom: 0.25rem;">{{item?.value}}
@@ -48,7 +48,7 @@
       </ng-container>
     </div>
 
-    <div id="panel-3" class="panel" style="max-height: 400px;width:220px; overflow-y: auto;">
+    <div id="panel-3" class="panel" style="max-height: 60vh;width:220px; overflow-y: auto;height: 55vh;">
       <ng-container *ngFor="let item of labelValues; let i=index;">
         <div class="d-flex justify-content-between">
           <span class="predefined-label" style="margin-bottom: 0.25rem;">{{item}}

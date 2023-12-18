@@ -218,8 +218,8 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
 
       // Delete functionality for selected component
       $('#deleteBtn').on('click', () => {
-        console.log(activeElement);
         if (activeElement && activeElement.parent().is('#panel-2')) {
+          activeElement[0].innerHTML = '';
           activeElement.remove();
           activeElement = null;
           $('.selected').removeClass('selected');
