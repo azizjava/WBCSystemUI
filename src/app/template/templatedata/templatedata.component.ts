@@ -40,15 +40,17 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
 
   constructor(
     private translate: TranslateService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private httpService: TemplateService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
-    this._getTranslatedText();
     this.labelNames =
       GlobalConstants.commonFunction.getTemplateLabelNamesList();
     this.labelValues =
       GlobalConstants.commonFunction.getTemplateLabelValuesList();
+    this._getTranslatedText();
   }
 
   // Function to make elements draggable
@@ -145,9 +147,9 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
               const results = JSON.parse(event.target.result);
               const panel2Size = results?.panel2Size;
               if (panel2Size) {
-                $("#panel-2").css({
-                    'width': panel2Size.width,
-                    'height': panel2Size.height
+                $('#panel-2').css({
+                  width: panel2Size.width,
+                  height: panel2Size.height,
                 });
               }
 
@@ -231,6 +233,59 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
   }
 
   public saveTemplate() {
+    const saveData = this._getTemplateData();
+
+    const blob = new Blob([JSON.stringify(saveData)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'componentsData.json';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  public savetoServer() {
+    const saveData = this._getTemplateData();
+
+    this.httpService.createNewTemplate(saveData).subscribe({
+      next: (res: any) => {
+        this.alertService.success(this.staticText.updatesuccess);
+      },
+      error: (error: string) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private _getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this.staticText = {
+        updatesuccess: this.translate.instant('templatedata.updatesuccessful'),         
+      };
+    });
+  }
+
+  private openDialog(dialogData: any): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = dialogData;
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.matDialog.open(this.labelChangeDialog, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.labelNames[dialogData?.index].value = result;
+      }
+    });
+  }
+
+  private _getTemplateData(): any {
     const componentsData: any = [];
     Array.from($('#panel-2 .dropped-in-panel2')).forEach((element: any) => {
       const $this = $(element);
@@ -258,47 +313,10 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
       height: $('#panel-2').css('height'),
     };
 
-    const saveData = {
+    return {
       components: componentsData,
       panel2Size: panel2Data,
       // colorPickers: colorPickerStates,
     };
-
-    const blob = new Blob([JSON.stringify(saveData)], {
-      type: 'application/json',
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'componentsData.json';
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-  }
-
-  private _getTranslatedText(): void {
-    this.translate.get(['']).subscribe((translated: string) => {
-      this.staticText = {
-        nationality: this.translate.instant(
-          'nationality.tbl_header.drivernationality'
-        ),
-      };
-    });
-  }
-
-  private openDialog(dialogData: any): void {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.data = dialogData;
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.matDialog.open(this.labelChangeDialog, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.labelNames[dialogData?.index].value = result;
-      }
-    });
   }
 }

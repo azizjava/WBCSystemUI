@@ -4,27 +4,31 @@
     <div>
 
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="addBtn" (click)="addDraggable()">
-        {{'Add Component' | translate }}
+        {{'templatedata.addcomponent' | translate }}
       </button>
 
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="clearBtn">
-        Clear Panel
+        {{'templatedata.clearpanel' | translate }}
       </button>
 
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="saveBtn" (click)="saveTemplate()">
-        Save
+        {{'templatedata.save' | translate }}
       </button>
 
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="deleteBtn">
-        Delete Selected
+        {{'templatedata.deleteselected' | translate }}
       </button>
 
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="setA4">
-        Set to A4 Size
+        {{'templatedata.seta4size' | translate }}
       </button>
 
       <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="setA2">
-        Set to A2 Size
+        {{'templatedata.seta2size' | translate }}
+      </button>
+
+      <button class="btn btn-sm" mat-flat-button color="primary" mat-button id="saveBtn" (click)="savetoServer()">
+        {{'templatedata.savetoserver' | translate }}
       </button>
     </div>
 
@@ -44,7 +48,7 @@
           </span>
           <mat-icon aria-label="Edit" class="editiconbutton" color="primary"
             (click)="editLabelName(item,i)">edit</mat-icon>
-        </div>       
+        </div>
       </ng-container>
     </div>
 
@@ -52,8 +56,8 @@
       <ng-container *ngFor="let item of labelValues; let i=index;">
         <div class="d-flex justify-content-between">
           <span class="predefined-label" style="margin-bottom: 0.25rem;">{{item}}
-          </span>          
-        </div>       
+          </span>
+        </div>
       </ng-container>
     </div>
   </div>

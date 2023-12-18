@@ -6,12 +6,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class TemplateService {
-  public baseURL : string;
+  public baseURL: string;
 
   constructor(private http: HttpClient, backend: HttpBackend) {
-    this.baseURL = environment.baseURL +'/drivernationality';
+    this.baseURL = environment.baseURL + '/ticket';
   }
-   
-  
-  
+
+  createNewTemplate(data: any) {
+    return this.http.post<any>(`${this.baseURL}/create`, data);
+  }
 }
