@@ -16,8 +16,8 @@ export class TemplateService {
     return this.http.post<any>(`${this.baseURL}/create`, data);
   }
 
-  processJSON(data: any) {
-    return this.http.post<any>(`${this.baseURL}/processJson`, data);
+  processJSON(sequenceNo: string) {
+    return this.http.get<any>(`${this.baseURL}/processJson/${sequenceNo}`);
   }
 
   getTemplate() {

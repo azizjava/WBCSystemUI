@@ -96,8 +96,10 @@ export class ModaldialogComponent implements OnInit {
       this.dialogForm.controls['existingCount'].setValue(companyData?.existingCount);
       this.dialogForm.controls['startDate'].setValue(companyData?.startDate);
     }
-    
 
+  }
+  else if (this.data.actionName === 'printSetup') {
+      
   }
 
     this.getTranslatedText();
@@ -196,6 +198,7 @@ export class ModaldialogComponent implements OnInit {
         existingCount: this.translate.instant('projectsetup.existingcount'),
         startdate: this.translate.instant('projectsetup.startdate'),
         numbererror: this.translate.instant('projectsetup.numbererror'),
+        printlayout: this.translate.instant('templatedata.printlayout'),
       };
     });
   }

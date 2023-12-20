@@ -7,6 +7,8 @@ import { dateRange, modelDialog, tableOperation, Transporter } from '../models';
 import { AlertService } from '../services';
 import { TransactionsService } from './transactions.service';
 import { Sort } from '@angular/material/sort';
+import { TemplateService } from '../template/template.service';
+import { ModaldialogComponent } from '../common/modaldialog/modaldialog.component';
 
 @Component({
   selector: 'app-transporters',
@@ -33,6 +35,7 @@ export class TransactionsListComponent {
     private alertService: AlertService,
     private router: Router,
     private route: ActivatedRoute,
+    private httpService1: TemplateService
   ) {}
 
  
@@ -53,7 +56,10 @@ export class TransactionsListComponent {
     } 
     else if (this.actionName === 'view') {
       this.router.navigate(['/dashboard/transactions/view', dialogData.data?.sequence ], {relativeTo: this.route});
-    } else {
+    } 
+    else if (this.actionName === 'print') {
+      this.openPrintLayout(dialogData.data?.sequence);
+    }else {
       this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
     }     
    
@@ -147,6 +153,41 @@ export class TransactionsListComponent {
         console.log(error);
         this.alertService.error(error);
       },
+    });
+  }
+
+  private openPrintLayout(sequenceNo :string): void {    
+    this.httpService1.processJSON(sequenceNo).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        const dialogData = {
+          data: data,
+          actionName: 'printSetup',
+          headerText: 'Print Setup',
+        };
+    
+        this.openDialog(dialogData); 
+      },
+      error: (error) => {
+        this.tableData = [];
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  private openDialog(dialogData: modelDialog): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = dialogData;
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.matDialog.open(ModaldialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
     });
   }
 
