@@ -159,18 +159,15 @@ export class TransactionsListComponent {
   private openPrintLayout(sequenceNo :string): void {    
     this.httpService1.processJSON(sequenceNo).subscribe({
       next: (data: any) => {
-        console.log(data);
-        const dialogData = {
-          data: data,
-          actionName: 'printSetup',
-          headerText: 'Print Setup',
-        };
-    
-        this.openDialog(dialogData); 
+        if (data) {
+          this.openDialog({
+            data: data,
+            actionName: 'printSetup',
+            headerText: 'Print Setup',
+          });
+        } 
       },
       error: (error) => {
-        this.tableData = [];
-        console.log(error);
         this.alertService.error(error);
       },
     });
