@@ -232,8 +232,25 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public saveTemplate() {
-    const saveData = this._getTemplateData();
+ 
+  public downloadTemplate() {
+    this.httpService.getTemplate().subscribe({
+      next: (res: any) => {
+        if(res && res?.template) {
+          const saveData =  JSON.parse(res?.template);
+          this.saveTemplate(saveData);
+          this.alertService.success(this.staticText.downloadsuccess);
+        }
+       
+      },
+      error: (error: string) => {
+        console.log(error);
+        this.alertService.error(error);
+      },
+    });
+  }
+
+  public saveTemplate(saveData:any) {    
 
     const blob = new Blob([JSON.stringify(saveData)], {
       type: 'application/json',
@@ -259,12 +276,15 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
         this.alertService.error(error);
       },
     });
+
+    this.saveTemplate(saveData);
   }
 
   private _getTranslatedText(): void {
     this.translate.get(['']).subscribe((translated: string) => {
       this.staticText = {
         updatesuccess: this.translate.instant('templatedata.updatesuccessful'),         
+        downloadsuccess: this.translate.instant('templatedata.downloadsuccess'),         
       };
     });
   }

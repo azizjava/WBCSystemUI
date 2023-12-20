@@ -392,7 +392,9 @@
 		"deleteselected" :"Delete Selected",
 		"seta4size" :"Set to A4 Size",
 		"seta2size" :"Set to A2 Size",
-		"savetoserver" :"Save to Server",
-		"updatesuccessful":"Details are updated successfully"
+		"download" :"Download",
+		"updatesuccessful":"Details are updated successfully",
+		"printlayout":"Print Layout",
+		"downloadsuccess":"Template downloaded successfully."
 	}
 }

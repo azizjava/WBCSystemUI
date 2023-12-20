@@ -19,4 +19,8 @@ export class TemplateService {
   processJSON(data: any) {
     return this.http.post<any>(`${this.baseURL}/processJson`, data);
   }
+
+  getTemplate() {
+    return this.http.get<any>(`${this.baseURL}/find`);
+  }
 }

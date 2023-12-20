@@ -24,7 +24,10 @@ export class ErrorInterceptor implements HttpInterceptor {
               location.reload();
             }
 
-            else if (err.status === 404) {                        
+            else if (err.status === 404) {   
+              if(err?.url?.toString().includes("ticket/find")){
+                return throwError(err?.error);
+              }                
               this.alertService.error("API is not found!!");             
               return throwError("API is not found!!");
             }
