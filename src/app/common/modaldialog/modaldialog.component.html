@@ -267,7 +267,14 @@
 </div>
 
 <div class="modaldialog" *ngIf="data.actionName === 'printSetup'">
-  <h1 mat-dialog-title>{{ staticText.printlayout }}</h1>
+
+  <div mat-dialog-title class="dialog-title">
+    <h2>{{staticText.printlayout}}</h2>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
 
   <div mat-dialog-content style="margin-bottom: 1rem;">
     <div class="panels-container">

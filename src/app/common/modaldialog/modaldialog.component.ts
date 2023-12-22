@@ -209,27 +209,22 @@ export class ModaldialogComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public printLayout() {
-    var DocumentContainer = document.getElementById('panel-2');
-    if (DocumentContainer) {
-      var WindowObject = window.open(
-        '',
-        'PrintWindow',
-        'width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes'
-      );
-      if(WindowObject) {
-      WindowObject.document.writeln(DocumentContainer.innerHTML);
-      WindowObject.document.close();
-      setTimeout(() => {
-        if(WindowObject) {
-        WindowObject.focus();
-        WindowObject.print();
-        WindowObject.close();
-        }
-      }, 0);
+  public printLayout() {  
+    let elem = document.getElementById('panel-2');
+    if (elem) {
+      const domClone = elem.cloneNode(true);
+      let $printSection = document.getElementById('printSection');
+      if (!$printSection) {
+        $printSection = document.createElement('div');
+        $printSection.id = 'printSection';
+        document.body.appendChild($printSection);
+      }
+
+      $printSection.innerHTML = '';
+      $printSection.appendChild(domClone);
+      window.print();
     }
-    }
-  }
+  }  
 
   private formatTemplate(results: any) {
     try {
