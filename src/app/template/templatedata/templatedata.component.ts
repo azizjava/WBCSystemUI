@@ -120,8 +120,11 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
               .resizable();
 
             clone.on('click', (event: any) => {
-              $('.selected').removeClass('selected');
+              if($(event.target).hasClass('selected')){
+                $(event.target).removeClass('selected');
+             }else{
               $(event.target).addClass('selected');
+             }
               activeElement = $(event.target);
             });
 
@@ -194,8 +197,11 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
                 $newComponent.draggable({ containment: 'parent' }).resizable();
 
                 $newComponent.on('click', (event: any) => {
-                  $('.selected').removeClass('selected');
+                  if($(event.target).hasClass('selected')){
+                    $(event.target).removeClass('selected');
+                 }else{
                   $(event.target).addClass('selected');
+                 }
                   activeElement = $(event.target);
                 });
               });
