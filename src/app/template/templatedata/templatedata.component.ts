@@ -186,6 +186,8 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
                     background: data.background,
                     border: data.border,
                     position: 'absolute',
+                    'font-weight': data.fontWeight,
+                    'background-color' : data.backgroundColor,
                   })
                   .appendTo('#panel-2');
 
@@ -328,6 +330,10 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
         left: $this.css('left'),
         width: $this.css('width'),
         height: $this.css('height'),
+        fontWeight: $this.css('font-weight'),
+        backgroundColor : $this.css('background-color'),      
+        background: $this.css('background'),
+        border: $this.css('border'),
       });
     });
 

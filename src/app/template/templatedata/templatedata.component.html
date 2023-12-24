@@ -39,23 +39,26 @@
 
 
   <div class="panels-container">
-    <div id="panel-1" class="panel"></div>
-    <div id="panel-2" class="panel"></div>
-    <div id="panel-3" class="panel" style="max-height: 60vh;width:280px; overflow-y: auto;height: 55vh;">
-      <ng-container *ngFor="let item of labelNames; let i=index;">
-        <div class="d-flex justify-content-between">
-          <span class="predefined-label" style="margin-bottom: 0.25rem;">{{item?.value}}
-          </span>
-          <mat-icon aria-label="Edit" class="editiconbutton" color="primary"
-            (click)="editLabelName(item,i)">edit</mat-icon>
-        </div>
-      </ng-container>
+    <div class="d-flex flex-column">
+      <div id="panel-1" class="panel" style="width:220px;"></div>
+      <div id="panel-3" class="panel" style="width:220px;margin-top:1rem;">
+        <ng-container *ngFor="let item of labelNames; let i=index; ">
+          <div class="d-flex justify-content-between">
+            <span class="predefined-label" style="margin-bottom: 0.25rem; font-weight: bold;"
+            [ngStyle]="{'border': i > 0 && 0 === i % 2 ? '1px solid #000' : 'none', 'background': i > 0 ? '#fff' : 'none'  }" >{{item?.value}}
+            </span>
+            <mat-icon aria-label="Edit" class="editiconbutton" color="primary"
+              (click)="editLabelName(item,i)">edit</mat-icon>
+          </div>
+        </ng-container>
+      </div>
     </div>
-
+    
+    <div id="panel-2" class="panel"></div>
     <div id="panel-3" class="panel" style="max-height: 60vh;width:220px; overflow-y: auto;height: 55vh;">
       <ng-container *ngFor="let item of labelValues; let i=index;">
         <div class="d-flex justify-content-between">
-          <span class="predefined-label" style="margin-bottom: 0.25rem;">{{item}}
+          <span class="predefined-label" style="margin-bottom: 0.25rem; background: #fff; ">{{item}}
           </span>
         </div>
       </ng-container>
