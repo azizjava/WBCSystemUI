@@ -152,16 +152,10 @@ h6 {
 #panel-2 {
     width: 600px;
     height: 600px;
-    background-color: #e6e6fa;
+    background-color: #fff;
 }
 
-.draggable,
-.predefined-label {
-    background-color: lightblue;
-    cursor: pointer;
-    margin: 5px;
-    padding: 5px;
-}
+
 
 .dropped-in-panel2 {
     position: absolute;

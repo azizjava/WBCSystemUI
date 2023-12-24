@@ -270,6 +270,8 @@ export class ModaldialogComponent implements OnInit, AfterViewInit {
             background: data.background,
             border: data.border,
             position: 'absolute',
+            'font-weight': data.fontWeight,
+            'background-color' : data.backgroundColor,
           })
           .appendTo('#panel-2');
 
