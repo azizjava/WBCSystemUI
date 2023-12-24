@@ -45,7 +45,7 @@
         <ng-container *ngFor="let item of labelNames; let i=index; ">
           <div class="d-flex justify-content-between">
             <span class="predefined-label" style="margin-bottom: 0.25rem; font-weight: bold;"
-            [ngStyle]="{'border': i > 0 && 0 === i % 2 ? '1px solid #000' : 'none', 'background': i > 0 ? '#fff' : 'none'  }" >{{item?.value}}
+            [ngStyle]="{'border': i > 0 && 0 === i % 2 ? '1px solid #000' : 'none', 'background': i > 0 ? '#00000007' : 'none'  }" >{{item?.value}}
             </span>
             <mat-icon aria-label="Edit" class="editiconbutton" color="primary"
               (click)="editLabelName(item,i)">edit</mat-icon>

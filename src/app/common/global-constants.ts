@@ -332,7 +332,7 @@ export class GlobalConstants {
       return [            
         { key: 'Dummy1', value: 'Dummy1' },
         { key: 'Dummy2', value: 'Dummy2' },
-        { key: 'Dummy3', value: 'Dummy3' },       
+        { key: 'Dummy3', value: '' },       
       ];
     },
     getTemplateLabelValuesList(): string[] {
@@ -369,7 +369,12 @@ export class GlobalConstants {
         'driverNational_V',
         'NoOfPiece_V',
         'TransName_V',
-        'DriverName_V'    
+        'DriverName_V',
+        'entryDate_V',
+        'entryTime_V',
+        'exitDate_V',
+        'exitTime_V',
+        'Kglb_V',
       ];
     },
   };
