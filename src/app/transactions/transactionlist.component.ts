@@ -58,7 +58,7 @@ export class TransactionsListComponent {
       this.router.navigate(['/dashboard/transactions/view', dialogData.data?.sequence ], {relativeTo: this.route});
     } 
     else if (this.actionName === 'print') {
-      this.openPrintLayout(dialogData.data?.sequence);
+      this.router.navigate(['/dashboard/transactions/print', dialogData.data?.sequence ], {relativeTo: this.route});
     }else {
       this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
     }     

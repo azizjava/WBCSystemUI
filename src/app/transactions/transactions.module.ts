@@ -16,6 +16,7 @@ import { weightBridgeComponent } from './weightbridge/weightbridge.component';
 import { DriverDataComponent } from './driverdata/driverdata.component';
 import { viewTransactionComponent } from './transactiondata/viewtransaction/viewtransaction.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { printTemplateComponent } from './transactiondata/printTemplate/printtemplate.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,7 +31,8 @@ export function createTranslateLoader(http: HttpClient) {
     exitDataComponent,
     viewTransactionComponent,
     weightBridgeComponent,
-    DriverDataComponent
+    DriverDataComponent,
+    printTemplateComponent
   ],
   imports: [
     CommonModule,

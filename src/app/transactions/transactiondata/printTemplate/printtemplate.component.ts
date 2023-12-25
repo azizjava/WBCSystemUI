@@ -44,6 +44,7 @@ export class printTemplateComponent implements OnInit {
   private openPrintLayout(sequenceNo: string): void {
     this.httpService.processJSON(sequenceNo).subscribe({
       next: (data: any) => {
+        $('#panel-2 .dropped-in-panel2').remove();
         if (data) {
           this.formatTemplate(data);
         }
