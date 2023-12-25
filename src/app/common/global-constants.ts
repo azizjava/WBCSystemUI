@@ -199,6 +199,11 @@ export class GlobalConstants {
       return  day + '/' + month + '/' + + year;
     },
 
+    parseDate(input:string) : Date {
+      var str= input.split('/');
+      return new Date(+str[2], +str[1]-1, +str[0]);
+    },
+
 
     getOlderDate(months: number) :Date {
       const date = this.addMonths(new Date(),months);      

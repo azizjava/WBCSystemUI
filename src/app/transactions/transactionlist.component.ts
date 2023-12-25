@@ -67,6 +67,7 @@ export class TransactionsListComponent {
 
   public dateSelectionChangedEvent(dataRage: dateRange){
     this.dateRange = dataRage;
+    localStorage.setItem('selDateRange', JSON.stringify(this.dateRange));
     this.getAllTransactions();
   }
 

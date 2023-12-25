@@ -82,16 +82,27 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
     this.dataSource.sort = this.sort;
     this.displayedColumns = this.tblColumns;
     this._changeColumns(window?.innerWidth > 900 ? true : false);
+
+    const dateRangeStorage:any = JSON.parse(localStorage.getItem('selDateRange') || '{}');
+    let fromDate, toDate ;
+
+    
+    if(dateRangeStorage && dateRangeStorage.startDate && dateRangeStorage.endDate) {
+      fromDate = GlobalConstants.commonFunction.parseDate(dateRangeStorage.startDate);
+      toDate = GlobalConstants.commonFunction.parseDate(dateRangeStorage.endDate);
+    }
+    else {
+      fromDate = GlobalConstants.commonFunction.getOlderDate(-1);
+      toDate = new Date();
+    }
     this.rangeGroup = new FormGroup({
-      fromDate: new FormControl<Date | null>(
-        GlobalConstants.commonFunction.getOlderDate(-1)
-      ),
-      toDate: new FormControl<Date | null>(new Date()),
+      fromDate: new FormControl<Date | null>(fromDate),
+      toDate: new FormControl<Date | null>(toDate),
     });
 
     const dataRage: dateRange = {
-      startDate: GlobalConstants.commonFunction.getFormattedSelectedDate(GlobalConstants.commonFunction.getOlderDate(-1)),
-      endDate: GlobalConstants.commonFunction.getFormattedSelectedDate(new Date()),
+      startDate: GlobalConstants.commonFunction.getFormattedSelectedDate(fromDate),
+      endDate: GlobalConstants.commonFunction.getFormattedSelectedDate(toDate),
     };
     this.dateSelectionEvent.emit(dataRage);
     this.placeholderText = `placeholder.search${this.componentName}`;
