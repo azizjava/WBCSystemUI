@@ -68,7 +68,7 @@ export class TransactionsListComponent {
       this.router.navigate(['/dashboard/transactions/view', dialogData.data?.sequence ], {relativeTo: this.route});
     } 
     else if (this.actionName === 'print') {
-      this.router.navigate(['/dashboard/transactions/print', dialogData.data?.sequence ], {relativeTo: this.route});
+       this.openPrintLayout(dialogData.data?.sequence);
     }else {
       this.router.navigate(['/dashboard/transactions/add'],  {relativeTo: this.route});
     }     
@@ -191,6 +191,7 @@ export class TransactionsListComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'custom-modalbox';
 
     const dialogRef = this.matDialog.open(ModaldialogComponent, dialogConfig);
 

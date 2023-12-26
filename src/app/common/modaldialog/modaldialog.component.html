@@ -266,11 +266,11 @@
   </div>
 </div>
 
-<div class="modaldialog" *ngIf="data.actionName === 'printSetup'">
+<div id="printSection" class="modaldialog" *ngIf="data.actionName === 'printSetup'">
 
   <div mat-dialog-title class="dialog-title">
     <h2>{{staticText.printlayout}}</h2>
-    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <button class="d-print-none" mat-icon-button aria-label="close dialog" mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
   </div>

@@ -210,20 +210,7 @@ export class ModaldialogComponent implements OnInit, AfterViewInit {
   }
 
   public printLayout() {  
-    let elem = document.getElementById('panel-2');
-    if (elem) {
-      const domClone = elem.cloneNode(true);
-      let $printSection = document.getElementById('printSection');
-      if (!$printSection) {
-        $printSection = document.createElement('div');
-        $printSection.id = 'printSection';
-        document.body.appendChild($printSection);
-      }
-
-      $printSection.innerHTML = '';
-      $printSection.appendChild(domClone);
-      window.print();
-    }
+    window.print();    
   }  
 
   private formatTemplate(results: any) {
