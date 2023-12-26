@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
 import { dateRange, modelDialog, tableOperation, Transporter } from '../models';
@@ -36,7 +36,17 @@ export class TransactionsListComponent {
     private router: Router,
     private route: ActivatedRoute,
     private httpService1: TemplateService
-  ) {}
+  ) {
+
+    router.events.forEach((event) => {
+      if(event instanceof NavigationEnd) {
+        if(!event.url.includes('/dashboard/transactions')){
+          localStorage.removeItem('selDateRange');
+        }
+      }
+      
+    });
+  }
 
  
 
