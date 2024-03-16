@@ -34,6 +34,7 @@ declare var $: any; // declaring jquery in this way solved the problem
 export class TemplateDataComponent implements OnInit, AfterViewInit {
   public staticText: any = {};
   public count = 0;
+  public qrCodeUrl = 'http://www.yahoo.com';
   public labelNames: any[] = [];
   public labelValues: any[] = [];
   @ViewChild('myLabelDialog') labelChangeDialog = {} as TemplateRef<any>;
@@ -77,6 +78,28 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     $('#panel-1').append(draggableItem);
     this.makeDraggable(draggableItem);
   }
+
+  addQR() {
+    this.count++;
+
+    const draggableItem = $(`<div class="draggable" id="item${this.count}">        
+        <div id="qrcode${this.count}"></div>
+        <script type="text/javascript">
+          var qrcode${this.count} = new QRCode(document.getElementById("qrcode${this.count}"), {
+            text: "${this.qrCodeUrl}",
+            width: 64,
+            height: 64,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+          });
+        </script>      
+        </div>`);
+    $('#panel-1').append(draggableItem);
+    this.makeDraggable(draggableItem);
+  }
+
+  //<qrcode [qrdata]="'http://www.google.com'" ></qrcode>
 
   editLabelName(label: any, index: number) {
     const dialogData = {
@@ -170,14 +193,24 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
                     '<div class="predefined-label dropped-in-panel2"></div>'
                   ).text(text);
                 } else {
-                  $newComponent = $(
-                    '<div class="draggable dropped-in-panel2"></div>'
-                  ).text(data.text);
+                  if(data.text.indexOf("qrcode")> -1)
+                  {
+                    $newComponent = $(
+                      '<div class="draggable dropped-in-panel2"><div id="qrcode1"></div></div>'
+                    );
+                    $(`<script>${data.text}</script>`).appendTo($newComponent);
+                  }
+                  else
+                  {
+                    $newComponent = $(
+                      '<div class="draggable dropped-in-panel2"></div>'
+                    ).text(data.text);
 
-                  $(`<div class="card" style="height: 100%;">
-                  <div class="card-header" style="height: 2.5rem;"></div>
-                  <div class="card-body"></div>
-                  </div>`).appendTo($newComponent);
+                    $(`<div class="card" style="height: 100%;">
+                    <div class="card-header" style="height: 2.5rem;"></div>
+                    <div class="card-body"></div>
+                    </div>`).appendTo($newComponent);
+                  }
                 }
 
                 $newComponent
