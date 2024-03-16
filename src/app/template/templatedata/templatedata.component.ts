@@ -143,12 +143,15 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
               .resizable();
 
             clone.on('click', (event: any) => {
-              if($(event.target).hasClass('selected')){
-                $(event.target).removeClass('selected');
-             }else{
-              $(event.target).addClass('selected');
-             }
-              activeElement = $(event.target);
+              event.stopPropagation();
+
+              if (!$(event.currentTarget).hasClass('selected')) {              
+                $('.selected').removeClass('selected');              
+                $(event.currentTarget).addClass('selected');                activeElement = $(event.currentTarget); // Update activeElement
+              } else {                
+                $(event.currentTarget).removeClass('selected');
+                activeElement = null; // Reset activeElement
+              }
             });
 
             if (ui.draggable.hasClass('draggable')) {
@@ -220,7 +223,6 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
                     width: data.width,
                     height: data.height,
                     background: data.background,
-                    border: data.border,
                     position: 'absolute',
                     'font-weight': data.fontWeight,
                     'background-color' : data.backgroundColor,
@@ -230,12 +232,15 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
                 $newComponent.draggable({ containment: 'parent' }).resizable();
 
                 $newComponent.on('click', (event: any) => {
-                  if($(event.target).hasClass('selected')){
-                    $(event.target).removeClass('selected');
-                 }else{
-                  $(event.target).addClass('selected');
-                 }
-                  activeElement = $(event.target);
+                  event.stopPropagation();
+                  
+                  if (!$(event.currentTarget).hasClass('selected')) {                    
+                    $('.selected').removeClass('selected');                    
+                    $(event.currentTarget).addClass('selected');                    activeElement = $(event.currentTarget);
+                  } else {                    
+                    $(event.currentTarget).removeClass('selected');
+                    activeElement = null;
+                  }
                 });
               });
             } catch (error) {
