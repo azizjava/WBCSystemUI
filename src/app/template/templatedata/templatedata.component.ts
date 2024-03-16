@@ -196,12 +196,15 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
                     '<div class="predefined-label dropped-in-panel2"></div>'
                   ).text(text);
                 } else {
-                  if(data.text.indexOf("qrcode")> -1)
+                  if(data.text.indexOf("new QRCode(document.getElementById(")> -1)
                   {
-                    $newComponent = $(
-                      '<div class="draggable dropped-in-panel2"><div id="qrcode1"></div></div>'
-                    );
-                    $(`<script>${data.text}</script>`).appendTo($newComponent);
+                    const qrcodeDivIdMatch = data.text.match(/document.getElementById\("([^"]+)"\)/);
+                    if (qrcodeDivIdMatch && qrcodeDivIdMatch.length > 1) {
+                      const qrcodeDivId = qrcodeDivIdMatch[1];
+                      
+                      $newComponent = $(`<div class="draggable dropped-in-panel2"><div id="${qrcodeDivId}"></div></div>`);                      
+                      $(`<script>${data.text}</script>`).appendTo($newComponent);
+                    }
                   }
                   else
                   {
