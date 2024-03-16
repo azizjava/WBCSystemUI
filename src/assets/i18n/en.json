@@ -288,7 +288,8 @@
 				"datetime":"Out Date & Time",
 				"scale":"Weight Scale",
 				"nodata":"No Exit data found"
-			}
+			},
+			"dongleerror" :"Pease connect to dongle"
 		}		
 	},
 	"wbSetting":{

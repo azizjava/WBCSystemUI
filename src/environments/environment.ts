@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseURL:'http://localhost:9777/alsale',
+  securityService:'http://localhost:8000/dongle'
 };
 
 /*

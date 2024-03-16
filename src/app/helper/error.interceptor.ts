@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from '../services/authentication.service';
-import { GlobalConstants } from '../common';
 import { Router } from '@angular/router';
 import { AlertService } from '../services';
 
@@ -33,6 +32,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
 
             else if (err.status === 0) {
+
+              if(err?.url?.toString().includes("dongle/code")){
+                return throwError("Please connect the dongle!!");
+              } 
+              
               // auto logout if 401 response returned from api
               //this.authenticationService.logout();               
               this.alertService.error("API is not running!!");
