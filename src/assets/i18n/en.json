@@ -388,6 +388,7 @@
 	},
 	"templatedata":{
 		"addcomponent" :"Add Component",
+		"addqr" :"Add QR Code",
 		"clearpanel" :"Clear Panel",
 		"save" :"Save",
 		"deleteselected" :"Delete Selected",
