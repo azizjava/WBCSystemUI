@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
-
+import { Observable, catchError, of } from 'rxjs'
 import { Resolve } from '@angular/router';
 import { DongleData } from '../models/dongledata.model';
-import { DongleSecurityService } from './dongledotnet.service';
+import { DongleSecurityService } from '../services/dongledotnet.service';
 
 @Injectable({
   providedIn: 'root',
