@@ -16,6 +16,10 @@ export class DongleSecurityService {
   }
      
   checkIsDongleConnected(): Observable<DongleData> {
-    return this.http.get<DongleData>(`${this.baseURL}/code`);
-  }  
+    return this.http.get<DongleData>(`${this.baseURL}/dongle/code`);
+  }
+
+  getClientMachineId(): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}/machine/id`);
+  }
 }

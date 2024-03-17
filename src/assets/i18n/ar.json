@@ -327,7 +327,9 @@
 		"applysetting":"تطبيق فوق الإعداد",
 		"savesetting":"احفظ التغييرات",		
 		"invalidurl":"يرجى تقديم عنوان url صالح",
-		"secondWt":"إعدادات الوزن الثاني"
+		"secondWt":"إعدادات الوزن الثاني",	
+		"clientId":"معرف العميل",
+		"getClientId" : "الحصول على معرف الجهاز"
 		
 	},
 	"reports":{

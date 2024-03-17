@@ -325,7 +325,9 @@
 		"applysetting":"Apply Above Setting",
 		"savesetting":"Save Settings",
 		"invalidurl":"Please provide valid url",
-		"secondWt":"Second Weight Settings"
+		"secondWt":"Second Weight Settings",
+		"clientId":"Client Id",
+		"getClientId" : "fetch Machine Id"
 	},
 	"reports":{
 		"filter":{
