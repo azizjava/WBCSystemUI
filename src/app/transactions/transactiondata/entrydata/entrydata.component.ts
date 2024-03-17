@@ -19,6 +19,7 @@ import { VehiclesService } from 'src/app/vehicles/vehicles.service';
 import { TransactionsService } from '../../transactions.service';
 import { DriverDataComponent } from '../../driverdata/driverdata.component';
 import { NationalityService } from 'src/app/nationality/nationality.service';
+import { DongleData } from 'src/app/models/dongledata.model';
 
 @Component({
   selector: 'app-transactionentrydata',
@@ -31,6 +32,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   @Input() actionName: string = '';
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
+  @Input() dongleData: DongleData;
   @Output() sequenceNoChange = new EventEmitter();
   @Output() transactionDataChanged = new EventEmitter<any>();
 
@@ -98,8 +100,7 @@ export class entryDataComponent implements OnInit, OnChanges {
     
   }
 
-  ngOnInit(): void { 
-    
+  ngOnInit(): void {
     this.entryForm = this._formBuilder.group({
       sequenceNo: [{
         value: 0,
@@ -332,9 +333,17 @@ export class entryDataComponent implements OnInit, OnChanges {
       dailyTransactionStatus: this.sequenceno ? this.transactionData.dailyTransactionStatus: 'TX_ENTRY',
     };
 
+    const dongleRequest = {
+      status: this.dongleData.status,
+      serialNo: this.dongleData.serialNo.toString(),
+      code: this.dongleData.code,
+      hash: this.dongleData.hash
+    };
+
     var formData: any = new FormData();
     
     formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
+    formData.append('dongleRequest', JSON.stringify(dongleRequest));
 
     if(this.snap1.nativeElement.src) {    
       const url = this.converterDataURItoBlob(this.snap1.nativeElement.src);

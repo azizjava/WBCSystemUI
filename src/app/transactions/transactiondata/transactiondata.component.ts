@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/services';
 import { TransactionsService } from '../transactions.service';
+import { DongleData } from 'src/app/models/dongledata.model';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -16,21 +18,34 @@ export class TransactionDataComponent implements OnInit {
   public weight:number =0;
   public transactionData:any;
   public selectedScaleType :string; 
+  public dongleInfo: DongleData;
+  private _dongleErrorMsg ="";
 
   constructor(
     private route: ActivatedRoute,
     private httpService: TransactionsService,
     private alertService: AlertService,
+    private translate: TranslateService,
+    private router: Router
   ) {}
 
   public ngOnInit(): void {
+    this._getTranslatedText();
+    if(this.route.snapshot.data["dongleData"]){
+      const dongleDataInfo = this.route.snapshot.data["dongleData"];
+      if (typeof dongleDataInfo === 'string' || dongleDataInfo instanceof String ) {
+        this.alertService.error(this._dongleErrorMsg, true);
+        this.router.navigate(['/dashboard/transactions'],  {relativeTo: this.route});        
+      }
+      this.dongleInfo = dongleDataInfo;
+    }
     this.route.queryParams.subscribe((params) => {
       this.sequenceno = params['sequenceno'];
       this.actionName = params['action'];
       this.sequenceno && this._getTransactionById();
     });
 
-    this.selectedScaleType = localStorage.getItem('weightScaleType') || 'KG';
+    this.selectedScaleType = localStorage.getItem('weightScaleType') || 'KG';    
   }
 
   public changeCard(isForward: boolean = true) {
@@ -62,5 +77,9 @@ export class TransactionDataComponent implements OnInit {
     });
   }
 
-
+  private _getTranslatedText(): void {
+    this.translate.get(['']).subscribe((translated: string) => {
+      this._dongleErrorMsg = this.translate.instant('transactions.data.dongleerror');      
+    });
+  }
 }

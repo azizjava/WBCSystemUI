@@ -11,6 +11,7 @@ import { Product } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { ProductsService } from 'src/app/supplierproducts/products.service';
 import { TransactionsService } from '../../transactions.service';
+import { DongleData } from 'src/app/models/dongledata.model';
 
 @Component({
   selector: 'app-transactionexitdata',
@@ -24,6 +25,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
   @Input() actionName: string = '';
+  @Input() dongleData: DongleData;
   @Output() transactionDataChanged = new EventEmitter<any>();
 
   
@@ -307,9 +309,17 @@ export class exitDataComponent implements OnInit, OnChanges {
     dailyTransactionStatus: 'TX_COMPLETED',
   };
 
+  const dongleRequest = {
+    status: this.dongleData.status,
+    serialNo: this.dongleData.serialNo.toString(),
+    code: this.dongleData.code,
+    hash: this.dongleData.hash
+  };
+
   var formData: any = new FormData();
     
   formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
+  formData.append('dongleRequest', JSON.stringify(dongleRequest));
 
   if(this.snap5.nativeElement.src) {    
     const url = this.converterDataURItoBlob(this.snap5.nativeElement.src);
