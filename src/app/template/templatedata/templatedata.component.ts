@@ -50,7 +50,7 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     this.labelNames =
       GlobalConstants.commonFunction.getTemplateLabelNamesList();
     this.labelValues =
-      GlobalConstants.commonFunction.getTemplateLabelValuesList();
+      GlobalConstants.commonFunction.getTemplateLabelValuesList().sort(Intl.Collator().compare);
     this._getTranslatedText();
   }
 

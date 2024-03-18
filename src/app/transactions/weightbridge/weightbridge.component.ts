@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from 'src/app/services';
+import { DongleSecurityService } from 'src/app/services/dongledotnet.service';
 import { WeightBridgeService } from 'src/app/weighbridgesetting/weightbridge.service';
 
 @Component({
@@ -28,13 +29,18 @@ export class weightBridgeComponent implements OnInit {
 
   public constructor(private httpService: WeightBridgeService,
     private translate: TranslateService,
+    private dongleService: DongleSecurityService,
     private alertService: AlertService) {
   }
 
   public ngOnInit(): void {
     this._selectedScaleType = localStorage.getItem('weightScaleType') || 'KG';
     this.getDeviceVirtualType();
-    this.getAllActiveDevices();
+    this.dongleService.getClientMachineId().subscribe((x:any) => {
+      if(x?.id){
+        this.getAllActiveDevices(x.id.toString());
+      }
+    });
     this._getTranslatedText();
   }
 
@@ -79,8 +85,8 @@ export class weightBridgeComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  private getAllActiveDevices(): void {
-    this.httpService.getAllNamesByDeviceInfoEnabled().subscribe({
+  private getAllActiveDevices(clientId: string): void {
+    this.httpService.getAllNamesByDeviceInfoEnabled(clientId).subscribe({
       next: (data: any[]) => {
         this.secondWeightdevicesList = data.filter(d=> d.weightBridgeType ==="SecondWeight");
         this.firstWeightdevicesList = data.filter(d=> d.weightBridgeType ==="FirstWeight");
