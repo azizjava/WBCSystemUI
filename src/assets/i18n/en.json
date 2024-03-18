@@ -300,6 +300,7 @@
 			"baudrate":"Baud Rate",
 			"databits":"Data Bits",
 			"endpoint":"End point",
+			"clientid":"Client Id",
 			"weightbridgetype": "Weigh Bridge Type",
 			"parity":"Parity",
 			"actions":"Actions"

@@ -2,6 +2,7 @@ export class WeighBridge {
     public name: string;
     public endPoint: string;
     public portNo: string;
+    public clientId: string;
     public baudRate: string;
     public dataBits: string;
     public parity: string;

@@ -8,6 +8,7 @@ import { findInvalidControls } from 'src/app/helper';
 import { modelDialog, WeighBridge } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { WeightBridgeService } from '../weightbridge.service';
+import { DongleSecurityService } from 'src/app/services/dongledotnet.service';
 
 @Component({
   selector: 'app-weighbridgesetting',
@@ -39,6 +40,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
     private httpService: WeightBridgeService,
     private alertService: AlertService,
     private authenticationService: AuthenticationService,
+    private dongleService: DongleSecurityService,
     @Inject(MAT_DIALOG_DATA) public data: modelDialog
     ) {}
 
@@ -47,7 +49,8 @@ export class AddWeighbridgesettingComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       deviceStatus: [false, [ Validators.maxLength(50)]],
       weightBridgeType:['', [ Validators.maxLength(50)]],
-      endPoint: ['', [Validators.required, Validators.maxLength(250)], ],
+      endPoint: ['', [Validators.required, Validators.maxLength(250)],],
+      clientId:['', [Validators.required, Validators.maxLength(50)]],
       portNo: ['', [ Validators.maxLength(50)]],
       baudRate: ['', [ Validators.maxLength(50)]],
       dataBits: ['', [ Validators.maxLength(50)]],
@@ -73,6 +76,7 @@ export class AddWeighbridgesettingComponent implements OnInit {
       this.weightForm.controls['dataBits'].setValue(this.deviceData?.dataBits.toString());
       this.weightForm.controls['parity'].setValue(this.deviceData?.parity);
       this.weightForm.controls['stopBits'].setValue(this.deviceData?.stopBits.toString());
+      this.weightForm.controls['clientId'].setValue(this.deviceData?.clientId.toString());
 
       if (this.data.actionName === 'view') {
         this.weightForm.disable();
@@ -115,6 +119,14 @@ export class AddWeighbridgesettingComponent implements OnInit {
     this.weightForm.reset();
   }
 
+  public fetchMachineId() {
+      this.dongleService.getClientMachineId().subscribe((x:any) => {
+        if(x?.id){
+          this.weightForm.controls['clientId'].setValue(x?.id.toString());
+        }
+      });
+  }
+
   public save() {
     // stop here if form is invalid
     if (!findInvalidControls(this.weightForm)) {
@@ -132,7 +144,8 @@ export class AddWeighbridgesettingComponent implements OnInit {
       baudRate: result.baudRate ? +result.baudRate : 0,
       dataBits: result.dataBits ? +result.dataBits : 0,
       parity: result.parity,
-      stopBits: result.stopBits ? +result.stopBits : 0,   
+      stopBits: result.stopBits ? +result.stopBits : 0,
+      clientId: result.clientId,    
     };
 
     if (this.data.actionName === 'add') {

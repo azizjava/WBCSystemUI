@@ -301,6 +301,7 @@
 			"baudrate":"معدل الباود",
 			"databits":"بتات البيانات",
 			"endpoint":"نقطة النهاية",
+			"clientid":"معرف العميل",
 			"weightbridgetype": "وزن الجسر",
 			"parity":"التكافؤ",
 			"actions":"عمل"

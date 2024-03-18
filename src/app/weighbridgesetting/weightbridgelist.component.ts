@@ -18,6 +18,7 @@ export class WeightbridgeListComponent implements OnInit {
     'name',
     'weightBridgeType',
     'endPoint',
+    'clientId',
     'deviceStatus',
     'portNo',
     'baudRate',

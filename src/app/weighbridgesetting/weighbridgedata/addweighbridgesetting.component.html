@@ -41,6 +41,20 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>{{'wbSetting.clientId' | translate }}</mat-label>
+                    <input matInput placeholder="{{'wbSetting.clientId' | translate }}" formControlName="clientId" name="clientId"/>
+                    <mat-error *ngIf="weightForm.controls['clientId'].errors &&
+                      weightForm.controls['clientId'].errors['required'] &&
+                      weightForm.controls['clientId'].touched
+                            ">{{'wbSetting.clientId' | translate }} {{'common.required' | translate }}
+                    </mat-error>
+                    <mat-icon matSuffix (click)="fetchMachineId()" class="playIcon" matTooltip="{{'wbSetting.getClientId' | translate }}">play_arrow</mat-icon>
+                  </mat-form-field>
+            
+            </div>
         </div>
 
         <div class="row mb-2">
