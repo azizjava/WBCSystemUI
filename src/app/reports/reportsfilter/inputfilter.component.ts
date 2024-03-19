@@ -217,6 +217,7 @@ export class InputFilterComponent implements OnInit {
           this._downloadFileData(error.text, data);
         } else {
           this.alertService.error(error);
+          this.htmlResponse = null;
         }
       },
     });

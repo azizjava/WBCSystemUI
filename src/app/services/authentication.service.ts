@@ -72,10 +72,17 @@ export class AuthenticationService {
   }
 
   logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('weightScaleType');
-    this.currentUserSubject.next(null!);
+   this.appLogout().subscribe(() =>{
+       // remove user from local storage to log user out
+       localStorage.removeItem('currentUser');
+       localStorage.removeItem('weightScaleType');
+       this.currentUserSubject.next(null!);
+   })   
+  }
+
+  appLogout() {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json',}) };
+    return this.http.post<any>(`${environment.baseURL}/auth/logout`, httpOptions);
   }
   forgotPassword(username:string){
 
