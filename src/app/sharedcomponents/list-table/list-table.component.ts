@@ -49,7 +49,6 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   public rangeGroup: FormGroup;
   public placeholderText: string = '';
   public sequenceNo: string = '';
-  public length: number = 0;
 
   private debounce: number = 400;
 
@@ -115,7 +114,6 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
     if (!changes['tableData']?.firstChange) {
       this.dataSource = new MatTableDataSource(this.tableData);
       this.dataSource.sort = this.sort;
-      this.length=  this.tableData.length;
     }
   }
 
