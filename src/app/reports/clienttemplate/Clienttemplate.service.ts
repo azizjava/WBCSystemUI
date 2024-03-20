@@ -43,5 +43,9 @@ export class ClientTemplateService {
   deleteAllClientDetails(): Observable<any> {
     return this.http.delete(`${this.baseURL}/deleteAll`);
   }
+
+  getClientURL(): Observable<string> {
+    return this.http.get(`${this.baseURL}/findurl`, { responseType: 'text'});
+  }
   
 }

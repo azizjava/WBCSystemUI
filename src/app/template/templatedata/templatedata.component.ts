@@ -23,6 +23,7 @@ import { modelDialog, Nationality } from 'src/app/models';
 import { AlertService, AuthenticationService } from 'src/app/services';
 import { TemplateService } from '../template.service';
 import { GlobalConstants } from 'src/app/common';
+import { ClientTemplateService } from 'src/app/reports/clienttemplate/Clienttemplate.service';
 
 declare var $: any; // declaring jquery in this way solved the problem
 
@@ -34,7 +35,7 @@ declare var $: any; // declaring jquery in this way solved the problem
 export class TemplateDataComponent implements OnInit, AfterViewInit {
   public staticText: any = {};
   public count = 0;
-  public qrCodeUrl = 'http://www.yahoo.com';
+  public qrCodeUrl:string = '';
   public labelNames: any[] = [];
   public labelValues: any[] = [];
   @ViewChild('myLabelDialog') labelChangeDialog = {} as TemplateRef<any>;
@@ -43,7 +44,9 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     private translate: TranslateService,
     private matDialog: MatDialog,
     private httpService: TemplateService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private clientTemplateService: ClientTemplateService,
+
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +55,15 @@ export class TemplateDataComponent implements OnInit, AfterViewInit {
     this.labelValues =
       GlobalConstants.commonFunction.getTemplateLabelValuesList().sort(Intl.Collator().compare);
     this._getTranslatedText();
+
+    this.clientTemplateService.getClientURL().subscribe({
+      next: (res: string) => {
+        this.qrCodeUrl = res;
+      },
+      error: (error: any) => {
+        this.qrCodeUrl = "";
+      },
+    });
   }
 
   // Function to make elements draggable
