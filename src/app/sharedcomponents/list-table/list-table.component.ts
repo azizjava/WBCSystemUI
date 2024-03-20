@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { GlobalConstants } from 'src/app/common';
-import { dateRange, tableOperation } from 'src/app/models';
+import { dateRange, tableOperation, transactionFilter } from 'src/app/models';
 import { AuthenticationService } from 'src/app/services';
 import { DateAdapter } from '@angular/material/core';
 
@@ -35,7 +35,7 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() disableEdit: boolean = false;
 
   @Output() actionEvent = new EventEmitter<tableOperation>();
-  @Output() dateSelectionEvent = new EventEmitter<dateRange>();
+  @Output() dateSelectionEvent = new EventEmitter<transactionFilter>();
   @Output() sequenceNoChange = new EventEmitter<string>();
 
   @Output() pageOptionChange = new EventEmitter<any>();
@@ -48,6 +48,8 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   public displayedColumns: string[] = [];
   public rangeGroup: FormGroup;
   public placeholderText: string = '';
+  public sequenceNo: string = '';
+  public length: number = 0;
 
   private debounce: number = 400;
 
@@ -100,9 +102,10 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
       toDate: new FormControl<Date | null>(toDate),
     });
 
-    const dataRage: dateRange = {
+    const dataRage: transactionFilter = {
       startDate: GlobalConstants.commonFunction.getFormattedSelectedDate(fromDate),
       endDate: GlobalConstants.commonFunction.getFormattedSelectedDate(toDate),
+      sequenceNo : ""
     };
     this.dateSelectionEvent.emit(dataRage);
     this.placeholderText = `placeholder.search${this.componentName}`;
@@ -112,6 +115,7 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
     if (!changes['tableData']?.firstChange) {
       this.dataSource = new MatTableDataSource(this.tableData);
       this.dataSource.sort = this.sort;
+      this.length=  this.tableData.length;
     }
   }
 
@@ -151,9 +155,10 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
     dateRangeEnd: HTMLInputElement
   ) {
     if (dateRangeEnd.value) {
-      const dataRage: dateRange = {
+      const dataRage: transactionFilter = {
         startDate: dateRangeStart.value,
         endDate:dateRangeEnd.value,
+        sequenceNo : this.sequenceNo
       };
       this.dateSelectionEvent.emit(dataRage);
     }
@@ -167,6 +172,10 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.getFilteredData(filterValue);
+  }
+
+  onSeqInputChange(newValue:any){
+    this.sequenceNo =newValue;
   }
 
   onSeqNoChange(event: HTMLInputElement){

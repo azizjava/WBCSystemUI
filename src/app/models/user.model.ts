@@ -27,3 +27,8 @@ export interface dateRange {
   startDate:string,
   endDate:string
 }
+
+export interface transactionFilter extends dateRange {
+  sequenceNo: string
+}
+

@@ -27,7 +27,7 @@
         <div *ngIf="componentName === 'transactions'" class="col-lg-2 col-md-4 mt-3">
             <mat-form-field>
                 <mat-label>{{'placeholder.searchbytransactionid' | translate }}</mat-label>
-                <input matInput 
+                <input matInput [ngModel]="sequenceNo" (ngModelChange)="onSeqInputChange($event)"
                     #seqNo autocomplete="off" />
                 <mat-icon matSuffix style="padding-top: .35rem;" (click)="onSeqNoChange(seqNo)">search</mat-icon>
             </mat-form-field>
@@ -87,7 +87,7 @@
 
 </div>
 
-<mat-paginator class="d-print-none" [pageSize] ="pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true" (page)="onPageChange($event)">
+<mat-paginator class="d-print-none" [length]="length" [pageSize] ="pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true" (page)="onPageChange($event)">
 
 </mat-paginator>
 

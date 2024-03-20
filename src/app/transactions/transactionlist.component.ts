@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GlobalConstants } from '../common/global-constants';
-import { dateRange, modelDialog, tableOperation, Transporter } from '../models';
+import { dateRange, modelDialog, tableOperation, transactionFilter, Transporter } from '../models';
 import { AlertService } from '../services';
 import { TransactionsService } from './transactions.service';
 import { Sort } from '@angular/material/sort';
@@ -23,7 +23,7 @@ export class TransactionsListComponent {
   public actionName: string = '';
   public sortColumn = { name: 'entrydatetime', dir: 'desc' };
   public visibleColumns = [ 'Actions','sequence', 'txstatus'];
-  public dateRange: dateRange | null;
+  public dateRange: transactionFilter | null;
   public sequenceNo : string ="";
 
   private _pageSize :number = 10;
@@ -75,9 +75,10 @@ export class TransactionsListComponent {
    
   }
 
-  public dateSelectionChangedEvent(dataRage: dateRange){
+  public dateSelectionChangedEvent(dataRage: transactionFilter){
     this.dateRange = dataRage;
     localStorage.setItem('selDateRange', JSON.stringify(this.dateRange));
+    this.sequenceNo =dataRage.sequenceNo;
     this.getAllTransactions();
   }
 
