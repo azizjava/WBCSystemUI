@@ -28,7 +28,7 @@
             <mat-form-field>
                 <mat-label>{{'placeholder.searchbytransactionid' | translate }}</mat-label>
                 <input matInput [ngModel]="sequenceNo" (ngModelChange)="onSeqInputChange($event)"
-                    #seqNo autocomplete="off" />
+                    #seqNo autocomplete="off" (keydown.enter)="onSeqNoChange(seqNo)" />
                 <mat-icon matSuffix style="padding-top: .35rem;" (click)="onSeqNoChange(seqNo)">search</mat-icon>
             </mat-form-field>
         </div>
