@@ -6,4 +6,5 @@
     public endDate: string;
     public name: string;
     public transCount: number;
+    public cameraStatus: boolean;
   }

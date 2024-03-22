@@ -20,6 +20,7 @@ export class TransactionDataComponent implements OnInit {
   public selectedScaleType :string; 
   public dongleInfo: DongleData;
   private _dongleErrorMsg ="";
+  public showHideCamera :boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +47,7 @@ export class TransactionDataComponent implements OnInit {
     });
 
     this.selectedScaleType = localStorage.getItem('weightScaleType') || 'KG';    
+    this.showHideCamera = ((localStorage.getItem('cameraStatus') ||  'true') === 'true') ;
   }
 
   public changeCard(isForward: boolean = true) {

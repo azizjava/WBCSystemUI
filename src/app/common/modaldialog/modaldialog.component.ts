@@ -80,6 +80,7 @@ export class ModaldialogComponent implements OnInit, AfterViewInit {
         count: [0, [Validators.maxLength(30), Validators.pattern('^[0-9]*$')]],
         existingCount: [{ value: '', disabled: true }],
         startDate: [{ value: '', disabled: true }],
+        cameraStatus:[false, [Validators.required, Validators.maxLength(30)]],
       });
 
       if (
@@ -103,6 +104,7 @@ export class ModaldialogComponent implements OnInit, AfterViewInit {
           companyData?.existingCount
         );
         this.dialogForm.controls['startDate'].setValue(companyData?.startDate);
+        this.dialogForm.controls['cameraStatus'].setValue(companyData?.cameraStatus);
       }
     }
 
@@ -193,6 +195,7 @@ export class ModaldialogComponent implements OnInit, AfterViewInit {
         date: this.translate.instant('projectsetup.date'),
         transcount: this.translate.instant('projectsetup.transcount'),
         address: this.translate.instant('projectsetup.address'),
+        enablecam: this.translate.instant('projectsetup.enablecam'),
         existingCount: this.translate.instant('projectsetup.existingcount'),
         startdate: this.translate.instant('projectsetup.startdate'),
         numbererror: this.translate.instant('projectsetup.numbererror'),

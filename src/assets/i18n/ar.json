@@ -393,7 +393,8 @@
 		"address": "عنوان الشركة",
 		"existingcount" : "عدد المعاملات الموجودة",
 		"startdate" : "تاريخ البدء",
-		"numbererror":"قبول عدد صحيح فقط"
+		"numbererror":"قبول عدد صحيح فقط",
+		"enablecam":"إظهار/إخفاء الكاميرا"
 	},
 	"templatedata":{
 		"addcomponent" :"إضافة مكون",

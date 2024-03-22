@@ -24,6 +24,7 @@ export class exitDataComponent implements OnInit, OnChanges {
   @Input() sequenceno : string = '';
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
+  @Input() showHideCamera: boolean = true;
   @Input() actionName: string = '';
   @Input() dongleData: DongleData;
   @Output() transactionDataChanged = new EventEmitter<any>();

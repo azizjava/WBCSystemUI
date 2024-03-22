@@ -390,7 +390,8 @@
 		"address": "Company Address",
 		"existingcount" : "Existing Transaction Count",
 		"startdate" : "Start Date",
-		"numbererror":"only accept integer"
+		"numbererror":"only accept integer",
+		"enablecam":"Show/Hide Camera"
 	},
 	"templatedata":{
 		"addcomponent" :"Add Component",

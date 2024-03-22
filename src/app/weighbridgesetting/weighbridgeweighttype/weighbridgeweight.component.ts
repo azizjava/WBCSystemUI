@@ -105,14 +105,17 @@ export class WeightbridgeWeightComponent implements OnInit {
       emails : result.email,
       endDate: GlobalConstants.commonFunction.getFormattedSelectedDate(result.date),
       name : result.name,
-      transCount: result.count,  
+      transCount: result.count, 
+      cameraStatus: result.cameraStatus
     }
 
     this.companyService.createNewCompany(obj).subscribe({
       next: (data: any) => {
-        this.alertService.success('Data updated successfully.');        
+        this.alertService.success('Data updated successfully.');   
+        localStorage.setItem('cameraStatus', obj.cameraStatus.toString() || "true");
       },
       error: (error: string) => {
+        localStorage.setItem('cameraStatus', "false");
         this.alertService.error(error);        
       },
     });

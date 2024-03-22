@@ -229,10 +229,9 @@
         </div>
         
         <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>{{staticText.address}}</mat-label>
-            <input matInput placeholder="{{staticText.address}}" formControlName="address" name="address" />           
-          </mat-form-field>
+          <section class="example-section">
+            <mat-checkbox formControlName="cameraStatus" name="cameraStatus">{{staticText.enablecam}}</mat-checkbox>
+          </section>
         </div> 
       </div>
 

@@ -32,6 +32,7 @@ export class entryDataComponent implements OnInit, OnChanges {
   @Input() actionName: string = '';
   @Input() transactionData: any;
   @Input() selectedScaleType: string = '';
+  @Input() showHideCamera: boolean = true;
   @Input() dongleData: DongleData;
   @Output() sequenceNoChange = new EventEmitter();
   @Output() transactionDataChanged = new EventEmitter<any>();

@@ -17,10 +17,10 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom"></div>         
 
           <app-transactionentrydata *ngIf="actionItem.isFirst" [dongleData] ="dongleInfo" [weight] ="weight" [sequenceno] ="sequenceno" [actionName] ="actionName" [transactionData]="transactionData" [selectedScaleType] ="selectedScaleType"
-          (sequenceNoChange) ="onsequenceNoChange($event)" (transactionDataChanged)="onTransactionDataChanged($event)"></app-transactionentrydata>
+          [showHideCamera] ="showHideCamera" (sequenceNoChange) ="onsequenceNoChange($event)" (transactionDataChanged)="onTransactionDataChanged($event)"></app-transactionentrydata>
 
           <app-transactionexitdata *ngIf="actionItem.isLast" [dongleData] ="dongleInfo" [weight] ="weight" [sequenceno] ="sequenceno" [actionName] ="actionName" [transactionData]="transactionData" [selectedScaleType] ="selectedScaleType"
-          (transactionDataChanged)="onTransactionDataChanged($event)"></app-transactionexitdata>
+          [showHideCamera] ="showHideCamera" (transactionDataChanged)="onTransactionDataChanged($event)"></app-transactionexitdata>
           
         </div>
       </div>
