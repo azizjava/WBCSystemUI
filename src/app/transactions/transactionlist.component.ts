@@ -25,6 +25,7 @@ export class TransactionsListComponent {
   public visibleColumns = [ 'Actions','sequence', 'txstatus'];
   public dateRange: transactionFilter | null;
   public sequenceNo : string ="";
+  public totalItems :number = 0;
 
   private _pageSize :number = 10;
   private _currentPage :number = 0;
@@ -78,12 +79,14 @@ export class TransactionsListComponent {
   public dateSelectionChangedEvent(dataRage: transactionFilter){
     this.dateRange = dataRage;
     localStorage.setItem('selDateRange', JSON.stringify(this.dateRange));
-    this.sequenceNo =dataRage.sequenceNo;
+    this.sequenceNo =dataRage.sequenceNo;    
+    this._currentPage = 0;
     this.getAllTransactions();
   }
 
   onsequenceNoChange(sequenceNo: string) :void {
     this.sequenceNo = sequenceNo;
+    this._currentPage = 0;
     this.getAllTransactions();
   }
 
@@ -147,6 +150,7 @@ export class TransactionsListComponent {
     this.httpService.getAllTransactions(searchFilter).subscribe({
       next: (data: any) => {
         this.tableData = [];
+        this.totalItems= data["total-items"]; 
         data.DailyTransaction.forEach((response: any) => {         
           this.tableData.push({
             sequence : response[0], 

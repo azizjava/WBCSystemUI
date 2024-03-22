@@ -87,8 +87,21 @@
 
 </div>
 
-<mat-paginator class="d-print-none" [pageSize] ="pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true" (page)="onPageChange($event)">
+<div *ngIf="isServerPagination">
+    <mat-paginator class="d-print-none"
+      #serverPaginator
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      [showFirstLastButtons]="true"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+</div>
+<div *ngIf="!isServerPagination">
+    <mat-paginator #paginator class="d-print-none" [pageSize] ="pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true" (page)="onPageChange($event)">
 
-</mat-paginator>
+    </mat-paginator>
+
+</div>
 
 </div>

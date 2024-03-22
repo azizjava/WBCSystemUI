@@ -18,11 +18,13 @@ import { DateAdapter } from '@angular/material/core';
   styleUrls: ['./list-table.component.scss'], 
 })
 export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(paginator: MatPaginator) {
-  this.dataSource.paginator = paginator;
-  }
+  @ViewChild('paginator', {static: true}) paginator: MatPaginator;
+  @ViewChild('paginator') set matPaginator(paginator: MatPaginator) {
+    this.dataSource.paginator = paginator;
+  }  
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  @ViewChild('serverPaginator', {static: true}) serverPaginator: MatPaginator;
 
   @Input() tblColumns: string[] = [];
   @Input() tableData: any = [];
@@ -30,6 +32,8 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() visibleColumns: string[] = [];
   @Input() componentName: string = '';
   @Input() showPrintIcon: boolean = false;
+  @Input() isServerPagination: boolean = false;
+  @Input() totalItems: number;
 
   @Input() disableAdd: boolean = false;
   @Input() disableEdit: boolean = false;
@@ -114,6 +118,10 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
     if (!changes['tableData']?.firstChange) {
       this.dataSource = new MatTableDataSource(this.tableData);
       this.dataSource.sort = this.sort;
+    }
+
+    if (!changes['totalItems']?.firstChange && changes['totalItems']) {
+      this.totalItems = changes['totalItems'].currentValue;
     }
   }
 
