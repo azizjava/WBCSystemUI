@@ -346,6 +346,8 @@ export class entryDataComponent implements OnInit, OnChanges {
     formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
     formData.append('dongleRequest', JSON.stringify(dongleRequest));
 
+    if( this.showHideCamera){
+
     if(this.snap1.nativeElement.src) {    
       const url = this.converterDataURItoBlob(this.snap1.nativeElement.src);
       const ext = this.getFileExtension(url.type);
@@ -373,6 +375,7 @@ export class entryDataComponent implements OnInit, OnChanges {
       const fileName = ext ? "file4."+ext : "";
       formData.append('file', url, fileName ?? "");
     }
+  }
 
     if (this.sequenceno && this.sequenceno !== '') {
       this.httpService.updateTransaction(formData).subscribe({
@@ -390,7 +393,6 @@ export class entryDataComponent implements OnInit, OnChanges {
     } else {
       this.httpService.createNewTransaction(formData).subscribe({
         next: (res: any) => {
-          console.log(res);
           this.entryForm.controls['sequenceNo'].setValue(res.sequenceNo);
           this.alertService.success(`${res.sequenceNo} inserted successfully`);
           this.sequenceNoChange.emit(res.sequenceNo);

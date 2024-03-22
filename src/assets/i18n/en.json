@@ -226,7 +226,7 @@
 			"vehicle":"Transporter Code/Plate No",
 			"custcode" :"Customer Code",
 			"supplier":"Supplier Code",
-			"product":"Product Code/Name",
+			"product":"Product Code",
 			"driver":"Driver",
 			"actions":"Action"
 		},

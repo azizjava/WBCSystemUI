@@ -322,6 +322,8 @@ export class exitDataComponent implements OnInit, OnChanges {
   formData.append('dailyTransactionRequest', JSON.stringify(newRecord));
   formData.append('dongleRequest', JSON.stringify(dongleRequest));
 
+  if( this.showHideCamera){
+
   if(this.snap5.nativeElement.src) {    
     const url = this.converterDataURItoBlob(this.snap5.nativeElement.src);
     const ext = this.getFileExtension(url.type);
@@ -350,6 +352,7 @@ export class exitDataComponent implements OnInit, OnChanges {
     const fileName = ext ? "file8."+ext : "";
     formData.append('file', url, fileName ?? "");
   }
+}
 
 
   this.httpService.updateTransaction(formData).subscribe({
