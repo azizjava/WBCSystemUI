@@ -220,11 +220,14 @@
 		"tbl_header":{
 			"sequence":"Sequence No.",
 			"txstatus":"Transaction Status",
-			"entrydatetime":"Entry DateAndTime",
-			"entrylogin":"Login User Name",
-			"vehicle":"Plate No/Transporter Code",
-			"supplier":"Customer Code/Supplier Code",
+			"entrydate":"Entry",
+			"exitdate":"Exit",
+			"user":"Login User",
+			"vehicle":"Transporter Code/Plate No",
+			"custcode" :"Customer Code",
+			"supplier":"Supplier Code",
 			"product":"Product Code/Name",
+			"driver":"Driver",
 			"actions":"Action"
 		},
 		"data":{

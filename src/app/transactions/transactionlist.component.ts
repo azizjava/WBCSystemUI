@@ -16,7 +16,7 @@ import { ModaldialogComponent } from '../common/modaldialog/modaldialog.componen
   styleUrls: ['./transactionlist.component.scss'],
 })
 export class TransactionsListComponent {
-  tblColumns: string[] = [ 'Actions','sequence', 'txstatus', 'entrydatetime', 'entrylogin',  'vehicle','supplier', 'product'];
+  tblColumns: string[] = [ 'Actions','sequence', 'txstatus', 'entrydate', 'exitdate', 'user', 'vehicle', 'custcode', 'supplier', 'product', 'driver'];
   tableData: any = [];
 
   public searchInput: string = '';
@@ -151,11 +151,14 @@ export class TransactionsListComponent {
           this.tableData.push({
             sequence : response[0], 
             txstatus: response[1],
-            entrydatetime: response[2],
-            entrylogin: response[3],
-            vehicle: response[4],
-            supplier: response[5],
-            product: response[6], 
+            entrydate: response[2],
+            exitdate: response[3],
+            user: response[4],
+            vehicle: response[5],
+            custcode: response[6],
+            supplier: response[7],
+            product: response[8], 
+            driver: response[9], 
           });
         });
 

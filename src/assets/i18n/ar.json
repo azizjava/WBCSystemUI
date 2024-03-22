@@ -221,12 +221,15 @@
 		"tbl_header":{
 			"sequence":"رقم التسلسل",
 			"txstatus":"حالة عملية",
-			"entrydatetime":"تاريخ الدخول والوقت",
-			"entrylogin":"ادخل اسم المستخدم",
-			"vehicle":"رقم اللوحة / رمز الناقل",
-			"supplier":"كود العميل / كود المورد",
+			"entrydate":"دخول",
+			"exitdate":"مخرج",
+			"user":"مستخدم تسجيل الدخول",
+			"vehicle":"رمز الناقل/رقم اللوحة",
+			"custcode" :"رمز العميل",
+			"supplier":"رمز المورد",
 			"product":"رمز/اسم المنتج",
-			"actions":"عمل"
+			"driver":"سائق",
+			"actions":"عمل"			
 		},
 		"data":{
 			"entry":{

@@ -20,7 +20,9 @@
   .action-column {
     color: #3a3a4a;
     font-size: 0.9rem;
-    width: 10rem;
+    width: 8rem;
+    margin-right: .2rem;
+    .mat-icon-button { width: 34px;}
   }
 
   .mat-cell,

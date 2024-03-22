@@ -61,7 +61,7 @@
 
                 <td mat-cell *matCellDef="let row">
                     <span *ngIf="column !=='Actions'">{{row[column]}}</span>
-                    <span *ngIf="column ==='Actions'" class="d-flex justify-content-between">
+                    <div *ngIf="column ==='Actions'" class="d-flex justify-content-between action-column">
                         <button mat-icon-button matTooltip="{{'actiontooltip.edit' | translate}}" class="iconbutton" color="primary" (click)="selectedRecord(row,'edit')" [disabled]="disableEdit? true :false">
                             <mat-icon aria-label="Edit">edit</mat-icon>
                         </button>
@@ -74,7 +74,7 @@
                         <button *ngIf="showPrintIcon" mat-icon-button matTooltip="{{'actions.print' | translate}}" class="iconbutton" color="primary" (click)="selectedRecord(row,'print')">
                             <mat-icon aria-label="Print">print</mat-icon>
                         </button>
-                    </span>
+                    </div>
                 </td>
             </ng-container>
 
