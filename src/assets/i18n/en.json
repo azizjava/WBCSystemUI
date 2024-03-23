@@ -218,7 +218,7 @@
 			"secondweight":"Second Weight"
 		},
 		"tbl_header":{
-			"sequence":"Sequence No.",
+			"sequence":"Transaction No",
 			"txstatus":"Transaction Status",
 			"entrydate":"Entry",
 			"exitdate":"Exit",
@@ -237,7 +237,7 @@
 				"role":"Role",
 				"datein":"Date In",
 				"timein":"Time In",
-				"sequenceno":"Sequence No",
+				"sequenceno":"Transaction No",
 				"firstweight":"First Weight",
 				"vehicleno":"Plate No / Transporter code / Name",
 				"addvehicle":"Add New Vehicle",

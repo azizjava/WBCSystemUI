@@ -219,7 +219,7 @@
 			"secondweight":"الوزن الثاني"
 		},
 		"tbl_header":{
-			"sequence":"رقم التسلسل",
+			"sequence":"رقم العملية التجارية",
 			"txstatus":"حالة عملية",
 			"entrydate":"دخول",
 			"exitdate":"مخرج",
@@ -238,7 +238,7 @@
 				"role":"دور",
 				"datein":"التاريخ في",
 				"timein":"حان الوقت",
-				"sequenceno":"تسلسل لا",
+				"sequenceno":"رقم العملية التجارية",
 				"firstweight":"الوزن الأول",
 				"vehicleno":"رقم اللوحة / رمز الناقل / الاسم",
 				"addvehicle":"إضافة مركبة جديدة",
