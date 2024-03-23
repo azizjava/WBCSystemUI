@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpBackend, HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, skip } from 'rxjs/operators';
 
 import { signup, User } from '../models';
@@ -72,12 +72,11 @@ export class AuthenticationService {
   }
 
   logout() {
-   this.appLogout().subscribe(() =>{
-       // remove user from local storage to log user out
-       localStorage.removeItem('currentUser');
-       localStorage.removeItem('weightScaleType');
-       this.currentUserSubject.next(null!);
-   })   
+   this.appLogout();
+   // remove user from local storage to log user out
+   localStorage.removeItem('currentUser');
+   localStorage.removeItem('weightScaleType');
+   this.currentUserSubject.next(null!);
   }
 
   appLogout() {
