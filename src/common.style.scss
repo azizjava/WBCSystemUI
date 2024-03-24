@@ -247,3 +247,29 @@ mat-icon.disable {
   border: 2px solid red;
 }
 
+
+.custom-modalbox {
+
+  @media print {
+    body * {
+      visibility: hidden;      
+    }
+    .custom-modalbox:not(#printSection) * {
+      visibility: hidden !important;
+    }
+
+    #printSection {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+    }
+  }
+}
+
+
+
