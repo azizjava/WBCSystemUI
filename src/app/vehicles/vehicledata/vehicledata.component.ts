@@ -103,6 +103,8 @@ export class VehicleDataComponent implements OnInit {
       vehicleType: result.type,
       transporterCode: result.transporterCode,
       vehicleWeight:result.defaultWeight ?? 0,
+      localCreatedDateTime: new Date(),
+      lastModifiedByUser: this.authenticationService.currentUserValue.userName,
     };
 
     if (this.data.actionName === 'add') {
