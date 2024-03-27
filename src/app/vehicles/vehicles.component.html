@@ -1,5 +1,7 @@
 <div class="vehiclesList">
     <app-list-table [tblColumns]="tblColumns" [tableData]="tableData" [sortColumn]="sortColumn"
        [componentName] ="'vehicles'" [visibleColumns]='visibleColumns'
+       (dateSelectionEvent)="dateSelectionChangedEvent($event)" (sequenceNoChange) ="onsequenceNoChange($event)"
+        (pageOptionChange) ="onPageOptionChange($event)"  [totalItems] ="totalItems" (sortOptionChange) ="onSortOptionChange($event)"
         (actionEvent)="selectedRecord($event)"></app-list-table>
 </div>
