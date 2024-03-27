@@ -32,7 +32,6 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() visibleColumns: string[] = [];
   @Input() componentName: string = '';
   @Input() showPrintIcon: boolean = false;
-  @Input() isServerPagination: boolean = false;
   @Input() totalItems: number;
 
   @Input() disableAdd: boolean = false;
@@ -55,6 +54,7 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   public sequenceNo: string = '';
 
   private debounce: number = 400;
+  public isPaginationEnabled:boolean =false;
 
   constructor(
     private translate: TranslateService,
@@ -73,6 +73,8 @@ export class ListTableComponent implements OnInit, OnChanges, OnDestroy   {
   public ngOnInit(): void {
     this.translatePaginator();
     this.dataSource = new MatTableDataSource(this.tableData);
+
+    this.isPaginationEnabled = (this.componentName === 'transactions' ||  this.componentName === 'vehicles') ? true :false;
 
     this.searchControl.valueChanges
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
