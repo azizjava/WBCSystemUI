@@ -37,7 +37,8 @@
 		"searchtransactions":"Search Transaction",
 		"searchbytransactionid":"Search Transaction By Id",
 		"searchwbSetting":"Search Device",
-		"searchusers":"Search Users"
+		"searchusers":"Search Users",
+		"searchbyvehicleid":"Search Vehicle By Plate No."
 	},
 	"login": {
 		"title": "Login Form",

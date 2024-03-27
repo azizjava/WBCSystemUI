@@ -42,4 +42,9 @@ export class VehiclesService {
   deleteAllVehicles(): Observable<any> {
     return this.http.delete(`${this.baseURL}/deleteAll`);
   }
+  
+  getAllPaginatedVehicles(params : any): Observable<any[]> {
+    return this.http
+    .post<any[]>(`${this.baseURL}/listAllVehicles/dates/paginated`, params);
+  }
 }

@@ -37,7 +37,8 @@
 		"searchtransactions":"البحث عن معاملة",
 		"searchbytransactionid":"البحث عن المعاملة بالمعرف",
 		"searchwbSetting":"جهاز البحث",
-		"searchusers":"بحث المستخدمين"
+		"searchusers":"بحث المستخدمين",
+		"searchbyvehicleid":"البحث عن المركبة برقم اللوحة"
 	},
 	"login": {
 		"title": "Login Form",
